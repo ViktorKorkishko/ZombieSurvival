@@ -113,6 +113,7 @@ MonoBehaviour:
   _isFiring: 0
   _muzzleFlash: {fileID: 2300471570807768682}
   _hitEffect: {fileID: 7001103847412008140}
+  _trailEffect: {fileID: 5242734543535136368, guid: 82857e59adff18a40833c217fda5f181, type: 3}
   _raycastOrigin: {fileID: 3223658384901309669}
   _raycastDestination: {fileID: 0}
 --- !u!1 &6340636742928905290

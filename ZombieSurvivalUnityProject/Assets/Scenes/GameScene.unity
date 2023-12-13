@@ -23563,7 +23563,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1889330467}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.10154027, y: -0.000000017117449, z: 0.0000000017471404, w: 0.99483144}
+  m_LocalRotation: {x: 0.10154027, y: 0.000000017117447, z: -0.0000000017471402, w: 0.99483144}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -26360,10 +26360,6 @@ PrefabInstance:
       propertyPath: m_Data.m_SourceObjects.m_Item0.transform
       value: 
       objectReference: {fileID: 1454824090}
-    - target: {fileID: 6893807606009322612, guid: 4a87aed84d279f645afaa093a5107aac, type: 3}
-      propertyPath: _hitEffect
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 6893807606009322612, guid: 4a87aed84d279f645afaa093a5107aac, type: 3}
       propertyPath: _raycastDestination
       value: 

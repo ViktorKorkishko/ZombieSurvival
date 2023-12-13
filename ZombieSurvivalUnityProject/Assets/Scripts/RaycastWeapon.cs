@@ -5,7 +5,7 @@ public class RaycastWeapon : MonoBehaviour
     [SerializeField] private bool _isFiring;
     [SerializeField] private ParticleSystem _muzzleFlash;
     [SerializeField] private ParticleSystem _hitEffect;
-    
+
     [SerializeField] private Transform _raycastOrigin;
     [SerializeField] private Transform _raycastDestination;
 
@@ -15,6 +15,11 @@ public class RaycastWeapon : MonoBehaviour
     public void StartFiring()
     {
         _isFiring = true;
+        FireBullet();
+    }
+
+    private void FireBullet()
+    {
         _muzzleFlash.gameObject.SetActive(true);
 
         ray.origin = _raycastOrigin.position;
