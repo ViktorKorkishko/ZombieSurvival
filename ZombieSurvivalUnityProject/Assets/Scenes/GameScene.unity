@@ -558,11 +558,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac0b09e7857660247b1477e93731de29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!4 &416747168 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 7820878961324609635, guid: 4a87aed84d279f645afaa093a5107aac, type: 3}
-  m_PrefabInstance: {fileID: 5107929396449653077}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -739,11 +734,6 @@ Transform:
 --- !u!4 &870106918 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7824624938171278113, guid: 4a87aed84d279f645afaa093a5107aac, type: 3}
-  m_PrefabInstance: {fileID: 5107929396449653077}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &956916741 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 7820758452196185227, guid: 4a87aed84d279f645afaa093a5107aac, type: 3}
   m_PrefabInstance: {fileID: 5107929396449653077}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &963194225
@@ -1520,14 +1510,6 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 963194227}
     - target: {fileID: 479252459354531293, guid: 4a87aed84d279f645afaa093a5107aac, type: 3}
-      propertyPath: m_Data.m_AimAxis
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 479252459354531293, guid: 4a87aed84d279f645afaa093a5107aac, type: 3}
-      propertyPath: m_Data.m_ConstrainedObject
-      value: 
-      objectReference: {fileID: 416747168}
-    - target: {fileID: 479252459354531293, guid: 4a87aed84d279f645afaa093a5107aac, type: 3}
       propertyPath: m_Data.m_SourceObjects.m_Item0.transform
       value: 
       objectReference: {fileID: 1454824090}
@@ -1535,14 +1517,6 @@ PrefabInstance:
       propertyPath: m_Data.m_SourceObjects.m_Item0.transform
       value: 
       objectReference: {fileID: 1454824090}
-    - target: {fileID: 6485238874371532860, guid: 4a87aed84d279f645afaa093a5107aac, type: 3}
-      propertyPath: m_Data.m_AimAxis
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 6485238874371532860, guid: 4a87aed84d279f645afaa093a5107aac, type: 3}
-      propertyPath: m_Data.m_ConstrainedObject
-      value: 
-      objectReference: {fileID: 956916741}
     - target: {fileID: 6485238874371532860, guid: 4a87aed84d279f645afaa093a5107aac, type: 3}
       propertyPath: m_Data.m_SourceObjects.m_Item0.transform
       value: 
