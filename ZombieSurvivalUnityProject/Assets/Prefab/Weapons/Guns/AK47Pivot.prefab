@@ -31,6 +31,7 @@ Transform:
   m_Children:
   - {fileID: 8952263199666834827}
   - {fileID: 2099777959574206244}
+  - {fileID: 3477587225899152429}
   m_Father: {fileID: 8112202948074884216}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5443173492345041623
@@ -94,7 +95,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 3477587225899152429}
   - {fileID: 8112202948074884216}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 50.9, y: -58.194, z: 48.215}
@@ -110,12 +110,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24cff0b378fb1e44697ae6b7878f06e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _isFiring: 0
   _muzzleFlash: {fileID: 2300471570807768682}
   _hitEffect: {fileID: 7001103847412008140}
-  _trailEffect: {fileID: 5242734543535136368, guid: 82857e59adff18a40833c217fda5f181, type: 3}
   _raycastOrigin: {fileID: 3223658384901309669}
-  _raycastDestination: {fileID: 0}
 --- !u!1 &6340636742928905290
 GameObject:
   m_ObjectHideFlags: 0
@@ -708,7 +705,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 6382987911619683099}
+    m_TransformParent: {fileID: 7788151638608049890}
     m_Modifications:
     - target: {fileID: 6603812224081580913, guid: e2da29c767eab4c4bba76861b64ed005, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
