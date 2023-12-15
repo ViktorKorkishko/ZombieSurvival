@@ -1,20 +1,25 @@
+using Game.Cameras.Models;
 using UnityEngine;
 using UnityEngine.Animations.Rigging;
+using Zenject;
 
-public class CharacterAiming : MonoBehaviour
+public class CharacterAiming : MonoBehaviour, ITickable
 {
+    [Inject] private CameraModel CameraModel { get; }
+
     [SerializeField] private float _turnSpeed;
-    [SerializeField] private Camera _camera;
 
     [SerializeField] private Rig _aimRig;
     [SerializeField] private float _aimDuration;
 
     [SerializeField] private RaycastWeapon _raycastWeapon;
 
-    private void Update()
+    public void Tick()
     {
-        float yawCamera = _camera.transform.rotation.eulerAngles.y;
-        transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(0, yawCamera, 0), _turnSpeed * Time.deltaTime);
+        float yawCamera = CameraModel.GetMainCamera().transform.rotation.eulerAngles.y;
+        transform.rotation = Quaternion.Slerp(transform.rotation,
+            Quaternion.Euler(0, yawCamera, 0),
+            _turnSpeed * Time.deltaTime);
 
         if (Input.GetButton("Fire2"))
         {
@@ -25,10 +30,11 @@ public class CharacterAiming : MonoBehaviour
             _aimRig.weight -= Time.deltaTime / _aimDuration;
         }
 
-        if (Input.GetButton("Fire1"))
+        if (Input.GetButtonDown("Fire1"))
         {
             _raycastWeapon.StartFiring();
         }
+
         if (Input.GetButtonUp("Fire1"))
         {
             _raycastWeapon.StopFiring();
