@@ -3,5 +3,6 @@
     public enum BindingIdentifiers
     {
         CrosshairTargetTransform = 0,
+        CharacterAnimator,
     }
 }
