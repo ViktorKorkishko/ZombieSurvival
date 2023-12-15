@@ -6,7 +6,7 @@ using Zenject;
 public class CrosshairTarget : ITickable
 {
     [Inject] private CameraModel CameraModel { get; }
-    [Inject(Id = BindingIdentifiers.CrosshairTargetTransform)] private Transform CrosshairPoint { get; }
+    [Inject(Id = BindingIdentifiers.CrosshairTarget)] private Transform CrosshairPoint { get; }
     
     void ITickable.Tick()
     {

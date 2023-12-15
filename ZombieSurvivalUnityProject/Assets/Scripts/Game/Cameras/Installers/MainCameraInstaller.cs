@@ -17,7 +17,7 @@ namespace Game.Cameras.Installers
 
             Container.BindInterfacesAndSelfTo<CrosshairTarget>().AsSingle();
             Container.BindInstance(_crosshairTargetTransform)
-                     .WithId(BindingIdentifiers.CrosshairTargetTransform);
+                     .WithId(BindingIdentifiers.CrosshairTarget);
         }
     }
 }

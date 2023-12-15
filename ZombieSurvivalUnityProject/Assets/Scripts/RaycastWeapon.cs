@@ -9,7 +9,7 @@ public class RaycastWeapon : MonoBehaviour
 
     [SerializeField] private Transform _raycastOrigin;
     
-    [Inject(Id = BindingIdentifiers.CrosshairTargetTransform)] private Transform RaycastDestination { get; }
+    [Inject(Id = BindingIdentifiers.CrosshairTarget)] private Transform RaycastDestination { get; }
     
     public void StartFiring()
     {

@@ -2,7 +2,8 @@
 {
     public enum BindingIdentifiers
     {
-        CrosshairTargetTransform = 0,
-        CharacterAnimator,
+        CrosshairTarget = 0,
+        CharacterAnimator = 10,
+        CharacterRigRoot = 20,
     }
 }

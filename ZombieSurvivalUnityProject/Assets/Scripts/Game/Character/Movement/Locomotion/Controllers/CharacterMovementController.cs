@@ -1,4 +1,4 @@
-﻿namespace Game.Character.Movement.Controllers
+﻿namespace Game.Character.Movement.Locomotion.Controllers
 {
     public class CharacterMovementController
     {

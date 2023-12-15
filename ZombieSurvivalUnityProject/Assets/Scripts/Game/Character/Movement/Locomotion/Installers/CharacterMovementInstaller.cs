@@ -1,10 +1,10 @@
-using Game.Character.Movement.Controllers;
-using Game.Character.Movement.Models;
+using Game.Character.Movement.Locomotion.Controllers;
+using Game.Character.Movement.Locomotion.Models;
 using Zenject;
 
-namespace Game.Character.Movement.Installers
+namespace Game.Character.Movement.Locomotion.Installers
 {
-    public class PlayerMovementInstaller : MonoInstaller
+    public class CharacterMovementInstaller : MonoInstaller
     {
         public override void InstallBindings()
         {
