@@ -1,4 +1,5 @@
-﻿using Game.Character.Movement.Aim.Models;
+﻿using Core.Installers.Ids;
+using Game.Character.Movement.Aim.Models;
 using UnityEngine;
 using UnityEngine.Animations.Rigging;
 using Zenject;
@@ -8,7 +9,7 @@ namespace Game.Character.Movement.Aim.Controllers
     public class CharacterAimController : ITickable
     {
         [Inject] private CharacterAimModel CharacterAimModel { get; }
-        [Inject] private Rig AimRig { get; }
+        [Inject(Id = BindingIdentifiers.CharacterAimRig)] private Rig AimRig { get; }
 
         [Inject] private RaycastWeapon RaycastWeapon { get; }
 
@@ -16,26 +17,17 @@ namespace Game.Character.Movement.Aim.Controllers
 
         void ITickable.Tick()
         {
-            if (Input.GetButton("Fire2"))
-            {
-                AimRig.weight += Time.deltaTime / AimDuration;
-            }
-            else
-            {
-                AimRig.weight -= Time.deltaTime / AimDuration;
-            }
             
-            ///////
-            if (Input.GetButtonDown("Fire1"))
-            {
-                RaycastWeapon.StartFiring();
-            }
             
-            if (Input.GetButtonUp("Fire1"))
-            {
-                RaycastWeapon.StopFiring();
-            }
-            ///////
+            // if (Input.GetButtonDown("Fire1"))
+            // {
+            //     RaycastWeapon.StartFiring();
+            // }
+            //
+            // if (Input.GetButtonUp("Fire1"))
+            // {
+            //     RaycastWeapon.StopFiring();
+            // }
         }
     }
 }

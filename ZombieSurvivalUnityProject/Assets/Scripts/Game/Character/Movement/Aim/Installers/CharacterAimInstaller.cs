@@ -1,3 +1,4 @@
+using Core.Installers.Ids;
 using Game.Character.Movement.Aim.Controllers;
 using Game.Character.Movement.Aim.Models;
 using UnityEngine;
@@ -18,7 +19,10 @@ namespace Game.Character.Movement.Aim.Installers
             Container.BindInterfacesAndSelfTo<CharacterAimController>().AsSingle();
 
             Container.Bind<RaycastWeapon>().FromInstance(_raycastWeapon).AsSingle();
-            Container.Bind<Rig>().FromInstance(_aimRig).AsSingle();
+            Container.Bind<Rig>()
+                .WithId(BindingIdentifiers.CharacterAimRig)
+                .FromInstance(_aimRig)
+                .AsSingle();
         }
     }
 }
