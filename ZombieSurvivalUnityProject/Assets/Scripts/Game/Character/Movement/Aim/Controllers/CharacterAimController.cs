@@ -1,4 +1,4 @@
-﻿using Core.Installers.Ids;
+﻿using Core.Installers;
 using Game.Character.Movement.Aim.Models;
 using UnityEngine.Animations.Rigging;
 using Zenject;

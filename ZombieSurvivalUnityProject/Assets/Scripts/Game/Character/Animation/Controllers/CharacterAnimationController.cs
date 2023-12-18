@@ -1,4 +1,4 @@
-﻿using Core.Installers.Ids;
+﻿using Core.Installers;
 using Game.Inputs.Models;
 using UnityEngine;
 using Zenject;

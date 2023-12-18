@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using Core.Installers.Ids;
+using Core.Installers;
 using Game.Character.Movement.Rotation.Controllers;
 using Game.Character.Movement.Rotation.Models;
 using UnityEngine;

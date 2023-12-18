@@ -1,9 +1,8 @@
 using System;
-using Core.Installers.Ids;
+using Core.Installers;
 using Game.Character.Weapons.Equip.Models;
 using Game.Character.Weapons.PickUp.Models;
 using Game.Inputs.Models;
-using Game.Weapons.Common.Models;
 using Game.Weapons.Common.Views;
 using UnityEngine;
 using Zenject;
@@ -49,13 +48,20 @@ namespace Game.Character.Weapons.PickUp.Controllers
             var pickedWeapon = weaponView.PickUp();
             
             var weaponContext = weaponView.gameObject.GetComponentInChildren<GameObjectContext>();
-            var leftHandGripTransform = weaponContext.Container
-                .ResolveId<Transform>(BindingIdentifiers.LeftHandGripTransform);
-            var rightHandGripTransform = weaponContext.Container
-                .ResolveId<Transform>(BindingIdentifiers.RightHandGripTransform);
+            var equipData = GetEquipData(weaponContext.Container);
 
-            var equipData = new EquipData(leftHandGripTransform, rightHandGripTransform);
             WeaponEquipModel.Equip(equipData);
+        }
+
+        private EquipData GetEquipData(DiContainer container)
+        {
+            var weaponRoot = container.ResolveId<Transform>(BindingIdentifiers.Root);
+            var leftHandGripTransform = container.ResolveId<Transform>(BindingIdentifiers.LeftHandGripTransform);
+            var rightHandGripTransform = container.ResolveId<Transform>(BindingIdentifiers.RightHandGripTransform);
+            
+            var equipData = new EquipData(weaponRoot, leftHandGripTransform, rightHandGripTransform);
+            
+            return equipData;
         }
     }
 }

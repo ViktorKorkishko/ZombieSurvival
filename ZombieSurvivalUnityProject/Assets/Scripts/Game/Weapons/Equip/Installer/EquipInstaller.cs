@@ -1,16 +1,20 @@
-using Core.Installers.Ids;
+using Core.Installers;
 using UnityEngine;
 using Zenject;
 
-namespace Game.Weapons.Grips.Installer
+namespace Game.Weapons.Equip.Installer
 {
-    public class GripsInstaller : MonoInstaller
+    public class EquipInstaller : MonoInstaller
     {
+        [SerializeField] private Transform _weaponRoot;
         [SerializeField] private Transform _leftHandGripTansform;
         [SerializeField] private Transform _rightHandGripTansform;
         
         public override void InstallBindings()
         {
+            Container.Bind<Transform>()
+                .WithId(BindingIdentifiers.Root)
+                .FromInstance(_weaponRoot);
             Container.Bind<Transform>()
                 .WithId(BindingIdentifiers.LeftHandGripTransform)
                 .FromInstance(_leftHandGripTansform);

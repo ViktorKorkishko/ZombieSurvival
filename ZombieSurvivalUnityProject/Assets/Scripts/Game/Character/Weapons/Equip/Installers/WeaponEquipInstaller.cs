@@ -1,4 +1,4 @@
-using Core.Installers.Ids;
+using Core.Installers;
 using Game.Character.Weapons.Equip.Controllers;
 using Game.Character.Weapons.Equip.Models;
 using UnityEngine;
@@ -17,7 +17,7 @@ namespace Game.Character.Weapons.Equip.Installers
             Container.Bind<WeaponEquipModel>()
                 .FromInstance(_weaponEquipModel)
                 .AsSingle();
-            Container.Bind<WeaponEquipController>()
+            Container.BindInterfacesAndSelfTo<WeaponEquipController>()
                 .AsSingle();
 
             Container.Bind<Transform>()

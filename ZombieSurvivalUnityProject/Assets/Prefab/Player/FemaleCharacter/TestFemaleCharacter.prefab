@@ -245,7 +245,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Weight: 1
   m_Data:
-    m_ConstrainedObject: {fileID: 9087709510949358133}
+    m_ConstrainedObject: {fileID: 0}
     m_SourceObjects:
       m_Length: 1
       m_Item0:
@@ -456,7 +456,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Weight: 1
   m_Data:
-    m_ConstrainedObject: {fileID: 9087709510949358133}
+    m_ConstrainedObject: {fileID: 0}
     m_SourceObjects:
       m_Length: 1
       m_Item0:
@@ -542,7 +542,7 @@ MonoBehaviour:
     m_Root: {fileID: 7820784710219064455}
     m_Mid: {fileID: 7820834271567967595}
     m_Tip: {fileID: 7824533524004316815}
-    m_Target: {fileID: 6883946559645274261}
+    m_Target: {fileID: 0}
     m_Hint: {fileID: 5550574090202709542}
     m_TargetPositionWeight: 1
     m_TargetRotationWeight: 1
@@ -836,8 +836,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 9087709510949358133}
+  m_Children: []
   m_Father: {fileID: 6605319763816602198}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4173346726968999256
@@ -886,6 +885,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _rigBuilder: {fileID: 7710404538723050045}
   _aimRig: {fileID: 4824968598988172240}
+  _idleMultiParentConstraint: {fileID: 8606670172241942601}
+  _aimMultiParentConstraint: {fileID: 9206547092654008406}
   _leftHandIKConstraint: {fileID: 8496154050579174119}
   _rightHandIKConstraint: {fileID: 9191024576219063504}
 --- !u!1 &4238670726692854497
@@ -1239,7 +1240,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _characterAimModel: {fileID: 47949239737524495}
-  _raycastWeapon: {fileID: 6893807606009322612}
+  _raycastWeapon: {fileID: 0}
 --- !u!114 &47949239737524495
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1394,7 +1395,7 @@ MonoBehaviour:
     m_Root: {fileID: 7824718711838478781}
     m_Mid: {fileID: 7820637575422331637}
     m_Tip: {fileID: 7824671534342937431}
-    m_Target: {fileID: 543722780010132885}
+    m_Target: {fileID: 0}
     m_Hint: {fileID: 6404543188679995523}
     m_TargetPositionWeight: 1
     m_TargetRotationWeight: 1
@@ -3770,58 +3771,3 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Weight: 1
   m_Effectors: []
---- !u!1001 &2777289445201111342
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 1337417304359100122}
-    m_Modifications:
-    - target: {fileID: 5646274039381985264, guid: 517a98fded06d514ab55e987e50c7ebf, type: 3}
-      propertyPath: m_Name
-      value: AK47Pivot
-      objectReference: {fileID: 0}
-    - target: {fileID: 6382987911619683099, guid: 517a98fded06d514ab55e987e50c7ebf, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6382987911619683099, guid: 517a98fded06d514ab55e987e50c7ebf, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6382987911619683099, guid: 517a98fded06d514ab55e987e50c7ebf, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 517a98fded06d514ab55e987e50c7ebf, type: 3}
---- !u!4 &543722780010132885 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 2378282090659437755, guid: 517a98fded06d514ab55e987e50c7ebf, type: 3}
-  m_PrefabInstance: {fileID: 2777289445201111342}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &6883946559645274261 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 8719631770280704443, guid: 517a98fded06d514ab55e987e50c7ebf, type: 3}
-  m_PrefabInstance: {fileID: 2777289445201111342}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &6893807606009322612 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8728349323415598426, guid: 517a98fded06d514ab55e987e50c7ebf, type: 3}
-  m_PrefabInstance: {fileID: 2777289445201111342}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 24cff0b378fb1e44697ae6b7878f06e1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!4 &9087709510949358133 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 6382987911619683099, guid: 517a98fded06d514ab55e987e50c7ebf, type: 3}
-  m_PrefabInstance: {fileID: 2777289445201111342}
-  m_PrefabAsset: {fileID: 0}

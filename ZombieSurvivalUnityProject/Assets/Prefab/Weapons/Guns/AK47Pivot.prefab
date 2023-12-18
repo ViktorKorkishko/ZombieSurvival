@@ -121,7 +121,7 @@ GameObject:
   - component: {fileID: 5961847875397576400}
   - component: {fileID: 201900704704424815}
   m_Layer: 0
-  m_Name: GripsInstaller
+  m_Name: EquipInstaller
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -154,6 +154,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 42711eb2d915ed747a312cc15cbf6e1d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _weaponRoot: {fileID: 6382987911619683099}
   _leftHandGripTansform: {fileID: 8719631770280704443}
   _rightHandGripTansform: {fileID: 2378282090659437755}
 --- !u!1 &5443173492345041623

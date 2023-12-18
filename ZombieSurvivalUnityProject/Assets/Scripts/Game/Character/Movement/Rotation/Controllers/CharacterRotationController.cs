@@ -1,4 +1,4 @@
-﻿using Core.Installers.Ids;
+﻿using Core.Installers;
 using Game.Cameras.Models;
 using Game.Character.Movement.Rotation.Models;
 using UnityEngine;

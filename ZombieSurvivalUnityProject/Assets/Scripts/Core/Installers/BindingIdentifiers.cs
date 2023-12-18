@@ -1,4 +1,4 @@
-﻿namespace Core.Installers.Ids
+﻿namespace Core.Installers
 {
     public enum BindingIdentifiers
     {
@@ -8,7 +8,10 @@
         CharacterAimRig,
         LeftHandIKConstraint,
         RightHandIKConstraint,
+        AimMultiParentConstraint,
+        IdleMultiParentConstraint,
         WeaponHolder,
+        Root,
         LeftHandGripTransform,
         RightHandGripTransform,
     }

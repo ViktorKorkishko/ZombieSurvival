@@ -1,4 +1,4 @@
-using Core.Installers.Ids;
+using Core.Installers;
 using UnityEngine;
 using UnityEngine.Animations.Rigging;
 using Zenject;
@@ -11,6 +11,10 @@ namespace Game.Character.Rigs.Installers
         
         [Header("Rigs")]
         [SerializeField] private Rig _aimRig;
+
+        [Header("Aim constraints")]
+        [SerializeField] private MultiParentConstraint _idleMultiParentConstraint;
+        [SerializeField] private MultiParentConstraint _aimMultiParentConstraint;
         
         [Header("Hand constraints")]
         [SerializeField] private TwoBoneIKConstraint _leftHandIKConstraint;
@@ -26,6 +30,13 @@ namespace Game.Character.Rigs.Installers
                 .WithId(BindingIdentifiers.CharacterAimRig)
                 .FromInstance(_aimRig)
                 .AsSingle();
+            
+            Container.Bind<MultiParentConstraint>()
+                .WithId(BindingIdentifiers.IdleMultiParentConstraint)
+                .FromInstance(_idleMultiParentConstraint);
+            Container.Bind<MultiParentConstraint>()
+                .WithId(BindingIdentifiers.AimMultiParentConstraint)
+                .FromInstance(_aimMultiParentConstraint);
             
             Container.Bind<TwoBoneIKConstraint>()
                 .WithId(BindingIdentifiers.LeftHandIKConstraint)
