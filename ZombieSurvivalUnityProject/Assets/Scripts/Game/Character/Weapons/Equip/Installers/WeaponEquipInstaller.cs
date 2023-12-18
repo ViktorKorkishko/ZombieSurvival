@@ -1,3 +1,4 @@
+using Core.Installers.Ids;
 using Game.Character.Weapons.Equip.Controllers;
 using Game.Character.Weapons.Equip.Models;
 using UnityEngine;
@@ -9,12 +10,19 @@ namespace Game.Character.Weapons.Equip.Installers
     {
         [SerializeField] private WeaponEquipModel _weaponEquipModel;
         
+        [SerializeField] private Transform _weaponHolder;
+
         public override void InstallBindings()
         {
             Container.Bind<WeaponEquipModel>()
                 .FromInstance(_weaponEquipModel)
                 .AsSingle();
-            Container.Bind<WeaponEquipController>().AsSingle();
+            Container.Bind<WeaponEquipController>()
+                .AsSingle();
+
+            Container.Bind<Transform>()
+                .WithId(BindingIdentifiers.WeaponHolder)
+                .FromInstance(_weaponHolder);
         }
     }
 }

@@ -3,8 +3,13 @@
     public enum BindingIdentifiers
     {
         CrosshairTarget = 0,
-        CharacterAnimator = 10,
-        CharacterRigRoot = 20,
-        CharacterAimRig = 30,
+        CharacterAnimator,
+        CharacterRigRoot,
+        CharacterAimRig,
+        LeftHandIKConstraint,
+        RightHandIKConstraint,
+        WeaponHolder,
+        LeftHandGripTransform,
+        RightHandGripTransform,
     }
 }

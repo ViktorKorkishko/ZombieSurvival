@@ -4,12 +4,12 @@ using Zenject;
 
 namespace Game.Character.Movement.Locomotion.Installers
 {
-    public class CharacterMovementInstaller : MonoInstaller
+    public class CharacterLocomotionInstaller : MonoInstaller
     {
         public override void InstallBindings()
         {
-            Container.Bind<CharacterMovementModel>().AsSingle();
-            Container.Bind<CharacterMovementController>().AsSingle();
+            Container.Bind<CharacterLocomotionModel>().AsSingle();
+            Container.Bind<CharacterLocomotionController>().AsSingle();
         }
     }
 }

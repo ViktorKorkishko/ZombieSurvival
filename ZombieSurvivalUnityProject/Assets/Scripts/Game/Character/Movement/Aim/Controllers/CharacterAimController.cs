@@ -1,6 +1,5 @@
 ﻿using Core.Installers.Ids;
 using Game.Character.Movement.Aim.Models;
-using UnityEngine;
 using UnityEngine.Animations.Rigging;
 using Zenject;
 

@@ -6,17 +6,17 @@ namespace Game.Character.Weapons.Equip.Models
 {
     public class WeaponEquipModel : MonoBehaviour
     {
-        public Action<WeaponModel> OnWeaponEquipped { get; set; }
-        public Action<WeaponModel> OnWeaponUnequipped { get; set; }
+        public Action<EquipData> OnWeaponEquipped { get; set; }
+        public Action<EquipData> OnWeaponUnequipped { get; set; }
         
-        public void Equip(WeaponModel weaponModel)
+        public void Equip(EquipData equipData)
         {
-            OnWeaponEquipped?.Invoke(weaponModel);
+            OnWeaponEquipped?.Invoke(equipData);
         }
         
-        public void Unequip(WeaponModel weaponModel)
+        public void Unequip(EquipData equipData)
         {
-            OnWeaponUnequipped?.Invoke(weaponModel);
+            OnWeaponUnequipped?.Invoke(equipData);
         }
     }
 }
