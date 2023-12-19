@@ -4,26 +4,30 @@ namespace Game.Weapons.Reload.Models
 {
     public class WeaponReloadModel
     {
-        public bool IsRealoding { get; private set; }
-        
-        public Action OnTryReload { get; set; }
-        public Action OnReloadStarted { get; set; }
+        public bool IsReloading => OnCheckIsReloading?.Invoke() ?? false;
+
+        public Func<bool> OnCheckIsReloading { get; set; }
+        public Func<bool> OnTryReload { get; set; }
+        public Action<Action> OnReloadStarted { get; set; }
         public Action OnReloadEnded { get; set; }
 
         public void TryStartReload()
         {
-            OnTryReload?.Invoke();
+            bool startReload = OnTryReload?.Invoke() ?? false;
+
+            if (startReload)
+            {
+                StartReload();
+            }
         }
 
-        public void StartReload()
+        private void StartReload()
         {
-            IsRealoding = true;
-            OnReloadStarted?.Invoke();
+            OnReloadStarted?.Invoke(EndReload);
         }
 
-        public void EndReload()
+        private void EndReload()
         {
-            IsRealoding = false;
             OnReloadEnded?.Invoke();
         }
     }
