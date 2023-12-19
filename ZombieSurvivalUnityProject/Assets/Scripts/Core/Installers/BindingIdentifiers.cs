@@ -16,6 +16,6 @@
         LeftHandGripTransform,
         RightHandGripTransform,
         MuzzleFleshPS,
-        HitEffectPS,
+        ShotHitEffectPS,
     }
 }

@@ -52,7 +52,9 @@ namespace Game.Weapons.Shoot.Controllers
             
             if (Physics.Raycast(rayStartPoint, rayDirection, out RaycastHit raycastHit, WeaponConfig.Range, LayerMask))
             {
-                Debug.Log(raycastHit.collider.name);
+                var point = raycastHit.point;
+                var normal = raycastHit.normal;
+                WeaponShootView.EmitShotEffect(point, normal);
             }
         }
     }

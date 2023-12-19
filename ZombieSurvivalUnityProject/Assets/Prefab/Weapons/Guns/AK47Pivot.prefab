@@ -266,7 +266,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6382987911619683099}
-  - component: {fileID: 8728349323415598426}
   - component: {fileID: 5153898942461775973}
   m_Layer: 0
   m_Name: AK47Pivot
@@ -292,21 +291,6 @@ Transform:
   - {fileID: 264508844295993565}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 50.9, y: -58.194, z: 48.215}
---- !u!114 &8728349323415598426
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5646274039381985264}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 24cff0b378fb1e44697ae6b7878f06e1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _muzzleFlash: {fileID: 2300471570807768682}
-  _hitEffect: {fileID: 7001103847412008140}
-  _raycastOrigin: {fileID: 3223658384901309669}
 --- !u!114 &5153898942461775973
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -539,8 +523,8 @@ MonoBehaviour:
   _enemyLayerMask:
     serializedVersion: 2
     m_Bits: 4294967295
-  _muzzleFlash: {fileID: 2300471570807768682}
-  _particleSystem: {fileID: 7001103847412008140}
+  _muzzleFlashEffect: {fileID: 2300471570807768682}
+  _shotHitEffect: {fileID: 7001103847412008140}
 --- !u!114 &6703452338623850098
 MonoBehaviour:
   m_ObjectHideFlags: 0

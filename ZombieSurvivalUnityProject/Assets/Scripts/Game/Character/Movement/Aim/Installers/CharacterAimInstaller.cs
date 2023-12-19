@@ -8,7 +8,6 @@ namespace Game.Character.Movement.Aim.Installers
     public class CharacterAimInstaller : MonoInstaller
     {
         [SerializeField] private CharacterAimModel _characterAimModel;
-        [SerializeField] private RaycastWeapon _raycastWeapon;
 
         public override void InstallBindings()
         {
@@ -17,9 +16,6 @@ namespace Game.Character.Movement.Aim.Installers
                 .AsSingle();
             Container.BindInterfacesAndSelfTo<CharacterAimController>()
                 .AsSingle();
-
-            // Container.Bind<RaycastWeapon>().FromInstance(_raycastWeapon)
-            //     .AsSingle();
         }
     }
 }

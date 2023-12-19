@@ -1394,7 +1394,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _characterAimModel: {fileID: 47949239737524495}
-  _raycastWeapon: {fileID: 0}
 --- !u!114 &47949239737524495
 MonoBehaviour:
   m_ObjectHideFlags: 0

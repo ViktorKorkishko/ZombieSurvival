@@ -20,7 +20,7 @@ namespace Core.Coroutines.Controllers
         public void Initialize()
         {
             CoroutinePlayerModel.OnCoroutineStarted += HandleOnCoroutineStarted;
-            CoroutinePlayerModel.OnCoroutineStopped += OnCoroutineStopped;
+            CoroutinePlayerModel.OnCoroutineStopped += HandleOnCoroutineStopped;
 
             _currentIndex = _startIndex;
         }
@@ -28,7 +28,7 @@ namespace Core.Coroutines.Controllers
         public void Dispose()
         {
             CoroutinePlayerModel.OnCoroutineStarted -= HandleOnCoroutineStarted;
-            CoroutinePlayerModel.OnCoroutineStopped -= OnCoroutineStopped;
+            CoroutinePlayerModel.OnCoroutineStopped -= HandleOnCoroutineStopped;
 
             DisposeCoroutines();
         }
@@ -47,7 +47,7 @@ namespace Core.Coroutines.Controllers
             return _currentIndex++;
         }
 
-        private void OnCoroutineStopped(int coroutineIndex)
+        private void HandleOnCoroutineStopped(int coroutineIndex)
         {
             StopCoroutine(coroutineIndex);
         }

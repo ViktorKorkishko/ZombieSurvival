@@ -15,8 +15,8 @@ namespace Game.Weapons.Shoot.Installers
         [SerializeField] private WeaponConfig _config;
         [SerializeField] private LayerMask _enemyLayerMask;
         
-        [SerializeField] private ParticleSystem _muzzleFlash;
-        [SerializeField] private ParticleSystem _particleSystem;
+        [SerializeField] private ParticleSystem _muzzleFlashEffect;
+        [SerializeField] private ParticleSystem _shotHitEffect;
 
         public override void InstallBindings()
         {
@@ -26,8 +26,10 @@ namespace Game.Weapons.Shoot.Installers
             
             Container.BindInstance(_config).AsSingle();
             Container.BindInstance(_enemyLayerMask).AsSingle();
-            Container.BindInstance(_muzzleFlash)
+            Container.BindInstance(_muzzleFlashEffect)
                 .WithId(BindingIdentifiers.MuzzleFleshPS);
+            Container.BindInstance(_muzzleFlashEffect)
+                .WithId(BindingIdentifiers.ShotHitEffectPS);
         }
     }
 }
