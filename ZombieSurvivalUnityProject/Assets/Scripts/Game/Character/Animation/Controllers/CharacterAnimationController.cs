@@ -1,5 +1,4 @@
-﻿using Core.Installers;
-using Game.Inputs.Models;
+﻿using Game.Inputs.Models;
 using UnityEngine;
 using Zenject;
 
@@ -7,7 +6,7 @@ namespace Game.Character.Animation.Controllers
 {
     public class CharacterAnimationController : ITickable
     {
-        [Inject(Id = BindingIdentifiers.CharacterAnimator)] private Animator Animator { get; }
+        [Inject] private Animator Animator { get; }
         [Inject] private InputModel InputModel { get; }
 
         private Vector2 _input;
