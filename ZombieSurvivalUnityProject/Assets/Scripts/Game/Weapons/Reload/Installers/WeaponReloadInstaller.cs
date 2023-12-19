@@ -2,7 +2,7 @@ using Game.Weapons.Reload.Controllers;
 using Game.Weapons.Reload.Models;
 using Zenject;
 
-namespace Game.Weapons.Reload.Installer
+namespace Game.Weapons.Reload.Installers
 {
     public class WeaponReloadInstaller : MonoInstaller
     {

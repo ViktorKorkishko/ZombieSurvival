@@ -1,15 +1,20 @@
 using System;
-using Game.Weapons.Common.Models;
+using UnityEngine;
+using Zenject;
 
 namespace Game.Character.Weapons.PickUp.Models
 {
-    public class WeaponPickUpModel
+    public class WeaponPickUpModel : MonoBehaviour
     {
-        public Action<WeaponModel> OnWeaponPickedUp { get; set; }
+        [SerializeField] private float _maxPickUpDistance;
+        
+        public float MaxPickUpDistance => _maxPickUpDistance;
+        
+        public Action<DiContainer> OnWeaponPickedUp { get; set; }
 
-        public void PickUp(WeaponModel weaponModel)
+        public void PickUp(DiContainer weaponContainer)
         {
-            OnWeaponPickedUp?.Invoke(weaponModel);
+            OnWeaponPickedUp?.Invoke(weaponContainer);
         }
     }
 }

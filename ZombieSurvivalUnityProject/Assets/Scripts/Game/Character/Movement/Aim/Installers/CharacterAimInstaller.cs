@@ -18,8 +18,8 @@ namespace Game.Character.Movement.Aim.Installers
             Container.BindInterfacesAndSelfTo<CharacterAimController>()
                 .AsSingle();
 
-            Container.Bind<RaycastWeapon>().FromInstance(_raycastWeapon)
-                .AsSingle();
+            // Container.Bind<RaycastWeapon>().FromInstance(_raycastWeapon)
+            //     .AsSingle();
         }
     }
 }

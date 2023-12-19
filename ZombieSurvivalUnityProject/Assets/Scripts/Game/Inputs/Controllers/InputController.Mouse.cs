@@ -31,7 +31,7 @@ namespace Game.Inputs.Controllers
 
         private Vector3 HandleOnGetMousePosition() => CameraModel.GetMainCamera().ScreenToWorldPoint(Input.mousePosition);
 
-        private bool HandleOnLeftMouseButtonClicked() => Input.GetButtonDown("Mouse0");
+        private bool HandleOnLeftMouseButtonClicked() => Input.GetButtonDown("Fire1");
 
         private float HandleOnGetHorizontalMouseAxisInput() => Input.GetAxis("Mouse X");
         private float HandleOnGetVerticalMouseAxisInput() => Input.GetAxis("Mouse Y");

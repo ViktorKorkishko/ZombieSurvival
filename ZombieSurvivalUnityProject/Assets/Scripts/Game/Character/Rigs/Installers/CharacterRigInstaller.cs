@@ -11,6 +11,7 @@ namespace Game.Character.Rigs.Installers
         
         [Header("Rigs")]
         [SerializeField] private Rig _aimRig;
+        [SerializeField] private Rig _handsRig;
 
         [Header("Aim constraints")]
         [SerializeField] private MultiParentConstraint _idleMultiParentConstraint;
@@ -28,8 +29,10 @@ namespace Game.Character.Rigs.Installers
             
             Container.Bind<Rig>()
                 .WithId(BindingIdentifiers.CharacterAimRig)
-                .FromInstance(_aimRig)
-                .AsSingle();
+                .FromInstance(_aimRig);
+            Container.Bind<Rig>()
+                .WithId(BindingIdentifiers.CharacterHandsRig)
+                .FromInstance(_handsRig);
             
             Container.Bind<MultiParentConstraint>()
                 .WithId(BindingIdentifiers.IdleMultiParentConstraint)

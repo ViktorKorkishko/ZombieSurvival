@@ -1,6 +1,6 @@
 using System;
-using Game.Weapons.Shooting.Config;
-using Game.Weapons.Shooting.Models;
+using Game.Weapons.Common.Config;
+using Game.Weapons.Shoot.Models;
 using UnityEngine;
 using Zenject;
 
@@ -9,23 +9,23 @@ namespace Game.Weapons.Reload.Models
     public class WeaponMagazineModel : IInitializable, IDisposable
     {
         [Inject] private WeaponReloadModel WeaponReloadModel { get; }
-        [Inject] private WeaponShootingModel WeaponShootingModel { get; }
-        [Inject] private WeaponShootingConfig WeaponConfig { get; }
+        [Inject] private WeaponShootModel WeaponShootModel { get; }
+        [Inject] private WeaponConfig WeaponConfig { get; }
 
         public int BulletsLeft { get; private set; }
 
         public void Initialize()
         {
-            WeaponShootingModel.OnShoot += HandleOnShoot;
-            WeaponReloadModel.OnReloadingEnded += HandleOnReloadingEnded;
+            WeaponShootModel.OnShoot += HandleOnShoot;
+            WeaponReloadModel.OnReloadEnded += HandleOnReloadingEnded;
 
             FillMagazine();
         }
 
         public void Dispose()
         {
-            WeaponShootingModel.OnShoot -= HandleOnShoot;
-            WeaponReloadModel.OnReloadingEnded -= HandleOnReloadingEnded;
+            WeaponShootModel.OnShoot -= HandleOnShoot;
+            WeaponReloadModel.OnReloadEnded -= HandleOnReloadingEnded;
         }
 
         private void FillMagazine()

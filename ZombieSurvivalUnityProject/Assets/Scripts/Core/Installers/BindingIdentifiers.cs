@@ -6,6 +6,7 @@
         CharacterAnimator,
         CharacterRigRoot,
         CharacterAimRig,
+        CharacterHandsRig,
         LeftHandIKConstraint,
         RightHandIKConstraint,
         AimMultiParentConstraint,
@@ -14,5 +15,7 @@
         Root,
         LeftHandGripTransform,
         RightHandGripTransform,
+        MuzzleFleshPS,
+        HitEffectPS,
     }
 }

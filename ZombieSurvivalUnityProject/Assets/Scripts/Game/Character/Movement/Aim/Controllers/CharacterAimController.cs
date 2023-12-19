@@ -10,7 +10,7 @@ namespace Game.Character.Movement.Aim.Controllers
         [Inject] private CharacterAimModel CharacterAimModel { get; }
         [Inject(Id = BindingIdentifiers.CharacterAimRig)] private Rig AimRig { get; }
 
-        [Inject] private RaycastWeapon RaycastWeapon { get; }
+        // [Inject] private RaycastWeapon RaycastWeapon { get; }
 
         private float AimDuration => CharacterAimModel.AimDuration;
 

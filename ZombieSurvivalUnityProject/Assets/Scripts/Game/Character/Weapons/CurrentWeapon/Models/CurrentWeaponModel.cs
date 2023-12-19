@@ -1,19 +1,19 @@
 using System;
-using Game.Weapons.Common.Models;
-using UnityEngine;
+using Zenject;
 
 namespace Game.Character.Weapons.CurrentWeapon.Models
 {
-    public class CurrentWeaponModel : MonoBehaviour
+    public class CurrentWeaponModel
     {
-        public WeaponModel Weapon { get; private set; }
+        public DiContainer WeaponContainer { get; private set; }
+        public bool IsWeaponEquipped => WeaponContainer != null;
         
-        public Action<WeaponModel> OnCurrentWeaponSet { get; set; }
+        public Action<DiContainer> OnWeaponSet { get; set; }
 
-        public void SetCurrentWeapon(WeaponModel weaponModel)
+        public void SetCurrentWeapon(DiContainer weaponContainer)
         {
-            OnCurrentWeaponSet?.Invoke(weaponModel);
-            Weapon = weaponModel;
+            WeaponContainer = weaponContainer;
+            OnWeaponSet?.Invoke(weaponContainer);
         }
     }
 }

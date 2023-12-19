@@ -1,5 +1,6 @@
-using System;
 using Core.Installers;
+using Game.Cameras.Models;
+using Game.Character.Weapons.CurrentWeapon.Models;
 using Game.Character.Weapons.Equip.Models;
 using Game.Character.Weapons.PickUp.Models;
 using Game.Inputs.Models;
@@ -7,25 +8,17 @@ using Game.Weapons.Common.Views;
 using UnityEngine;
 using Zenject;
 
-using Object = UnityEngine.Object;
-
 namespace Game.Character.Weapons.PickUp.Controllers
 {
-    public class WeaponPickUpController : IInitializable, IDisposable, ITickable
+    public class WeaponPickUpController : ITickable
     {
         [Inject] private WeaponPickUpModel WeaponPickUpModel { get; }
         [Inject] private InputModel InputModel { get; }
         [Inject] private WeaponEquipModel WeaponEquipModel { get; }
+        [Inject] private CurrentWeaponModel CurrentWeaponModel { get; }
+        [Inject] private CameraModel CameraModel { get; }
 
-        void IInitializable.Initialize()
-        {
-
-        }
-
-        void IDisposable.Dispose()
-        {
-
-        }
+        private Transform MainCameraTransform => CameraModel.GetMainCamera().transform;
 
         void ITickable.Tick()
         {
@@ -34,34 +27,41 @@ namespace Game.Character.Weapons.PickUp.Controllers
 
         private void HandleInput()
         {
-            bool pickUpWeapon = InputModel.PickUpWeaponButtonClickInput;
-            if (pickUpWeapon)
+            bool pickUpWeaponInput = InputModel.PickUpWeaponButtonClickInput;
+            if (!pickUpWeaponInput)
+                return;
+            
+            var weapon = CheckForObjectsToInteract();
+            bool haveWeaponToPickUp = weapon != null;
+            if (!haveWeaponToPickUp)
             {
-                PickUp();
+                Debug.Log("noting");
+                return;
             }
+            
+            Debug.Log(weapon.gameObject);
+            PickUp(weapon);
         }
 
-        private void PickUp()
+        private WeaponView CheckForObjectsToInteract()
         {
-            // temp (for test)
-            var weaponView = Object.FindObjectOfType<WeaponView>();
-            var pickedWeapon = weaponView.PickUp();
-            
-            var weaponContext = weaponView.gameObject.GetComponentInChildren<GameObjectContext>();
-            var equipData = GetEquipData(weaponContext.Container);
+            Vector3 origin = MainCameraTransform.position;
+            Vector3 direction = MainCameraTransform.forward;
+            float rayDistance = WeaponPickUpModel.MaxPickUpDistance;
 
-            WeaponEquipModel.Equip(equipData);
+            if (Physics.Raycast(origin, direction, out var raycastHit, rayDistance))
+            {
+                var weapon = raycastHit.collider.GetComponentInParent<WeaponView>();
+                return weapon;
+            }
+
+            return null;
         }
 
-        private EquipData GetEquipData(DiContainer container)
+        private void PickUp(WeaponView weaponView)
         {
-            var weaponRoot = container.ResolveId<Transform>(BindingIdentifiers.Root);
-            var leftHandGripTransform = container.ResolveId<Transform>(BindingIdentifiers.LeftHandGripTransform);
-            var rightHandGripTransform = container.ResolveId<Transform>(BindingIdentifiers.RightHandGripTransform);
-            
-            var equipData = new EquipData(weaponRoot, leftHandGripTransform, rightHandGripTransform);
-            
-            return equipData;
+            var weaponContainer = weaponView.gameObject.GetComponentInChildren<GameObjectContext>().Container;
+            WeaponPickUpModel.PickUp(weaponContainer);
         }
     }
 }
