@@ -9,7 +9,7 @@ namespace Core.Coroutines.Models
         public Func<IEnumerator, int> OnCoroutineStarted { get; set; }
         public Action<int> OnCoroutineStopped { get; set; }
 
-        public int StartCorotine(IEnumerator enumerator)
+        public int StartCoroutine(IEnumerator enumerator)
         {
             if (OnCoroutineStarted != null)
             {

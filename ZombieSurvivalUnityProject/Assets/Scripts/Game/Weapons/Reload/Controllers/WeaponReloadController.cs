@@ -58,7 +58,7 @@ namespace Game.Weapons.Reload.Controllers
         {
             Debug.Log("Reload started");
             IsReloading = true;
-            _reloadCoroutineIndex = CoroutinePlayerModel.StartCorotine(ReloadCo());
+            _reloadCoroutineIndex = CoroutinePlayerModel.StartCoroutine(ReloadCo());
 
             IEnumerator ReloadCo()
             {
