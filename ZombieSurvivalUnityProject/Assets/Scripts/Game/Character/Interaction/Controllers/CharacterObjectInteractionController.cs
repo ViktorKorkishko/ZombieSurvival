@@ -48,8 +48,11 @@ namespace Game.Character.Interaction.Controllers
 
             if (Physics.Raycast(origin, direction, out var raycastHit, rayDistance))
             {
-                var interactableObject = raycastHit.collider.GetComponent<InteractableObjectView>();
-                return interactableObject;
+                if (raycastHit.collider.TryGetComponent<InteractableObjectView>(out var interactableObjectView))
+                {
+                    CharacterObjectInteractionModel.DetectInteractableObject(interactableObjectView);
+                    return interactableObjectView;
+                }
             }
 
             return null;
@@ -58,9 +61,16 @@ namespace Game.Character.Interaction.Controllers
         private void HandleInteractableObject(InteractableObjectView interactableObjectView)
         {
             var container = interactableObjectView.Context.Container;
-            var model = container.Resolve<InteractableObjectModel>();
+            var model = container.TryResolve<InteractableObjectModel>();
+            
+            bool successfullyResolved = model != null;
+            if (!successfullyResolved)
+            {
+                Debug.LogError($"Cannot Resolve {typeof(InteractableObjectModel)}");
+                return;
+            }
+            
             var objectType = model.Type;
-
             switch (objectType)
             {
                 case InteractableObjectType.Common:
