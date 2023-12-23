@@ -49,6 +49,22 @@ namespace Game.Character.Movement.Locomotion.Controllers
             }
         }
 
+        void ITickable.Tick()
+        {
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                Jump();
+            }
+
+            HandleSprinting();
+        }
+
+        private void HandleSprinting()
+        {
+            bool isSprintButtonHold = InputModel.SprintButtonHoldInput;
+            Animator.SetBool("IsSprinting", isSprintButtonHold);
+        }
+
         private void UpdateInAir()
         {
             velocity.y += Gravity * Time.fixedDeltaTime;
@@ -76,14 +92,6 @@ namespace Game.Character.Movement.Locomotion.Controllers
                 float jumpVelocity = 0f;
                 SetInAir(jumpVelocity);
                 Animator.SetBool("IsJumping", true);
-            }
-        }
-
-        void ITickable.Tick()
-        {
-            if (Input.GetKeyDown(KeyCode.Space))
-            {
-                Jump();
             }
         }
 

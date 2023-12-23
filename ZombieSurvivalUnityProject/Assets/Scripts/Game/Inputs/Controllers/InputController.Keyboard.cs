@@ -1,5 +1,3 @@
-using System;
-using Game.Inputs.Models;
 using UnityEngine;
 
 namespace Game.Inputs.Controllers
@@ -9,6 +7,7 @@ namespace Game.Inputs.Controllers
         private protected void InitializeKeyboardInputHandlers()
         {
             InputModel.OnJumpButtonClicked += HandleOnJumpButtonClicked;
+            InputModel.OnSprintButtonHold += HandleOnSprintButtonHold;
             InputModel.OnReloadButtonClicked += HandleOnReloadButtonClicked;
             InputModel.OnPickUpWeaponButtonClicked += HandleOnPickUpWeaponButtonClicked;
 
@@ -22,6 +21,7 @@ namespace Game.Inputs.Controllers
         private protected void DisposeKeyboardInputHandlers()
         {
             InputModel.OnJumpButtonClicked -= HandleOnJumpButtonClicked;
+            InputModel.OnSprintButtonHold -= HandleOnSprintButtonHold;
             InputModel.OnReloadButtonClicked -= HandleOnReloadButtonClicked;
             InputModel.OnPickUpWeaponButtonClicked -= HandleOnPickUpWeaponButtonClicked;
 
@@ -33,6 +33,7 @@ namespace Game.Inputs.Controllers
         }
 
         private bool HandleOnJumpButtonClicked() => Input.GetButtonDown("Jump");
+        private bool HandleOnSprintButtonHold() => Input.GetKey(KeyCode.LeftShift);
         private bool HandleOnReloadButtonClicked() => Input.GetKeyDown(KeyCode.R);
         private bool HandleOnPickUpWeaponButtonClicked() => Input.GetKeyDown(KeyCode.F);
 
