@@ -10408,6 +10408,7 @@ GameObject:
   - component: {fileID: 963194227}
   - component: {fileID: 963194226}
   - component: {fileID: 963194229}
+  - component: {fileID: 963194230}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -10525,6 +10526,25 @@ MonoBehaviour:
   m_CameraActivatedEvent:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &963194230
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 963194225}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e950cacae63d61a4e821edb397a8cd95, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SelectionMode: 0
+  OutlineType: 2
+  AlphaMode: 1
+  OutlineColor: {r: 1, g: 0.55, b: 0, a: 1}
+  OccludedColor: {r: 0.5, g: 0.9, b: 0.3, a: 1}
+  OutlineWidth: 0.2
+  OutlineHardness: 0.85
 --- !u!1001 &963898494
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -24177,11 +24197,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2561236855855640541, guid: 8c39ba83bd62d9043a473f70ab19d497, type: 3}
       propertyPath: m_Name
-      value: Door
-      objectReference: {fileID: 0}
-    - target: {fileID: 6816906259591825166, guid: 8c39ba83bd62d9043a473f70ab19d497, type: 3}
-      propertyPath: _openTime
-      value: 1
+      value: InteractableDoor
       objectReference: {fileID: 0}
     - target: {fileID: 8915297394084404882, guid: 8c39ba83bd62d9043a473f70ab19d497, type: 3}
       propertyPath: m_LocalPosition.x
