@@ -54,7 +54,9 @@ namespace Game.Character.Movement.Locomotion.Controllers
             velocity.y += Gravity * Time.fixedDeltaTime;
             Vector3 displacement = velocity * Time.fixedDeltaTime;
             displacement += CalculateAirControl();
+            
             CharacterController.Move(displacement);
+            
             isJumping = !CharacterController.isGrounded;
             _rootMotion = _zeroVector;
             
@@ -71,9 +73,8 @@ namespace Game.Character.Movement.Locomotion.Controllers
 
             if (!CharacterController.isGrounded)
             {
-                isJumping = true;
-                velocity = Animator.velocity * jumpDemp;
-                velocity.y = 0;
+                float jumpVelocity = 0f;
+                SetInAir(jumpVelocity);
                 Animator.SetBool("IsJumping", true);
             }
         }
@@ -91,16 +92,22 @@ namespace Game.Character.Movement.Locomotion.Controllers
             if (isJumping)
                 return;
 
+            float jumpVelocity = Mathf.Sqrt(2 * -Gravity * CharacterLocomotionModel.JumpHeight);
+            SetInAir(jumpVelocity);
+            Animator.SetBool("IsJumping", true);
+        }
+
+        private void SetInAir(float jumpVelocity)
+        {
             isJumping = true;
             velocity = Animator.velocity * jumpDemp * groundSpeed;
-            velocity.y = Mathf.Sqrt(2 * -Gravity * CharacterLocomotionModel.JumpHeight);
-            Animator.SetBool("IsJumping", true);
+            velocity.y = jumpVelocity;
         }
 
         Vector3 CalculateAirControl()
         {
             var transform = CharacterController.transform;
-            return ((transform.forward * InputModel.VerticalAxisInput) + (transform.right * InputModel.HorizontalAxisInput)) * (airControl / 100);
+            return (transform.forward * InputModel.VerticalAxisInput + transform.right * InputModel.HorizontalAxisInput) * (airControl / 100);
         }
 
         private void HandleOnAnimatorMove()
