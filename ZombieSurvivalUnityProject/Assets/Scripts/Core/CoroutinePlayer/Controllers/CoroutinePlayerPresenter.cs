@@ -14,15 +14,12 @@ namespace Core.Coroutines.Controllers
         [Inject] private CoroutinePlayerView CoroutinePlayerView { get; }
 
         private readonly Dictionary<int, Coroutine> _indexToCoroutineDictionary = new();
-        private const int _startIndex = 0;
-        private int _currentIndex;
+        private int _currentIndex = 0;
 
         public void Initialize()
         {
             CoroutinePlayerModel.OnCoroutineStarted += HandleOnCoroutineStarted;
             CoroutinePlayerModel.OnCoroutineStopped += HandleOnCoroutineStopped;
-
-            _currentIndex = _startIndex;
         }
 
         public void Dispose()
@@ -33,18 +30,20 @@ namespace Core.Coroutines.Controllers
             DisposeCoroutines();
         }
 
-        private void StopCoroutine(int coroutineIndex)
-        {
-            var coroutine = _indexToCoroutineDictionary[coroutineIndex];
-            CoroutinePlayerView.StopCoroutine(coroutine);
-            _indexToCoroutineDictionary.Remove(coroutineIndex);
-        }
-
         private int HandleOnCoroutineStarted(IEnumerator enumerator)
         {
             var coroutine = CoroutinePlayerView.StartCoroutine(enumerator);
             _indexToCoroutineDictionary.Add(_currentIndex, coroutine);
             return _currentIndex++;
+        }
+
+        private void StopCoroutine(int coroutineIndex)
+        {
+            if (_indexToCoroutineDictionary.TryGetValue(coroutineIndex, out var coroutine))
+            {
+                CoroutinePlayerView.StopCoroutine(coroutine);
+                _indexToCoroutineDictionary.Remove(coroutineIndex);
+            }
         }
 
         private void HandleOnCoroutineStopped(int coroutineIndex)

@@ -182,6 +182,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7875126740562467439}
   - component: {fileID: 5266942774444521678}
+  - component: {fileID: 7791642376845455990}
   m_Layer: 0
   m_Name: Collider
   m_TagString: Untagged
@@ -226,6 +227,19 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 4300000, guid: 77170bfa0b77a574d933339a43fa9878, type: 3}
+--- !u!114 &7791642376845455990
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5283538352538391137}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 909c9f59750a42549021158cbc751330, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _context: {fileID: 6587909735587892803}
 --- !u!1 &5443173492345041623
 GameObject:
   m_ObjectHideFlags: 0
@@ -266,7 +280,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6382987911619683099}
-  - component: {fileID: 5153898942461775973}
   m_Layer: 0
   m_Name: AK47Pivot
   m_TagString: Untagged
@@ -291,19 +304,7 @@ Transform:
   - {fileID: 264508844295993565}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 50.9, y: -58.194, z: 48.215}
---- !u!114 &5153898942461775973
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5646274039381985264}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b8a279cec82642439ab24989e808b8ff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!1 &6257975105560646151
+--- !u!1 &5892673777594617105
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -311,43 +312,44 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 192627690135810653}
-  - component: {fileID: 3373511559225126652}
+  - component: {fileID: 7470662854853662042}
+  - component: {fileID: 6380211894287323684}
   m_Layer: 0
-  m_Name: Weapon
+  m_Name: InteractableObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &192627690135810653
+--- !u!4 &7470662854853662042
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6257975105560646151}
+  m_GameObject: {fileID: 5892673777594617105}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 264508844295993565}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3373511559225126652
+--- !u!114 &6380211894287323684
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6257975105560646151}
+  m_GameObject: {fileID: 5892673777594617105}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bb4a465f823a47c79d1fcfeb073edc3c, type: 3}
+  m_Script: {fileID: 11500000, guid: 17d91708c56943a8a21fc9cb11c2b949, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _weaponView: {fileID: 5153898942461775973}
+  _interactableObjectView: {fileID: 7791642376845455990}
+  _type: 1
 --- !u!1 &6259813802686672042
 GameObject:
   m_ObjectHideFlags: 0
@@ -378,12 +380,12 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 192627690135810653}
+  - {fileID: 8769765256893665533}
   - {fileID: 5464105958779754004}
   - {fileID: 7021568018022037258}
   - {fileID: 3586988322670827113}
-  - {fileID: 8769765256893665533}
   - {fileID: 5961847875397576400}
+  - {fileID: 7470662854853662042}
   m_Father: {fileID: 6382987911619683099}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &6587909735587892803
@@ -400,11 +402,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _scriptableObjectInstallers: []
   _monoInstallers:
-  - {fileID: 3373511559225126652}
   - {fileID: 1260277788790392916}
   - {fileID: 6673527954466739010}
   - {fileID: 1676291346767299603}
   - {fileID: 201900704704424815}
+  - {fileID: 6380211894287323684}
   _installerPrefabs: []
   _autoRun: 1
   _kernel: {fileID: 0}
