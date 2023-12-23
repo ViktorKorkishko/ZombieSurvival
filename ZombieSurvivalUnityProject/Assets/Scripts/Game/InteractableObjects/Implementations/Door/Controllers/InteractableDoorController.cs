@@ -92,6 +92,8 @@ namespace Game.InteractableObjects.Implementations.Door.Controllers
                 currentRotationTime += Time.fixedDeltaTime;
             }
             
+            Rigidbody.transform.localRotation = Quaternion.Euler(targetAngle);
+            
             InteractionEndedCallback?.Invoke();
             InteractionEndedCallback = null;
         }
