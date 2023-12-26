@@ -3,7 +3,6 @@ using Core.Installers;
 using Game.Character.Movement.Rotation.Controllers;
 using Game.Character.Movement.Rotation.Models;
 using UnityEngine;
-using UnityEngine.Animations.Rigging;
 using Zenject;
 
 namespace Game.Character.Movement.Rotation.Installers
@@ -13,7 +12,6 @@ namespace Game.Character.Movement.Rotation.Installers
         [SerializeField] private CharacterRotationModel _characterRotationModel;
         
         [SerializeField] private Transform _characterRigRootTransform;
-        [SerializeField] private List<MultiAimConstraint> _lookConstraints;
         
         public override void InstallBindings()
         {
@@ -25,8 +23,6 @@ namespace Game.Character.Movement.Rotation.Installers
             Container.BindInstance(_characterRigRootTransform)
                 .WithId(BindingIdentifiers.CharacterRigRoot)
                 .AsSingle();
-            Container.BindInstances(_lookConstraints);
-
         }
     }
 }
