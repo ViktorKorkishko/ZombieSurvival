@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using Core.Installers;
 using Game.Character.Movement.Rotation.Controllers;
 using Game.Character.Movement.Rotation.Models;

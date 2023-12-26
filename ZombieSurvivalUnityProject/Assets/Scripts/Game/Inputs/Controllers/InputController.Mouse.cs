@@ -14,6 +14,8 @@ namespace Game.Inputs.Controllers
             InputModel.OnGetMousePosition += HandleOnGetMousePosition;
 
             InputModel.OnLeftMouseButtonClicked += HandleOnLeftMouseButtonClicked;
+            
+            InputModel.OnRightMouseButtonHold += HandleOnRightMouseButtonHold;
 
             InputModel.OnGetHorizontalMouseAxisInput += HandleOnGetHorizontalMouseAxisInput;
             InputModel.OnGetVerticalMouseAxisInput += HandleOnGetVerticalMouseAxisInput;
@@ -24,14 +26,18 @@ namespace Game.Inputs.Controllers
             InputModel.OnGetMousePosition -= HandleOnGetMousePosition;
 
             InputModel.OnLeftMouseButtonClicked -= HandleOnLeftMouseButtonClicked;
+            
+            InputModel.OnRightMouseButtonHold -= HandleOnRightMouseButtonHold;
 
             InputModel.OnGetHorizontalMouseAxisInput -= HandleOnGetHorizontalMouseAxisInput;
             InputModel.OnGetVerticalMouseAxisInput -= HandleOnGetVerticalMouseAxisInput;
-        }   
+        }
 
         private Vector3 HandleOnGetMousePosition() => CameraModel.GetMainCamera().ScreenToWorldPoint(Input.mousePosition);
 
         private bool HandleOnLeftMouseButtonClicked() => Input.GetButtonDown("Fire1");
+
+        private bool HandleOnRightMouseButtonHold() => Input.GetButton("Fire2");
 
         private float HandleOnGetHorizontalMouseAxisInput() => Input.GetAxis("Mouse X");
         private float HandleOnGetVerticalMouseAxisInput() => Input.GetAxis("Mouse Y");

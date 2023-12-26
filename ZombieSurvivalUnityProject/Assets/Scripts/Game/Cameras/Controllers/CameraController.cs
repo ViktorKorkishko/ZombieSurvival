@@ -37,25 +37,5 @@ namespace Game.Cameras.Controllers
             // TODO: refactor into the CameraSystem with switchable cameras, at least InjectCamera here
             return _mainCamera ??= Camera.main;
         }
-
-        class XInputAxisProvider : AxisState.IInputAxisProvider
-        {
-            public float GetAxisValue(int axis)
-            {
-                var value = Input.GetAxis("Mouse X");
-                Debug.Log("Mouse X = " + value);
-                return value;
-            }
-        }
-
-        class YInputAxisProvider : AxisState.IInputAxisProvider
-        {
-            public float GetAxisValue(int axis)
-            {
-                var value = Input.GetAxis("Mouse Y");
-                Debug.Log("Mouse Y = " + value);
-                return value;
-            }
-        }
     }
 }

@@ -1627,6 +1627,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _characterAimModel: {fileID: 47949239737524495}
+  _cinemachineVirtualCamera: {fileID: 6757390417352244975}
 --- !u!114 &47949239737524495
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1639,7 +1640,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c251ca646cf54bde9c2b8b5ebd1884b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _aimDuration: 0.3
+  _minAimStateCameraDistance: 2
+  _maxAimStateCameraDistance: 0.75
+  _aimDuration: 0.2
 --- !u!1 &6157307868899693225
 GameObject:
   m_ObjectHideFlags: 0
