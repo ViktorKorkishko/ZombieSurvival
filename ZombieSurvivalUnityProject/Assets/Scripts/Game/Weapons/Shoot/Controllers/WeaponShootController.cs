@@ -18,8 +18,12 @@ namespace Game.Weapons.Shoot.Controllers
         [Inject] private CameraModel CameraModel { get; }
         [Inject] private WeaponConfig WeaponConfig { get; }
         [Inject] private LayerMask LayerMask { get; }
-
+        
         private Transform MainCameraTransform => CameraModel.GetMainCamera().transform;
+        
+        // 60 sec / fireRate (shots per minute)
+        private float TimeBetweenShots => 60f / WeaponConfig.FireRate;
+        private float _lastShotTime = 0f;
 
         void IInitializable.Initialize()
         {
@@ -35,9 +39,11 @@ namespace Game.Weapons.Shoot.Controllers
 
         private bool HandleOnTryShoot()
         {
+            bool readyToFireAccordingToFireRate = Time.time - _lastShotTime >= TimeBetweenShots;
             bool haveBullets = WeaponMagazineModel.BulletsLeft > 0;
-            bool canShoot = haveBullets && !WeaponReloadModel.IsReloading;
+            bool reloading = WeaponReloadModel.IsReloading;
             
+            bool canShoot = readyToFireAccordingToFireRate && haveBullets && !reloading;
             return canShoot;
         }
 
@@ -45,6 +51,9 @@ namespace Game.Weapons.Shoot.Controllers
 
         private void Shoot()
         {
+            Debug.Log("Shot time: " + Time.time + " | " + "Time passed: " + (Time.time - _lastShotTime));
+            _lastShotTime = Time.time;
+                
             WeaponShootView.EmitFireFlash();
             
             var rayStartPoint = MainCameraTransform.position;

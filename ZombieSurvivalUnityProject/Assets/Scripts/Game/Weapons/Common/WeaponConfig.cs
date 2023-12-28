@@ -9,8 +9,8 @@ namespace Game.Weapons.Common.Config
         [SerializeField] private int _damage;
 
         [Header("Rate of fire")]
-        [SerializeField] private float _timeBetweenShooting;
-        [SerializeField] private float _timeBetweenShots;
+        [Tooltip("Bullets per minute")]
+        [SerializeField] private int _fireRate;
         [SerializeField] private int _bulletsPerTap;
 
         [Header("Spread")]
@@ -23,8 +23,7 @@ namespace Game.Weapons.Common.Config
 
         public int Damage => _damage;
 
-        public float TimeBetweenShooting => _timeBetweenShooting;
-        public float TimeBetweenShots => _timeBetweenShots;
+        public int FireRate => _fireRate;
         public int BulletsPerTap => _bulletsPerTap;
 
         public float Spread => _spread;

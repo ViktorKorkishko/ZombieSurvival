@@ -12,14 +12,16 @@ namespace Game.Inputs.Models
         public float VerticalMouseAxisInput => OnGetVerticalMouseAxisInput?.Invoke() ?? 0;
 
         public bool LeftMouseButtonClicked => OnLeftMouseButtonClicked?.Invoke() ?? false;
+        public bool LeftMouseButtonHold => OnLeftMouseButtonHold?.Invoke() ?? false;
         
-        public bool RightMouseButtonClicked => OnRightMouseButtonHold?.Invoke() ?? false;
+        public bool RightMouseButtonHold => OnRightMouseButtonHold?.Invoke() ?? false;
 
         public event Func<Vector3> OnGetMousePosition;
         public event Func<float> OnGetHorizontalMouseAxisInput;
         public event Func<float> OnGetVerticalMouseAxisInput;
         
         public event Func<bool> OnLeftMouseButtonClicked;
+        public event Func<bool> OnLeftMouseButtonHold;
         
         public event Func<bool> OnRightMouseButtonHold;
     }

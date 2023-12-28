@@ -28,7 +28,7 @@ namespace Game.Weapons.Shoot.Installers
             Container.BindInstance(_enemyLayerMask).AsSingle();
             Container.BindInstance(_muzzleFlashEffect)
                 .WithId(BindingIdentifiers.MuzzleFleshPS);
-            Container.BindInstance(_muzzleFlashEffect)
+            Container.BindInstance(_shotHitEffect)
                 .WithId(BindingIdentifiers.ShotHitEffectPS);
         }
     }

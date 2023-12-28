@@ -22,7 +22,7 @@ namespace Game.Character.Movement.Aim.Controllers
         
         void ITickable.Tick()
         {
-            bool aimButtonHoldInput = InputModel.RightMouseButtonClicked;
+            bool aimButtonHoldInput = InputModel.RightMouseButtonHold;
             float aimValueDelta = aimButtonHoldInput ? Time.deltaTime : -Time.deltaTime;
             _aimInterpolatedValue += aimValueDelta / CharacterAimModel.AimDuration;
             _aimInterpolatedValue = Mathf.Clamp(_aimInterpolatedValue, 0f, 1f);

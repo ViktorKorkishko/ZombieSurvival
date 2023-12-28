@@ -240,7 +240,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 909c9f59750a42549021158cbc751330, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Renderer: {fileID: 7353556928237843337}
   _context: {fileID: 6587909735587892803}
 --- !u!114 &5754823489773613739
 MonoBehaviour:
