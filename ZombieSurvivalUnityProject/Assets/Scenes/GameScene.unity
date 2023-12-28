@@ -11343,34 +11343,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4812002822647660, guid: 37e681eb08549004c9d9c2be529cbf54, type: 3}
   m_PrefabInstance: {fileID: 1092528129}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1097197910 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3718444812463021824, guid: 4a87aed84d279f645afaa093a5107aac, type: 3}
-  m_PrefabInstance: {fileID: 5107929396449653077}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1097197913
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1097197910}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 00b2d199b96b516448144ab30fb26aed, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_ApplyAfter: 2
-  m_ChannelMask: 1
-  m_Gain: 1
-  m_Use2DDistance: 0
-  m_UseCameraSpace: 1
-  m_ReactionSettings:
-    m_SecondaryNoise: {fileID: 0}
-    m_AmplitudeGain: 1
-    m_FrequencyGain: 1
-    m_Duration: 1
-    m_NoiseOffsets: {x: 0, y: 0, z: 0}
 --- !u!1001 &1098321552
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -23392,30 +23364,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 289094968}
     m_Modifications:
-    - target: {fileID: 47949239737524495, guid: 4a87aed84d279f645afaa093a5107aac, type: 3}
-      propertyPath: _maxAimValueDistance
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 47949239737524495, guid: 4a87aed84d279f645afaa093a5107aac, type: 3}
-      propertyPath: _minAimValueDistance
-      value: 2
-      objectReference: {fileID: 0}
     - target: {fileID: 479252459354531293, guid: 4a87aed84d279f645afaa093a5107aac, type: 3}
       propertyPath: m_Data.m_SourceObjects.m_Item0.transform
       value: 
       objectReference: {fileID: 1454824090}
-    - target: {fileID: 2764585140623792156, guid: 4a87aed84d279f645afaa093a5107aac, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 2764585140623792156, guid: 4a87aed84d279f645afaa093a5107aac, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 1.65
-      objectReference: {fileID: 0}
-    - target: {fileID: 2764585140623792156, guid: 4a87aed84d279f645afaa093a5107aac, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -2
-      objectReference: {fileID: 0}
     - target: {fileID: 2973068936981492668, guid: 4a87aed84d279f645afaa093a5107aac, type: 3}
       propertyPath: m_Height
       value: 1.8
@@ -23449,22 +23401,6 @@ PrefabInstance:
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 7824898248860213007, guid: 4a87aed84d279f645afaa093a5107aac, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7824898248860213007, guid: 4a87aed84d279f645afaa093a5107aac, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7824898248860213007, guid: 4a87aed84d279f645afaa093a5107aac, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7824898248860213007, guid: 4a87aed84d279f645afaa093a5107aac, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7824898248860213007, guid: 4a87aed84d279f645afaa093a5107aac, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
       value: 0
       objectReference: {fileID: 0}
@@ -23483,10 +23419,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 3718444812463021824, guid: 4a87aed84d279f645afaa093a5107aac, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1097197913}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4a87aed84d279f645afaa093a5107aac, type: 3}
 --- !u!1001 &5327373461235609703
 PrefabInstance:

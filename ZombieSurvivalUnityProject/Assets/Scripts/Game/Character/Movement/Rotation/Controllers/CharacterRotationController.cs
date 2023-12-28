@@ -6,7 +6,7 @@ using Zenject;
 
 namespace Game.Character.Movement.Rotation.Controllers
 {
-    public class CharacterRotationController : IFixedTickable
+    public class CharacterRotationController : ILateTickable
     {
         [Inject] private CameraModel CameraModel { get; }
         [Inject(Id = BindingIdentifiers.CharacterRigRoot)] private Transform RigRootTransform { get; }
@@ -14,7 +14,7 @@ namespace Game.Character.Movement.Rotation.Controllers
         
         private float TurnSpeed => CharacterRotationModel.TurnSpeed;
 
-        void IFixedTickable.FixedTick()
+        void ILateTickable.LateTick()
         {
             float yawCamera = CameraModel.GetMainCamera().transform.rotation.eulerAngles.y;
             
