@@ -15,7 +15,7 @@ namespace Game.Weapons.Equip.Installer
         public override void InstallBindings()
         {
             Container.Bind<WeaponEquipModel>().AsSingle();
-            Container.Bind<WeaponEquipController>().AsSingle();
+            Container.BindInterfacesAndSelfTo<WeaponEquipController>().AsSingle();
             
             Container.Bind<Transform>()
                 .WithId(BindingIdentifiers.Root)

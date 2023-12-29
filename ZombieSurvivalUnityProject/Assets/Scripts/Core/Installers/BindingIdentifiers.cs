@@ -18,5 +18,6 @@
         MuzzleFleshPS,
         ShotHitEffectPS,
         CameraLookAtPointTransform,
+        ViewRoot,
     }
 }

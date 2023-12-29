@@ -51,7 +51,7 @@ namespace Game.Character.Weapons.Equip.Controllers
 
         void ITickable.Tick()
         {
-            bool dropButtonClickInput = InputModel.PickUpWeaponButtonClickInput;
+            bool dropButtonClickInput = InputModel.DropWeaponButtonClickInput;
             if (!dropButtonClickInput)
                 return;
 
@@ -65,8 +65,21 @@ namespace Game.Character.Weapons.Equip.Controllers
 
         private void HandleOnWeaponEquipped(EquipData equipData)
         {
+            var weaponEquipModel = CurrentWeaponModel.WeaponContainer.Resolve<Game.Weapons.Equip.Models.WeaponEquipModel>();
+            weaponEquipModel.Equip();
+            
             CurrentEquipData = equipData;
             SetRigAsWeaponEquipped(equipData);
+            
+            // CurrentWeaponModel.OnWeaponSet += HandleOnWeaponSet;
+            //
+            // void HandleOnWeaponSet(DiContainer weaponContainer)
+            // {
+            //     CurrentWeaponModel.OnWeaponSet -= HandleOnWeaponSet;
+            //     
+            //     var weaponEquipModel = weaponContainer.Resolve<Game.Weapons.Equip.Models.WeaponEquipModel>();
+            //     weaponEquipModel.Equip();
+            // }
         }
 
         private void SetRigAsWeaponEquipped(EquipData equipData)
@@ -91,9 +104,8 @@ namespace Game.Character.Weapons.Equip.Controllers
 
         private void HandleOnWeaponUnequipped()
         {
-            var weaponEquipModel =
-                CurrentWeaponModel.WeaponContainer.Resolve<Game.Weapons.Equip.Models.WeaponEquipModel>();
             SetRigAsWeaponUnequipped();
+            var weaponEquipModel = CurrentWeaponModel.WeaponContainer.Resolve<Game.Weapons.Equip.Models.WeaponEquipModel>();
             weaponEquipModel.Unequip();
         }
 
@@ -119,8 +131,8 @@ namespace Game.Character.Weapons.Equip.Controllers
         {
             var equipData = GetEquipData(weaponContainer);
 
-            WeaponEquipModel.Equip(equipData);
             CurrentWeaponModel.SetCurrentWeapon(weaponContainer);
+            WeaponEquipModel.Equip(equipData);
         }
 
         private EquipData GetEquipData(DiContainer container)

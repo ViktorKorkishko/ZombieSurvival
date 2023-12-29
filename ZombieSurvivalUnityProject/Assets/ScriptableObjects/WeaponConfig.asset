@@ -13,8 +13,7 @@ MonoBehaviour:
   m_Name: WeaponConfig
   m_EditorClassIdentifier: 
   _damage: 0
-  _timeBetweenShooting: 0
-  _timeBetweenShots: 0
+  _fireRate: 600
   _bulletsPerTap: 0
   _spread: 0
   _range: 10
