@@ -19,5 +19,7 @@
         ShotHitEffectPS,
         CameraLookAtPointTransform,
         ViewRoot,
+        BulletTrailRenderer,
+        WeaponShootStartPointTransform,
     }
 }

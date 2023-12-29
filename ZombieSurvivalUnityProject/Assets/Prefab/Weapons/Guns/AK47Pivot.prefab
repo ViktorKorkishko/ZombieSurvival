@@ -573,6 +573,8 @@ MonoBehaviour:
     m_Bits: 4294967295
   _muzzleFlashEffect: {fileID: 2300471570807768682}
   _shotHitEffect: {fileID: 7001103847412008140}
+  _weaponShootPointTransform: {fileID: 3223658384901309669}
+  _bulletTrailRenderer: {fileID: 47476865979969454, guid: 0232492954065194aa612cf88f3c97ee, type: 3}
 --- !u!114 &6703452338623850098
 MonoBehaviour:
   m_ObjectHideFlags: 0
