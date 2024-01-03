@@ -49,6 +49,14 @@ namespace Game.Character.Movement.Locomotion.Controllers
             }
         }
 
+        void ITickable.Tick()
+        {
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                Jump();
+            }
+        }
+
         private void UpdateInAir()
         {
             velocity.y += Gravity * Time.fixedDeltaTime;
@@ -79,15 +87,7 @@ namespace Game.Character.Movement.Locomotion.Controllers
             }
         }
 
-        void ITickable.Tick()
-        {
-            if (Input.GetKeyDown(KeyCode.Space))
-            {
-                Jump();
-            }
-        }
-
-        void Jump()
+        private void Jump()
         {
             if (isJumping)
                 return;
@@ -104,10 +104,11 @@ namespace Game.Character.Movement.Locomotion.Controllers
             velocity.y = jumpVelocity;
         }
 
-        Vector3 CalculateAirControl()
+        private Vector3 CalculateAirControl()
         {
             var transform = CharacterController.transform;
-            return (transform.forward * InputModel.VerticalAxisInput + transform.right * InputModel.HorizontalAxisInput) * (airControl / 100);
+            return (transform.forward * InputModel.VerticalAxisInput + 
+                    transform.right * InputModel.HorizontalAxisInput) * (airControl / 100);
         }
 
         private void HandleOnAnimatorMove()
