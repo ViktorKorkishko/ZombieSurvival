@@ -4,8 +4,10 @@ namespace Game.Character.Movement.Locomotion.Models
 {
     public class CharacterLocomotionModel : MonoBehaviour
     {
-        [SerializeField] private float _jumpHeight;
+        [SerializeField] private float _maxJumpHeight;
+        [SerializeField] private float _maxJumpTime;
 
-        public float JumpHeight => _jumpHeight;
+        public float MaxJumpHeight => _maxJumpHeight;
+        public float MaxJumpTime => _maxJumpTime;
     }
 }
