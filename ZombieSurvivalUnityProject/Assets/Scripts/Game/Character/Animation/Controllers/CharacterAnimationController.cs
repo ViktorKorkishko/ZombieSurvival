@@ -10,14 +10,17 @@ namespace Game.Character.Animation.Controllers
         [Inject] private InputModel InputModel { get; }
 
         private Vector2 _input;
+        
+        private static readonly int InputX = Animator.StringToHash("InputX");
+        private static readonly int InputY = Animator.StringToHash("InputY");
 
         void ITickable.Tick()
         {
             _input.x = InputModel.HorizontalAxisInput;
             _input.y = InputModel.VerticalAxisInput;
             
-            Animator.SetFloat("InputX", _input.x);
-            Animator.SetFloat("InputY", _input.y);
+            Animator.SetFloat(InputX, _input.x);
+            Animator.SetFloat(InputY, _input.y);
         }
     }
 }

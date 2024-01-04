@@ -1258,7 +1258,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _scriptableObjectInstallers: []
   _monoInstallers:
-  - {fileID: 5509775071446075505}
+  - {fileID: 7172294985391971120}
   - {fileID: 4579121588914499880}
   - {fileID: 7949912561991833709}
   - {fileID: 7389994366172230752}
@@ -1282,8 +1282,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6874354219766701494}
-  - component: {fileID: 5509775071446075505}
-  - component: {fileID: 2013151711272059303}
+  - component: {fileID: 7172294985391971120}
+  - component: {fileID: 2405604396710394075}
   m_Layer: 0
   m_Name: Locomotion
   m_TagString: Untagged
@@ -1306,7 +1306,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 976717954847496381}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5509775071446075505
+--- !u!114 &7172294985391971120
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1315,12 +1315,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 5302630368914883092}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1d65d915fdf94c743b31bea4d5ae690d, type: 3}
+  m_Script: {fileID: 11500000, guid: fb8ca168f2d24010af07052dcfe7f80f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _characterLocomotionModel: {fileID: 2013151711272059303}
+  "_\u0441haracterLocomotionModel": {fileID: 2405604396710394075}
   _characterController: {fileID: 6119383482906718598}
---- !u!114 &2013151711272059303
+  _jumpingAnimationParamName: IsJumping
+--- !u!114 &2405604396710394075
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1329,11 +1330,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 5302630368914883092}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 984a86d8849ad184481bad20b6d60173, type: 3}
+  m_Script: {fileID: 11500000, guid: ab6e89d87280a5144aee07a1a66f5682, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxJumpHeight: 1.75
-  _maxJumpTime: 0.65
+  _groundSpeed: 1
+  _groundGravity: -0.2
+  _jumpHeight: 1.5
+  _jumpDemping: 0.5
+  _airControlMultiplier: 0.05
+  _airGravity: -19.62
 --- !u!1 &5447146986797760473
 GameObject:
   m_ObjectHideFlags: 0

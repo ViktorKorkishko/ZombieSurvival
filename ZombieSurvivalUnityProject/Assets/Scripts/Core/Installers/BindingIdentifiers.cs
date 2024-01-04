@@ -17,5 +17,6 @@
         RightHandGripTransform,
         MuzzleFleshPS,
         ShotHitEffectPS,
+        JumpParamId,
     }
 }

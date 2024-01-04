@@ -1,4 +1,5 @@
 ﻿using System;
+using Core.Installers;
 using Game.Animators.Models;
 using Game.Character.Movement.Locomotion.Models;
 using Game.Inputs.Models;
@@ -14,28 +15,18 @@ namespace Game.Character.Movement.Locomotion.Controllers
         [Inject] private InputModel InputModel { get; }
         [Inject] private Animator Animator { get; }
         [Inject] private CharacterController CharacterController { get; }
+        [Inject(Id = BindingIdentifiers.JumpParamId)] private string JumpParamName { get; }
 
-        private Vector3 CurrentMovement = Vector3.zero;
-        
-        private Vector3 _rootMotion = Vector3.zero;
+        private Vector3 _animatorVelocity;
+        private Vector3 _rootMotion;
         private readonly Vector3 _zeroVector = new(0, 0, 0);
-        private float initialJumpVelocity = 0f;
-
-        private Vector3 velocity;
-        private bool isJumping = false;
-        private float stepDown = 0.3f;
-        private float airControl = 2.5f;
-        private float jumpDemp = 0.5f;
-        private float groundSpeed = 1f;
-
-        private readonly float _groundGravity = -0.05f;
-        private float _currentJumpGravity = -9.81f;
+        
+        private bool _isJumping;
+        private int IsJumping => Animator.StringToHash(JumpParamName);
 
         void IInitializable.Initialize()
         {
             AnimatorCallbacksModel.OnAnimatorMove += HandleOnAnimatorMove;
-
-            SetupJumpValues();
         }
 
         void IDisposable.Dispose()
@@ -43,53 +34,83 @@ namespace Game.Character.Movement.Locomotion.Controllers
             AnimatorCallbacksModel.OnAnimatorMove -= HandleOnAnimatorMove;
         }
 
-        private void SetupJumpValues()
-        {
-            float timeToApex = CharacterLocomotionModel.MaxJumpTime / 2;
-            _currentJumpGravity = (-2 * CharacterLocomotionModel.MaxJumpHeight) / Mathf.Pow(timeToApex, 2);
-            initialJumpVelocity = (2 * CharacterLocomotionModel.MaxJumpHeight) / timeToApex;
-        }
-
         void IFixedTickable.FixedTick()
         {
-            HandleMovement();
-            
-            HandleGravity();
+            if (_isJumping)
+            {
+                UpdateInAir();
+            }
+            else // is grounded state
+            {
+                UpdateOnGround();
+            }
         }
 
         void ITickable.Tick()
         {
-            SetupJumpValues();
-            
-            bool jumpButtonPressed = InputModel.JumpButtonClickInput;
-            if (jumpButtonPressed)
+            if (Input.GetKeyDown(KeyCode.Space))
             {
                 TryJump();
             }
         }
-        
-        private void TryJump()
+
+        private void UpdateInAir()
         {
-            bool grounded = CharacterController.isGrounded;
-            if (grounded)
+            _animatorVelocity.y += CharacterLocomotionModel.AirGravity * Time.fixedDeltaTime;
+            Vector3 displacement = _animatorVelocity * Time.fixedDeltaTime;
+            displacement += CalculateAirControl();
+
+            CharacterController.Move(displacement);
+
+            _isJumping = !CharacterController.isGrounded;
+            _rootMotion = _zeroVector;
+
+            Animator.SetBool(IsJumping, _isJumping);
+
+            Vector3 CalculateAirControl()
             {
-                CurrentMovement.y = initialJumpVelocity;
+                var transform = CharacterController.transform;
+                return (transform.forward * InputModel.VerticalAxisInput +
+                        transform.right * InputModel.HorizontalAxisInput) * CharacterLocomotionModel.AirControlMultiplier;
             }
         }
 
-        private void HandleMovement()
+        private void UpdateOnGround()
         {
-            Vector3 stepForwardAmount = _rootMotion * groundSpeed;
+            Vector3 horizontalMovement = _rootMotion * CharacterLocomotionModel.GroundSpeed;
+            Vector3 verticalMovement = Vector3.up * CharacterLocomotionModel.GroundGravity;
 
-            CharacterController.Move(CurrentMovement * Time.fixedDeltaTime + stepForwardAmount);
+            CharacterController.Move(horizontalMovement + verticalMovement);
             _rootMotion = _zeroVector;
+
+            if (!CharacterController.isGrounded)
+            {
+                float initialJumpVelocity = 0f;
+                SetInAir(initialJumpVelocity);
+                Animator.SetBool(IsJumping, true);
+            }
         }
 
-        private void HandleGravity()
+        private void TryJump()
         {
-            CurrentMovement.y = CharacterController.isGrounded ? 
-                _groundGravity / Time.fixedDeltaTime : 
-                CurrentMovement.y + _currentJumpGravity * Time.fixedDeltaTime;
+            if (_isJumping)
+                return;
+            
+            Jump();
+            
+            void Jump()
+            {
+                float initialJumpVelocity = Mathf.Sqrt(-2 * CharacterLocomotionModel.AirGravity * CharacterLocomotionModel.JumpHeight);
+                SetInAir(initialJumpVelocity);
+                Animator.SetBool(IsJumping, true);
+            }
+        }
+
+        private void SetInAir(float initialJumpVelocity)
+        {
+            _isJumping = true;
+            _animatorVelocity = Animator.velocity * CharacterLocomotionModel.JumpDemping * CharacterLocomotionModel.GroundSpeed;
+            _animatorVelocity.y = initialJumpVelocity;
         }
 
         private void HandleOnAnimatorMove()

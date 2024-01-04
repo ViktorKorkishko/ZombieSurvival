@@ -6,9 +6,9 @@ using Zenject;
 
 namespace Game.Character.Movement.Locomotion.Installers
 {
-    public class CharacterLocomotionInstaller : MonoInstaller
+    public class CorrectGravityCharacterLocomotionInstaller : MonoInstaller
     {
-        [SerializeField] private CharacterLocomotionModel _сharacterLocomotionModel;
+        [SerializeField] private CorrectGravityCharacterLocomotionModel correctGravityCharacterLocomotionModel;
         
         [Header("Components")]
         [SerializeField] private CharacterController _characterController;
@@ -18,8 +18,8 @@ namespace Game.Character.Movement.Locomotion.Installers
         
         public override void InstallBindings()
         {
-            Container.BindInstance(_сharacterLocomotionModel).AsSingle();
-            Container.BindInterfacesAndSelfTo<CharacterLocomotionController>().AsSingle();
+            Container.BindInstance(correctGravityCharacterLocomotionModel).AsSingle();
+            Container.BindInterfacesAndSelfTo<CorrectGravityCharacterLocomotionController>().AsSingle();
 
             Container.BindInstance(_characterController).AsSingle();
             Container.BindInstance(_jumpingAnimationParamName).WithId(BindingIdentifiers.JumpParamId);
