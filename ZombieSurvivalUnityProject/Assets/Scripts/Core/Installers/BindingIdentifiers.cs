@@ -22,5 +22,6 @@
         BulletTrailRenderer,
         WeaponShootStartPointTransform,
         JumpParamId,
+        SprintParamId,
     }
 }

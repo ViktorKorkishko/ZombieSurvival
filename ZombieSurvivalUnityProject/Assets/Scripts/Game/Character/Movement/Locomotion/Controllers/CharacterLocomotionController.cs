@@ -16,6 +16,7 @@ namespace Game.Character.Movement.Locomotion.Controllers
         [Inject] private Animator Animator { get; }
         [Inject] private CharacterController CharacterController { get; }
         [Inject(Id = BindingIdentifiers.JumpParamId)] private string JumpParamName { get; }
+        [Inject(Id = BindingIdentifiers.SprintParamId)] private string SprintParamName { get; }
 
         private Vector3 _animatorVelocity;
         private Vector3 _rootMotion;
@@ -23,6 +24,7 @@ namespace Game.Character.Movement.Locomotion.Controllers
         
         private bool _isJumping;
         private int IsJumping => Animator.StringToHash(JumpParamName);
+        private int IsSprinting => Animator.StringToHash(SprintParamName);
 
         void IInitializable.Initialize()
         {
@@ -48,19 +50,23 @@ namespace Game.Character.Movement.Locomotion.Controllers
 
         void ITickable.Tick()
         {
-            if (Input.GetKeyDown(KeyCode.Space))
+            bool jumpButtonPressed = InputModel.JumpButtonClickInput;
+            if (jumpButtonPressed)
             {
                 TryJump();
             }
+            
+            bool sprintButtonPressed = InputModel.SprintButtonHoldInput;
+            SetIsSprinting(sprintButtonPressed);
         }
 
         private void UpdateInAir()
         {
             _animatorVelocity.y += CharacterLocomotionModel.AirGravity * Time.fixedDeltaTime;
-            Vector3 displacement = _animatorVelocity * Time.fixedDeltaTime;
-            displacement += CalculateAirControl();
+            Vector3 movement = _animatorVelocity * Time.fixedDeltaTime;
+            movement += CalculateAirControl();
 
-            CharacterController.Move(displacement);
+            CharacterController.Move(movement);
 
             _isJumping = !CharacterController.isGrounded;
             _rootMotion = _zeroVector;
@@ -111,6 +117,11 @@ namespace Game.Character.Movement.Locomotion.Controllers
             _isJumping = true;
             _animatorVelocity = Animator.velocity * CharacterLocomotionModel.JumpDemping * CharacterLocomotionModel.GroundSpeed;
             _animatorVelocity.y = initialJumpVelocity;
+        }
+
+        private void SetIsSprinting(bool isSprinting)
+        {
+            Animator.SetBool(IsSprinting, isSprinting);
         }
 
         private void HandleOnAnimatorMove()

@@ -15,11 +15,11 @@ namespace Game.Character.Movement.Locomotion.Models
         [SerializeField] private float _airGravity = Physics.gravity.y;
 
         public float GroundSpeed => _groundSpeed;
+        public float GroundGravity => _groundGravity;
         
         public float JumpHeight => _jumpHeight;
         public float JumpDemping => _jumpDemping;
         public float AirControlMultiplier => _airControlMultiplier;
-        public float GroundGravity => _groundGravity;
         public float AirGravity => _airGravity;
     }
 }

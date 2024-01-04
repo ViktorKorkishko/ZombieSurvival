@@ -1494,6 +1494,7 @@ MonoBehaviour:
   "_\u0441haracterLocomotionModel": {fileID: 2405604396710394075}
   _characterController: {fileID: 6119383482906718598}
   _jumpingAnimationParamName: IsJumping
+  _sprintingAnimationParamName: IsSprinting
 --- !u!114 &2405604396710394075
 MonoBehaviour:
   m_ObjectHideFlags: 0

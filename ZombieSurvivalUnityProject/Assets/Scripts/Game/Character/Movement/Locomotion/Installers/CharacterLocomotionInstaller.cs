@@ -15,6 +15,7 @@ namespace Game.Character.Movement.Locomotion.Installers
 
         [Header("Animation")] 
         [SerializeField] private string _jumpingAnimationParamName;
+        [SerializeField] private string _sprintingAnimationParamName;
         
         public override void InstallBindings()
         {
@@ -23,6 +24,7 @@ namespace Game.Character.Movement.Locomotion.Installers
 
             Container.BindInstance(_characterController).AsSingle();
             Container.BindInstance(_jumpingAnimationParamName).WithId(BindingIdentifiers.JumpParamId);
+            Container.BindInstance(_sprintingAnimationParamName).WithId(BindingIdentifiers.SprintParamId);
         }
     }
 }
