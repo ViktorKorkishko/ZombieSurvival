@@ -1,4 +1,5 @@
 ﻿using System;
+using Core.Installers;
 using Game.Weapons.Equip.Models;
 using UnityEngine;
 using Zenject;
@@ -10,6 +11,7 @@ namespace Game.Weapons.Equip.Controllers
         [Inject] private WeaponEquipModel WeaponEquipModel { get; }
         [Inject] private Collider Collider { get; }
         [Inject] private Rigidbody Rigidbody { get; }
+        [Inject(Id = BindingIdentifiers.ViewRoot)] private Transform ViewRoot { get; }
 
         void IInitializable.Initialize()
         {
@@ -25,14 +27,28 @@ namespace Game.Weapons.Equip.Controllers
 
         private void HandleOnEquipped()
         {
-            Collider.enabled = false;
-            Rigidbody.useGravity = false;
+            DisableWeaponPhysics();
         }
 
         private void HandleOnUnequipped()
         {
+            EnableWeaponPhysics();
+        }
+
+        private void EnableWeaponPhysics()
+        {
             Collider.enabled = true;
             Rigidbody.useGravity = true;
+            Rigidbody.constraints = RigidbodyConstraints.None;
+        }
+
+        private void DisableWeaponPhysics()
+        {
+            Collider.enabled = false;
+            Rigidbody.useGravity = false;
+            ViewRoot.localPosition = Vector3.zero;
+            ViewRoot.localRotation = Quaternion.identity;
+            Rigidbody.constraints = RigidbodyConstraints.FreezeAll;
         }
     }
 }

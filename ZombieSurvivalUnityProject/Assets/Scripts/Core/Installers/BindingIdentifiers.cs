@@ -2,7 +2,7 @@
 {
     public enum BindingIdentifiers
     {
-        CrosshairTarget = 0,
+        CrosshairTargetPointTransform = 0,
         CharacterAnimator,
         CharacterRigRoot,
         CharacterAimRig,
@@ -17,6 +17,10 @@
         RightHandGripTransform,
         MuzzleFleshPS,
         ShotHitEffectPS,
+        CameraLookAtPointTransform,
+        ViewRoot,
+        BulletTrailRenderer,
+        WeaponShootStartPointTransform,
         JumpParamId,
     }
 }

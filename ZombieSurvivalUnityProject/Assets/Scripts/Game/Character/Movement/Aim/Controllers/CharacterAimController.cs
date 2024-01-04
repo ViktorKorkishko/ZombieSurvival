@@ -1,32 +1,35 @@
-﻿using Core.Installers;
+﻿using Cinemachine;
 using Game.Character.Movement.Aim.Models;
-using UnityEngine.Animations.Rigging;
+using Game.Inputs.Models;
+using UnityEngine;
 using Zenject;
 
 namespace Game.Character.Movement.Aim.Controllers
 {
-    public class CharacterAimController : ITickable
+    public class CharacterAimController : IInitializable, ITickable
     {
         [Inject] private CharacterAimModel CharacterAimModel { get; }
-        [Inject(Id = BindingIdentifiers.CharacterAimRig)] private Rig AimRig { get; }
+        [Inject] private InputModel InputModel { get; }
+        [Inject] private CinemachineVirtualCamera VirtualCamera { get; }
 
-        // [Inject] private RaycastWeapon RaycastWeapon { get; }
-
-        private float AimDuration => CharacterAimModel.AimDuration;
-
+        private Cinemachine3rdPersonFollow _cinemachine3RdPersonFollow;
+        private float _aimInterpolatedValue;
+        
+        void IInitializable.Initialize()
+        {
+            _cinemachine3RdPersonFollow = VirtualCamera.GetCinemachineComponent<Cinemachine3rdPersonFollow>();
+        }
+        
         void ITickable.Tick()
         {
+            bool aimButtonHoldInput = InputModel.RightMouseButtonHold;
+            float aimValueDelta = aimButtonHoldInput ? Time.deltaTime : -Time.deltaTime;
+            _aimInterpolatedValue += aimValueDelta / CharacterAimModel.AimDuration;
+            _aimInterpolatedValue = Mathf.Clamp(_aimInterpolatedValue, 0f, 1f);
             
-            
-            // if (Input.GetButtonDown("Fire1"))
-            // {
-            //     RaycastWeapon.StartFiring();
-            // }
-            //
-            // if (Input.GetButtonUp("Fire1"))
-            // {
-            //     RaycastWeapon.StopFiring();
-            // }
+            _cinemachine3RdPersonFollow.CameraDistance = Mathf.Lerp(CharacterAimModel.MinAimStateCameraDistance,
+                CharacterAimModel.MaxAimStateCameraDistance, 
+                _aimInterpolatedValue);
         }
     }
 }

@@ -40,7 +40,7 @@ namespace Game.Character.Weapons.Shoot.Controllers
         
         private void HandleInput()
         {
-            bool fireButtonClicked = InputModel.LeftMouseButtonClicked;
+            bool fireButtonClicked = InputModel.LeftMouseButtonHold;
             if (fireButtonClicked)
             {
                 WeaponShootModel.TryShoot();
