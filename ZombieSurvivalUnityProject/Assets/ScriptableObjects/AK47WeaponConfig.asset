@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e783f6dd2cb1e1c439bc4c3eaf334022, type: 3}
-  m_Name: WeaponConfig
+  m_Name: AK47WeaponConfig
   m_EditorClassIdentifier: 
   _damage: 0
   _fireRate: 600
   _bulletsPerTap: 0
   _spread: 0
-  _range: 10
-  _reloadTime: 3
+  _range: 100
+  _reloadTime: 1.5
   _magazineSize: 30
