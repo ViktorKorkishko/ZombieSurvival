@@ -4,7 +4,7 @@ namespace Game.Character.Weapons.Equip.Models
 {
     public class EquipData
     {
-        public Transform WeaponWeaponRoot { get; }
+        public Transform WeaponRoot { get; }
         public Transform LeftHandGripTransform { get; }
         public Transform RightHandGripTransform { get; }
         
@@ -12,7 +12,7 @@ namespace Game.Character.Weapons.Equip.Models
             Transform leftHandGripTransform, 
             Transform rightHandGripTransform)
         {
-            WeaponWeaponRoot = weaponRoot;
+            WeaponRoot = weaponRoot;
             LeftHandGripTransform = leftHandGripTransform;
             RightHandGripTransform = rightHandGripTransform;
         }

@@ -70,22 +70,12 @@ namespace Game.Character.Weapons.Equip.Controllers
             
             CurrentEquipData = equipData;
             SetRigAsWeaponEquipped(equipData);
-            
-            // CurrentWeaponModel.OnWeaponSet += HandleOnWeaponSet;
-            //
-            // void HandleOnWeaponSet(DiContainer weaponContainer)
-            // {
-            //     CurrentWeaponModel.OnWeaponSet -= HandleOnWeaponSet;
-            //     
-            //     var weaponEquipModel = weaponContainer.Resolve<Game.Weapons.Equip.Models.WeaponEquipModel>();
-            //     weaponEquipModel.Equip();
-            // }
         }
 
         private void SetRigAsWeaponEquipped(EquipData equipData)
         {
             // set to "weapon slot"
-            var weaponRoot = equipData.WeaponWeaponRoot;
+            var weaponRoot = equipData.WeaponRoot;
             weaponRoot.SetParent(WeaponHolder);
             weaponRoot.localPosition = Vector3.zero;
 
@@ -111,7 +101,7 @@ namespace Game.Character.Weapons.Equip.Controllers
 
         private void SetRigAsWeaponUnequipped()
         {
-            var weaponRoot = CurrentEquipData.WeaponWeaponRoot;
+            var weaponRoot = CurrentEquipData.WeaponRoot;
             weaponRoot.SetParent(null);
 
             IdleMultiParentConstraint.data.constrainedObject = null;
@@ -135,11 +125,11 @@ namespace Game.Character.Weapons.Equip.Controllers
             WeaponEquipModel.Equip(equipData);
         }
 
-        private EquipData GetEquipData(DiContainer container)
+        private EquipData GetEquipData(DiContainer weaponContainer)
         {
-            var weaponRoot = container.ResolveId<Transform>(BindingIdentifiers.Root);
-            var leftHandGripTransform = container.ResolveId<Transform>(BindingIdentifiers.LeftHandGripTransform);
-            var rightHandGripTransform = container.ResolveId<Transform>(BindingIdentifiers.RightHandGripTransform);
+            var weaponRoot = weaponContainer.ResolveId<Transform>(BindingIdentifiers.Root);
+            var leftHandGripTransform = weaponContainer.ResolveId<Transform>(BindingIdentifiers.LeftHandGripTransform);
+            var rightHandGripTransform = weaponContainer.ResolveId<Transform>(BindingIdentifiers.RightHandGripTransform);
 
             var equipData = new EquipData(weaponRoot, leftHandGripTransform, rightHandGripTransform);
 
