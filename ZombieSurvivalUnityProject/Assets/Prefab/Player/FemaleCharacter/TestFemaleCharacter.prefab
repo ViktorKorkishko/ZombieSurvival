@@ -811,7 +811,7 @@ MonoBehaviour:
   - m_Rig: {fileID: 4524138218185241793}
     m_Active: 1
   - m_Rig: {fileID: 969304242056697086}
-    m_Active: 1
+    m_Active: 0
   - m_Rig: {fileID: 4824968598988172240}
     m_Active: 1
   - m_Rig: {fileID: 5439212848527654609}
