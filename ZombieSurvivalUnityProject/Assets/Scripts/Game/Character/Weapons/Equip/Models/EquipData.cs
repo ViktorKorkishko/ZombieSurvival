@@ -5,16 +5,10 @@ namespace Game.Character.Weapons.Equip.Models
     public class EquipData
     {
         public Transform WeaponRoot { get; }
-        public Transform LeftHandGripTransform { get; }
-        public Transform RightHandGripTransform { get; }
         
-        public EquipData(Transform weaponRoot, 
-            Transform leftHandGripTransform, 
-            Transform rightHandGripTransform)
+        public EquipData(Transform weaponRoot)
         {
             WeaponRoot = weaponRoot;
-            LeftHandGripTransform = leftHandGripTransform;
-            RightHandGripTransform = rightHandGripTransform;
         }
     }
 }

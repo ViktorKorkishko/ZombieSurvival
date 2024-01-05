@@ -16,22 +16,8 @@ namespace Game.Character.Weapons.Equip.Controllers
         [Inject] private WeaponPickUpModel WeaponPickUpModel { get; }
         [Inject] private CurrentWeaponModel CurrentWeaponModel { get; }
         [Inject] private InputModel InputModel { get; }
-
-        [Inject] private RigBuilder RigBuilder { get; }
-
-        [Inject(Id = BindingIdentifiers.CharacterAimRig)] private Rig AimRig { get; }
-
         [Inject(Id = BindingIdentifiers.CharacterHandsRig)] private Rig HandsRig { get; }
-
         [Inject(Id = BindingIdentifiers.WeaponHolder)] private Transform WeaponHolder { get; }
-
-        [Inject(Id = BindingIdentifiers.IdleMultiParentConstraint)] private MultiParentConstraint IdleMultiParentConstraint { get; }
-
-        [Inject(Id = BindingIdentifiers.AimMultiParentConstraint)] private MultiParentConstraint AimMultiParentConstraint { get; }
-
-        [Inject(Id = BindingIdentifiers.LeftHandIKConstraint)] private TwoBoneIKConstraint LeftHandIKConstraint { get; }
-
-        [Inject(Id = BindingIdentifiers.RightHandIKConstraint)] private TwoBoneIKConstraint RightHandIKConstraint { get; }
 
         private EquipData CurrentEquipData { get; set; }
 
@@ -40,6 +26,8 @@ namespace Game.Character.Weapons.Equip.Controllers
             WeaponEquipModel.OnWeaponEquipped += HandleOnWeaponEquipped;
             WeaponEquipModel.OnWeaponUnequipped += HandleOnWeaponUnequipped;
             WeaponPickUpModel.OnWeaponPickedUp += HandleOnWeaponPickedUp;
+            
+            SetRigAsWeaponUnequipped();
         }
 
         void IDisposable.Dispose()
@@ -69,51 +57,47 @@ namespace Game.Character.Weapons.Equip.Controllers
             weaponEquipModel.Equip();
             
             CurrentEquipData = equipData;
-            SetRigAsWeaponEquipped(equipData);
+            
+            AttachWeapon();
+            SetRigAsWeaponEquipped();
+            
+            void AttachWeapon()
+            {
+                // set to "weapon slot"
+                var weaponRoot = equipData.WeaponRoot;
+                weaponRoot.SetParent(WeaponHolder);
+                weaponRoot.localPosition = Vector3.zero;
+                weaponRoot.localRotation = Quaternion.identity;
+            }
         }
 
-        private void SetRigAsWeaponEquipped(EquipData equipData)
+        private void SetRigAsWeaponEquipped()
         {
-            // set to "weapon slot"
-            var weaponRoot = equipData.WeaponRoot;
-            weaponRoot.SetParent(WeaponHolder);
-            weaponRoot.localPosition = Vector3.zero;
-
-            // update data
-            IdleMultiParentConstraint.data.constrainedObject = weaponRoot;
-            AimMultiParentConstraint.data.constrainedObject = weaponRoot;
-            LeftHandIKConstraint.data.target = equipData.LeftHandGripTransform;
-            RightHandIKConstraint.data.target = equipData.RightHandGripTransform;
-
-            // rebuild rig
-            RigBuilder.Build();
-
-            AimRig.weight = 1.0f;
             HandsRig.weight = 1.0f;
         }
 
         private void HandleOnWeaponUnequipped()
         {
+            TryDetachWeapon();
             SetRigAsWeaponUnequipped();
+            
+            CurrentEquipData = null;
+            
             var weaponEquipModel = CurrentWeaponModel.WeaponContainer.Resolve<Game.Weapons.Equip.Models.WeaponEquipModel>();
             weaponEquipModel.Unequip();
+
+            void TryDetachWeapon()
+            {
+                if (!CurrentWeaponModel.IsWeaponEquipped)
+                    return;;
+            
+                var weaponRoot = CurrentEquipData.WeaponRoot;
+                weaponRoot.SetParent(null);
+            }
         }
 
         private void SetRigAsWeaponUnequipped()
         {
-            var weaponRoot = CurrentEquipData.WeaponRoot;
-            weaponRoot.SetParent(null);
-
-            IdleMultiParentConstraint.data.constrainedObject = null;
-            AimMultiParentConstraint.data.constrainedObject = null;
-            LeftHandIKConstraint.data.target = null;
-            RightHandIKConstraint.data.target = null;
-
-            CurrentEquipData = null;
-
-            RigBuilder.Build();
-
-            AimRig.weight = 0f;
             HandsRig.weight = 0f;
         }
 
@@ -128,10 +112,8 @@ namespace Game.Character.Weapons.Equip.Controllers
         private EquipData GetEquipData(DiContainer weaponContainer)
         {
             var weaponRoot = weaponContainer.ResolveId<Transform>(BindingIdentifiers.Root);
-            var leftHandGripTransform = weaponContainer.ResolveId<Transform>(BindingIdentifiers.LeftHandGripTransform);
-            var rightHandGripTransform = weaponContainer.ResolveId<Transform>(BindingIdentifiers.RightHandGripTransform);
-
-            var equipData = new EquipData(weaponRoot, leftHandGripTransform, rightHandGripTransform);
+            
+            var equipData = new EquipData(weaponRoot);
 
             return equipData;
         }
