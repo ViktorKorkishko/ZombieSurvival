@@ -199,8 +199,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _weaponRoot: {fileID: 6382987911619683099}
-  _leftHandGripTansform: {fileID: 8719631770280704443}
-  _rightHandGripTansform: {fileID: 2378282090659437755}
 --- !u!1 &5283538352538391137
 GameObject:
   m_ObjectHideFlags: 0
@@ -324,7 +322,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6382987911619683099}
   m_Layer: 0
-  m_Name: AK47Pivot
+  m_Name: AK47Prefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -485,42 +483,10 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1366132210409960398}
   - {fileID: 7788151638608049890}
   - {fileID: 3223658384901309669}
   m_Father: {fileID: 6382987911619683099}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &6635346030324537741
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2378282090659437755}
-  m_Layer: 0
-  m_Name: RightHandGrip
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &2378282090659437755
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6635346030324537741}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0.6139396, y: -0.26016286, z: 0.44534492, w: 0.5975461}
-  m_LocalPosition: {x: -0.0274, y: -0.0473, z: 0.1969}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1366132210409960398}
-  m_LocalEulerAnglesHint: {x: 74.893, y: 64.845, z: 125.273}
 --- !u!1 &6764565755600871243
 GameObject:
   m_ObjectHideFlags: 0
@@ -632,39 +598,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _renderer: {fileID: 7353556928237843337}
---- !u!1 &8062383802953646564
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1366132210409960398}
-  m_Layer: 0
-  m_Name: GripPoints
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1366132210409960398
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8062383802953646564}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 8719631770280704443}
-  - {fileID: 2378282090659437755}
-  m_Father: {fileID: 8112202948074884216}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8144006774847703372
 GameObject:
   m_ObjectHideFlags: 0
@@ -709,37 +642,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a5f374770df43749b31d2b33c805cac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &8532576255742678485
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 8719631770280704443}
-  m_Layer: 0
-  m_Name: LeftHandGrip
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &8719631770280704443
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8532576255742678485}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0.33681515, y: -0.11625619, z: 0.93039435, w: -0.086060144}
-  m_LocalPosition: {x: -0.072, y: 0.049, z: 0.593}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1366132210409960398}
-  m_LocalEulerAnglesHint: {x: 15.92, y: -39.119, z: 184.881}
 --- !u!1 &8946535806963663551
 GameObject:
   m_ObjectHideFlags: 0
