@@ -13,7 +13,7 @@ namespace Game.Character.Movement.Locomotion.Controllers
         [Inject] private CharacterLocomotionModel CharacterLocomotionModel { get; }
         [Inject] private AnimatorCallbacksModel AnimatorCallbacksModel { get; }
         [Inject] private InputModel InputModel { get; }
-        [Inject] private Animator Animator { get; }
+        [Inject(Id = BindingIdentifiers.CharacterLocomotionAnimator)] private Animator CharacterLocomotionAnimator { get; }
         [Inject] private CharacterController CharacterController { get; }
         [Inject(Id = BindingIdentifiers.JumpParamId)] private string JumpParamName { get; }
         [Inject(Id = BindingIdentifiers.SprintParamId)] private string SprintParamName { get; }
@@ -71,7 +71,7 @@ namespace Game.Character.Movement.Locomotion.Controllers
             _isJumping = !CharacterController.isGrounded;
             _rootMotion = _zeroVector;
 
-            Animator.SetBool(IsJumping, _isJumping);
+            CharacterLocomotionAnimator.SetBool(IsJumping, _isJumping);
 
             Vector3 CalculateAirControl()
             {
@@ -93,7 +93,7 @@ namespace Game.Character.Movement.Locomotion.Controllers
             {
                 float initialJumpVelocity = 0f;
                 SetInAir(initialJumpVelocity);
-                Animator.SetBool(IsJumping, true);
+                CharacterLocomotionAnimator.SetBool(IsJumping, true);
             }
         }
 
@@ -108,25 +108,25 @@ namespace Game.Character.Movement.Locomotion.Controllers
             {
                 float initialJumpVelocity = Mathf.Sqrt(-2 * CharacterLocomotionModel.AirGravity * CharacterLocomotionModel.JumpHeight);
                 SetInAir(initialJumpVelocity);
-                Animator.SetBool(IsJumping, true);
+                CharacterLocomotionAnimator.SetBool(IsJumping, true);
             }
         }
 
         private void SetInAir(float initialJumpVelocity)
         {
             _isJumping = true;
-            _animatorVelocity = Animator.velocity * CharacterLocomotionModel.JumpDemping * CharacterLocomotionModel.GroundSpeed;
+            _animatorVelocity = CharacterLocomotionAnimator.velocity * CharacterLocomotionModel.JumpDemping * CharacterLocomotionModel.GroundSpeed;
             _animatorVelocity.y = initialJumpVelocity;
         }
 
         private void SetIsSprinting(bool isSprinting)
         {
-            Animator.SetBool(IsSprinting, isSprinting);
+            CharacterLocomotionAnimator.SetBool(IsSprinting, isSprinting);
         }
 
         private void HandleOnAnimatorMove()
         {
-            _rootMotion += Animator.deltaPosition;
+            _rootMotion += CharacterLocomotionAnimator.deltaPosition;
         }
     }
 }

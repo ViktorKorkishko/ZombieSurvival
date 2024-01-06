@@ -1,4 +1,5 @@
-﻿using Game.Inputs.Models;
+﻿using Core.Installers;
+using Game.Inputs.Models;
 using UnityEngine;
 using Zenject;
 
@@ -6,7 +7,7 @@ namespace Game.Character.Animation.Controllers
 {
     public class CharacterAnimationController : ITickable
     {
-        [Inject] private Animator Animator { get; }
+        [Inject(Id = BindingIdentifiers.CharacterLocomotionAnimator)] private Animator CharacterLocomotionAnimator { get; }
         [Inject] private InputModel InputModel { get; }
 
         private Vector2 _input;
@@ -19,8 +20,8 @@ namespace Game.Character.Animation.Controllers
             _input.x = InputModel.HorizontalAxisInput;
             _input.y = InputModel.VerticalAxisInput;
             
-            Animator.SetFloat(InputX, _input.x);
-            Animator.SetFloat(InputY, _input.y);
+            CharacterLocomotionAnimator.SetFloat(InputX, _input.x);
+            CharacterLocomotionAnimator.SetFloat(InputY, _input.y);
         }
     }
 }

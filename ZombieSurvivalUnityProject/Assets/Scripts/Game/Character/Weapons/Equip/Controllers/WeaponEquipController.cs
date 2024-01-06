@@ -5,7 +5,6 @@ using Game.Character.Weapons.Equip.Models;
 using Game.Character.Weapons.PickUp.Models;
 using Game.Inputs.Models;
 using UnityEngine;
-using UnityEngine.Animations.Rigging;
 using Zenject;
 
 namespace Game.Character.Weapons.Equip.Controllers
@@ -16,9 +15,9 @@ namespace Game.Character.Weapons.Equip.Controllers
         [Inject] private WeaponPickUpModel WeaponPickUpModel { get; }
         [Inject] private CurrentWeaponModel CurrentWeaponModel { get; }
         [Inject] private InputModel InputModel { get; }
-        [Inject(Id = BindingIdentifiers.CharacterHandsRig)] private Rig HandsRig { get; }
+        [Inject(Id = BindingIdentifiers.CharacterRigAnimator)] private Animator CharacterRigAnimator { get; set; }
         [Inject(Id = BindingIdentifiers.WeaponHolder)] private Transform WeaponHolder { get; }
-
+        
         private EquipData CurrentEquipData { get; set; }
 
         void IInitializable.Initialize()
@@ -26,7 +25,7 @@ namespace Game.Character.Weapons.Equip.Controllers
             WeaponEquipModel.OnWeaponEquipped += HandleOnWeaponEquipped;
             WeaponEquipModel.OnWeaponUnequipped += HandleOnWeaponUnequipped;
             WeaponPickUpModel.OnWeaponPickedUp += HandleOnWeaponPickedUp;
-            
+
             SetRigAsWeaponUnequipped();
         }
 
@@ -63,7 +62,6 @@ namespace Game.Character.Weapons.Equip.Controllers
             
             void AttachWeapon()
             {
-                // set to "weapon slot"
                 var weaponRoot = equipData.WeaponRoot;
                 weaponRoot.SetParent(WeaponHolder);
                 weaponRoot.localPosition = Vector3.zero;
@@ -73,7 +71,8 @@ namespace Game.Character.Weapons.Equip.Controllers
 
         private void SetRigAsWeaponEquipped()
         {
-            HandsRig.weight = 1.0f;
+            var animation = CurrentWeaponModel.WeaponContainer.Resolve<string>();
+            CharacterRigAnimator.Play(animation);
         }
 
         private void HandleOnWeaponUnequipped()
@@ -89,16 +88,21 @@ namespace Game.Character.Weapons.Equip.Controllers
             void TryDetachWeapon()
             {
                 if (!CurrentWeaponModel.IsWeaponEquipped)
-                    return;;
+                    return;
             
                 var weaponRoot = CurrentEquipData.WeaponRoot;
                 weaponRoot.SetParent(null);
             }
         }
 
+        [Inject(Id = BindingIdentifiers.UnarmedStateName)] private string UnarmedStateName { get; }
+
         private void SetRigAsWeaponUnequipped()
         {
-            HandsRig.weight = 0f;
+            // HandsRig.weight = 0f;
+            // Animator.SetLayerWeight(1, 0f);
+            
+            CharacterRigAnimator.Play(UnarmedStateName);
         }
 
         private void HandleOnWeaponPickedUp(DiContainer weaponContainer)

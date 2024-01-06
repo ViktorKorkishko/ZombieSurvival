@@ -3,7 +3,8 @@
     public enum BindingIdentifiers
     {
         CrosshairTargetPointTransform = 0,
-        CharacterAnimator,
+        CharacterLocomotionAnimator,
+        CharacterRigAnimator,
         CharacterRigRoot,
         CharacterAimRig,
         CharacterHandsRig,
