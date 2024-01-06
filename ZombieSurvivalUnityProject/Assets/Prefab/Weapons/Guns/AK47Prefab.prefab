@@ -165,7 +165,7 @@ GameObject:
   - component: {fileID: 5961847875397576400}
   - component: {fileID: 201900704704424815}
   m_Layer: 0
-  m_Name: EquipInstaller
+  m_Name: Equip
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

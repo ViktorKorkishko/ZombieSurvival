@@ -98,7 +98,6 @@ namespace Game.Character.Interaction.Controllers
                     break;
                 
                 case InteractableObjectType.Weapon:
-                    
                     WeaponPickUpModel.PickUp(container);
                     break;
                 
