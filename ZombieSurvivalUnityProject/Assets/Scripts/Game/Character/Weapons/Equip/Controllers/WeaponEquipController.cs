@@ -1,5 +1,6 @@
 ﻿using System;
 using Core.Installers;
+using Game.Character.Movement.Locomotion.Models;
 using Game.Character.Weapons.CurrentWeapon.Models;
 using Game.Character.Weapons.Equip.Models;
 using Game.Character.Weapons.PickUp.Models;
@@ -14,6 +15,7 @@ namespace Game.Character.Weapons.Equip.Controllers
         [Inject] private WeaponEquipModel WeaponEquipModel { get; }
         [Inject] private WeaponPickUpModel WeaponPickUpModel { get; }
         [Inject] private CurrentWeaponModel CurrentWeaponModel { get; }
+        [Inject] private CharacterLocomotionModel CharacterLocomotionModel { get; }
         [Inject] private InputModel InputModel { get; }
         [Inject(Id = BindingIdentifiers.CharacterRigAnimator)] private Animator CharacterRigAnimator { get; set; }
         [Inject(Id = BindingIdentifiers.WeaponHolder)] private Transform WeaponHolder { get; }
@@ -25,6 +27,8 @@ namespace Game.Character.Weapons.Equip.Controllers
             WeaponEquipModel.OnWeaponEquipped += HandleOnWeaponEquipped;
             WeaponEquipModel.OnWeaponUnequipped += HandleOnWeaponUnequipped;
             WeaponPickUpModel.OnWeaponPickedUp += HandleOnWeaponPickedUp;
+            CharacterLocomotionModel.OnStartedRunning += HandleOnStartedRunning;
+            CharacterLocomotionModel.OnEndedRunning += HandleOnEndedRunning;
 
             SetRigAsWeaponUnequipped();
         }
@@ -34,6 +38,8 @@ namespace Game.Character.Weapons.Equip.Controllers
             WeaponEquipModel.OnWeaponEquipped -= HandleOnWeaponEquipped;
             WeaponEquipModel.OnWeaponUnequipped -= HandleOnWeaponUnequipped;
             WeaponPickUpModel.OnWeaponPickedUp -= HandleOnWeaponPickedUp;
+            CharacterLocomotionModel.OnStartedRunning -= HandleOnStartedRunning;
+            CharacterLocomotionModel.OnEndedRunning -= HandleOnEndedRunning;
         }
 
         void ITickable.Tick()
@@ -103,6 +109,17 @@ namespace Game.Character.Weapons.Equip.Controllers
             // Animator.SetLayerWeight(1, 0f);
             
             CharacterRigAnimator.Play(UnarmedStateName);
+        }
+
+        [Inject(Id = BindingIdentifiers.SprintParamId)] private string SprintParamId { get; }
+        private void HandleOnStartedRunning()
+        {
+            CharacterRigAnimator.SetBool(SprintParamId, true);
+        }
+
+        private void HandleOnEndedRunning()
+        {
+            CharacterRigAnimator.SetBool(SprintParamId, false);
         }
 
         private void HandleOnWeaponPickedUp(DiContainer weaponContainer)

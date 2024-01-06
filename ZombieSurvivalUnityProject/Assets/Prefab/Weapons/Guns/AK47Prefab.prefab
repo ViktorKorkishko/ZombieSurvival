@@ -199,6 +199,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _weaponRoot: {fileID: 6382987911619683099}
+  _weaponString: AK47
 --- !u!1 &5283538352538391137
 GameObject:
   m_ObjectHideFlags: 0

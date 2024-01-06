@@ -10,6 +10,8 @@ namespace Game.Weapons.Equip.Installer
     {
         [SerializeField] private Transform _weaponRoot;
         
+        [SerializeField] private string _weaponString;
+        
         public override void InstallBindings()
         {
             Container.Bind<WeaponEquipModel>().AsSingle();
@@ -18,6 +20,8 @@ namespace Game.Weapons.Equip.Installer
             Container.Bind<Transform>()
                 .WithId(BindingIdentifiers.Root)
                 .FromInstance(_weaponRoot);
+
+            Container.BindInstance(_weaponString).AsSingle();
         }
     }
 }

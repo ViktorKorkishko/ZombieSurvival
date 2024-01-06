@@ -24,5 +24,6 @@
         WeaponShootStartPointTransform,
         JumpParamId,
         SprintParamId,
+        UnarmedStateName,
     }
 }

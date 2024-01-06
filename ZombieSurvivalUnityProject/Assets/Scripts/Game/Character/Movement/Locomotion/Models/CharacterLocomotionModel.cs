@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace Game.Character.Movement.Locomotion.Models
@@ -13,6 +14,24 @@ namespace Game.Character.Movement.Locomotion.Models
         [SerializeField] private float _jumpDemping = 0.5f;
         [SerializeField] private float _airControlMultiplier = 0.025f;
         [SerializeField] private float _airGravity = Physics.gravity.y;
+
+        public Action OnStartedRunning { get; set; }
+        public Action OnEndedRunning { get; set; }
+
+        public bool IsRunning
+        {
+            set
+            {
+                if (value)
+                {
+                    OnStartedRunning?.Invoke();
+                }
+                else
+                {
+                    OnEndedRunning?.Invoke();
+                }
+            }
+        }
 
         public float GroundSpeed => _groundSpeed;
         public float GroundGravity => _groundGravity;

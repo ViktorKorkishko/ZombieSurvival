@@ -23,8 +23,8 @@ namespace Game.Character.Movement.Locomotion.Controllers
         private readonly Vector3 _zeroVector = new(0, 0, 0);
         
         private bool _isJumping;
-        private int IsJumping => Animator.StringToHash(JumpParamName);
-        private int IsSprinting => Animator.StringToHash(SprintParamName);
+        private int IsJumpingAnimationParamId => Animator.StringToHash(JumpParamName);
+        private int IsSprintingAnimationParamId => Animator.StringToHash(SprintParamName);
 
         void IInitializable.Initialize()
         {
@@ -42,7 +42,7 @@ namespace Game.Character.Movement.Locomotion.Controllers
             {
                 UpdateInAir();
             }
-            else // is grounded state
+            else
             {
                 UpdateOnGround();
             }
@@ -58,6 +58,7 @@ namespace Game.Character.Movement.Locomotion.Controllers
             
             bool sprintButtonPressed = InputModel.SprintButtonHoldInput;
             SetIsSprinting(sprintButtonPressed);
+            CharacterLocomotionModel.IsRunning = sprintButtonPressed;
         }
 
         private void UpdateInAir()
@@ -71,7 +72,7 @@ namespace Game.Character.Movement.Locomotion.Controllers
             _isJumping = !CharacterController.isGrounded;
             _rootMotion = _zeroVector;
 
-            CharacterLocomotionAnimator.SetBool(IsJumping, _isJumping);
+            CharacterLocomotionAnimator.SetBool(IsJumpingAnimationParamId, _isJumping);
 
             Vector3 CalculateAirControl()
             {
@@ -93,7 +94,7 @@ namespace Game.Character.Movement.Locomotion.Controllers
             {
                 float initialJumpVelocity = 0f;
                 SetInAir(initialJumpVelocity);
-                CharacterLocomotionAnimator.SetBool(IsJumping, true);
+                CharacterLocomotionAnimator.SetBool(IsJumpingAnimationParamId, true);
             }
         }
 
@@ -108,7 +109,7 @@ namespace Game.Character.Movement.Locomotion.Controllers
             {
                 float initialJumpVelocity = Mathf.Sqrt(-2 * CharacterLocomotionModel.AirGravity * CharacterLocomotionModel.JumpHeight);
                 SetInAir(initialJumpVelocity);
-                CharacterLocomotionAnimator.SetBool(IsJumping, true);
+                CharacterLocomotionAnimator.SetBool(IsJumpingAnimationParamId, true);
             }
         }
 
@@ -121,7 +122,7 @@ namespace Game.Character.Movement.Locomotion.Controllers
 
         private void SetIsSprinting(bool isSprinting)
         {
-            CharacterLocomotionAnimator.SetBool(IsSprinting, isSprinting);
+            CharacterLocomotionAnimator.SetBool(IsSprintingAnimationParamId, isSprinting);
         }
 
         private void HandleOnAnimatorMove()
