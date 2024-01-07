@@ -22,6 +22,8 @@ namespace Game.Character.Weapons.Equip.Controllers
         [Inject] private WeaponsAnimatorStatesNamesProvider WeaponsAnimatorStatesNamesProvider { get; }
         [Inject(Id = BindingIdentifiers.CharacterRigAnimator)] private Animator CharacterRigAnimator { get; set; }
         [Inject(Id = BindingIdentifiers.WeaponHolder)] private Transform WeaponHolder { get; }
+        [Inject(Id = BindingIdentifiers.SprintParamId)] private string SprintParamId { get; }
+        [Inject(Id = BindingIdentifiers.UnarmedStateName)] private string UnarmedStateName { get; }
         
         private EquipData CurrentEquipData { get; set; }
 
@@ -107,17 +109,11 @@ namespace Game.Character.Weapons.Equip.Controllers
             }
         }
 
-        [Inject(Id = BindingIdentifiers.UnarmedStateName)] private string UnarmedStateName { get; }
-
         private void SetRigAsWeaponUnequipped()
         {
-            // HandsRig.weight = 0f;
-            // Animator.SetLayerWeight(1, 0f);
-            
             CharacterRigAnimator.Play(UnarmedStateName);
         }
-
-        [Inject(Id = BindingIdentifiers.SprintParamId)] private string SprintParamId { get; }
+        
         private void HandleOnStartedRunning()
         {
             CharacterRigAnimator.SetBool(SprintParamId, true);
