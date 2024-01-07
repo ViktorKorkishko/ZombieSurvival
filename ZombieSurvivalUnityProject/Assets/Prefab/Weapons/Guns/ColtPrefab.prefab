@@ -91,6 +91,51 @@ MonoBehaviour:
   _viewRoot: {fileID: 7788151638608049890}
   _collider: {fileID: 5266942774444521678}
   _rigidbody: {fileID: 7334978504398799373}
+--- !u!1 &2162549674217346998
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 363981698050659215}
+  - component: {fileID: 5510653899578575185}
+  m_Layer: 0
+  m_Name: Id
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &363981698050659215
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2162549674217346998}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 264508844295993565}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5510653899578575185
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2162549674217346998}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe66bef7a0f94e87ad4e59b42167da42, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _weaponId: 11
 --- !u!1 &2470341876015060799
 GameObject:
   m_ObjectHideFlags: 0
@@ -429,6 +474,7 @@ Transform:
   - {fileID: 5961847875397576400}
   - {fileID: 7470662854853662042}
   - {fileID: 3597968075906301599}
+  - {fileID: 363981698050659215}
   m_Father: {fileID: 6382987911619683099}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &6587909735587892803
@@ -452,6 +498,7 @@ MonoBehaviour:
   - {fileID: 201900704704424815}
   - {fileID: 6380211894287323684}
   - {fileID: 7083432613058548994}
+  - {fileID: 5510653899578575185}
   _installerPrefabs: []
   _autoRun: 1
   _kernel: {fileID: 0}

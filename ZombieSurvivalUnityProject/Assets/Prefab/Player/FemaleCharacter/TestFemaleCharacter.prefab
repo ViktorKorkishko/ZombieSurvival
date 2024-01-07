@@ -1307,6 +1307,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _characterLocomotionAnimator: {fileID: 8893413249467695931}
+  _weaponsAnimatorStatesNamesProvider: {fileID: 11400000, guid: fb063b3b64e9ce24cac1e03075ad0e78, type: 2}
 --- !u!1 &4257573456577108042
 GameObject:
   m_ObjectHideFlags: 0
@@ -1863,7 +1864,7 @@ MonoBehaviour:
   _weaponEquipModel: {fileID: 8574665023952468814}
   _rigAnimator: {fileID: 7511080642262477293}
   _weaponHolder: {fileID: 8641119713800193969}
-  _unarmedStateName: WeaponUnarmed
+  _unarmedStateName: CharacterUnarmed
 --- !u!114 &8574665023952468814
 MonoBehaviour:
   m_ObjectHideFlags: 0

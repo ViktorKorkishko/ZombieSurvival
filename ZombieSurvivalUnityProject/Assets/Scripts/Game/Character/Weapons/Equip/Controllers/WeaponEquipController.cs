@@ -1,10 +1,12 @@
 ﻿using System;
 using Core.Installers;
+using Game.Animations;
 using Game.Character.Movement.Locomotion.Models;
 using Game.Character.Weapons.CurrentWeapon.Models;
 using Game.Character.Weapons.Equip.Models;
 using Game.Character.Weapons.PickUp.Models;
 using Game.Inputs.Models;
+using Game.Weapons.Common;
 using UnityEngine;
 using Zenject;
 
@@ -17,6 +19,7 @@ namespace Game.Character.Weapons.Equip.Controllers
         [Inject] private CurrentWeaponModel CurrentWeaponModel { get; }
         [Inject] private CharacterLocomotionModel CharacterLocomotionModel { get; }
         [Inject] private InputModel InputModel { get; }
+        [Inject] private WeaponsAnimatorStatesNamesProvider WeaponsAnimatorStatesNamesProvider { get; }
         [Inject(Id = BindingIdentifiers.CharacterRigAnimator)] private Animator CharacterRigAnimator { get; set; }
         [Inject(Id = BindingIdentifiers.WeaponHolder)] private Transform WeaponHolder { get; }
         
@@ -77,8 +80,11 @@ namespace Game.Character.Weapons.Equip.Controllers
 
         private void SetRigAsWeaponEquipped()
         {
-            var animation = CurrentWeaponModel.WeaponContainer.Resolve<string>();
-            CharacterRigAnimator.Play(animation);
+            var weaponId = CurrentWeaponModel.WeaponContainer.Resolve<WeaponId>();
+            if (WeaponsAnimatorStatesNamesProvider.TryGetWeaponAnimationsContainer(weaponId, out var weaponAnimationsContainer))
+            {
+                CharacterRigAnimator.Play(weaponAnimationsContainer.EquipAnimatorStateName);
+            }
         }
 
         private void HandleOnWeaponUnequipped()
