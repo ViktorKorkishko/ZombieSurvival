@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b9e95ee5c694d869d70a3bc5fcbf52b, type: 3}
   m_Name: ColtAnimationsContainer
   m_EditorClassIdentifier: 
-  <WeaponId>k__BackingField: 11
-  <EquipAnimatorStateName>k__BackingField: EquipColt
-  <SprintingAnimatorStateName>k__BackingField: RunningColt
+  _weaponId: 11
+  _equipAnimatorStateName: EquipColt
+  _sprintingAnimatorStateName: RunningColt

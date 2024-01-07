@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b9e95ee5c694d869d70a3bc5fcbf52b, type: 3}
   m_Name: AK47AnimationsContainer
   m_EditorClassIdentifier: 
-  <WeaponId>k__BackingField: 0
-  <EquipAnimatorStateName>k__BackingField: EquipAK47
-  <SprintingAnimatorStateName>k__BackingField: RunningAK47
+  _weaponId: 0
+  _equipAnimatorStateName: EquipAK47
+  _sprintingAnimatorStateName: RunningAK47
