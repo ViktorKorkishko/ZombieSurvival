@@ -12,9 +12,9 @@ namespace Game.Weapons.Common.Installers
         
         public override void InstallBindings()
         {
-            Container.Bind<Transform>().WithId(BindingIdentifiers.ViewRoot).FromInstance(_viewRoot);
-            Container.Bind<Collider>().FromInstance(_collider);
-            Container.Bind<Rigidbody>().FromInstance(_rigidbody);
+            Container.BindInstance(_viewRoot).WithId(BindingIdentifiers.ViewRoot);
+            Container.BindInstance(_collider);
+            Container.BindInstance(_rigidbody);
         }
     }
 }

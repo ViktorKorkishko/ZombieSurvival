@@ -11,14 +11,17 @@ namespace Game.Weapons.Reload.Models
         public Action<Action> OnReloadStarted { get; set; }
         public Action OnReloadEnded { get; set; }
 
-        public void TryStartReload()
+        public bool TryStartReload()
         {
             bool startReload = OnTryReload?.Invoke() ?? false;
 
             if (startReload)
             {
                 StartReload();
+                return true;
             }
+
+            return false;
         }
 
         private void StartReload()

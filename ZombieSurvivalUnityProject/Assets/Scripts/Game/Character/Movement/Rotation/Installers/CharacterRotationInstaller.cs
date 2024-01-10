@@ -14,14 +14,10 @@ namespace Game.Character.Movement.Rotation.Installers
         
         public override void InstallBindings()
         {
-            Container.Bind<CharacterRotationModel>()
-                .FromInstance(_characterRotationModel)
-                .AsSingle();
+            Container.BindInstance(_characterRotationModel).AsSingle();
             Container.BindInterfacesAndSelfTo<CharacterRotationController>().AsSingle();
 
-            Container.BindInstance(_characterRigRootTransform)
-                .WithId(BindingIdentifiers.CharacterRigRoot)
-                .AsSingle();
+            Container.BindInstance(_characterRigRootTransform).WithId(BindingIdentifiers.CharacterRigRoot);
         }
     }
 }

@@ -15,3 +15,4 @@ MonoBehaviour:
   _weaponId: 0
   _equipAnimatorStateName: EquipAK47
   _sprintingAnimatorStateName: RunningAK47
+  _reloadAnimationTriggerName: Reload

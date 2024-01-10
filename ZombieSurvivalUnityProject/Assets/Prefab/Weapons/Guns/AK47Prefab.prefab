@@ -44,6 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e0984c57c7cf5a545a7d88369acf2536, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _magazineGameObject: {fileID: 8948412725318561911}
 --- !u!1 &1018969195563284828
 GameObject:
   m_ObjectHideFlags: 0
@@ -244,7 +245,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _weaponRoot: {fileID: 6382987911619683099}
-  _weaponString: AK47
 --- !u!1 &5283538352538391137
 GameObject:
   m_ObjectHideFlags: 0

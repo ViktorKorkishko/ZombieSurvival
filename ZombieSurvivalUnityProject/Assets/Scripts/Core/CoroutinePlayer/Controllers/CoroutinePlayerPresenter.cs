@@ -53,11 +53,11 @@ namespace Core.Coroutines.Controllers
 
         private void DisposeCoroutines()
         {
-            foreach (var keyValuePair in _indexToCoroutineDictionary)
-            {
-                var coroutineIndex = keyValuePair.Key;
-                StopCoroutine(coroutineIndex);
-            }
+            // foreach (var keyValuePair in _indexToCoroutineDictionary)
+            // {
+            //     var coroutineIndex = keyValuePair.Key;
+            //     StopCoroutine(coroutineIndex);
+            // }
         }
     }
 }

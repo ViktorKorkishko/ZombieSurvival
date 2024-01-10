@@ -10,10 +10,12 @@ namespace Game.Animations
         
         [SerializeField] private string _equipAnimatorStateName;
         [SerializeField] private string _sprintingAnimatorStateName;
+        [SerializeField] private string _reloadAnimationTriggerName;
         
         public WeaponId WeaponId => _weaponId;
 
         public string EquipAnimatorStateName => _equipAnimatorStateName;
         public string SprintingAnimatorStateName => _sprintingAnimatorStateName;
+        public string ReloadAnimationTriggerName => _reloadAnimationTriggerName;
     }
 }

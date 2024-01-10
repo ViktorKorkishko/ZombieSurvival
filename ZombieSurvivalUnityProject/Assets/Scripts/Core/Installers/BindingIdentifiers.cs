@@ -25,5 +25,7 @@
         JumpParamId,
         SprintParamId,
         UnarmedStateName,
+        MagazineGameObject,
+        CharacterLeftHandTransform,
     }
 }
