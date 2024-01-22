@@ -2,6 +2,7 @@
 using Core.Installers;
 using Game.Animations;
 using Game.Character.Weapons.CurrentWeapon.Models;
+using Game.Character.Weapons.Equip.Models;
 using Game.Character.Weapons.Reload.Models;
 using Game.Character.Weapons.Reload.Views;
 using Game.Inputs.Models;
@@ -17,6 +18,8 @@ namespace Game.Character.Weapons.Reload.Controllers
         [Inject] private InputModel InputModel { get; }
         [Inject] private WeaponReloadModel WeaponReloadModel { get; }
         [Inject] private CurrentWeaponModel CurrentWeaponModel { get; }
+        [Inject] private WeaponEquipModel WeaponEquipModel { get; }
+
         [Inject(Id = BindingIdentifiers.CharacterRigAnimator)] private Animator CharacterRigAnimator { get; }
         [Inject] private WeaponsAnimatorStatesNamesProvider WeaponsAnimatorStatesNamesProvider { get; }
         [Inject] private WeaponReloadAnimationView WeaponReloadAnimationView { get; }
@@ -27,16 +30,16 @@ namespace Game.Character.Weapons.Reload.Controllers
         void IInitializable.Initialize()
         {
             CurrentWeaponModel.OnWeaponSet += HandleOnCurrentWeaponSet;
+            WeaponEquipModel.OnWeaponUnequipped += HandleOnWeaponUnequipped;
             WeaponReloadModel.OnTryReload += HandleOnTryReload;
-            
             WeaponReloadAnimationView.OnTriggerReloadEvent += HandleOnTriggerReloadEvent;
         }
 
         void IDisposable.Dispose()
         {
             CurrentWeaponModel.OnWeaponSet -= HandleOnCurrentWeaponSet;
+            WeaponEquipModel.OnWeaponUnequipped -= HandleOnWeaponUnequipped;
             WeaponReloadModel.OnTryReload -= HandleOnTryReload;
-            
             WeaponReloadAnimationView.OnTriggerReloadEvent -= HandleOnTriggerReloadEvent;
         }
 
@@ -108,9 +111,14 @@ namespace Game.Character.Weapons.Reload.Controllers
                     break;
                 
                 default:
-                    // throw error
+                    // TODO: throw error
                     break;
             }
+        }
+
+        private void HandleOnWeaponUnequipped()
+        {
+            Weapon.TryTerminateReload();
         }
     }
 }

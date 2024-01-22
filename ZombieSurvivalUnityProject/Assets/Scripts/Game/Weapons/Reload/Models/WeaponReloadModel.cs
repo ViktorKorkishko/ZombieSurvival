@@ -8,6 +8,7 @@ namespace Game.Weapons.Reload.Models
 
         public Func<bool> OnCheckIsReloading { get; set; }
         public Func<bool> OnTryReload { get; set; }
+        public Action OnTryTerminateReload { get; set; }
         public Action<Action> OnReloadStarted { get; set; }
         public Action OnReloadEnded { get; set; }
 
@@ -22,6 +23,11 @@ namespace Game.Weapons.Reload.Models
             }
 
             return false;
+        }
+
+        public void TryTerminateReload()
+        {
+            OnTryTerminateReload?.Invoke();
         }
 
         private void StartReload()

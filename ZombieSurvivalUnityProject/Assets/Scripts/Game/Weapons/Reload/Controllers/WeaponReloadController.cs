@@ -24,6 +24,7 @@ namespace Game.Weapons.Reload.Controllers
         {
             WeaponReloadModel.OnCheckIsReloading += HandleOnCheckIsReloading;
             WeaponReloadModel.OnTryReload += HandleOnTryReload;
+            WeaponReloadModel.OnTryTerminateReload += HandleOnTryTerminateReload;
             WeaponReloadModel.OnReloadStarted += HandleOnReloadingStarted;
         }
 
@@ -31,9 +32,15 @@ namespace Game.Weapons.Reload.Controllers
         {
             WeaponReloadModel.OnCheckIsReloading -= HandleOnCheckIsReloading;
             WeaponReloadModel.OnTryReload -= HandleOnTryReload;
+            WeaponReloadModel.OnTryTerminateReload -= HandleOnTryTerminateReload;
             WeaponReloadModel.OnReloadStarted -= HandleOnReloadingStarted;
-            
+
             CoroutinePlayerModel.StopCoroutine(_reloadCoroutineIndex);
+        }
+
+        private bool HandleOnCheckIsReloading()
+        {
+            return IsReloading;
         }
 
         private bool HandleOnTryReload()
@@ -42,15 +49,15 @@ namespace Game.Weapons.Reload.Controllers
             return canStartReloading;
         }
 
-        private bool HandleOnCheckIsReloading()
+        private void HandleOnTryTerminateReload()
         {
-            return IsReloading;
+            TryTerminateReload();
         }
 
         private void HandleOnReloadingStarted(Action onReloadEnded)
         {
             OnReloadEnded = onReloadEnded;
-            
+
             StartReloading();
         }
 
@@ -72,6 +79,23 @@ namespace Game.Weapons.Reload.Controllers
             IsReloading = false;
             OnReloadEnded?.Invoke();
             OnReloadEnded = null;
+        }
+
+        private void TryTerminateReload()
+        {
+            var terminateReload = IsReloading;
+            if (terminateReload)
+            {
+                TerminateReload();
+            }
+
+            void TerminateReload()
+            {
+                CoroutinePlayerModel.StopCoroutine(_reloadCoroutineIndex);
+                IsReloading = false;
+                
+                Debug.Log("Reload terminated");
+            }
         }
     }
 }

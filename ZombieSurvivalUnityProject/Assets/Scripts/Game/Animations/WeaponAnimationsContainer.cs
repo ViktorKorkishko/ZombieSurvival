@@ -8,8 +8,11 @@ namespace Game.Animations
     {
         [SerializeField] private WeaponId _weaponId;
         
+        [Header("State names")]
         [SerializeField] private string _equipAnimatorStateName;
         [SerializeField] private string _sprintingAnimatorStateName;
+        
+        [Header("Params")]
         [SerializeField] private string _reloadAnimationTriggerName;
         
         public WeaponId WeaponId => _weaponId;
