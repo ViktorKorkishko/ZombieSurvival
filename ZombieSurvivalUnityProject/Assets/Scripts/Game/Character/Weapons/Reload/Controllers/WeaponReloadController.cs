@@ -78,7 +78,9 @@ namespace Game.Character.Weapons.Reload.Controllers
                 Weapon.TryStartReload();
             }
         }
-
+        
+        // TODO: use object pooling and wrap into separate module
+        // temp implementation
         GameObject originalMagazine => CurrentWeaponModel.WeaponContainer.ResolveId<GameObject>(BindingIdentifiers.MagazineGameObject);
         private GameObject detachedMagazine;
         private GameObject newMagazine;
@@ -99,7 +101,6 @@ namespace Game.Character.Weapons.Reload.Controllers
                     break;
                 
                 case ReloadAnimationEventId.RefillMagazine:
-                    var viewRoot = CurrentWeaponModel.WeaponContainer.ResolveId<Transform>(BindingIdentifiers.ViewRoot);
                     var handTransform = CharacterLeftHandTransform;
                     newMagazine = Object.Instantiate(originalMagazine, handTransform.position, handTransform.rotation, handTransform);
                     newMagazine.SetActive(true);
@@ -115,6 +116,7 @@ namespace Game.Character.Weapons.Reload.Controllers
                     break;
             }
         }
+        //
 
         private void HandleOnWeaponUnequipped()
         {

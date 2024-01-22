@@ -101,7 +101,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4611975630739929338}
-  - {fileID: 9220146137790320970}
   - {fileID: 7133110995955041198}
   - {fileID: 3436566220891512256}
   - {fileID: 1337417304359100122}
@@ -466,137 +465,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 3153043132906964633}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1286681632478847620
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 126697726821970700}
-  - component: {fileID: 5261861818083035785}
-  - component: {fileID: 8606670172241942601}
-  m_Layer: 0
-  m_Name: WeaponIdlePose
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &126697726821970700
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1286681632478847620}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0.16338891, y: 0.5541742, z: -0.5130143, w: -0.6348318}
-  m_LocalPosition: {x: 0.24099998, y: 1.5090001, z: 0.13400006}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 9220146137790320970}
-  m_LocalEulerAnglesHint: {x: 50.9, y: -58.194, z: 48.215}
---- !u!114 &5261861818083035785
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1286681632478847620}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c10bdb03db33fb148b858a4a3b646cea, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Weight: 1
-  m_Data:
-    m_ConstrainedObject: {fileID: 126697726821970700}
-    m_SourceObjects:
-      m_Length: 1
-      m_Item0:
-        transform: {fileID: 7820980774236781089}
-        weight: 1
-      m_Item1:
-        transform: {fileID: 0}
-        weight: 0
-      m_Item2:
-        transform: {fileID: 0}
-        weight: 0
-      m_Item3:
-        transform: {fileID: 0}
-        weight: 0
-      m_Item4:
-        transform: {fileID: 0}
-        weight: 0
-      m_Item5:
-        transform: {fileID: 0}
-        weight: 0
-      m_Item6:
-        transform: {fileID: 0}
-        weight: 0
-      m_Item7:
-        transform: {fileID: 0}
-        weight: 0
-    m_Offset: {x: 0.19, y: 0.03, z: 0.12}
-    m_ConstrainedAxes:
-      x: 1
-      y: 1
-      z: 1
-    m_MaintainOffset: 0
---- !u!114 &8606670172241942601
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1286681632478847620}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8935e03361a14ec4b8edc872f76bc822, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Weight: 1
-  m_Data:
-    m_ConstrainedObject: {fileID: 0}
-    m_SourceObjects:
-      m_Length: 1
-      m_Item0:
-        transform: {fileID: 126697726821970700}
-        weight: 1
-      m_Item1:
-        transform: {fileID: 0}
-        weight: 0
-      m_Item2:
-        transform: {fileID: 0}
-        weight: 0
-      m_Item3:
-        transform: {fileID: 0}
-        weight: 0
-      m_Item4:
-        transform: {fileID: 0}
-        weight: 0
-      m_Item5:
-        transform: {fileID: 0}
-        weight: 0
-      m_Item6:
-        transform: {fileID: 0}
-        weight: 0
-      m_Item7:
-        transform: {fileID: 0}
-        weight: 0
-    m_ConstrainedPositionAxes:
-      x: 1
-      y: 1
-      z: 1
-    m_ConstrainedRotationAxes:
-      x: 1
-      y: 1
-      z: 1
-    m_MaintainPositionOffset: 0
-    m_MaintainRotationOffset: 0
 --- !u!1 &1728207882648745821
 GameObject:
   m_ObjectHideFlags: 0
@@ -847,8 +715,6 @@ MonoBehaviour:
   m_RigLayers:
   - m_Rig: {fileID: 4524138218185241793}
     m_Active: 1
-  - m_Rig: {fileID: 969304242056697086}
-    m_Active: 0
   - m_Rig: {fileID: 4824968598988172240}
     m_Active: 1
   - m_Rig: {fileID: 5439212848527654609}
@@ -1271,7 +1137,7 @@ MonoBehaviour:
   _rigBuilder: {fileID: 7710404538723050045}
   _aimRig: {fileID: 4824968598988172240}
   _handsRig: {fileID: 5439212848527654609}
-  _idleMultiParentConstraint: {fileID: 8606670172241942601}
+  _idleMultiParentConstraint: {fileID: 0}
   _aimMultiParentConstraint: {fileID: 9206547092654008406}
   _leftHandIKConstraint: {fileID: 8496154050579174119}
   _rightHandIKConstraint: {fileID: 9191024576219063504}
@@ -1322,53 +1188,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _characterLocomotionAnimator: {fileID: 8893413249467695931}
   _weaponsAnimatorStatesNamesProvider: {fileID: 11400000, guid: fb063b3b64e9ce24cac1e03075ad0e78, type: 2}
---- !u!1 &4257573456577108042
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 9220146137790320970}
-  - component: {fileID: 969304242056697086}
-  m_Layer: 0
-  m_Name: WeaponIdlePoseLayer
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &9220146137790320970
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4257573456577108042}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 126697726821970700}
-  m_Father: {fileID: 1519346757557303495}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &969304242056697086
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4257573456577108042}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 70b342d8ce5c2fd48b8fa3147d48d1d1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Weight: 1
-  m_Effectors: []
 --- !u!1 &4503085271592943767
 GameObject:
   m_ObjectHideFlags: 0
