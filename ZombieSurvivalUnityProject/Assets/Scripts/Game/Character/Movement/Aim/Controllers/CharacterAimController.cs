@@ -12,24 +12,42 @@ namespace Game.Character.Movement.Aim.Controllers
         [Inject] private InputModel InputModel { get; }
         [Inject] private CinemachineVirtualCamera VirtualCamera { get; }
 
-        private Cinemachine3rdPersonFollow _cinemachine3RdPersonFollow;
-        private float _aimInterpolatedValue;
+        private Cinemachine3rdPersonFollow _cinemachineThirdPersonFollow;
+        private float _distanceInterpolationValue;
+        private float _fieldOfViewInterpolationValue;
         
         void IInitializable.Initialize()
         {
-            _cinemachine3RdPersonFollow = VirtualCamera.GetCinemachineComponent<Cinemachine3rdPersonFollow>();
+            _cinemachineThirdPersonFollow = VirtualCamera.GetCinemachineComponent<Cinemachine3rdPersonFollow>();
         }
         
         void ITickable.Tick()
         {
             bool aimButtonHoldInput = InputModel.RightMouseButtonHold;
             float aimValueDelta = aimButtonHoldInput ? Time.deltaTime : -Time.deltaTime;
-            _aimInterpolatedValue += aimValueDelta / CharacterAimModel.AimDuration;
-            _aimInterpolatedValue = Mathf.Clamp(_aimInterpolatedValue, 0f, 1f);
+
+            HandleCameraDistance(aimValueDelta);
+            HandleCameraFOV(aimValueDelta);
+        }
+
+        private void HandleCameraDistance(float aimValueDelta)
+        {
+            _distanceInterpolationValue += aimValueDelta / CharacterAimModel.AimingProcessDuration;
+            _distanceInterpolationValue = Mathf.Clamp(_distanceInterpolationValue, 0f, 1f);
             
-            _cinemachine3RdPersonFollow.CameraDistance = Mathf.Lerp(CharacterAimModel.MinAimStateCameraDistance,
+            _cinemachineThirdPersonFollow.CameraDistance = Mathf.Lerp(CharacterAimModel.MinAimStateCameraDistance,
                 CharacterAimModel.MaxAimStateCameraDistance, 
-                _aimInterpolatedValue);
+                _distanceInterpolationValue);
+        }
+
+        private void HandleCameraFOV(float aimValueDelta)
+        {
+            _fieldOfViewInterpolationValue += aimValueDelta / CharacterAimModel.AimingProcessDuration;
+            _fieldOfViewInterpolationValue = Mathf.Clamp(_fieldOfViewInterpolationValue, 0f, 1f);
+            
+            VirtualCamera.m_Lens.FieldOfView = Mathf.Lerp(CharacterAimModel.MinAimStateCameraFieldOfView,
+                CharacterAimModel.MaxAimStateCameraFieldOfView, 
+                _fieldOfViewInterpolationValue);
         }
     }
 }
