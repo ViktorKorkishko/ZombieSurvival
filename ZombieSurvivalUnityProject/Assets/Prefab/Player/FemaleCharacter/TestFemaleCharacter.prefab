@@ -1754,7 +1754,7 @@ MonoBehaviour:
   _minAimStateCameraDistance: 2
   _maxAimStateCameraDistance: 0.75
   minAimStateCameraFieldOfView: 60
-  maxAimStateCameraFieldOfView: 60
+  maxAimStateCameraFieldOfView: 45
 --- !u!1 &6157307868899693225
 GameObject:
   m_ObjectHideFlags: 0
