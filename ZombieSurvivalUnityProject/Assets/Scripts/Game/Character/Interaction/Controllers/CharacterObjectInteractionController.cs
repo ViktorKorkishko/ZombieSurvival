@@ -1,5 +1,6 @@
 ﻿using Game.Cameras.Models;
 using Game.Character.Interaction.Models;
+using Game.Character.Weapons.Equip.Models;
 using Game.Character.Weapons.PickUp.Models;
 using Game.Inputs.Models;
 using Game.InteractableObjects.Common.Enums;
@@ -98,7 +99,8 @@ namespace Game.Character.Interaction.Controllers
                     break;
                 
                 case InteractableObjectType.Weapon:
-                    WeaponPickUpModel.PickUp(container);
+                    var equippedWeapon = new EquippedWeapon(container);
+                    WeaponPickUpModel.PickUp(equippedWeapon);
                     break;
                 
                 default:

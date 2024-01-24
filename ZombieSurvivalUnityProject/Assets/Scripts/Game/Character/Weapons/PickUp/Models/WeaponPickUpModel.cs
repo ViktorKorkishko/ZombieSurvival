@@ -1,15 +1,15 @@
 using System;
-using Zenject;
+using Game.Character.Weapons.Equip.Models;
 
 namespace Game.Character.Weapons.PickUp.Models
 {
     public class WeaponPickUpModel
     {
-        public Action<DiContainer> OnWeaponPickedUp { get; set; }
+        public Action<EquippedWeapon> OnWeaponPickedUp { get; set; }
 
-        public void PickUp(DiContainer weaponContainer)
+        public void PickUp(EquippedWeapon equippedWeapon)
         {
-            OnWeaponPickedUp?.Invoke(weaponContainer);
+            OnWeaponPickedUp?.Invoke(equippedWeapon);
         }
     }
 }

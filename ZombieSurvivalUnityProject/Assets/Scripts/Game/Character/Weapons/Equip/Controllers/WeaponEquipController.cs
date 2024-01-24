@@ -24,8 +24,9 @@ namespace Game.Character.Weapons.Equip.Controllers
         [Inject(Id = BindingIdentifiers.WeaponHolder)] private Transform WeaponHolder { get; }
         [Inject(Id = BindingIdentifiers.SprintParamId)] private string SprintParamId { get; }
         [Inject(Id = BindingIdentifiers.UnarmedStateName)] private string UnarmedStateName { get; }
-        
-        private EquipData CurrentEquipData { get; set; }
+
+        private EquippedWeapon CurrentEquippedWeapon { get; set; }
+        // private Game.Weapons.Equip.Models.WeaponEquipModel WeaponEquipModel { get; set; }
 
         void IInitializable.Initialize()
         {
@@ -56,64 +57,110 @@ namespace Game.Character.Weapons.Equip.Controllers
             bool weaponEquipped = CurrentWeaponModel.IsWeaponEquipped;
             if (!weaponEquipped)
                 return;
-            
+
             WeaponEquipModel.Unequip();
-            CurrentWeaponModel.SetCurrentWeapon(null);
         }
 
-        private void HandleOnWeaponEquipped(EquipData equipData)
+        #region Equip
+
+        private void EquipWeapon(EquippedWeapon equippedWeapon)
         {
-            var weaponEquipModel = CurrentWeaponModel.WeaponContainer.Resolve<Game.Weapons.Equip.Models.WeaponEquipModel>();
+            Debug.Log("Start equipping");
+            CurrentEquippedWeapon = equippedWeapon;
+            
+            Debug.Log("Start attaching");
+            AttachWeapon();
+            Debug.Log("End attaching");
+            
+            Debug.Log("Start equip rigging");
+            SetRigAsWeaponEquipped();
+            Debug.Log("End equip rigging");
+            
+            var weaponEquipModel = CurrentEquippedWeapon.GetComponent<Game.Weapons.Equip.Models.WeaponEquipModel>();
             weaponEquipModel.Equip();
             
-            CurrentEquipData = equipData;
-            
-            AttachWeapon();
-            SetRigAsWeaponEquipped();
-            
+            Debug.Log("End equipping");
+
             void AttachWeapon()
             {
-                var weaponRoot = equipData.WeaponRoot;
+                var weaponId = CurrentEquippedWeapon.GetComponent<WeaponId>();
+                Debug.Log(weaponId);
+                
+                var weaponRoot = CurrentEquippedWeapon.GetComponentWithId<Transform>(BindingIdentifiers.Root);
                 weaponRoot.SetParent(WeaponHolder);
                 weaponRoot.localPosition = Vector3.zero;
                 weaponRoot.localRotation = Quaternion.identity;
             }
+
+            void SetRigAsWeaponEquipped()
+            {
+                var weaponId = CurrentEquippedWeapon.GetComponent<WeaponId>();
+                if (WeaponsAnimatorStatesNamesProvider.TryGetWeaponAnimationsContainer(weaponId,
+                        out var weaponAnimationsContainer))
+                {
+                    CharacterRigAnimator.Play(weaponAnimationsContainer.EquipAnimatorStateName);
+                }
+            }
         }
 
-        private void SetRigAsWeaponEquipped()
+        private void UnequipWeapon()
         {
-            var weaponId = CurrentWeaponModel.WeaponContainer.Resolve<WeaponId>();
-            if (WeaponsAnimatorStatesNamesProvider.TryGetWeaponAnimationsContainer(weaponId, out var weaponAnimationsContainer))
+            Debug.Log("Start unequipping");
+            
+            Debug.Log("Start dettaching");
+            TryDetachWeapon();
+            Debug.Log("End dettaching");
+            
+            Debug.Log("Start unequip rigging");
+            SetRigAsWeaponUnequipped();
+            Debug.Log("End unequip rigging");
+
+            var weaponEquipModel = CurrentEquippedWeapon.GetComponent<Game.Weapons.Equip.Models.WeaponEquipModel>();
+            weaponEquipModel.Unequip();
+
+            CurrentWeaponModel.SetCurrentWeapon(null);
+            CurrentEquippedWeapon = null;
+            
+            Debug.Log("End unequipping");
+
+            void TryDetachWeapon()
             {
-                CharacterRigAnimator.Play(weaponAnimationsContainer.EquipAnimatorStateName);
+                // Debug.Break();
+                var weaponId = CurrentEquippedWeapon.GetComponent<WeaponId>();
+                Debug.Log(weaponId);
+                
+                var weaponRoot = CurrentEquippedWeapon.GetComponentWithId<Transform>(BindingIdentifiers.Root);
+                weaponRoot.SetParent(null);
+                // Debug.Break();
             }
+        }
+
+        private void HandleOnWeaponEquipped(EquippedWeapon equippedWeapon)
+        {
+            if (CurrentWeaponModel.IsWeaponEquipped)
+            {
+                WeaponEquipModel.Unequip();
+                // Debug.Break();
+            }
+
+            EquipWeapon(equippedWeapon);
+            // Debug.Break();
         }
 
         private void HandleOnWeaponUnequipped()
         {
-            TryDetachWeapon();
-            SetRigAsWeaponUnequipped();
-            
-            CurrentEquipData = null;
-            
-            var weaponEquipModel = CurrentWeaponModel.WeaponContainer.Resolve<Game.Weapons.Equip.Models.WeaponEquipModel>();
-            weaponEquipModel.Unequip();
-
-            void TryDetachWeapon()
-            {
-                if (!CurrentWeaponModel.IsWeaponEquipped)
-                    return;
-            
-                var weaponRoot = CurrentEquipData.WeaponRoot;
-                weaponRoot.SetParent(null);
-            }
+            UnequipWeapon();
         }
 
         private void SetRigAsWeaponUnequipped()
         {
             CharacterRigAnimator.Play(UnarmedStateName);
         }
-        
+
+        #endregion
+
+        #region Running
+
         private void HandleOnStartedRunning()
         {
             CharacterRigAnimator.SetBool(SprintParamId, true);
@@ -124,21 +171,16 @@ namespace Game.Character.Weapons.Equip.Controllers
             CharacterRigAnimator.SetBool(SprintParamId, false);
         }
 
-        private void HandleOnWeaponPickedUp(DiContainer weaponContainer)
-        {
-            var equipData = GetEquipData(weaponContainer);
+        #endregion
 
-            CurrentWeaponModel.SetCurrentWeapon(weaponContainer);
-            WeaponEquipModel.Equip(equipData);
+        #region PickUp
+
+        private void HandleOnWeaponPickedUp(EquippedWeapon equippedWeapon)
+        {
+            WeaponEquipModel.Equip(equippedWeapon);
+            CurrentWeaponModel.SetCurrentWeapon(equippedWeapon);
         }
 
-        private EquipData GetEquipData(DiContainer weaponContainer)
-        {
-            var weaponRoot = weaponContainer.ResolveId<Transform>(BindingIdentifiers.Root);
-            
-            var equipData = new EquipData(weaponRoot);
-
-            return equipData;
-        }
+        #endregion
     }
 }

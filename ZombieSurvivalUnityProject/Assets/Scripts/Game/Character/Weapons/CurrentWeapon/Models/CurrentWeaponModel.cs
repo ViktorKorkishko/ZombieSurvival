@@ -1,19 +1,19 @@
 using System;
-using Zenject;
+using Game.Character.Weapons.Equip.Models;
 
 namespace Game.Character.Weapons.CurrentWeapon.Models
 {
     public class CurrentWeaponModel
     {
-        public DiContainer WeaponContainer { get; private set; }
-        public bool IsWeaponEquipped => WeaponContainer != null;
+        public EquippedWeapon EquippedWeapon { get; private set; }
+        public bool IsWeaponEquipped => EquippedWeapon != null;
         
-        public Action<DiContainer> OnWeaponSet { get; set; }
+        public Action<EquippedWeapon> OnWeaponSet { get; set; }
 
-        public void SetCurrentWeapon(DiContainer weaponContainer)
+        public void SetCurrentWeapon(EquippedWeapon equippedWeapon)
         {
-            WeaponContainer = weaponContainer;
-            OnWeaponSet?.Invoke(weaponContainer);
+            EquippedWeapon = equippedWeapon;
+            OnWeaponSet?.Invoke(equippedWeapon);
         }
     }
 }

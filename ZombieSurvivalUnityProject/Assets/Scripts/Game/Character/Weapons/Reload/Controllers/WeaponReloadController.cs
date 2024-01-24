@@ -18,7 +18,6 @@ namespace Game.Character.Weapons.Reload.Controllers
         [Inject] private InputModel InputModel { get; }
         [Inject] private WeaponReloadModel WeaponReloadModel { get; }
         [Inject] private CurrentWeaponModel CurrentWeaponModel { get; }
-        [Inject] private WeaponEquipModel WeaponEquipModel { get; }
 
         [Inject(Id = BindingIdentifiers.CharacterRigAnimator)] private Animator CharacterRigAnimator { get; }
         [Inject] private WeaponsAnimatorStatesNamesProvider WeaponsAnimatorStatesNamesProvider { get; }
@@ -30,7 +29,6 @@ namespace Game.Character.Weapons.Reload.Controllers
         void IInitializable.Initialize()
         {
             CurrentWeaponModel.OnWeaponSet += HandleOnCurrentWeaponSet;
-            WeaponEquipModel.OnWeaponUnequipped += HandleOnWeaponUnequipped;
             WeaponReloadModel.OnTryReload += HandleOnTryReload;
             WeaponReloadAnimationView.OnTriggerReloadEvent += HandleOnTriggerReloadEvent;
         }
@@ -38,7 +36,6 @@ namespace Game.Character.Weapons.Reload.Controllers
         void IDisposable.Dispose()
         {
             CurrentWeaponModel.OnWeaponSet -= HandleOnCurrentWeaponSet;
-            WeaponEquipModel.OnWeaponUnequipped -= HandleOnWeaponUnequipped;
             WeaponReloadModel.OnTryReload -= HandleOnTryReload;
             WeaponReloadAnimationView.OnTriggerReloadEvent -= HandleOnTriggerReloadEvent;
         }
@@ -57,11 +54,19 @@ namespace Game.Character.Weapons.Reload.Controllers
             }
         }
 
-        private void HandleOnCurrentWeaponSet(DiContainer weaponContainer)
+        private void HandleOnCurrentWeaponSet(EquippedWeapon equippedWeapon)
         {
-            Weapon = CurrentWeaponModel.IsWeaponEquipped ? 
-                weaponContainer.Resolve<Game.Weapons.Reload.Models.WeaponReloadModel>() : 
-                null;
+            var isWeaponEquipped = Weapon != null;
+            if (isWeaponEquipped)
+            {
+                Weapon.TryTerminateReload();
+            }
+            
+            var newWeaponEquipped = equippedWeapon != null;
+            if (newWeaponEquipped)
+            {
+                Weapon = equippedWeapon.GetComponent<Game.Weapons.Reload.Models.WeaponReloadModel>();
+            }
         }
 
         private void HandleOnTryReload()
@@ -70,7 +75,7 @@ namespace Game.Character.Weapons.Reload.Controllers
             if (!weaponEquipped)
                 return;
 
-            var weaponId = CurrentWeaponModel.WeaponContainer.Resolve<WeaponId>();
+            var weaponId = CurrentWeaponModel.EquippedWeapon.GetComponent<WeaponId>();
             if (WeaponsAnimatorStatesNamesProvider.TryGetWeaponAnimationsContainer(weaponId, out var weaponAnimationsContainer))
             {
                 var reloadTriggerName = weaponAnimationsContainer.ReloadAnimationTriggerName;
@@ -81,7 +86,7 @@ namespace Game.Character.Weapons.Reload.Controllers
         
         // TODO: use object pooling and wrap into separate module
         // temp implementation
-        GameObject originalMagazine => CurrentWeaponModel.WeaponContainer.ResolveId<GameObject>(BindingIdentifiers.MagazineGameObject);
+        GameObject originalMagazine => CurrentWeaponModel.EquippedWeapon.GetComponentWithId<GameObject>(BindingIdentifiers.MagazineGameObject);
         private GameObject detachedMagazine;
         private GameObject newMagazine;
         private void HandleOnTriggerReloadEvent(ReloadAnimationEventId reloadAnimationEventId)
@@ -117,10 +122,5 @@ namespace Game.Character.Weapons.Reload.Controllers
             }
         }
         //
-
-        private void HandleOnWeaponUnequipped()
-        {
-            Weapon.TryTerminateReload();
-        }
     }
 }

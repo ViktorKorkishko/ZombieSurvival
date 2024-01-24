@@ -1,5 +1,6 @@
 using System;
 using Game.Character.Weapons.CurrentWeapon.Models;
+using Game.Character.Weapons.Equip.Models;
 using Game.Character.Weapons.Shoot.Models;
 using Game.Inputs.Models;
 using Zenject;
@@ -31,10 +32,10 @@ namespace Game.Character.Weapons.Shoot.Controllers
             HandleInput();
         }
 
-        private void HandleOnCurrentWeaponSet(DiContainer weaponContainer)
+        private void HandleOnCurrentWeaponSet(EquippedWeapon equippedWeapon)
         {
             Weapon = CurrentWeaponModel.IsWeaponEquipped ? 
-                weaponContainer.Resolve<Game.Weapons.Shoot.Models.WeaponShootModel>() : 
+                equippedWeapon.GetComponent<Game.Weapons.Shoot.Models.WeaponShootModel>() : 
                 null;
         }
         
