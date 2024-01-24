@@ -3,6 +3,7 @@ using Game.Character.Weapons.CurrentWeapon.Models;
 using Game.Character.Weapons.Equip.Models;
 using Game.Character.Weapons.Shoot.Models;
 using Game.Inputs.Models;
+using Game.Weapons.Shoot.Models;
 using Zenject;
 
 namespace Game.Character.Weapons.Shoot.Controllers
@@ -13,7 +14,7 @@ namespace Game.Character.Weapons.Shoot.Controllers
         [Inject] private InputModel InputModel { get; }
         [Inject] private CurrentWeaponModel CurrentWeaponModel { get; }
 
-        private Game.Weapons.Shoot.Models.WeaponShootModel Weapon { get; set; }
+        private WeaponShootModel WeaponShootModel { get; set; }
 
         void IInitializable.Initialize()
         {
@@ -34,8 +35,8 @@ namespace Game.Character.Weapons.Shoot.Controllers
 
         private void HandleOnCurrentWeaponSet(EquippedWeapon equippedWeapon)
         {
-            Weapon = CurrentWeaponModel.IsWeaponEquipped ? 
-                equippedWeapon.GetComponent<Game.Weapons.Shoot.Models.WeaponShootModel>() : 
+            WeaponShootModel = CurrentWeaponModel.IsWeaponEquipped ? 
+                equippedWeapon.GetComponent<WeaponShootModel>() : 
                 null;
         }
         
@@ -54,7 +55,7 @@ namespace Game.Character.Weapons.Shoot.Controllers
             if (!weaponEquipped)
                 return;
             
-            Weapon.TryShoot();
+            WeaponShootModel.TryShoot();
         }
     }
 }

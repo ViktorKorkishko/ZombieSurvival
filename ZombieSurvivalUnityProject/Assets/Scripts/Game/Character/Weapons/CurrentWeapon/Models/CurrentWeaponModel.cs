@@ -5,14 +5,14 @@ namespace Game.Character.Weapons.CurrentWeapon.Models
 {
     public class CurrentWeaponModel
     {
-        public EquippedWeapon EquippedWeapon { get; private set; }
-        public bool IsWeaponEquipped => EquippedWeapon != null;
+        public EquippedWeapon Weapon { get; private set; }
+        public bool IsWeaponEquipped => Weapon != null;
         
         public Action<EquippedWeapon> OnWeaponSet { get; set; }
 
         public void SetCurrentWeapon(EquippedWeapon equippedWeapon)
         {
-            EquippedWeapon = equippedWeapon;
+            Weapon = equippedWeapon;
             OnWeaponSet?.Invoke(equippedWeapon);
         }
     }

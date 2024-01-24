@@ -9,7 +9,7 @@ namespace Game.Character.Weapons.Reload.Installers
 {
     public class CharacterWeaponReloadInstaller : MonoInstaller
     {
-        [SerializeField] private CharacterWeaponReloadAnimationView characterWeaponReloadAnimationView;
+        [SerializeField] private CharacterWeaponReloadAnimationView _characterWeaponReloadAnimationView;
         [SerializeField] private Transform _characterLeftHandTranform;
         
         public override void InstallBindings()
@@ -17,7 +17,7 @@ namespace Game.Character.Weapons.Reload.Installers
             Container.Bind<CharacterWeaponReloadModel>().AsSingle();
             Container.BindInterfacesAndSelfTo<CharacterWeaponReloadController>().AsSingle();
             
-            Container.BindInstance(characterWeaponReloadAnimationView).AsSingle();
+            Container.BindInstance(_characterWeaponReloadAnimationView).AsSingle();
             Container.BindInstance(_characterLeftHandTranform).WithId(BindingIdentifiers.CharacterLeftHandTransform);
         }
     }

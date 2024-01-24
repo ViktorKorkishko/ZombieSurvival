@@ -66,21 +66,13 @@ namespace Game.Character.Weapons.Equip.Controllers
 
         private void EquipWeapon(EquippedWeapon equippedWeapon)
         {
-            Debug.Log("Start equipping");
             CurrentEquippedWeapon = equippedWeapon;
+            WeaponEquipModel = CurrentEquippedWeapon.GetComponent<WeaponEquipModel>();
             
-            Debug.Log("Start attaching");
             AttachWeapon();
-            Debug.Log("End attaching");
-            
-            Debug.Log("Start equip rigging");
             SetRigAsWeaponEquipped();
-            Debug.Log("End equip rigging");
             
-            var weaponEquipModel = CurrentEquippedWeapon.GetComponent<Game.Weapons.Equip.Models.WeaponEquipModel>();
-            weaponEquipModel.Equip();
-            
-            Debug.Log("End equipping");
+            WeaponEquipModel.Equip();
 
             void AttachWeapon()
             {
@@ -106,33 +98,19 @@ namespace Game.Character.Weapons.Equip.Controllers
 
         private void UnequipWeapon()
         {
-            Debug.Log("Start unequipping");
-            
-            Debug.Log("Start dettaching");
             TryDetachWeapon();
-            Debug.Log("End dettaching");
-            
-            Debug.Log("Start unequip rigging");
             SetRigAsWeaponUnequipped();
-            Debug.Log("End unequip rigging");
 
-            var weaponEquipModel = CurrentEquippedWeapon.GetComponent<Game.Weapons.Equip.Models.WeaponEquipModel>();
-            weaponEquipModel.Unequip();
+            WeaponEquipModel.Unequip();
 
             CurrentWeaponModel.SetCurrentWeapon(null);
             CurrentEquippedWeapon = null;
-            
-            Debug.Log("End unequipping");
+            WeaponEquipModel = null;
 
             void TryDetachWeapon()
             {
-                // Debug.Break();
-                var weaponId = CurrentEquippedWeapon.GetComponent<WeaponId>();
-                Debug.Log(weaponId);
-                
                 var weaponRoot = CurrentEquippedWeapon.GetComponentWithId<Transform>(BindingIdentifiers.Root);
                 weaponRoot.SetParent(null);
-                // Debug.Break();
             }
         }
 
@@ -141,11 +119,9 @@ namespace Game.Character.Weapons.Equip.Controllers
             if (CurrentWeaponModel.IsWeaponEquipped)
             {
                 CharacterWeaponEquipModel.Unequip();
-                // Debug.Break();
             }
 
             EquipWeapon(equippedWeapon);
-            // Debug.Break();
         }
 
         private void HandleOnWeaponUnequipped()

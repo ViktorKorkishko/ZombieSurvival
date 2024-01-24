@@ -7,6 +7,7 @@ using Game.Character.Weapons.Reload.Models;
 using Game.Character.Weapons.Reload.Views;
 using Game.Inputs.Models;
 using Game.Weapons.Common;
+using Game.Weapons.Reload.Models;
 using UnityEngine;
 using Zenject;
 using Object = UnityEngine.Object;
@@ -24,7 +25,7 @@ namespace Game.Character.Weapons.Reload.Controllers
         [Inject] private CharacterWeaponReloadAnimationView CharacterWeaponReloadAnimationView { get; }
         [Inject(Id = BindingIdentifiers.CharacterLeftHandTransform)] private Transform CharacterLeftHandTransform { get; }
         
-        private Game.Weapons.Reload.Models.WeaponReloadModel Weapon { get; set; }
+        private WeaponReloadModel WeaponReloadModel { get; set; }
 
         void IInitializable.Initialize()
         {
@@ -56,16 +57,20 @@ namespace Game.Character.Weapons.Reload.Controllers
 
         private void HandleOnCurrentWeaponSet(EquippedWeapon equippedWeapon)
         {
-            var isWeaponEquipped = Weapon != null;
+            var isWeaponEquipped = WeaponReloadModel != null;
             if (isWeaponEquipped)
             {
-                Weapon.TryTerminateReload();
+                WeaponReloadModel.TryTerminateReload();
             }
             
             var newWeaponEquipped = equippedWeapon != null;
             if (newWeaponEquipped)
             {
-                Weapon = equippedWeapon.GetComponent<Game.Weapons.Reload.Models.WeaponReloadModel>();
+                WeaponReloadModel = equippedWeapon.GetComponent<WeaponReloadModel>();
+            }
+            else
+            {
+                WeaponReloadModel = null;
             }
         }
 
@@ -75,18 +80,18 @@ namespace Game.Character.Weapons.Reload.Controllers
             if (!weaponEquipped)
                 return;
 
-            var weaponId = CurrentWeaponModel.EquippedWeapon.GetComponent<WeaponId>();
+            var weaponId = CurrentWeaponModel.Weapon.GetComponent<WeaponId>();
             if (WeaponsAnimatorStatesNamesProvider.TryGetWeaponAnimationsContainer(weaponId, out var weaponAnimationsContainer))
             {
                 var reloadTriggerName = weaponAnimationsContainer.ReloadAnimationTriggerName;
                 CharacterRigAnimator.SetTrigger(reloadTriggerName);
-                Weapon.TryStartReload();
+                WeaponReloadModel.TryStartReload();
             }
         }
         
         // TODO: use object pooling and wrap into separate module
         // temp implementation
-        GameObject originalMagazine => CurrentWeaponModel.EquippedWeapon.GetComponentWithId<GameObject>(BindingIdentifiers.MagazineGameObject);
+        GameObject originalMagazine => CurrentWeaponModel.Weapon.GetComponentWithId<GameObject>(BindingIdentifiers.MagazineGameObject);
         private GameObject detachedMagazine;
         private GameObject newMagazine;
         private void HandleOnTriggerReloadEvent(ReloadAnimationEventId reloadAnimationEventId)
