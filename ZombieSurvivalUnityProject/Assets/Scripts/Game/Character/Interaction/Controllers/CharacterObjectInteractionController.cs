@@ -15,7 +15,7 @@ namespace Game.Character.Interaction.Controllers
 {
     public class CharacterObjectInteractionController : ITickable
     {
-        [Inject] private WeaponPickUpModel WeaponPickUpModel { get; }
+        [Inject] private CharacterWeaponPickUpModel CharacterWeaponPickUpModel { get; }
         [Inject] private CameraModel CameraModel { get; }
         [Inject] private InputModel InputModel { get; }
         [Inject] private CharacterObjectInteractionModel CharacterObjectInteractionModel { get; }
@@ -100,7 +100,7 @@ namespace Game.Character.Interaction.Controllers
                 
                 case InteractableObjectType.Weapon:
                     var equippedWeapon = new EquippedWeapon(container);
-                    WeaponPickUpModel.PickUp(equippedWeapon);
+                    CharacterWeaponPickUpModel.PickUp(equippedWeapon);
                     break;
                 
                 default:

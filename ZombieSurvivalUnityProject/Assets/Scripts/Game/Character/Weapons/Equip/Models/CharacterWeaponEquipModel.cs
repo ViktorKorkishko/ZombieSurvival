@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Game.Character.Weapons.Equip.Models
 {
-    public class WeaponEquipModel : MonoBehaviour
+    public class CharacterWeaponEquipModel : MonoBehaviour
     {
         public Action<EquippedWeapon> OnWeaponEquipped { get; set; }
         public Action OnWeaponUnequipped { get; set; }

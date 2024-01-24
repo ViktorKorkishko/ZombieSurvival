@@ -4,12 +4,12 @@ using Zenject;
 
 namespace Game.Character.Weapons.Shoot.Installers
 {
-    public class WeaponShootInstaller : MonoInstaller
+    public class CharacterWeaponShootInstaller : MonoInstaller
     {
         public override void InstallBindings()
         {
-            Container.Bind<WeaponShootModel>().AsSingle();
-            Container.BindInterfacesAndSelfTo<WeaponShootController>().AsSingle();
+            Container.Bind<CharacterWeaponShootModel>().AsSingle();
+            Container.BindInterfacesAndSelfTo<CharacterWeaponShootController>().AsSingle();
         }
     }
 }

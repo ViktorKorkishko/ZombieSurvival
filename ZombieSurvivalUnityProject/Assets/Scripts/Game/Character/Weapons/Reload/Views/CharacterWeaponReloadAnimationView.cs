@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Game.Character.Weapons.Reload.Views
 {
-    public class WeaponReloadAnimationView : MonoBehaviour
+    public class CharacterWeaponReloadAnimationView : MonoBehaviour
     {
         public Action<ReloadAnimationEventId> OnTriggerReloadEvent { get; set; }
 

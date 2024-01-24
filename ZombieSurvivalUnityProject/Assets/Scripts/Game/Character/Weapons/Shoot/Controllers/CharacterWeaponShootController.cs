@@ -7,9 +7,9 @@ using Zenject;
 
 namespace Game.Character.Weapons.Shoot.Controllers
 {
-    public class WeaponShootController : IInitializable, ITickable, IDisposable
+    public class CharacterWeaponShootController : IInitializable, ITickable, IDisposable
     {
-        [Inject] private WeaponShootModel WeaponShootModel { get; }
+        [Inject] private CharacterWeaponShootModel CharacterWeaponShootModel { get; }
         [Inject] private InputModel InputModel { get; }
         [Inject] private CurrentWeaponModel CurrentWeaponModel { get; }
 
@@ -18,13 +18,13 @@ namespace Game.Character.Weapons.Shoot.Controllers
         void IInitializable.Initialize()
         {
             CurrentWeaponModel.OnWeaponSet += HandleOnCurrentWeaponSet;
-            WeaponShootModel.OnTryShoot += HandleOnShoot;
+            CharacterWeaponShootModel.OnTryShoot += HandleOnShoot;
         }
 
         void IDisposable.Dispose()
         {
             CurrentWeaponModel.OnWeaponSet -= HandleOnCurrentWeaponSet;
-            WeaponShootModel.OnTryShoot -= HandleOnShoot;
+            CharacterWeaponShootModel.OnTryShoot -= HandleOnShoot;
         }
         
         void ITickable.Tick()
@@ -44,7 +44,7 @@ namespace Game.Character.Weapons.Shoot.Controllers
             bool fireButtonClicked = InputModel.LeftMouseButtonHold;
             if (fireButtonClicked)
             {
-                WeaponShootModel.TryShoot();
+                CharacterWeaponShootModel.TryShoot();
             }
         }
         

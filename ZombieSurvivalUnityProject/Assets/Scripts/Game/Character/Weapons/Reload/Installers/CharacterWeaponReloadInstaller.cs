@@ -7,17 +7,17 @@ using Zenject;
 
 namespace Game.Character.Weapons.Reload.Installers
 {
-    public class WeaponReloadInstaller : MonoInstaller
+    public class CharacterWeaponReloadInstaller : MonoInstaller
     {
-        [SerializeField] private WeaponReloadAnimationView _weaponReloadAnimationView;
+        [SerializeField] private CharacterWeaponReloadAnimationView characterWeaponReloadAnimationView;
         [SerializeField] private Transform _characterLeftHandTranform;
         
         public override void InstallBindings()
         {
-            Container.Bind<WeaponReloadModel>().AsSingle();
-            Container.BindInterfacesAndSelfTo<WeaponReloadController>().AsSingle();
+            Container.Bind<CharacterWeaponReloadModel>().AsSingle();
+            Container.BindInterfacesAndSelfTo<CharacterWeaponReloadController>().AsSingle();
             
-            Container.BindInstance(_weaponReloadAnimationView).AsSingle();
+            Container.BindInstance(characterWeaponReloadAnimationView).AsSingle();
             Container.BindInstance(_characterLeftHandTranform).WithId(BindingIdentifiers.CharacterLeftHandTransform);
         }
     }

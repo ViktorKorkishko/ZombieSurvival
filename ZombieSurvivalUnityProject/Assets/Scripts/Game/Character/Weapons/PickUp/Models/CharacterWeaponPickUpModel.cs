@@ -3,7 +3,7 @@ using Game.Character.Weapons.Equip.Models;
 
 namespace Game.Character.Weapons.PickUp.Models
 {
-    public class WeaponPickUpModel
+    public class CharacterWeaponPickUpModel
     {
         public Action<EquippedWeapon> OnWeaponPickedUp { get; set; }
 

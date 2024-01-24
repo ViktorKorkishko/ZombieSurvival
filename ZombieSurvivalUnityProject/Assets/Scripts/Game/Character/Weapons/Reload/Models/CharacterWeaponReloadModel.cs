@@ -2,7 +2,7 @@
 
 namespace Game.Character.Weapons.Reload.Models
 {
-    public class WeaponReloadModel
+    public class CharacterWeaponReloadModel
     {
         public Action OnTryReload { get; set; }
 

@@ -4,11 +4,11 @@ using Zenject;
 
 namespace Game.Character.Weapons.PickUp.Installers
 {
-    public class WeaponPickUpInstaller : MonoInstaller
+    public class CharacterWeaponPickUpInstaller : MonoInstaller
     {
         public override void InstallBindings()
         {
-            Container.Bind<WeaponPickUpModel>().AsSingle();
+            Container.Bind<CharacterWeaponPickUpModel>().AsSingle();
         }
     }
 }

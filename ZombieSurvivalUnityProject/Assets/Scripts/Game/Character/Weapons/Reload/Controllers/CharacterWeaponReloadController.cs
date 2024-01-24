@@ -13,15 +13,15 @@ using Object = UnityEngine.Object;
 
 namespace Game.Character.Weapons.Reload.Controllers
 {
-    public class WeaponReloadController : IInitializable, IDisposable, ITickable
+    public class CharacterWeaponReloadController : IInitializable, IDisposable, ITickable
     {
         [Inject] private InputModel InputModel { get; }
-        [Inject] private WeaponReloadModel WeaponReloadModel { get; }
+        [Inject] private CharacterWeaponReloadModel CharacterWeaponReloadModel { get; }
         [Inject] private CurrentWeaponModel CurrentWeaponModel { get; }
 
         [Inject(Id = BindingIdentifiers.CharacterRigAnimator)] private Animator CharacterRigAnimator { get; }
         [Inject] private WeaponsAnimatorStatesNamesProvider WeaponsAnimatorStatesNamesProvider { get; }
-        [Inject] private WeaponReloadAnimationView WeaponReloadAnimationView { get; }
+        [Inject] private CharacterWeaponReloadAnimationView CharacterWeaponReloadAnimationView { get; }
         [Inject(Id = BindingIdentifiers.CharacterLeftHandTransform)] private Transform CharacterLeftHandTransform { get; }
         
         private Game.Weapons.Reload.Models.WeaponReloadModel Weapon { get; set; }
@@ -29,15 +29,15 @@ namespace Game.Character.Weapons.Reload.Controllers
         void IInitializable.Initialize()
         {
             CurrentWeaponModel.OnWeaponSet += HandleOnCurrentWeaponSet;
-            WeaponReloadModel.OnTryReload += HandleOnTryReload;
-            WeaponReloadAnimationView.OnTriggerReloadEvent += HandleOnTriggerReloadEvent;
+            CharacterWeaponReloadModel.OnTryReload += HandleOnTryReload;
+            CharacterWeaponReloadAnimationView.OnTriggerReloadEvent += HandleOnTriggerReloadEvent;
         }
 
         void IDisposable.Dispose()
         {
             CurrentWeaponModel.OnWeaponSet -= HandleOnCurrentWeaponSet;
-            WeaponReloadModel.OnTryReload -= HandleOnTryReload;
-            WeaponReloadAnimationView.OnTriggerReloadEvent -= HandleOnTriggerReloadEvent;
+            CharacterWeaponReloadModel.OnTryReload -= HandleOnTryReload;
+            CharacterWeaponReloadAnimationView.OnTriggerReloadEvent -= HandleOnTriggerReloadEvent;
         }
 
         void ITickable.Tick()
@@ -50,7 +50,7 @@ namespace Game.Character.Weapons.Reload.Controllers
             bool reloadButtonClicked = InputModel.ReloadButtonClickInput;
             if (reloadButtonClicked)
             {
-                WeaponReloadModel.TryReload();
+                CharacterWeaponReloadModel.TryReload();
             }
         }
 

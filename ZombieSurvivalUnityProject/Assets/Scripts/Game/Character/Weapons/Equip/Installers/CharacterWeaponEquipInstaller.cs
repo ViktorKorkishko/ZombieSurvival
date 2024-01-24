@@ -1,4 +1,3 @@
-using System.Collections;
 using Core.Installers;
 using Game.Character.Weapons.Equip.Controllers;
 using Game.Character.Weapons.Equip.Models;
@@ -7,9 +6,9 @@ using Zenject;
 
 namespace Game.Character.Weapons.Equip.Installers
 {
-    public class WeaponEquipInstaller : MonoInstaller
+    public class CharacterWeaponEquipInstaller : MonoInstaller
     {
-        [SerializeField] private WeaponEquipModel _weaponEquipModel;
+        [SerializeField] private CharacterWeaponEquipModel characterWeaponEquipModel;
         
         [SerializeField] private Animator _rigAnimator;
         
@@ -18,9 +17,9 @@ namespace Game.Character.Weapons.Equip.Installers
 
         public override void InstallBindings()
         {
-            Container.BindInstance(_weaponEquipModel)
+            Container.BindInstance(characterWeaponEquipModel)
                 .AsSingle();
-            Container.BindInterfacesAndSelfTo<WeaponEquipController>()
+            Container.BindInterfacesAndSelfTo<CharacterWeaponEquipController>()
                 .AsSingle();
 
             Container.BindInstance(_rigAnimator)

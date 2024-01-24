@@ -2,7 +2,7 @@ using System;
 
 namespace Game.Character.Weapons.Shoot.Models
 {
-    public class WeaponShootModel
+    public class CharacterWeaponShootModel
     {
         public Action OnTryShoot { get; set; }
         

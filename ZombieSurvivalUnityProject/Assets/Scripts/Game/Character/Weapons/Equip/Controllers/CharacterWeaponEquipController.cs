@@ -7,15 +7,16 @@ using Game.Character.Weapons.Equip.Models;
 using Game.Character.Weapons.PickUp.Models;
 using Game.Inputs.Models;
 using Game.Weapons.Common;
+using Game.Weapons.Equip.Models;
 using UnityEngine;
 using Zenject;
 
 namespace Game.Character.Weapons.Equip.Controllers
 {
-    public class WeaponEquipController : IInitializable, IDisposable, ITickable
+    public class CharacterWeaponEquipController : IInitializable, IDisposable, ITickable
     {
-        [Inject] private WeaponEquipModel WeaponEquipModel { get; }
-        [Inject] private WeaponPickUpModel WeaponPickUpModel { get; }
+        [Inject] private CharacterWeaponEquipModel CharacterWeaponEquipModel { get; }
+        [Inject] private CharacterWeaponPickUpModel CharacterWeaponPickUpModel { get; }
         [Inject] private CurrentWeaponModel CurrentWeaponModel { get; }
         [Inject] private CharacterLocomotionModel CharacterLocomotionModel { get; }
         [Inject] private InputModel InputModel { get; }
@@ -26,13 +27,13 @@ namespace Game.Character.Weapons.Equip.Controllers
         [Inject(Id = BindingIdentifiers.UnarmedStateName)] private string UnarmedStateName { get; }
 
         private EquippedWeapon CurrentEquippedWeapon { get; set; }
-        // private Game.Weapons.Equip.Models.WeaponEquipModel WeaponEquipModel { get; set; }
+        private WeaponEquipModel WeaponEquipModel { get; set; }
 
         void IInitializable.Initialize()
         {
-            WeaponEquipModel.OnWeaponEquipped += HandleOnWeaponEquipped;
-            WeaponEquipModel.OnWeaponUnequipped += HandleOnWeaponUnequipped;
-            WeaponPickUpModel.OnWeaponPickedUp += HandleOnWeaponPickedUp;
+            CharacterWeaponEquipModel.OnWeaponEquipped += HandleOnWeaponEquipped;
+            CharacterWeaponEquipModel.OnWeaponUnequipped += HandleOnWeaponUnequipped;
+            CharacterWeaponPickUpModel.OnWeaponPickedUp += HandleOnWeaponPickedUp;
             CharacterLocomotionModel.OnStartedRunning += HandleOnStartedRunning;
             CharacterLocomotionModel.OnEndedRunning += HandleOnEndedRunning;
 
@@ -41,9 +42,9 @@ namespace Game.Character.Weapons.Equip.Controllers
 
         void IDisposable.Dispose()
         {
-            WeaponEquipModel.OnWeaponEquipped -= HandleOnWeaponEquipped;
-            WeaponEquipModel.OnWeaponUnequipped -= HandleOnWeaponUnequipped;
-            WeaponPickUpModel.OnWeaponPickedUp -= HandleOnWeaponPickedUp;
+            CharacterWeaponEquipModel.OnWeaponEquipped -= HandleOnWeaponEquipped;
+            CharacterWeaponEquipModel.OnWeaponUnequipped -= HandleOnWeaponUnequipped;
+            CharacterWeaponPickUpModel.OnWeaponPickedUp -= HandleOnWeaponPickedUp;
             CharacterLocomotionModel.OnStartedRunning -= HandleOnStartedRunning;
             CharacterLocomotionModel.OnEndedRunning -= HandleOnEndedRunning;
         }
@@ -58,7 +59,7 @@ namespace Game.Character.Weapons.Equip.Controllers
             if (!weaponEquipped)
                 return;
 
-            WeaponEquipModel.Unequip();
+            CharacterWeaponEquipModel.Unequip();
         }
 
         #region Equip
@@ -139,7 +140,7 @@ namespace Game.Character.Weapons.Equip.Controllers
         {
             if (CurrentWeaponModel.IsWeaponEquipped)
             {
-                WeaponEquipModel.Unequip();
+                CharacterWeaponEquipModel.Unequip();
                 // Debug.Break();
             }
 
@@ -177,7 +178,7 @@ namespace Game.Character.Weapons.Equip.Controllers
 
         private void HandleOnWeaponPickedUp(EquippedWeapon equippedWeapon)
         {
-            WeaponEquipModel.Equip(equippedWeapon);
+            CharacterWeaponEquipModel.Equip(equippedWeapon);
             CurrentWeaponModel.SetCurrentWeapon(equippedWeapon);
         }
 
