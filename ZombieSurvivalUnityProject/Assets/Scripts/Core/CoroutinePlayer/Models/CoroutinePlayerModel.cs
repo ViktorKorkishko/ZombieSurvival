@@ -1,28 +1,20 @@
-using System;
-using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Core.Coroutines.Models
 {
     public class CoroutinePlayerModel
     {
-        public Func<IEnumerator, int> OnCoroutineStarted { get; set; }
-        public Action<int> OnCoroutineStopped { get; set; }
+        private readonly Dictionary<int, Coroutine> coroutinesHash = new();
 
-        public int StartCoroutine(IEnumerator enumerator)
+        public void AddNewCoroutine(int coroutineIndex, Coroutine coroutine)
         {
-            if (OnCoroutineStarted != null)
-            {
-                return OnCoroutineStarted.Invoke(enumerator);
-            }
-
-            Debug.LogError($"Coroutine can not be ran.");
-            return -1;
+            coroutinesHash.Add(coroutineIndex, coroutine);
         }
 
-        public void StopCoroutine(int coroutineIndex)
+        public Coroutine GetCoroutine(int coroutineIndex)
         {
-            OnCoroutineStopped?.Invoke(coroutineIndex);
+            return coroutinesHash.TryGetValue(coroutineIndex, out var coroutineFromHash) ? coroutineFromHash : null;
         }
     }
 }

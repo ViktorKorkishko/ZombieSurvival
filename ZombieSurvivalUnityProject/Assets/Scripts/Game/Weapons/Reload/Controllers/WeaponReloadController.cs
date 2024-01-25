@@ -1,6 +1,6 @@
 using System;
 using System.Collections;
-using Core.Coroutines.Models;
+using Core.Coroutines.Controllers;
 using Game.Weapons.Common.Config;
 using Game.Weapons.Reload.Models;
 using UnityEngine;
@@ -11,7 +11,7 @@ namespace Game.Weapons.Reload.Controllers
     public class WeaponReloadController : IInitializable, IDisposable
     {
         [Inject] private WeaponReloadModel WeaponReloadModel { get; }
-        [Inject] private CoroutinePlayerModel CoroutinePlayerModel { get; }
+        [Inject] private CoroutinePlayerPresenter CoroutinePlayerPresenter { get; }
         [Inject] private WeaponConfig WeaponConfig { get; }
 
         private bool IsReloading { get; set; }
@@ -35,7 +35,7 @@ namespace Game.Weapons.Reload.Controllers
             WeaponReloadModel.OnTryTerminateReload -= HandleOnTryTerminateReload;
             WeaponReloadModel.OnReloadStarted -= HandleOnReloadingStarted;
 
-            CoroutinePlayerModel.StopCoroutine(_reloadCoroutineIndex);
+            CoroutinePlayerPresenter.StopCoroutine(_reloadCoroutineIndex);
         }
 
         private bool HandleOnCheckIsReloading()
@@ -65,7 +65,8 @@ namespace Game.Weapons.Reload.Controllers
         {
             Debug.Log("Reload started");
             IsReloading = true;
-            _reloadCoroutineIndex = CoroutinePlayerModel.StartCoroutine(ReloadCo());
+            
+            _reloadCoroutineIndex = CoroutinePlayerPresenter.HandleOnCoroutineStarted(ReloadCo());
 
             IEnumerator ReloadCo()
             {
@@ -91,7 +92,7 @@ namespace Game.Weapons.Reload.Controllers
 
             void TerminateReload()
             {
-                CoroutinePlayerModel.StopCoroutine(_reloadCoroutineIndex);
+                CoroutinePlayerPresenter.StopCoroutine(_reloadCoroutineIndex);
                 IsReloading = false;
                 
                 Debug.Log("Reload terminated");

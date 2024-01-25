@@ -1,49 +1,33 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using Core.Coroutines.Models;
 using Core.Coroutines.Views;
-using UnityEngine;
 using Zenject;
 
 namespace Core.Coroutines.Controllers
 {
-    public class CoroutinePlayerPresenter : IInitializable, IDisposable
+    public class CoroutinePlayerPresenter : IDisposable
     {
         [Inject] private CoroutinePlayerModel CoroutinePlayerModel { get; }
         [Inject] private CoroutinePlayerView CoroutinePlayerView { get; }
 
-        private readonly Dictionary<int, Coroutine> _indexToCoroutineDictionary = new();
-        private int _currentIndex = 0;
-
-        public void Initialize()
-        {
-            CoroutinePlayerModel.OnCoroutineStarted += HandleOnCoroutineStarted;
-            CoroutinePlayerModel.OnCoroutineStopped += HandleOnCoroutineStopped;
-        }
+        private int _currentIndex;
 
         public void Dispose()
         {
-            CoroutinePlayerModel.OnCoroutineStarted -= HandleOnCoroutineStarted;
-            CoroutinePlayerModel.OnCoroutineStopped -= HandleOnCoroutineStopped;
-
             DisposeCoroutines();
         }
 
-        private int HandleOnCoroutineStarted(IEnumerator enumerator)
+        public int HandleOnCoroutineStarted(IEnumerator enumerator)
         {
-            var coroutine = CoroutinePlayerView.StartCoroutine(enumerator);
-            _indexToCoroutineDictionary.Add(_currentIndex, coroutine);
-            return _currentIndex++;
+            CoroutinePlayerModel.AddNewCoroutine(_currentIndex++, CoroutinePlayerView.StartCoroutine(enumerator));
+
+            return _currentIndex;
         }
 
-        private void StopCoroutine(int coroutineIndex)
+        public void StopCoroutine(int coroutineIndex)
         {
-            if (_indexToCoroutineDictionary.TryGetValue(coroutineIndex, out var coroutine))
-            {
-                CoroutinePlayerView.StopCoroutine(coroutine);
-                _indexToCoroutineDictionary.Remove(coroutineIndex);
-            }
+            CoroutinePlayerView.StopCoroutine(CoroutinePlayerModel.GetCoroutine(coroutineIndex));
         }
 
         private void HandleOnCoroutineStopped(int coroutineIndex)

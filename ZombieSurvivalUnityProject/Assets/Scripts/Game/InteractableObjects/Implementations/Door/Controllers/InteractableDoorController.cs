@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections;
-using Core.Coroutines.Models;
+using Core.Coroutines.Controllers;
 using Game.InteractableObjects.Common.Controllers;
 using Game.InteractableObjects.Implementations.Door.Enums;
 using Game.InteractableObjects.Implementations.Door.Models;
-using Unity.Mathematics;
 using UnityEngine;
 using Zenject;
 
@@ -14,7 +13,7 @@ namespace Game.InteractableObjects.Implementations.Door.Controllers
     {
         [Inject] private InteractableDoorModel InteractableDoorModel { get; }
         [Inject] private Rigidbody Rigidbody { get; }
-        [Inject] private CoroutinePlayerModel CoroutinePlayerModel { get; }
+        [Inject] private CoroutinePlayerPresenter CoroutinePlayerPresenter { get; }
 
         private Action InteractionEndedCallback { get; set; }
 
@@ -33,7 +32,7 @@ namespace Game.InteractableObjects.Implementations.Door.Controllers
 
             InteractableDoorModel.OnInteractionStarted -= HandleOnDoorInteract;
 
-            // CoroutinePlayerModel.StopCoroutine(_coroutineIndex);
+            CoroutinePlayerPresenter.StopCoroutine(_coroutineIndex);
         }
 
         protected override void HandleOnObjectInteract()
@@ -64,15 +63,15 @@ namespace Game.InteractableObjects.Implementations.Door.Controllers
         private void OpenDoor()
         {
             Debug.Log("Open door");
-            _coroutineIndex = 
-                CoroutinePlayerModel.StartCoroutine(RotateToTargetAngle(InteractableDoorModel.OpenAngle));
+            
+            _coroutineIndex = CoroutinePlayerPresenter.HandleOnCoroutineStarted(RotateToTargetAngle(InteractableDoorModel.OpenAngle));
         }
 
         private void CloseDoor()
         {
             Debug.Log("Closing door");
-            _coroutineIndex =
-                CoroutinePlayerModel.StartCoroutine(RotateToTargetAngle(InteractableDoorModel.CloseAngle));
+            
+            _coroutineIndex = CoroutinePlayerPresenter.HandleOnCoroutineStarted(RotateToTargetAngle(InteractableDoorModel.CloseAngle));
         }
 
         private IEnumerator RotateToTargetAngle(Vector3 targetAngle)
