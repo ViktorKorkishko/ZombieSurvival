@@ -13,10 +13,6 @@ namespace Game.Character.Rigs.Installers
         [SerializeField] private Rig _aimRig;
         [SerializeField] private Rig _handsRig;
 
-        [Header("Aim constraints")]
-        [SerializeField] private MultiParentConstraint _idleMultiParentConstraint;
-        [SerializeField] private MultiParentConstraint _aimMultiParentConstraint;
-        
         [Header("Hand constraints")]
         [SerializeField] private TwoBoneIKConstraint _leftHandIKConstraint;
         [SerializeField] private TwoBoneIKConstraint _rightHandIKConstraint;
@@ -33,13 +29,6 @@ namespace Game.Character.Rigs.Installers
             Container.Bind<Rig>()
                 .WithId(BindingIdentifiers.CharacterHandsRig)
                 .FromInstance(_handsRig);
-            
-            Container.Bind<MultiParentConstraint>()
-                .WithId(BindingIdentifiers.IdleMultiParentConstraint)
-                .FromInstance(_idleMultiParentConstraint);
-            Container.Bind<MultiParentConstraint>()
-                .WithId(BindingIdentifiers.AimMultiParentConstraint)
-                .FromInstance(_aimMultiParentConstraint);
             
             Container.Bind<TwoBoneIKConstraint>()
                 .WithId(BindingIdentifiers.LeftHandIKConstraint)
