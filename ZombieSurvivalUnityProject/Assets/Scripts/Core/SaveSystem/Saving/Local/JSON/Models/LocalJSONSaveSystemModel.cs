@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using Core.SaveSystem.Saving.Common.Load;
 using Core.SaveSystem.Saving.Common.Path;
 using Core.SaveSystem.Saving.Interfaces;
 using Newtonsoft.Json;
@@ -26,22 +27,33 @@ namespace Core.SaveSystem.Saving.Local.JSON.Models
             callback?.Invoke(true);
         }
 
-        void ISaveSystemModel.Load<T>(string key, Action<T> callback)
+        void ISaveSystemModel.Load<T>(string key, Action<LoadResult<T>> callback)
         {
+            Result result;
+            
             string path = BuildPath(key);
-
+            
             bool fileExists = File.Exists(path);
-            if (!fileExists)
+            if (fileExists)
             {
-                using (File.Create(path)) { }
+                result = Result.LoadedSuccessfully;
             }
-
+            else
+            {
+                result = Result.SaveFileNotFound;
+                
+                var createFileStream = File.Create(path);
+                createFileStream.Dispose();
+            }
+            
             using (var readFileStream = new StreamReader(path))
             {
                 var json = readFileStream.ReadToEnd();
                 var data = JsonConvert.DeserializeObject<T>(json);
-
-                callback.Invoke(data);
+                
+                var loadResult = new LoadResult<T>(result, data);
+                
+                callback.Invoke(loadResult);
             }
         }
 
