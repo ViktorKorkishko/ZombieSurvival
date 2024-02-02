@@ -4,7 +4,7 @@ namespace Game.Character.Weapons.Equip.Models
 {
     public class EquippedWeapon
     {
-        public DiContainer WeaponContainer { get; }
+        private DiContainer WeaponContainer { get; }
 
         public EquippedWeapon(DiContainer container)
         {
