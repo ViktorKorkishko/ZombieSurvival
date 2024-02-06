@@ -137,6 +137,66 @@ MonoBehaviour:
   _viewRoot: {fileID: 7788151638608049890}
   _collider: {fileID: 5266942774444521678}
   _rigidbody: {fileID: 7334978504398799373}
+--- !u!1 &2245487689617139155
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4119546089539332068}
+  - component: {fileID: 5827692891431590842}
+  - component: {fileID: 6207397191534471805}
+  m_Layer: 0
+  m_Name: SaveableEntity
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4119546089539332068
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2245487689617139155}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 264508844295993565}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5827692891431590842
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2245487689617139155}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae3a8adefa154814a7d1f962d21220e6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _saveableEntity: {fileID: 6207397191534471805}
+--- !u!114 &6207397191534471805
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2245487689617139155}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: acbeec5908864a42b1d5ad1f5a0c443a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _groupId: 2
+  _id: aaa51389-3738-4206-8773-25ab49980127
 --- !u!1 &2470341876015060799
 GameObject:
   m_ObjectHideFlags: 0
@@ -475,6 +535,7 @@ Transform:
   - {fileID: 7470662854853662042}
   - {fileID: 3597968075906301599}
   - {fileID: 7478028922698413320}
+  - {fileID: 4119546089539332068}
   m_Father: {fileID: 6382987911619683099}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &6587909735587892803
@@ -499,6 +560,7 @@ MonoBehaviour:
   - {fileID: 6380211894287323684}
   - {fileID: 7083432613058548994}
   - {fileID: 8768804984432282728}
+  - {fileID: 5827692891431590842}
   _installerPrefabs: []
   _autoRun: 1
   _kernel: {fileID: 0}
