@@ -7,7 +7,7 @@ namespace Game.Character.Weapons.CurrentWeapon.Installers
     {
         public override void InstallBindings()
         {
-            Container.Bind<CurrentWeaponModel>().AsSingle();
+            Container.BindInterfacesAndSelfTo<CurrentWeaponModel>().AsSingle();
         }
     }
 }
