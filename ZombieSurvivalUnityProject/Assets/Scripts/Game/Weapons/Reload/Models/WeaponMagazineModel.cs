@@ -1,4 +1,4 @@
-using System;
+using Core.SaveSystem.Models;
 using Game.Weapons.Common.Config;
 using Game.Weapons.Shoot.Models;
 using UnityEngine;
@@ -6,7 +6,7 @@ using Zenject;
 
 namespace Game.Weapons.Reload.Models
 {
-    public class WeaponMagazineModel : IInitializable, IDisposable
+    public partial class WeaponMagazineModel : SaveableModel<WeaponMagazineModel.Data>
     {
         [Inject] private WeaponReloadModel WeaponReloadModel { get; }
         [Inject] private WeaponShootModel WeaponShootModel { get; }
@@ -14,16 +14,18 @@ namespace Game.Weapons.Reload.Models
 
         public int BulletsLeft { get; private set; }
 
-        public void Initialize()
+        public override void Initialize()
         {
+            base.Initialize();
+            
             WeaponShootModel.OnShoot += HandleOnShoot;
             WeaponReloadModel.OnReloadEnded += HandleOnReloadingEnded;
-
-            FillMagazine();
         }
 
-        public void Dispose()
+        public override void Dispose()
         {
+            base.Dispose();
+            
             WeaponShootModel.OnShoot -= HandleOnShoot;
             WeaponReloadModel.OnReloadEnded -= HandleOnReloadingEnded;
         }
