@@ -1,10 +1,11 @@
 ﻿using System;
+using Core.SaveSystem.Models;
 using Game.InteractableObjects.Implementations.Door.Enums;
 using UnityEngine;
 
 namespace Game.InteractableObjects.Implementations.Door.Models
 {
-    public class InteractableDoorModel : MonoBehaviour
+    public partial class InteractableDoorModel : MonoSaveableModel<InteractableDoorModel.Data>
     {
         [SerializeField] private Vector3 _openedDoorAngle;
         [SerializeField] private Vector3 _closedDoorAngle;
@@ -14,7 +15,7 @@ namespace Game.InteractableObjects.Implementations.Door.Models
         public Vector3 OpenAngle => _openedDoorAngle;
         public Vector3 CloseAngle => _closedDoorAngle;
         public float OpenTime => _openTime;
-
+        
         public DoorState State
         {
             get => _doorState;
