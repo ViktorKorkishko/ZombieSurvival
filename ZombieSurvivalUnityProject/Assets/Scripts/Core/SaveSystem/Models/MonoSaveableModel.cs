@@ -8,7 +8,7 @@ using Zenject;
 
 namespace Core.SaveSystem.Models
 {
-    public abstract class SaveableModel<T> : IInitializable, IDisposable
+    public abstract class MonoSaveableModel<T> : MonoBehaviour, IInitializable, IDisposable 
         where T : new()
     {
         [Inject] private ISaveSystemModel SaveSystemModel { get; }

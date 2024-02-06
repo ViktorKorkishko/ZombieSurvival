@@ -1975,6 +1975,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: acbeec5908864a42b1d5ad1f5a0c443a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _groupId: 1
   _id: c3561b41-f0e5-4579-8086-0c822ae98298
 --- !u!1 &7817102169577678408
 GameObject:

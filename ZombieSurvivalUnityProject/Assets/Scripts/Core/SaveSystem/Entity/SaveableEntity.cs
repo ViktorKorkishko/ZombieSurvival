@@ -1,32 +1,23 @@
-﻿using System;
-using UnityEngine;
+﻿using System.Linq;
+using Core.Installers;
+using Core.SaveSystem.Enums;
+using Zenject;
 
 namespace Core.SaveSystem.Entity
 {
-    public class SaveableEntity : MonoBehaviour
+    public partial class SaveableEntity
     {
-        [SerializeField] private string _id;
+        public SaveGroup SaveGroup { get; private set;}
+        
+        private SaveGroupId GroupId => _groupId;
 
         public string Id => _id;
-        
-        // triggered when script is attached to a gameObject
-        private void Reset()
-        {
-            TryGenerateId();
-        }
 
-        private void TryGenerateId()
+        [Inject]
+        public void Construct(DiContainer diContainer)
         {
-            bool generateId = string.IsNullOrEmpty(_id);
-            if (generateId)
-            {
-                GenerateNewId();
-            }
-        }
-
-        private void GenerateNewId()
-        {
-            _id = Guid.NewGuid().ToString();
+            var saveGroups = diContainer.ResolveAll<SaveGroup>();
+            SaveGroup = saveGroups.FirstOrDefault(x => x.SaveGroupId == GroupId);
         }
     }
 }

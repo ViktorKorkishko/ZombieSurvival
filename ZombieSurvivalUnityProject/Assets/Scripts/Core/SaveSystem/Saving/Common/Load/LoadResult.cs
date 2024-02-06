@@ -16,5 +16,6 @@
     {
         LoadedSuccessfully,
         SaveFileNotFound,
+        LoadedWithErrors,
     }
 }

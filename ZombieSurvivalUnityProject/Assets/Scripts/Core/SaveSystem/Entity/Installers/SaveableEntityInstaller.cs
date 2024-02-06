@@ -1,7 +1,7 @@
 using UnityEngine;
 using Zenject;
 
-namespace Core.SaveSystem.Entity
+namespace Core.SaveSystem.Entity.Installers
 {
     public class SaveableEntityInstaller : MonoInstaller
     {
