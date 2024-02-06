@@ -10,5 +10,7 @@ namespace Game.Character.Movement.Position.Models
         {
             public Vector3 Position { get; set; }
         }
+        
+        protected override string DataKey => "CharacterPositionModel.Data";
     }
 }
