@@ -16,7 +16,6 @@ namespace Game.Settings.Controllers
         protected override void HandleOnShow()
         {
             View.OnSliderValueChanged += HandleOnSliderValueChanged;
-            View.OnCloseButtonClicked += HandleOnCloseButtonClicked;
             
             View.SetSensitivitySliderValue(SettingsModel.Sensitivity);
         }
@@ -24,12 +23,6 @@ namespace Game.Settings.Controllers
         protected override void HandleOnHide()
         {
             View.OnSliderValueChanged -= HandleOnSliderValueChanged;
-            View.OnCloseButtonClicked -= HandleOnCloseButtonClicked;
-        }
-
-        private void HandleOnCloseButtonClicked()
-        {
-            View.Hide();
         }
 
         private void HandleOnSliderValueChanged(float value)

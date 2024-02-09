@@ -11,15 +11,15 @@ namespace Game.Common.Views
         
         private void OnEnable()
         {
-            _button.onClick.AddListener(ShowView);
+            _button.onClick.AddListener(HideView);
         }
 
         private void OnDisable()
         {
-            _button.onClick.RemoveListener(ShowView);
+            _button.onClick.RemoveListener(HideView);
         }
 
-        private void ShowView()
+        private void HideView()
         {
             _viewToHide.Hide();
         }
