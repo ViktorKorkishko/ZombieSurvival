@@ -1,6 +1,8 @@
 ﻿using System;
 using Cinemachine;
+using Game.Settings.ViewModel;
 using UnityEngine;
+using Zenject;
 
 namespace Game.Cameras.Models
 {
@@ -8,6 +10,8 @@ namespace Game.Cameras.Models
     {
         [SerializeField] private AxisState _xAxisState;
         [SerializeField] private AxisState _yAxisState;
+
+        [Inject] private SettingsModel SettingsModel { get; }
 
         public AxisState XAxisState => _xAxisState;
         public AxisState YAxisState => _yAxisState;
@@ -18,8 +22,11 @@ namespace Game.Cameras.Models
 
         private void FixedUpdate()
         {
-            _xAxisState.Update(Time.fixedDeltaTime);
-            _yAxisState.Update(Time.fixedDeltaTime);
+            var updateValue = Time.fixedDeltaTime * SettingsModel.Sensitivity;
+            _xAxisState.Update(updateValue);
+            _yAxisState.Update(updateValue);
+            
+            Debug.Log(updateValue);
         }
     }
 }

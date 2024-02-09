@@ -5,6 +5,6 @@
         None = 0,
         Character,
         GameWorld,
-        Settings,
+        Project,
     }
 }

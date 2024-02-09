@@ -26,7 +26,7 @@ namespace Core.SaveSystem.Installers
             
             Container.BindInterfacesAndSelfTo<SaveGroup>()
                 .AsCached()
-                .WithArguments(SaveGroupId.Settings);
+                .WithArguments(SaveGroupId.Project);
         }
     }
 }

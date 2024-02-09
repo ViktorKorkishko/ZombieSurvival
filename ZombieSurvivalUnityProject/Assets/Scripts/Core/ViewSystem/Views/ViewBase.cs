@@ -26,6 +26,8 @@ namespace Core.ViewSystem.Views
 
         public void Hide()
         {
+            gameObject.SetActive(false);
+            
             OnHide?.Invoke();
             
             HandleOnHide();
