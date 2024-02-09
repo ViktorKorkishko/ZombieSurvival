@@ -23,5 +23,6 @@
         UnarmedStateName,
         MagazineGameObject,
         CharacterLeftHandTransform,
+        ViewsParent,
     }
 }
