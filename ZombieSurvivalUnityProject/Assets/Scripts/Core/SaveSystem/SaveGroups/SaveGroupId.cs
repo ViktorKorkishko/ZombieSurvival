@@ -6,5 +6,6 @@
         Character,
         GameWorld,
         Project,
+        Inventory,
     }
 }

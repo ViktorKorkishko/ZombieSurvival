@@ -218,6 +218,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _viewsParent: {fileID: 516573517708972349}
   _settingsViewPrefab: {fileID: 5476103327314586253, guid: e3ca5a848f3e9af4bbf201a2cbb9e773, type: 3}
+  _inventoryViewPrefab: {fileID: 5530110844097316852, guid: 05f16a590456ed7449170c0d72590ee2, type: 3}
 --- !u!1 &6205346269025531249
 GameObject:
   m_ObjectHideFlags: 0
