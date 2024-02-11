@@ -2,7 +2,6 @@
 using Core.ViewSystem.Views.Interfaces;
 using Game.Settings.ViewModel;
 using Game.Settings.Views;
-using UnityEngine;
 using Zenject;
 
 namespace Game.Settings.Controllers
