@@ -1,5 +1,5 @@
 ﻿using System.Linq;
-using Core.SaveSystem.Enums;
+using Core.SaveSystem.SaveGroups;
 using Zenject;
 
 namespace Core.SaveSystem.Entity

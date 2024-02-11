@@ -1,5 +1,5 @@
 ﻿using System;
-using Core.SaveSystem.Enums;
+using Core.SaveSystem.SaveGroups;
 using Core.SaveSystem.Saving.Common.Load;
 
 namespace Core.SaveSystem.Saving.Interfaces

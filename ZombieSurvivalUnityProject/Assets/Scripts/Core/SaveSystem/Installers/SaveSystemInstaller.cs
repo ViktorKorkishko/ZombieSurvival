@@ -1,5 +1,4 @@
-using Core.Installers;
-using Core.SaveSystem.Enums;
+using Core.SaveSystem.SaveGroups;
 using Core.SaveSystem.Saving.Common.Path;
 using Core.SaveSystem.Saving.Interfaces;
 using Core.SaveSystem.Saving.Local.JSON.Models;
@@ -11,8 +10,7 @@ namespace Core.SaveSystem.Installers
     {
         public override void InstallBindings()
         {
-            // Container.Bind<ISaveSystemModel>().To<LocalJSONSaveSystemModel>().AsSingle();
-            Container.Bind<ISaveSystemModel>().To<NewLocalJSONSaveSystemModel>().AsSingle();
+            Container.Bind<ISaveSystemModel>().To<LocalJSONSaveSystemModel>().AsSingle();
             
             Container.Bind<LocalStoragePathProvider>().AsSingle();
             

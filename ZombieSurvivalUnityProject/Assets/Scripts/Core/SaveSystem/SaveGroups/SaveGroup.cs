@@ -4,7 +4,7 @@ using Core.SaveSystem.Saving.Common.Path;
 using Newtonsoft.Json;
 using Zenject;
 
-namespace Core.SaveSystem.Enums
+namespace Core.SaveSystem.SaveGroups
 {
     public class SaveGroup : IInitializable
     {

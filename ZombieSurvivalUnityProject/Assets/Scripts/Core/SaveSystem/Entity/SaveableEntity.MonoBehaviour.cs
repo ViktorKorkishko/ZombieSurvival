@@ -1,4 +1,4 @@
-﻿using Core.SaveSystem.Enums;
+﻿using Core.SaveSystem.SaveGroups;
 using UnityEngine;
 
 namespace Core.SaveSystem.Entity

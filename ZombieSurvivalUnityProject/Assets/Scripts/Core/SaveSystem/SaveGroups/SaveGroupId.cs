@@ -1,4 +1,4 @@
-﻿namespace Core.SaveSystem.Enums
+﻿namespace Core.SaveSystem.SaveGroups
 {
     public enum SaveGroupId
     {
