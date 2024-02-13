@@ -1,4 +1,5 @@
 ﻿using System;
+using Core.Installers;
 using Game.InteractableObjects.Highlight.Models;
 using UnityEngine;
 using Zenject;
@@ -8,7 +9,7 @@ namespace Game.InteractableObjects.Highlight.Controllers
     public class HighlightableObjectController : IInitializable, IDisposable
     {
         [Inject] private HighlightableObjectModel Model { get; }
-        [Inject] private Renderer Renderer { get; }
+        [Inject(Id = BindingIdentifiers.Renderer)] private Renderer Renderer { get; }
 
         void IInitializable.Initialize()
         {

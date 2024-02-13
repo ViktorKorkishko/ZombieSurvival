@@ -1,4 +1,5 @@
-﻿using Game.InteractableObjects.Highlight.Controllers;
+﻿using Core.Installers;
+using Game.InteractableObjects.Highlight.Controllers;
 using Game.InteractableObjects.Highlight.Models;
 using UnityEngine;
 using Zenject;
@@ -14,7 +15,11 @@ namespace Game.InteractableObjects.Highlight.Installers
             Container.Bind<HighlightableObjectModel>().AsSingle();
             Container.BindInterfacesAndSelfTo<HighlightableObjectController>().AsSingle();
             
-            Container.BindInstance(_renderer).AsSingle();
+            Container
+                .Bind<Renderer>()
+                .WithId(BindingIdentifiers.Renderer)
+                .FromInstance(_renderer)
+                .AsSingle();
         }
     }
 }

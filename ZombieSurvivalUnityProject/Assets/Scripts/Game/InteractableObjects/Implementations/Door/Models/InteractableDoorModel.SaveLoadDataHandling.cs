@@ -1,5 +1,5 @@
-﻿using Core.SaveSystem.Saving.Common.Load;
-using Game.InteractableObjects.Implementations.Door.Enums;
+﻿using Core.Installers;
+using Core.SaveSystem.Saving.Common.Load;
 using UnityEngine;
 using Zenject;
 
@@ -7,7 +7,7 @@ namespace Game.InteractableObjects.Implementations.Door.Models
 {
     public partial class InteractableDoorModel
     {
-        [Inject] private Rigidbody Rigidbody { get; }
+        [Inject(Id = BindingIdentifiers.Rigidbody)] private Rigidbody Rigidbody { get; }
 
         protected override void HandleOnDataLoaded(LoadResult<Data> loadResult)
         {

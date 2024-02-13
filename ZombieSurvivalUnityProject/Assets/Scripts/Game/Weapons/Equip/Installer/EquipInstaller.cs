@@ -17,7 +17,8 @@ namespace Game.Weapons.Equip.Installer
             
             Container.Bind<Transform>()
                 .WithId(BindingIdentifiers.Root)
-                .FromInstance(_weaponRoot);
+                .FromInstance(_weaponRoot)
+                .AsCached();
         }
     }
 }
