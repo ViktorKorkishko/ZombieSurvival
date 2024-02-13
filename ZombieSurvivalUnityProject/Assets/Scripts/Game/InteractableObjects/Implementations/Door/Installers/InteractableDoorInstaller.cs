@@ -1,4 +1,5 @@
-﻿using Game.InteractableObjects.Common.Installers;
+﻿using Core.Installers;
+using Game.InteractableObjects.Common.Installers;
 using Game.InteractableObjects.Implementations.Door.Controllers;
 using Game.InteractableObjects.Implementations.Door.Models;
 using UnityEngine;
@@ -16,7 +17,7 @@ namespace Game.InteractableObjects.Implementations.Door.Installers
 
             Container.BindInterfacesAndSelfTo<InteractableDoorModel>().FromInstance(_interactableDoorModel).AsSingle();
             
-            Container.BindInstance(_rigidbody).AsSingle();
+            Container.BindInstance(_rigidbody).WithId(BindingIdentifiers.Rigidbody).AsSingle();
         }
     }
 }

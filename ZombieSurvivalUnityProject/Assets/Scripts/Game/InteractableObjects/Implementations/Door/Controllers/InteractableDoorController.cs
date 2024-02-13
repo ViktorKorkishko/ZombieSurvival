@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections;
 using Core.Coroutines.Models;
+using Core.Installers;
 using Game.InteractableObjects.Common.Controllers;
 using Game.InteractableObjects.Implementations.Door.Enums;
 using Game.InteractableObjects.Implementations.Door.Models;
-using Unity.Mathematics;
 using UnityEngine;
 using Zenject;
 
@@ -13,7 +13,7 @@ namespace Game.InteractableObjects.Implementations.Door.Controllers
     public class InteractableDoorController : InteractableObjectControllerBase
     {
         [Inject] private InteractableDoorModel InteractableDoorModel { get; }
-        [Inject] private Rigidbody Rigidbody { get; }
+        [Inject(Id = BindingIdentifiers.Rigidbody)] private Rigidbody Rigidbody { get; }
         [Inject] private CoroutinePlayerModel CoroutinePlayerModel { get; }
 
         private Action InteractionEndedCallback { get; set; }
@@ -32,8 +32,6 @@ namespace Game.InteractableObjects.Implementations.Door.Controllers
             base.Dispose();
 
             InteractableDoorModel.OnInteractionStarted -= HandleOnDoorInteract;
-
-            // CoroutinePlayerModel.StopCoroutine(_coroutineIndex);
         }
 
         protected override void HandleOnObjectInteract()

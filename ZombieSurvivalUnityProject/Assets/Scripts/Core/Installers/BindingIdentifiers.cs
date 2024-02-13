@@ -24,5 +24,7 @@
         MagazineGameObject,
         CharacterLeftHandTransform,
         ViewsParent,
+        Rigidbody,
+        Renderer,
     }
 }
