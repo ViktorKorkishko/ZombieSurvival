@@ -8,6 +8,9 @@ using Game.InteractableObjects.Common.Models;
 using Game.InteractableObjects.Common.Views;
 using Game.InteractableObjects.Highlight.Models;
 using Game.InteractableObjects.Highlight.Views;
+using Game.InteractableObjects.Implementations.PickableItem.Models;
+using Game.Inventory.Core.Models;
+using Game.Inventory.Items.Enums.Models;
 using UnityEngine;
 using Zenject;
 
@@ -19,6 +22,7 @@ namespace Game.Character.Interaction.Controllers
         [Inject] private CameraModel CameraModel { get; }
         [Inject] private InputModel InputModel { get; }
         [Inject] private CharacterObjectInteractionModel CharacterObjectInteractionModel { get; }
+        [Inject] private InventoryModel InventoryModel { get; }
 
         private SelectionOutlineController _selectionOutlineController;
         
@@ -101,6 +105,12 @@ namespace Game.Character.Interaction.Controllers
                 case InteractableObjectType.Weapon:
                     var equippedWeapon = new EquippedWeapon(container);
                     CharacterWeaponPickUpModel.PickUp(equippedWeapon);
+                    break;
+                
+                case InteractableObjectType.PickableItem:
+                    var pickableItem = container.Resolve<PickableItemModel>();
+                    var inventoryItemModel = new InventoryItemModel(pickableItem.ItemId, pickableItem.Count);
+                    InventoryModel.AddItems(new [] { inventoryItemModel });
                     break;
                 
                 default:

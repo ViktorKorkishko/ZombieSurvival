@@ -7,15 +7,5 @@ namespace Game.Inventory.Core.Controllers
     public class InventoryViewController : ViewControllerBase<InventoryView>
     {
         public InventoryViewController(IView view) : base(view) { }
-
-        protected override void HandleOnShow()
-        {
-            
-        }
-
-        protected override void HandleOnHide()
-        {
-            
-        }
     }
 }

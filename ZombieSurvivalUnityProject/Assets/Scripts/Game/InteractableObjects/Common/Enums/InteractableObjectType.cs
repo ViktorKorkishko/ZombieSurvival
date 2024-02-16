@@ -4,6 +4,6 @@
     {
         Common,
         Weapon,
-        
+        PickableItem,
     }
 }

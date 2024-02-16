@@ -46,6 +46,13 @@ namespace Core.ViewSystem.Installers
         {
             var viewInstance = Container
                 .InstantiatePrefabForComponent<ViewBase>(viewPrefab, _viewsParent);
+
+            var viewType = viewPrefab.GetType();
+            // REMOVE LATER
+            Container
+                .Bind(viewType)
+                .FromInstance(viewInstance)
+                .AsSingle();
             
             Container
                 .BindInterfacesAndSelfTo(typeViewController)
