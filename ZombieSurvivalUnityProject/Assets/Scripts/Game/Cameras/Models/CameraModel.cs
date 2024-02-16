@@ -22,11 +22,10 @@ namespace Game.Cameras.Models
 
         private void FixedUpdate()
         {
-            var updateValue = Time.fixedDeltaTime * SettingsModel.Sensitivity;
+            // TODO: sensitivity currently does no effect
+            var updateValue = Time.fixedDeltaTime * SettingsModel.Sensitivity; 
             _xAxisState.Update(updateValue);
             _yAxisState.Update(updateValue);
-            
-            Debug.Log(updateValue);
         }
     }
 }
