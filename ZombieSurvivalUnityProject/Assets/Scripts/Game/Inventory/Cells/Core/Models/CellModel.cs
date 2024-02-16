@@ -1,6 +1,6 @@
 ﻿using System;
 using Core.SaveSystem.Models;
-using Game.Inventory.Items.Enums.Models;
+using Game.Inventory.Items.Models;
 
 namespace Game.Inventory.Cells.Core.Models
 {
@@ -9,26 +9,7 @@ namespace Game.Inventory.Cells.Core.Models
         public InventoryItemModel InventoryItemModel { get; private set; }
 
         public Action<InventoryItemModel> OnItemSet { get; set; }
-
-        public override void Initialize()
-        {
-            base.Initialize();
-
-            SetupCellView();
-        }
-
-        public override void Dispose()
-        {
-            base.Dispose();
-            
-            
-        }
-
-        private void SetupCellView()
-        {
-            
-        }
-
+        
         public void SetItem(InventoryItemModel itemModel)
         {
             InventoryItemModel = itemModel;

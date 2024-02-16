@@ -10,7 +10,8 @@ using Game.InteractableObjects.Highlight.Models;
 using Game.InteractableObjects.Highlight.Views;
 using Game.InteractableObjects.Implementations.PickableItem.Models;
 using Game.Inventory.Core.Models;
-using Game.Inventory.Items.Enums.Models;
+using Game.Inventory.Items.Models;
+using Game.ItemsDB;
 using UnityEngine;
 using Zenject;
 
@@ -23,6 +24,7 @@ namespace Game.Character.Interaction.Controllers
         [Inject] private InputModel InputModel { get; }
         [Inject] private CharacterObjectInteractionModel CharacterObjectInteractionModel { get; }
         [Inject] private InventoryModel InventoryModel { get; }
+        [Inject] private ItemsDataBase ItemsDataBase { get; }
 
         private SelectionOutlineController _selectionOutlineController;
         
@@ -109,7 +111,7 @@ namespace Game.Character.Interaction.Controllers
                 
                 case InteractableObjectType.PickableItem:
                     var pickableItem = container.Resolve<PickableItemModel>();
-                    var inventoryItemModel = new InventoryItemModel(pickableItem.ItemId, pickableItem.Count);
+                    var inventoryItemModel = new InventoryItemModel(pickableItem.ItemId, pickableItem.Count, ItemsDataBase);
                     InventoryModel.AddItems(new [] { inventoryItemModel });
                     break;
                 

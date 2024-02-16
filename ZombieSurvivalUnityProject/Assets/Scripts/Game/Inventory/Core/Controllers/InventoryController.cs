@@ -5,7 +5,7 @@ using Game.Inventory.Cells.Core.Controllers;
 using Game.Inventory.Cells.Core.Models;
 using Game.Inventory.Core.Models;
 using Game.Inventory.Core.Views;
-using Game.Inventory.Items.Enums.Models;
+using Game.Inventory.Items.Models;
 using UnityEngine;
 using Zenject;
 

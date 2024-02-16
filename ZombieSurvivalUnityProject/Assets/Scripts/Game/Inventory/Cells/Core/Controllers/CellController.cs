@@ -1,6 +1,6 @@
 ﻿using Game.Inventory.Cells.Core.Models;
 using Game.Inventory.Cells.Core.Views;
-using Game.Inventory.Items.Enums.Models;
+using Game.Inventory.Items.Models;
 using Zenject;
 
 namespace Game.Inventory.Cells.Core.Controllers
@@ -28,9 +28,8 @@ namespace Game.Inventory.Cells.Core.Controllers
 
         private void HandleOnItemSet(InventoryItemModel inventoryItemModel)
         {
-            // var itemImage = ItemsDB.GetItemImage(ItemId);
-            // CellView.SetItemImage(inventoryItemModel.ItemId);
-            CellView.SetItemImage();
+            var sprite = inventoryItemModel.ItemData.Sprite;
+            CellView.SetItemImage(sprite);
         }
     }
 }

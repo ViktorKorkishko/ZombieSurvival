@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using Game.Inventory.Items.Enums.Models;
+using Game.Inventory.Items.Models;
 
 namespace Game.Inventory.Core.Models
 {

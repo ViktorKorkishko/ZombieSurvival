@@ -11,19 +11,16 @@ namespace Game.Inventory.Cells.Core.Views
 
         public Action<CellView, PointerEventData> OnDown { get; set; }
 
-        public void SetItemImage(Image image)
+        public void SetItemImage(Sprite sprite)
         {
-            _itemImage = image;
+            _itemImage.sprite = sprite;
+            _itemImage.enabled = sprite != null;
+            Debug.Log($"-{gameObject.name}-: Image set");
         }
 
         public void OnPointerDown(PointerEventData eventData)
         {
             OnDown?.Invoke(this, eventData);
-        }
-        
-        public void SetItemImage()
-        {
-            Debug.Log($"-{gameObject.name}-: Image set");
         }
     }
 }
