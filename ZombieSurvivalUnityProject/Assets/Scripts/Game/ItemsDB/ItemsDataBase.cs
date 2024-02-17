@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using Game.Inventory.Items.Enums;
 using Game.ItemsDB.Item;
 using TriInspector;
@@ -15,8 +16,15 @@ namespace Game.ItemsDB
         public bool TryGetItemData(ItemId id, out ItemData itemData)
         {
             var item = _items.FirstOrDefault(x => x.Id == id);
-            itemData = item;
-            return item != null;
+            if (item != null)
+            {
+                itemData = item;
+                return true;
+            }
+
+            Debug.LogException(new NullReferenceException($"Item with id [{id}] is not found!"));
+            itemData = null;
+            return false;
         }
     }
 }
