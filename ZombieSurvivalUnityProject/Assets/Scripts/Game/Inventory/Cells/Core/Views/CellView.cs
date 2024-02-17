@@ -17,7 +17,6 @@ namespace Game.Inventory.Cells.Core.Views
         {
             _itemImage.sprite = sprite;
             _itemImage.enabled = sprite != null;
-            Debug.Log($"-{gameObject.name}-: Image set");
         }
 
         public void SetItemCount(int count)

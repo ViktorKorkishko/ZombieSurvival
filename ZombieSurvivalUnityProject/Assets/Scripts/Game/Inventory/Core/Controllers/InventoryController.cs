@@ -24,7 +24,22 @@ namespace Game.Inventory.Core.Controllers
         {
             InventoryModel.OnItemsAdded += HandleOnItemsAdded;
 
-            Init();
+            InitCells();
+
+            void InitCells()
+            {
+                var inventoryCellCount = InventoryModel.InventoryCellsCount;
+                for (int i = 0; i < inventoryCellCount; i++)
+                {
+                    var cellModel = new CellModel();
+                    var cellView = InventoryView.InitCell(cellModel);
+                    var cellController = new CellController(cellModel, cellView);
+
+                    cellController.Init();
+
+                    _cellsContainers.Add(new CellContainer(cellModel, cellView, cellController));
+                }
+            }
         }
 
         void IDisposable.Dispose()
@@ -32,36 +47,20 @@ namespace Game.Inventory.Core.Controllers
             InventoryModel.OnItemsAdded -= HandleOnItemsAdded;
         }
 
-        void Init()
-        {
-            var inventoryCellCount = InventoryModel.InventoryCellsCount;
-            for (int i = 0; i < inventoryCellCount; i++)
-            {
-                var cellModel = new CellModel();
-                var cellView = InventoryView.InitCell(cellModel);
-                var cellController = new CellController(cellModel, cellView);
-
-                cellController.Init();
-
-                _cellsContainers.Add(new CellContainer(cellModel, cellView, cellController));
-            }
-        }
-
         private void HandleOnItemsAdded(IEnumerable<InventoryItemModel> items)
         {
-            Debug.Log("Items being added!");
             SpreadItemsAmongCells(items);
         }
-
+        
+        // TODO: refactor (extract same parts to separate methods)
         private void SpreadItemsAmongCells(IEnumerable<InventoryItemModel> iitems)
         {
-            var cellModels = _cellsContainers.Select(x => x.Model).ToList();
+            var cells = _cellsContainers.Select(x => x.Model).ToList();
+            var items = iitems.ToList();
 
-            for (int i = 0; i < cellModels.Count; i++)
+            for (int i = 0; i < cells.Count; i++)
             {
-                var currentCell = cellModels[i];
-                
-                var items = iitems.ToList();
+                var currentCell = cells[i];
                 for (int j = 0; j < items.Count; j++)
                 {
                     var currentItem = items[j];
@@ -77,7 +76,9 @@ namespace Game.Inventory.Core.Controllers
                                 if (!fullyStacked)
                                 {
                                     int itemsCountCanBeAdded = itemData.MaxStackCount - currentCell.ItemCount;
-                                    int itemsToAddCount = currentItem.Count >= itemsCountCanBeAdded ? itemsCountCanBeAdded : currentItem.Count;   
+                                    int itemsToAddCount = currentItem.Count >= itemsCountCanBeAdded
+                                        ? itemsCountCanBeAdded
+                                        : currentItem.Count;
                                     if (itemsCountCanBeAdded > 0)
                                     {
                                         currentCell.AdjustItemCount(itemsToAddCount);
@@ -93,22 +94,36 @@ namespace Game.Inventory.Core.Controllers
                         if (ItemsDataBase.TryGetItemData(itemId, out var itemData))
                         {
                             int itemsCountCanBeAdded = itemData.MaxStackCount - 0;
-                            int itemsToAddCount = currentItem.Count >= itemsCountCanBeAdded ? itemsCountCanBeAdded : currentItem.Count;   
+                            int itemsToAddCount = currentItem.Count >= itemsCountCanBeAdded
+                                ? itemsCountCanBeAdded
+                                : currentItem.Count;
                             var newCellItem = new InventoryItemModel(itemId, itemsToAddCount, ItemsDataBase);
                             currentCell.SetItem(newCellItem);
                             currentItem.Count -= itemsToAddCount;
                         }
                     }
 
-                    if (AllItemsSpread(items))
+                    if (AllItemsAreSpread(items))
                     {
                         return;
                     }
                 }
             }
+
+            // TODO: handle cases when all of the cells are iterated and there are still items that cannot fit
+            if (!AllItemsAreSpread(items))
+            {
+                string unspreadItems = "";
+                items.Select(x => x).Where(x => x.Count > 0).ToList().ForEach(x =>
+                {
+                    unspreadItems += $"[ItemId: {x.ItemId}], Count: {x.Count}\n";
+                });
+
+                Debug.Log(unspreadItems);
+            }
         }
 
-        private bool AllItemsSpread(IEnumerable<InventoryItemModel> items)
+        private bool AllItemsAreSpread(IEnumerable<InventoryItemModel> items)
         {
             return items.All(x => x.Count <= 0);
         }
