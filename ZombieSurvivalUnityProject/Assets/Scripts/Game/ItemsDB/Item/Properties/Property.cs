@@ -1,11 +1,11 @@
 ﻿using System;
 using UnityEngine;
 
-namespace Game.ItemsDB.Item
+namespace Game.ItemsDB.Item.Properties
 {
     [Serializable]
     public class Property
     {
-        [SerializeField] private string lel;
+        
     }
 }

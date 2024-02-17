@@ -7,7 +7,7 @@ namespace Game.Inventory.Items.Models
     public class InventoryItemModel
     {
         public ItemId ItemId { get; private set; }
-        public int Count { get; private set; }
+        public int Count { get; set; }
         public ItemData ItemData => GetItemData();
 
         private ItemsDataBase ItemsDataBase { get; }

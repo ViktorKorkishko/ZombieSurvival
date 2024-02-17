@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71cd3a98e2b5f5b469199c020ddf8694, type: 3}
   m_Name: ItemsDatabaseInstaller
   m_EditorClassIdentifier: 
-  _itemsDataBase: {fileID: 0}
+  _itemsDataBase: {fileID: 11400000, guid: 866ffd74fc1f1394d8ac757165713a91, type: 2}
