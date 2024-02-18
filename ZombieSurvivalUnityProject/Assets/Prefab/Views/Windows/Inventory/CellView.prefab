@@ -370,7 +370,7 @@ GameObject:
   - component: {fileID: 740688109270807782}
   - component: {fileID: 1315004005547902242}
   m_Layer: 5
-  m_Name: CellEntry
+  m_Name: CellView
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

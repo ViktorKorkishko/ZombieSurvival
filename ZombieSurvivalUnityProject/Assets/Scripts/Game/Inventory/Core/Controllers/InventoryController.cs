@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Game.Inventory.Cells.Core.Controllers;
 using Game.Inventory.Cells.Core.Models;
+using Game.Inventory.Cells.Core.Views;
 using Game.Inventory.Core.Models;
 using Game.Inventory.Core.Views;
 using Game.Inventory.Items.Models;
@@ -15,13 +16,21 @@ namespace Game.Inventory.Core.Controllers
     public class InventoryController : IInitializable, IDisposable
     {
         [Inject] private InventoryModel InventoryModel { get; }
-        [Inject] private InventoryView InventoryView { get; }
         [Inject] private ItemsDataBase ItemsDataBase { get; }
-
+        [Inject] private CellView.Factory CellViewFactory { get; }
+        
+        private InventoryView InventoryView { get; }
+        
         private readonly List<CellContainer> _cellsContainers = new();
+        
+        public InventoryController(InventoryView inventoryView)
+        {
+            InventoryView = inventoryView;
+        }
 
         void IInitializable.Initialize()
         {
+            InventoryView.OnCellViewCreated += HandleOnCellViewCreated;
             InventoryModel.OnItemsAdded += HandleOnItemsAdded;
 
             InitCells();
@@ -32,7 +41,7 @@ namespace Game.Inventory.Core.Controllers
                 for (int i = 0; i < inventoryCellCount; i++)
                 {
                     var cellModel = new CellModel();
-                    var cellView = InventoryView.InitCell(cellModel);
+                    var cellView = InventoryView.InitCell();
                     var cellController = new CellController(cellModel, cellView);
 
                     cellController.Init();
@@ -44,6 +53,7 @@ namespace Game.Inventory.Core.Controllers
 
         void IDisposable.Dispose()
         {
+            InventoryView.OnCellViewCreated -= HandleOnCellViewCreated;
             InventoryModel.OnItemsAdded -= HandleOnItemsAdded;
         }
 
@@ -126,6 +136,12 @@ namespace Game.Inventory.Core.Controllers
         private bool AllItemsAreSpread(IEnumerable<InventoryItemModel> items)
         {
             return items.All(x => x.Count <= 0);
+        }
+
+        private CellView HandleOnCellViewCreated()
+        {
+            var cellView = CellViewFactory.Create();
+            return cellView;
         }
     }
 }

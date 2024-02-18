@@ -117,6 +117,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8c1800eafd14897a7220d3a94de4494, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _inventoryViewPrefab: {fileID: 5530110844097316852, guid: 05f16a590456ed7449170c0d72590ee2, type: 3}
+  _cellViewPrefab: {fileID: 1315004005547902242, guid: 416d887b13efcf94c983d1b1d8487e9f, type: 3}
   _cellsCount: 30
 --- !u!1 &4992631235816086101
 GameObject:
@@ -265,8 +267,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _viewsParent: {fileID: 516573517708972349}
-  _settingsViewPrefab: {fileID: 5476103327314586253, guid: e3ca5a848f3e9af4bbf201a2cbb9e773, type: 3}
-  _inventoryViewPrefab: {fileID: 5530110844097316852, guid: 05f16a590456ed7449170c0d72590ee2, type: 3}
 --- !u!1 &6205346269025531249
 GameObject:
   m_ObjectHideFlags: 0
@@ -311,6 +311,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c72676638dd642ec9a1516299d7611d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _settingsViewPrefab: {fileID: 5476103327314586253, guid: e3ca5a848f3e9af4bbf201a2cbb9e773, type: 3}
 --- !u!1 &7730718692188970682
 GameObject:
   m_ObjectHideFlags: 0
