@@ -19,7 +19,8 @@ namespace Game.Inventory.Core.Views
             if (newCellView != null)
             {
                 newCellView.transform.SetParent(_cellsParentTransform);
-                newCellView.name += $"_{_cellViewCount++}";
+                newCellView.name += $"_{_cellViewCount}";
+                newCellView.SetImageId(_cellViewCount++);
                 return newCellView;
             }
 

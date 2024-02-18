@@ -8,6 +8,7 @@ namespace Core.ViewSystem.Installers
 {
     public class ViewSystemInstaller : MonoInstaller
     {
+        // [SerializeField] private Transform _viewsParent;
         [SerializeField] private Transform _viewsParent;
         
         public override void InstallBindings()

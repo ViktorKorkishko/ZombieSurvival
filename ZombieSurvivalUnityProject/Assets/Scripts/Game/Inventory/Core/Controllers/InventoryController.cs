@@ -6,8 +6,10 @@ using Game.Inventory.Cells.Core.Models;
 using Game.Inventory.Cells.Core.Views;
 using Game.Inventory.Core.Models;
 using Game.Inventory.Core.Views;
+using Game.Inventory.DragAndDrop.Controllers;
 using Game.Inventory.Items.Models;
 using Game.ItemsDB;
+using UnityEditor.Localization.Plugins.XLIFF.V12;
 using UnityEngine;
 using Zenject;
 
@@ -18,11 +20,13 @@ namespace Game.Inventory.Core.Controllers
         [Inject] private InventoryModel InventoryModel { get; }
         [Inject] private ItemsDataBase ItemsDataBase { get; }
         [Inject] private CellView.Factory CellViewFactory { get; }
-        
+
         private InventoryView InventoryView { get; }
-        
+
+        private DragAndDropController DragAndDropController { get; set; }
+
         private readonly List<CellContainer> _cellsContainers = new();
-        
+
         public InventoryController(InventoryView inventoryView)
         {
             InventoryView = inventoryView;
@@ -35,12 +39,15 @@ namespace Game.Inventory.Core.Controllers
 
             InitCells();
 
+            DragAndDropController = new DragAndDropController(InventoryView.transform, _cellsContainers);
+            DragAndDropController.Init();
+            
             void InitCells()
             {
                 var inventoryCellCount = InventoryModel.InventoryCellsCount;
                 for (int i = 0; i < inventoryCellCount; i++)
                 {
-                    var cellModel = new CellModel();
+                    var cellModel = new CellModel(i);
                     var cellView = InventoryView.InitCell();
                     var cellController = new CellController(cellModel, cellView);
 
@@ -61,7 +68,7 @@ namespace Game.Inventory.Core.Controllers
         {
             SpreadItemsAmongCells(items);
         }
-        
+
         // TODO: refactor (extract same parts to separate methods)
         private void SpreadItemsAmongCells(IEnumerable<InventoryItemModel> iitems)
         {

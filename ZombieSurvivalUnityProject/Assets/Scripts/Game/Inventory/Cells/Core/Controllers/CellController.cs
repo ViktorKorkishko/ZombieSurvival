@@ -1,11 +1,12 @@
-﻿using Game.Inventory.Cells.Core.Models;
+﻿using System;
+using Game.Inventory.Cells.Core.Models;
 using Game.Inventory.Cells.Core.Views;
 using Game.Inventory.Items.Models;
 using Zenject;
 
 namespace Game.Inventory.Cells.Core.Controllers
 {
-    public class CellController
+    public class CellController : IDisposable
     {
         [Inject] private CellModel CellModel { get; }
         [Inject] private CellView CellView { get; }

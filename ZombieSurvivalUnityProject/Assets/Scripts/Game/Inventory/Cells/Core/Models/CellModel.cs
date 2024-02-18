@@ -16,6 +16,13 @@ namespace Game.Inventory.Cells.Core.Models
         public Action<int> OnItemCountChanged { get; set; }
         
         private InventoryItemModel InventoryItemModel { get; set; }
+        
+        public int Index { get; }
+
+        public CellModel(int index)
+        {
+            Index = index;
+        }
 
         public void SetItem(InventoryItemModel itemModel)
         {
@@ -23,10 +30,12 @@ namespace Game.Inventory.Cells.Core.Models
             OnItemSet?.Invoke(InventoryItemModel);
         }
 
-        public void RemoveItem()
+        public InventoryItemModel RemoveItem()
         {
+            var returnItem = (InventoryItemModel)InventoryItemModel.Clone();
             InventoryItemModel = null;
             OnItemRemoved?.Invoke();
+            return returnItem;
         }
 
         public void AdjustItemCount(int count)

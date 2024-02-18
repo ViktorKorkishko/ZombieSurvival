@@ -6,14 +6,25 @@ using UnityEngine.UI;
 
 namespace Game.Inventory.Cells.Core.Views
 {
-    public partial class CellView : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IBeginDragHandler, IEndDragHandler, IDragHandler
+    public partial class CellView : MonoBehaviour,
+        IPointerDownHandler,
+        IBeginDragHandler, IEndDragHandler, IDragHandler,
+        IDropHandler
     {
         [SerializeField] private Image _itemImage;
         [SerializeField] private TMP_Text _countText;
+        [SerializeField] private CanvasGroup _imageCanvasGroup;
 
-        public Action<CellView, PointerEventData> OnBeginDrag { get; set; }
-        public Action<CellView, PointerEventData> OnEndDrag { get; set; }
-
+        public Action<CellView, RectTransform, Vector2> OnBeginDrag { get; set; }
+        public Action<RectTransform> OnEndDrag { get; set; }
+        public Action<RectTransform, PointerEventData> OnDrag { get; set; }
+        public Action<CellView, PointerEventData> OnDrop { get; set; }
+        
+        public void SetImageId(int id)
+        {
+            _itemImage.name += id;
+        }
+        
         public void SetItemImage(Sprite sprite)
         {
             _itemImage.sprite = sprite;
@@ -25,32 +36,40 @@ namespace Game.Inventory.Cells.Core.Views
             _countText.enabled = count != 0;
             _countText.text = count.ToString();
         }
-
-        void IPointerDownHandler.OnPointerDown(PointerEventData eventData)
-        {
-            Debug.Log("OnPointerDown");
-        }
-
-        void IPointerUpHandler.OnPointerUp(PointerEventData eventData)
-        {
-            Debug.Log("OnPointerUp");
-        }
-
+        
         void IBeginDragHandler.OnBeginDrag(PointerEventData eventData)
         {
-            Debug.Log("OnBeginDrag");
-            OnBeginDrag?.Invoke(this, eventData);
+            _imageCanvasGroup.alpha = 0.6f;
+            _imageCanvasGroup.blocksRaycasts = false;
+
+            var itemImageRectTransform = _itemImage.rectTransform;
+            OnBeginDrag?.Invoke(this, itemImageRectTransform, itemImageRectTransform.anchoredPosition);
+            Debug.Log($"{gameObject.name}: OnBeginDrag");
         }
 
         void IEndDragHandler.OnEndDrag(PointerEventData eventData)
         {
-            Debug.Log("OnEndDrag");
-            OnEndDrag?.Invoke(this, eventData);
+            _imageCanvasGroup.alpha = 1;
+            _imageCanvasGroup.blocksRaycasts = true;
+            
+            OnEndDrag?.Invoke(_itemImage.rectTransform);
+            Debug.Log($"{gameObject.name}: OnEndDrag");
         }
 
         void IDragHandler.OnDrag(PointerEventData eventData)
         {
-            Debug.Log("OnDrag");
+            OnDrag?.Invoke(_itemImage.rectTransform, eventData);
+        }
+
+        void IDropHandler.OnDrop(PointerEventData eventData)
+        {
+            OnDrop?.Invoke(this, eventData);
+            Debug.Log($"{gameObject.name}: OnDrop");
+        }
+
+        public void OnPointerDown(PointerEventData eventData)
+        {
+            Debug.Log($"{gameObject.name}: OnPointerDown");
         }
     }
 }
