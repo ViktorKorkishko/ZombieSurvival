@@ -15,11 +15,27 @@ namespace Game.Inventory.Cells.Core.Views
         [SerializeField] private TMP_Text _countText;
         [SerializeField] private CanvasGroup _imageCanvasGroup;
 
-        public Action<CellView, RectTransform, Vector2> OnBeginDrag { get; set; }
-        public Action<RectTransform> OnEndDrag { get; set; }
-        public Action<RectTransform, PointerEventData> OnDrag { get; set; }
-        public Action<CellView, PointerEventData> OnDrop { get; set; }
+        public Image ItemImage => _itemImage;
         
+        public Action<CellView, PointerEventData> OnBeginDrag { get; set; }
+        public Action<CellView, PointerEventData> OnEndDrag { get; set; }
+        public Action<CellView, PointerEventData> OnDrag { get; set; }
+        public Action<CellView, PointerEventData> OnDrop { get; set; }
+
+        private Sprite _sprite;
+        private int _count;
+        public void Show()
+        {
+            _itemImage.gameObject.SetActive(true);
+            _countText.gameObject.SetActive(true);
+        }
+        
+        public void Hide()
+        {
+            _itemImage.gameObject.SetActive(false);
+            _countText.gameObject.SetActive(false);
+        }
+
         public void SetImageId(int id)
         {
             _itemImage.name += id;
@@ -43,7 +59,7 @@ namespace Game.Inventory.Cells.Core.Views
             _imageCanvasGroup.blocksRaycasts = false;
 
             var itemImageRectTransform = _itemImage.rectTransform;
-            OnBeginDrag?.Invoke(this, itemImageRectTransform, itemImageRectTransform.anchoredPosition);
+            OnBeginDrag?.Invoke(this, eventData);
             Debug.Log($"{gameObject.name}: OnBeginDrag");
         }
 
@@ -52,13 +68,13 @@ namespace Game.Inventory.Cells.Core.Views
             _imageCanvasGroup.alpha = 1;
             _imageCanvasGroup.blocksRaycasts = true;
             
-            OnEndDrag?.Invoke(_itemImage.rectTransform);
+            OnEndDrag?.Invoke(this, eventData);
             Debug.Log($"{gameObject.name}: OnEndDrag");
         }
 
         void IDragHandler.OnDrag(PointerEventData eventData)
         {
-            OnDrag?.Invoke(_itemImage.rectTransform, eventData);
+            OnDrag?.Invoke(this, eventData);
         }
 
         void IDropHandler.OnDrop(PointerEventData eventData)

@@ -6,6 +6,7 @@ using Game.Inventory.Cells.Core.Views;
 using Game.Inventory.Core.Controllers;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using Object = UnityEngine.Object;
 
 namespace Game.Inventory.DragAndDrop.Controllers
 {
@@ -40,71 +41,91 @@ namespace Game.Inventory.DragAndDrop.Controllers
         public void Dispose()
         {
         }
-        
-        private void HandleOnBeginDrag(CellView cellView, RectTransform itemImageRectTransform, Vector2 itemImagePosition)
+
+        private void StartDrag(CellView cellView)
+        {
+            _draggedViewData = new DraggedViewData(cellView, cellView.ItemImage.gameObject);
+            cellView.Hide();
+        }
+
+        private void EndDrag()
+        {
+            Object.Destroy(_draggedViewData.DraggedItemImageGO);
+            _draggedViewData.View.Show();
+            _draggedViewData = null;
+        }
+
+        private void HandleOnBeginDrag(CellView cellView, PointerEventData eventData)
         {
             if (_cellViewToModelDictionary.TryGetValue(cellView, out var draggedFromCell))
             {
-                if (!draggedFromCell.ContainsItem)
+                if (draggedFromCell.ContainsItem)
                 {
-                    _draggedViewData = null;
+                    StartDrag(cellView);
+                }
+                else
+                {
                     return;
                 }
             }
             else
             {
-                _draggedViewData = null;
+                EndDrag();
                 return;
             }
             
             // save item image previous parent
             // detach item image
             
-            var imageParent = itemImageRectTransform.parent;
-            var imagePosition = itemImageRectTransform.anchoredPosition;
-            itemImageRectTransform.SetParent(_inventoryRoot);
-            itemImageRectTransform.SetAsLastSibling();
-
-            _draggedViewData = new DraggedViewData(cellView, imageParent, imagePosition);
+            
+            // var imageParent = itemImageRectTransform.parent;
+            // var imagePosition = itemImageRectTransform.anchoredPosition;
+            // itemImageRectTransform.SetParent(_inventoryRoot);
+            // itemImageRectTransform.SetAsLastSibling();
         }
         
-        private void HandleOnDrag(RectTransform itemImageRectTransform, PointerEventData eventData)
+        private void HandleOnDrag(CellView cellView, PointerEventData eventData)
         {
             // change item image position
-
-            itemImageRectTransform.anchoredPosition += eventData.delta;
-        }
-
-        private void HandleOnDrop(CellView cellView, PointerEventData eventData)
-        {
-            var view = _draggedViewData?.View;
-            if (view == null)
-                return;
-
-            if (!_cellViewToModelDictionary.TryGetValue(view, out var droppedFromCell))
+            if (_draggedViewData == null)
                 return;
             
-            if (!droppedFromCell.ContainsItem)
-                return;
-
-            if (_cellViewToModelDictionary.TryGetValue(cellView, out var droppedToCell))
-            {
-                var draggedItem = droppedFromCell.RemoveItem();
-                droppedToCell.SetItem(draggedItem);
-
-                _draggedViewData = new DraggedViewData(null, _draggedViewData.ImageParent, _draggedViewData.ImagePosition);
-            }
+            _draggedViewData.DraggedItemImageRectTransform.anchoredPosition += eventData.delta;
+            // itemImageRectTransform.anchoredPosition += eventData.delta;
         }
 
-        private void HandleOnEndDrag(RectTransform itemImageRectTransform)
+        private void HandleOnDrop(CellView droppedToCellView, PointerEventData eventData)
+        {
+            var draggedView = _draggedViewData?.View;
+            if (draggedView == null)
+                return;
+
+            if (!_cellViewToModelDictionary.TryGetValue(draggedView, out var draggedFromCell))
+                return;
+            
+            if (!_cellViewToModelDictionary.TryGetValue(droppedToCellView, out var droppedToCell))
+            {
+                EndDrag();
+                return;
+            }
+            
+            var draggedItem = draggedFromCell.RemoveItem();
+            droppedToCell.SetItem(draggedItem);
+            
+            EndDrag();
+        }
+
+        private void HandleOnEndDrag(CellView draggedCellView, PointerEventData eventData)
         {
             // restore parent and position
             
             if (_draggedViewData == null)
                 return;
-
-            itemImageRectTransform.SetParent(_draggedViewData.ImageParent);
-            itemImageRectTransform.anchoredPosition = Vector2.zero;
+            
+            draggedCellView.Show();
+            EndDrag();
+            // itemImageRectTransform.SetParent(_draggedViewData.ImageParent);
+            // itemImageRectTransform.anchoredPosition = Vector2.zero;
         }
     }
 }
