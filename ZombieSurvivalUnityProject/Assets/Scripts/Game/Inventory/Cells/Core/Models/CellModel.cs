@@ -16,7 +16,12 @@ namespace Game.Inventory.Cells.Core.Models
         public Action<int> OnItemCountChanged { get; set; }
         
         private InventoryItemModel InventoryItemModel { get; set; }
-        
+
+        public void Init()
+        {
+            SetItem(InventoryItemModel);
+        }
+
         public void SetItem(InventoryItemModel itemModel)
         {
             InventoryItemModel = itemModel;

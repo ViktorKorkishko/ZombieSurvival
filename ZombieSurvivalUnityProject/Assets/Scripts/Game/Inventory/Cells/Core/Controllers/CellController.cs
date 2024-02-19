@@ -2,14 +2,13 @@
 using Game.Inventory.Cells.Core.Models;
 using Game.Inventory.Cells.Core.Views;
 using Game.Inventory.Items.Models;
-using Zenject;
 
 namespace Game.Inventory.Cells.Core.Controllers
 {
     public class CellController : IDisposable
     {
-        [Inject] private CellModel CellModel { get; }
-        [Inject] private CellView CellView { get; }
+        private CellModel CellModel { get; }
+        private CellView CellView { get; }
 
         public CellController(CellModel model, CellView view)
         {
@@ -22,6 +21,8 @@ namespace Game.Inventory.Cells.Core.Controllers
             CellModel.OnItemSet += HandleOnItemSet;
             CellModel.OnItemRemoved += HandleOnItemRemoved;
             CellModel.OnItemCountChanged += HandleOnItemCountChanged;
+            
+            CellModel.Init();
         }
 
         public void Dispose()
@@ -31,17 +32,23 @@ namespace Game.Inventory.Cells.Core.Controllers
             CellModel.OnItemCountChanged -= HandleOnItemCountChanged;
         }
 
+        private void HandleOnItemSet(InventoryItemModel inventoryItemModel)
+        {
+            if (inventoryItemModel == null)
+            {
+                CellModel.RemoveItem();
+                return;
+            }
+            
+            var sprite = inventoryItemModel.ItemData.Sprite;
+            CellView.SetItemImage(sprite);
+            CellView.SetItemCount(inventoryItemModel.Count);
+        }
+
         private void HandleOnItemRemoved()
         {
             CellView.SetItemImage(null);
             CellView.SetItemCount(0);
-        }
-
-        private void HandleOnItemSet(InventoryItemModel inventoryItemModel)
-        {
-            var sprite = inventoryItemModel.ItemData.Sprite;
-            CellView.SetItemImage(sprite);
-            CellView.SetItemCount(inventoryItemModel.Count);
         }
 
         private void HandleOnItemCountChanged(int count)

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Game.Inventory.Cells.Core.Models;
 using Game.Inventory.Cells.Core.Views;
@@ -12,7 +11,13 @@ using Object = UnityEngine.Object;
 
 namespace Game.Inventory.DragAndDrop.Controllers
 {
-    public class DragAndDropController : IDisposable
+    // callbacks execution order
+    // 1. HandleOnBeginDrag
+    // 2. HandleOnDrag
+    // 3. HandleOnDrop
+    // 4. HandleOnEndDrag
+    
+    public class DragAndDropController
     {
         [Inject] private ItemsDataBase ItemsDataBase { get; }
 
@@ -43,13 +48,9 @@ namespace Game.Inventory.DragAndDrop.Controllers
             });
         }
 
-        public void Dispose()
-        {
-        }
-
         private void StartDrag(CellView cellView)
         {
-            _draggedViewData = new DraggedViewData(cellView, cellView.ItemImage.gameObject);
+            _draggedViewData = new DraggedViewData(cellView);
             cellView.Hide();
         }
 
@@ -64,42 +65,28 @@ namespace Game.Inventory.DragAndDrop.Controllers
         {
             if (_cellViewToModelDictionary.TryGetValue(cellView, out var draggedFromCell))
             {
+                // cell has no item, not starting drag
                 if (draggedFromCell.ContainsItem)
                 {
                     StartDrag(cellView);
                 }
-                else
-                {
-                    return;
-                }
             }
-            else
+            else // cell not registered, not starting drag
             {
                 EndDrag();
-                return;
             }
-            
-            // save item image previous parent
-            // detach item image
-            
-            
-            // var imageParent = itemImageRectTransform.parent;
-            // var imagePosition = itemImageRectTransform.anchoredPosition;
-            // itemImageRectTransform.SetParent(_inventoryRoot);
-            // itemImageRectTransform.SetAsLastSibling();
         }
         
-        private void HandleOnDrag(CellView cellView, PointerEventData eventData)
+        private void HandleOnDrag(PointerEventData eventData)
         {
-            // change item image position
+            // nothing is being drag
             if (_draggedViewData == null)
                 return;
             
             _draggedViewData.DraggedItemImageRectTransform.anchoredPosition += eventData.delta;
-            // itemImageRectTransform.anchoredPosition += eventData.delta;
         }
 
-        private void HandleOnDrop(CellView draggedToCellView, PointerEventData eventData)
+        private void HandleOnDrop(CellView draggedToCellView)
         {
             if (_draggedViewData == null)
                 return;
@@ -110,6 +97,15 @@ namespace Game.Inventory.DragAndDrop.Controllers
             
             HandleItemDrag(draggedFromCell, draggedToCell);
             
+            EndDrag();
+        }
+
+        private void HandleOnEndDrag(CellView draggedCellView)
+        {
+            if (_draggedViewData == null)
+                return;
+            
+            draggedCellView.Show();
             EndDrag();
         }
 
@@ -167,19 +163,6 @@ namespace Game.Inventory.DragAndDrop.Controllers
             
             toCell.SetItem(fromCellItem);
             fromCell.SetItem(toCellItem);
-        }
-
-        private void HandleOnEndDrag(CellView draggedCellView, PointerEventData eventData)
-        {
-            // restore parent and position
-            
-            if (_draggedViewData == null)
-                return;
-            
-            draggedCellView.Show();
-            EndDrag();
-            // itemImageRectTransform.SetParent(_draggedViewData.ImageParent);
-            // itemImageRectTransform.anchoredPosition = Vector2.zero;
         }
     }
 }

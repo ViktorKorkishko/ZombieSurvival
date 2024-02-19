@@ -9,17 +9,12 @@ namespace Game.Inventory.DragAndDrop.Controllers
         public GameObject DraggedItemImageGO { get; }
         public RectTransform DraggedItemImageRectTransform => (RectTransform)DraggedItemImageGO.transform;
 
-        public DraggedViewData(CellView cellView, GameObject draggedItemImageGO)
+        public DraggedViewData(CellView cellView)
         {
             View = cellView;
 
-            DraggedItemImageGO =
-                Object.Instantiate(draggedItemImageGO, GameObject.Find("InventoryView(Clone)").transform, true);
-            var originRectTransform = (RectTransform)draggedItemImageGO.transform;
-            var originRect = originRectTransform.rect;
-            DraggedItemImageRectTransform.rect.Set(originRect.x, originRect.y, originRect.size.x, originRect.size.y);
-
-            DraggedItemImageGO.GetComponent<CanvasGroup>().blocksRaycasts = false;
+            var prefab = cellView.ItemImage.gameObject;
+            DraggedItemImageGO = Object.Instantiate(prefab, GameObject.Find("InventoryView(Clone)").transform, true);
             DraggedItemImageGO.transform.SetAsLastSibling();
         }
     }

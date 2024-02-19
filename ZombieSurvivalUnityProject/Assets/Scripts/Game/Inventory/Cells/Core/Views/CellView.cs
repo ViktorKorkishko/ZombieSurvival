@@ -17,9 +17,9 @@ namespace Game.Inventory.Cells.Core.Views
         public Image ItemImage => _itemImage;
         
         public Action<CellView, PointerEventData> OnBeginDrag { get; set; }
-        public Action<CellView, PointerEventData> OnEndDrag { get; set; }
-        public Action<CellView, PointerEventData> OnDrag { get; set; }
-        public Action<CellView, PointerEventData> OnDrop { get; set; }
+        public Action<CellView> OnEndDrag { get; set; }
+        public Action<PointerEventData> OnDrag { get; set; }
+        public Action<CellView> OnDrop { get; set; }
         
         public void Show()
         {
@@ -63,17 +63,17 @@ namespace Game.Inventory.Cells.Core.Views
             _imageCanvasGroup.alpha = 1;
             _imageCanvasGroup.blocksRaycasts = true;
             
-            OnEndDrag?.Invoke(this, eventData);
+            OnEndDrag?.Invoke(this);
         }
 
         void IDragHandler.OnDrag(PointerEventData eventData)
         {
-            OnDrag?.Invoke(this, eventData);
+            OnDrag?.Invoke(eventData);
         }
 
         void IDropHandler.OnDrop(PointerEventData eventData)
         {
-            OnDrop?.Invoke(this, eventData);
+            OnDrop?.Invoke(this);
         }
     }
 }
