@@ -23254,10 +23254,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 5575512261654222198, guid: 3a12ac0067e9bd943bea3f49185dbf62, type: 3}
-      propertyPath: _count
-      value: 3
-      objectReference: {fileID: 0}
     - target: {fileID: 5799715450410722675, guid: 3a12ac0067e9bd943bea3f49185dbf62, type: 3}
       propertyPath: m_Name
       value: PainkillerPillsPrefab
@@ -23358,10 +23354,6 @@ PrefabInstance:
     - target: {fileID: 8266219746664403887, guid: c3fed10f1f20e5f459e7dfe3c57dd91c, type: 3}
       propertyPath: m_Name
       value: GranadePrefab
-      objectReference: {fileID: 0}
-    - target: {fileID: 8289462438770097223, guid: c3fed10f1f20e5f459e7dfe3c57dd91c, type: 3}
-      propertyPath: _count
-      value: 4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

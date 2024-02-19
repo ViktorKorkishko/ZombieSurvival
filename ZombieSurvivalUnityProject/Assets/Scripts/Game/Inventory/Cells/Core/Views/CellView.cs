@@ -7,7 +7,6 @@ using UnityEngine.UI;
 namespace Game.Inventory.Cells.Core.Views
 {
     public partial class CellView : MonoBehaviour,
-        IPointerDownHandler,
         IBeginDragHandler, IEndDragHandler, IDragHandler,
         IDropHandler
     {
@@ -21,9 +20,7 @@ namespace Game.Inventory.Cells.Core.Views
         public Action<CellView, PointerEventData> OnEndDrag { get; set; }
         public Action<CellView, PointerEventData> OnDrag { get; set; }
         public Action<CellView, PointerEventData> OnDrop { get; set; }
-
-        private Sprite _sprite;
-        private int _count;
+        
         public void Show()
         {
             _itemImage.gameObject.SetActive(true);
@@ -58,9 +55,7 @@ namespace Game.Inventory.Cells.Core.Views
             _imageCanvasGroup.alpha = 0.6f;
             _imageCanvasGroup.blocksRaycasts = false;
 
-            var itemImageRectTransform = _itemImage.rectTransform;
             OnBeginDrag?.Invoke(this, eventData);
-            Debug.Log($"{gameObject.name}: OnBeginDrag");
         }
 
         void IEndDragHandler.OnEndDrag(PointerEventData eventData)
@@ -69,7 +64,6 @@ namespace Game.Inventory.Cells.Core.Views
             _imageCanvasGroup.blocksRaycasts = true;
             
             OnEndDrag?.Invoke(this, eventData);
-            Debug.Log($"{gameObject.name}: OnEndDrag");
         }
 
         void IDragHandler.OnDrag(PointerEventData eventData)
@@ -80,12 +74,6 @@ namespace Game.Inventory.Cells.Core.Views
         void IDropHandler.OnDrop(PointerEventData eventData)
         {
             OnDrop?.Invoke(this, eventData);
-            Debug.Log($"{gameObject.name}: OnDrop");
-        }
-
-        public void OnPointerDown(PointerEventData eventData)
-        {
-            Debug.Log($"{gameObject.name}: OnPointerDown");
         }
     }
 }
