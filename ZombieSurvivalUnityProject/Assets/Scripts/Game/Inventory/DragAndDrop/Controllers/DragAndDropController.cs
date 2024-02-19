@@ -4,22 +4,27 @@ using System.Linq;
 using Game.Inventory.Cells.Core.Models;
 using Game.Inventory.Cells.Core.Views;
 using Game.Inventory.Core.Controllers;
+using Game.ItemsDB;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using Zenject;
 using Object = UnityEngine.Object;
 
 namespace Game.Inventory.DragAndDrop.Controllers
 {
     public class DragAndDropController : IDisposable
     {
+        [Inject] private ItemsDataBase ItemsDataBase { get; }
+
         private readonly Dictionary<CellView, CellModel> _cellViewToModelDictionary = new();
         private readonly Transform _inventoryRoot;
         
         private DraggedViewData _draggedViewData;
         
-        public DragAndDropController(Transform inventoryRoot, IEnumerable<CellContainer> cellContainers)
+        public DragAndDropController(Transform inventoryRoot, IEnumerable<CellContainer> cellContainers, ItemsDataBase itemsDataBase)
         {
             _inventoryRoot = inventoryRoot;
+            ItemsDataBase = itemsDataBase;
 
             foreach (var cellContainer in cellContainers)
             {
@@ -94,25 +99,74 @@ namespace Game.Inventory.DragAndDrop.Controllers
             // itemImageRectTransform.anchoredPosition += eventData.delta;
         }
 
-        private void HandleOnDrop(CellView droppedToCellView, PointerEventData eventData)
+        private void HandleOnDrop(CellView draggedToCellView, PointerEventData eventData)
         {
-            var draggedView = _draggedViewData?.View;
-            if (draggedView == null)
-                return;
-
-            if (!_cellViewToModelDictionary.TryGetValue(draggedView, out var draggedFromCell))
+            if (_draggedViewData == null)
                 return;
             
-            if (!_cellViewToModelDictionary.TryGetValue(droppedToCellView, out var droppedToCell))
+            var draggedFromCellView = _draggedViewData.View;
+            var draggedFromCell = _cellViewToModelDictionary[draggedFromCellView];
+            var draggedToCell = _cellViewToModelDictionary[draggedToCellView];
+            
+            HandleItemDrag(draggedFromCell, draggedToCell);
+            
+            EndDrag();
+        }
+
+        private void HandleItemDrag(CellModel fromCell, CellModel toCell)
+        {
+            if (fromCell == toCell)
+                return;
+            
+            bool cellToIsEmpty = !toCell.ContainsItem;
+            if (cellToIsEmpty)
             {
-                EndDrag();
+                MoveItemFromCellToCell(fromCell, toCell);
                 return;
             }
             
-            var draggedItem = draggedFromCell.RemoveItem();
-            droppedToCell.SetItem(draggedItem);
+            bool sameItems = fromCell.ItemId == toCell.ItemId;
+            if (!sameItems)
+            {
+                SwapItems(fromCell, toCell);
+            }
+            else
+            {
+                ItemsDataBase.TryGetItemData(fromCell.ItemId, out var itemData);
+
+                int fullStackCount = itemData.MaxStackCount;
+                bool oneIsFullyStacked = fromCell.ItemCount == fullStackCount ||
+                                         toCell.ItemCount == fullStackCount;
+                if (oneIsFullyStacked)
+                {
+                    SwapItems(fromCell, toCell);
+                }
+                else
+                {
+                    int freeSlotsCount = fullStackCount - toCell.ItemCount;
+                    int itemsCountThatCanBeReplaced = freeSlotsCount >= fromCell.ItemCount
+                        ? fromCell.ItemCount
+                        : fullStackCount - toCell.ItemCount;
+                    
+                    toCell.AdjustItemCount(itemsCountThatCanBeReplaced);
+                    fromCell.AdjustItemCount(-itemsCountThatCanBeReplaced);
+                }
+            }
+        }
+
+        private void MoveItemFromCellToCell(CellModel fromCell, CellModel toCell)
+        {
+            var draggedItem = fromCell.RemoveItem();
+            toCell.SetItem(draggedItem);
+        }
+
+        private void SwapItems(CellModel fromCell, CellModel toCell)
+        {
+            var fromCellItem = fromCell.RemoveItem();
+            var toCellItem = toCell.RemoveItem();
             
-            EndDrag();
+            toCell.SetItem(fromCellItem);
+            fromCell.SetItem(toCellItem);
         }
 
         private void HandleOnEndDrag(CellView draggedCellView, PointerEventData eventData)

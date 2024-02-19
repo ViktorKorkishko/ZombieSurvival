@@ -39,7 +39,7 @@ namespace Game.Inventory.Core.Controllers
 
             InitCells();
 
-            DragAndDropController = new DragAndDropController(InventoryView.transform, _cellsContainers);
+            DragAndDropController = new DragAndDropController(InventoryView.transform, _cellsContainers, ItemsDataBase);
             DragAndDropController.Init();
             
             void InitCells()
@@ -47,7 +47,7 @@ namespace Game.Inventory.Core.Controllers
                 var inventoryCellCount = InventoryModel.InventoryCellsCount;
                 for (int i = 0; i < inventoryCellCount; i++)
                 {
-                    var cellModel = new CellModel(i);
+                    var cellModel = new CellModel();
                     var cellView = InventoryView.InitCell();
                     var cellController = new CellController(cellModel, cellView);
 
