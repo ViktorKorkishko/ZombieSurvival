@@ -2,14 +2,6 @@
 {
     public class DragAndDropModel
     {
-        public void StartDrag()
-        {
-            
-        }
-
-        public void EndDrag()
-        {
-            
-        }
+        
     }
 }

@@ -21,8 +21,6 @@ namespace Game.Inventory.Cells.Core.Controllers
             CellModel.OnItemSet += HandleOnItemSet;
             CellModel.OnItemRemoved += HandleOnItemRemoved;
             CellModel.OnItemCountChanged += HandleOnItemCountChanged;
-            
-            CellModel.Init();
         }
 
         public void Dispose()
@@ -34,12 +32,6 @@ namespace Game.Inventory.Cells.Core.Controllers
 
         private void HandleOnItemSet(InventoryItemModel inventoryItemModel)
         {
-            if (inventoryItemModel == null)
-            {
-                CellModel.RemoveItem();
-                return;
-            }
-            
             var sprite = inventoryItemModel.ItemData.Sprite;
             CellView.SetItemImage(sprite);
             CellView.SetItemCount(inventoryItemModel.Count);

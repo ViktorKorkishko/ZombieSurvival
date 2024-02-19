@@ -8,19 +8,15 @@ namespace Game.Inventory.Core.Views
     public class InventoryView : ViewBase
     {
         [SerializeField] private Transform _cellsParentTransform;
-        
+            
         public Func<CellView> OnCellViewCreated { get; set; }
 
-        private int _cellViewCount;
-        
         public CellView InitCell()
         {
             var newCellView = OnCellViewCreated?.Invoke();
             if (newCellView != null)
             {
                 newCellView.transform.SetParent(_cellsParentTransform);
-                newCellView.name += $"_{_cellViewCount}";
-                newCellView.SetImageId(_cellViewCount++);
                 return newCellView;
             }
 

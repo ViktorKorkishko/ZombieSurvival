@@ -33,7 +33,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0.001009788}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 780}
   m_Pivot: {x: 0, y: 1}
 --- !u!1 &877270345897888987
@@ -963,7 +963,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7224bf7528994c1798bf6d172edb21f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _cellViewPrefab: {fileID: 1315004005547902242, guid: 416d887b13efcf94c983d1b1d8487e9f, type: 3}
   _cellsParentTransform: {fileID: 1629828538673895789}
 --- !u!114 &5346492115237850515
 MonoBehaviour:

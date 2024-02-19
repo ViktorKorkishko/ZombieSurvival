@@ -13,10 +13,8 @@ namespace Game.Inventory.Cells.Core.Views
         [SerializeField] private Image _itemImage;
         [SerializeField] private TMP_Text _countText;
         [SerializeField] private CanvasGroup _imageCanvasGroup;
-
-        public Image ItemImage => _itemImage;
         
-        public Action<CellView, PointerEventData> OnBeginDrag { get; set; }
+        public Action<CellView, Image> OnBeginDrag { get; set; }
         public Action<CellView> OnEndDrag { get; set; }
         public Action<PointerEventData> OnDrag { get; set; }
         public Action<CellView> OnDrop { get; set; }
@@ -31,11 +29,6 @@ namespace Game.Inventory.Cells.Core.Views
         {
             _itemImage.gameObject.SetActive(false);
             _countText.gameObject.SetActive(false);
-        }
-
-        public void SetImageId(int id)
-        {
-            _itemImage.name += id;
         }
         
         public void SetItemImage(Sprite sprite)
@@ -55,7 +48,12 @@ namespace Game.Inventory.Cells.Core.Views
             _imageCanvasGroup.alpha = 0.6f;
             _imageCanvasGroup.blocksRaycasts = false;
 
-            OnBeginDrag?.Invoke(this, eventData);
+            OnBeginDrag?.Invoke(this, _itemImage);
+        }
+
+        void IDragHandler.OnDrag(PointerEventData eventData)
+        {
+            OnDrag?.Invoke(eventData);
         }
 
         void IEndDragHandler.OnEndDrag(PointerEventData eventData)
@@ -64,11 +62,6 @@ namespace Game.Inventory.Cells.Core.Views
             _imageCanvasGroup.blocksRaycasts = true;
             
             OnEndDrag?.Invoke(this);
-        }
-
-        void IDragHandler.OnDrag(PointerEventData eventData)
-        {
-            OnDrag?.Invoke(eventData);
         }
 
         void IDropHandler.OnDrop(PointerEventData eventData)
