@@ -34,6 +34,7 @@ namespace Game.Inventory.Core.Controllers
         void IInitializable.Initialize()
         {
             InventoryView.OnCellViewCreated += HandleOnCellViewCreated;
+            InventoryView.OnDeleteItemButtonClicked += HandleOnDeleteItemButtonClicked;
             InventoryModel.OnItemsAdded += HandleOnItemsAdded;
 
             InitCells();
@@ -62,6 +63,7 @@ namespace Game.Inventory.Core.Controllers
         void IDisposable.Dispose()
         {
             InventoryView.OnCellViewCreated -= HandleOnCellViewCreated;
+            InventoryView.OnDeleteItemButtonClicked -= HandleOnDeleteItemButtonClicked;
             InventoryModel.OnItemsAdded -= HandleOnItemsAdded;
         }
 
@@ -162,6 +164,25 @@ namespace Game.Inventory.Core.Controllers
                 .Except(new[] { cellModel });
 
             cellsToDeselect.ToList().ForEach(x => { x.SetSelected(false); });
+
+            InventoryView.SetDeleteButtonEnabled(cellModel.ContainsItem);
+        }
+
+        private void HandleOnDeleteItemButtonClicked()
+        {
+            var selectedCell = _cellsContainers.Select(x => x.Model).FirstOrDefault(x => x.IsSelected);
+            if (selectedCell != null)
+            {
+                if (!selectedCell.ContainsItem)
+                    return;
+                
+                selectedCell.RemoveItem();
+                InventoryView.SetDeleteButtonEnabled(false);
+            }
+            else
+            {
+                Debug.LogException(new NullReferenceException("None of cells is selected!"));
+            }
         }
     }
 }
