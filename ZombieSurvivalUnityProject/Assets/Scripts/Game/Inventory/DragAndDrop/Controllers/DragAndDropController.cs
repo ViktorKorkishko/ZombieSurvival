@@ -150,6 +150,7 @@ namespace Game.Inventory.DragAndDrop.Controllers
 
                     toCell.AdjustItemCount(itemsCountThatCanBeReplaced);
                     fromCell.AdjustItemCount(-itemsCountThatCanBeReplaced);
+                    toCell.SetSelected(true);
                 }
             }
             else
@@ -164,6 +165,8 @@ namespace Game.Inventory.DragAndDrop.Controllers
         {
             var draggedItem = fromCell.RemoveItem();
             toCell.SetItem(draggedItem);
+            
+            toCell.SetSelected(true);
         }
 
         private void SwapItems(CellModel fromCell, CellModel toCell)
@@ -173,6 +176,8 @@ namespace Game.Inventory.DragAndDrop.Controllers
 
             toCell.SetItem(fromCellItem);
             fromCell.SetItem(toCellItem);
+            
+            toCell.SetSelected(true);
         }
     }
 }

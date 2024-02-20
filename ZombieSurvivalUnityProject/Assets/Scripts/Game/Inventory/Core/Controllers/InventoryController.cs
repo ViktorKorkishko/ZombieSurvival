@@ -9,7 +9,6 @@ using Game.Inventory.Core.Views;
 using Game.Inventory.DragAndDrop.Controllers;
 using Game.Inventory.Items.Models;
 using Game.ItemsDB;
-using UnityEditor.Localization.Plugins.XLIFF.V12;
 using UnityEngine;
 using Zenject;
 
@@ -41,7 +40,7 @@ namespace Game.Inventory.Core.Controllers
 
             DragAndDropController = new DragAndDropController(InventoryView.transform, _cellsContainers, ItemsDataBase);
             DragAndDropController.Init();
-            
+
             void InitCells()
             {
                 var inventoryCellCount = InventoryModel.InventoryCellsCount;
@@ -50,10 +49,12 @@ namespace Game.Inventory.Core.Controllers
                     var cellModel = new CellModel();
                     var cellView = InventoryView.InitCell();
                     var cellController = new CellController(cellModel, cellView);
-
                     cellController.Init();
 
                     _cellsContainers.Add(new CellContainer(cellModel, cellView, cellController));
+
+                    cellModel.OnSelected += HandleOnCellSelected;
+                    cellModel.SetSelected(i == 0);
                 }
             }
         }
@@ -149,6 +150,18 @@ namespace Game.Inventory.Core.Controllers
         {
             var cellView = CellViewFactory.Create();
             return cellView;
+        }
+
+        private void HandleOnCellSelected(CellModel cellModel, bool selected)
+        {
+            if (!selected)
+                return;
+
+            var cellsToDeselect = _cellsContainers
+                .Select(x => x.Model)
+                .Except(new[] { cellModel });
+
+            cellsToDeselect.ToList().ForEach(x => { x.SetSelected(false); });
         }
     }
 }

@@ -7,10 +7,13 @@ namespace Game.Inventory.Cells.Core.Models
 {
     public partial class CellModel : SaveableModel<CellModel.Data>
     {
+        public bool IsSelected { get; private set; }
+
         public bool ContainsItem => InventoryItemModel != null;
         public int ItemCount => InventoryItemModel.Count;
         public ItemId ItemId => InventoryItemModel.ItemId;
-        
+
+        public Action<CellModel, bool> OnSelected { get; set; }
         public Action<InventoryItemModel> OnItemSet { get; set; }
         public Action OnItemRemoved { get; set; }
         public Action<int> OnItemCountChanged { get; set; }
@@ -43,6 +46,12 @@ namespace Game.Inventory.Cells.Core.Models
             {
                 OnItemCountChanged?.Invoke(InventoryItemModel.Count);
             }
+        }
+
+        public void SetSelected(bool selected)
+        {
+            IsSelected = selected;
+            OnSelected?.Invoke(this, selected);
         }
     }
 }

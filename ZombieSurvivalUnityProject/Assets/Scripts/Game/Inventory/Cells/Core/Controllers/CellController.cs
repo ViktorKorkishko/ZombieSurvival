@@ -16,11 +16,14 @@ namespace Game.Inventory.Cells.Core.Controllers
             CellView = view;
         }
 
-        public void Init()
+        public void Init() 
         {
             CellModel.OnItemSet += HandleOnItemSet;
             CellModel.OnItemRemoved += HandleOnItemRemoved;
             CellModel.OnItemCountChanged += HandleOnItemCountChanged;
+            CellModel.OnSelected += HandleOnSelected;
+
+            CellView.OnPointerDown += HandleOnPointerDown;
         }
 
         public void Dispose()
@@ -28,6 +31,9 @@ namespace Game.Inventory.Cells.Core.Controllers
             CellModel.OnItemSet -= HandleOnItemSet;
             CellModel.OnItemRemoved -= HandleOnItemRemoved;
             CellModel.OnItemCountChanged -= HandleOnItemCountChanged;
+            
+            CellModel.OnSelected += HandleOnSelected;
+            CellView.OnPointerDown -= HandleOnPointerDown;
         }
 
         private void HandleOnItemSet(InventoryItemModel inventoryItemModel)
@@ -39,13 +45,22 @@ namespace Game.Inventory.Cells.Core.Controllers
 
         private void HandleOnItemRemoved()
         {
-            CellView.SetItemImage(null);
-            CellView.SetItemCount(0);
+            CellView.SetEmpty();
         }
 
         private void HandleOnItemCountChanged(int count)
         {
             CellView.SetItemCount(count);
+        }
+
+        private void HandleOnPointerDown()
+        {
+            CellModel.SetSelected(true);
+        }
+
+        private void HandleOnSelected(CellModel cellModel, bool selected)
+        {
+            CellView.SetSelected(selected);
         }
     }
 }
