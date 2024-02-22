@@ -7,6 +7,7 @@ using Game.Inventory.Cells.Core.Views;
 using Game.Inventory.Core.Models;
 using Game.Inventory.Core.Views;
 using Game.Inventory.DragAndDrop.Controllers;
+using Game.Inventory.Items.Enums;
 using Game.Inventory.Items.Models;
 using Game.ItemsDB;
 using UnityEngine;
@@ -19,6 +20,7 @@ namespace Game.Inventory.Core.Controllers
         [Inject] private InventoryModel InventoryModel { get; }
         [Inject] private ItemsDataBase ItemsDataBase { get; }
         [Inject] private CellView.Factory CellViewFactory { get; }
+        [Inject] private CellController.Factory CellControllerFactory { get; }
 
         private InventoryView InventoryView { get; }
 
@@ -49,8 +51,19 @@ namespace Game.Inventory.Core.Controllers
                 {
                     var cellModel = new CellModel();
                     var cellView = InventoryView.InitCell();
-                    var cellController = new CellController(cellModel, cellView);
+                    var cellController = CellControllerFactory.Create(cellModel, cellView);
                     cellController.Init();
+
+                    var cellData = InventoryModel.Items[i];
+                    if (cellData.ItemId != ItemId.None)
+                    {
+                        var inventoryItemModel = new InventoryItemModel(cellData.ItemId, cellData.Count);
+                        cellModel.SetItem(inventoryItemModel);
+                    }
+                    else
+                    {
+                        cellModel.RemoveItem();
+                    }
 
                     _cellsContainers.Add(new CellContainer(cellModel, cellView, cellController));
 
@@ -65,6 +78,26 @@ namespace Game.Inventory.Core.Controllers
             InventoryView.OnCellViewCreated -= HandleOnCellViewCreated;
             InventoryView.OnDeleteItemButtonClicked -= HandleOnDeleteItemButtonClicked;
             InventoryModel.OnItemsAdded -= HandleOnItemsAdded;
+        }
+
+        // TODO: refactor later
+        private void UpdateItems()
+        {
+            InventoryModel.Items?.Clear();
+            
+            _cellsContainers
+                .Select(x => x.Model)
+                .ToList().ForEach(x =>
+                {
+                    bool containsData = x.ContainsItem;
+                    var data = new CellModel.Data
+                    {
+                        ItemId = containsData ? x.ItemId : ItemId.None,
+                        Count = containsData ? x.ItemCount : 0,
+                    };
+
+                    InventoryModel.Items.Add(data);
+                });
         }
 
         private void HandleOnItemsAdded(IEnumerable<InventoryItemModel> items)
@@ -117,7 +150,7 @@ namespace Game.Inventory.Core.Controllers
                             int itemsToAddCount = currentItem.Count >= itemsCountCanBeAdded
                                 ? itemsCountCanBeAdded
                                 : currentItem.Count;
-                            var newCellItem = new InventoryItemModel(itemId, itemsToAddCount, ItemsDataBase);
+                            var newCellItem = new InventoryItemModel(itemId, itemsToAddCount);
                             currentCell.SetItem(newCellItem);
                             currentItem.Count -= itemsToAddCount;
                         }
@@ -125,21 +158,18 @@ namespace Game.Inventory.Core.Controllers
 
                     if (AllItemsAreSpread(items))
                     {
+                        UpdateItems();
                         return;
                     }
                 }
             }
 
+            UpdateItems();
+
             // TODO: handle cases when all of the cells are iterated and there are still items that cannot fit
             if (!AllItemsAreSpread(items))
             {
-                string unspreadItems = "";
-                items.Select(x => x).Where(x => x.Count > 0).ToList().ForEach(x =>
-                {
-                    unspreadItems += $"[ItemId: {x.ItemId}], Count: {x.Count}\n";
-                });
-
-                Debug.Log(unspreadItems);
+                Debug.Log("UNSPREAD ITEMS ARE LEFT!");
             }
         }
 
@@ -175,7 +205,7 @@ namespace Game.Inventory.Core.Controllers
             {
                 if (!selectedCell.ContainsItem)
                     return;
-                
+
                 selectedCell.RemoveItem();
                 InventoryView.SetDeleteButtonEnabled(false);
             }

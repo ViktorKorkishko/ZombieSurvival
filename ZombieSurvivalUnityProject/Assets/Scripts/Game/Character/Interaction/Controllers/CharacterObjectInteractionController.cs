@@ -11,7 +11,6 @@ using Game.InteractableObjects.Highlight.Views;
 using Game.InteractableObjects.Implementations.PickableItem.Models;
 using Game.Inventory.Core.Models;
 using Game.Inventory.Items.Models;
-using Game.ItemsDB;
 using UnityEngine;
 using Zenject;
 
@@ -24,13 +23,12 @@ namespace Game.Character.Interaction.Controllers
         [Inject] private InputModel InputModel { get; }
         [Inject] private CharacterObjectInteractionModel CharacterObjectInteractionModel { get; }
         [Inject] private InventoryModel InventoryModel { get; }
-        [Inject] private ItemsDataBase ItemsDataBase { get; }
 
         private SelectionOutlineController _selectionOutlineController;
         
         // TODO: temp solution: refactor after highlight objects system is reworked (has to be injected)
         private SelectionOutlineController SelectionOutlineController => 
-            _selectionOutlineController ??= GameObject.FindObjectOfType<SelectionOutlineController>();
+            _selectionOutlineController ??= Object.FindObjectOfType<SelectionOutlineController>();
         
         private Transform MainCameraTransform => CameraModel.GetMainCamera().transform;
         
@@ -111,7 +109,7 @@ namespace Game.Character.Interaction.Controllers
                 
                 case InteractableObjectType.PickableItem:
                     var pickableItem = container.Resolve<PickableItemModel>();
-                    var inventoryItemModel = new InventoryItemModel(pickableItem.ItemId, pickableItem.Count, ItemsDataBase);
+                    var inventoryItemModel = new InventoryItemModel(pickableItem.ItemId, pickableItem.Count);
                     InventoryModel.AddItems(new [] { inventoryItemModel });
                     break;
                 

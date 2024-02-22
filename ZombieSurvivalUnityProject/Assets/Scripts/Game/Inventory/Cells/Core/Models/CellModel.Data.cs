@@ -1,11 +1,13 @@
-﻿namespace Game.Inventory.Cells.Core.Models
+﻿using Game.Inventory.Items.Enums;
+
+namespace Game.Inventory.Cells.Core.Models
 {
     public partial class CellModel
     {
-        public new class Data
+        public class Data
         {
+            public ItemId ItemId { get; set; }
+            public int Count { get; set; }
         }
-        
-        protected override string DataKey => "CellModel.Data";
     }
 }
