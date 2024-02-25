@@ -15,8 +15,8 @@ namespace Core.SaveSystem.Models
         [Inject] private SaveableEntity SaveableEntity { get; }
 
         protected abstract string DataKey { get; }
+        
         protected T Data => _data;
-
         private string Id => SaveableEntity.Id;
 
         private T _data;

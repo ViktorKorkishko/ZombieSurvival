@@ -1,5 +1,4 @@
-﻿using Core.Installers;
-using Core.ViewSystem.Models;
+﻿using Core.ViewSystem.Models;
 using Core.ViewSystem.Providers;
 using UnityEngine;
 using Zenject;
@@ -8,7 +7,6 @@ namespace Core.ViewSystem.Installers
 {
     public class ViewSystemInstaller : MonoInstaller
     {
-        // [SerializeField] private Transform _viewsParent;
         [SerializeField] private Transform _viewsParent;
         
         public override void InstallBindings()
@@ -20,11 +18,17 @@ namespace Core.ViewSystem.Installers
                 .To<ViewProvider>()
                 .AsSingle()
                 .WithArguments(_viewsParent);
-
+            
             Container
                 .Bind<ViewFactory>()
                 .AsSingle()
                 .WithArguments(_viewsParent);
+            
+            // Container
+            //     .Bind<Transform>()
+            //     .WithId(_viewsParent)
+            //     .FromInstance(_viewsParent)
+            //     .AsCached();
         }
     }
 }

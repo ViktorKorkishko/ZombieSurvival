@@ -1,6 +1,8 @@
-﻿using Core.SaveSystem.Entity;
+﻿using Core.Installers;
+using Core.SaveSystem.Entity;
 using Core.ViewSystem.Enums;
 using Core.ViewSystem.Providers;
+using Game.Inventory.Cells.CellsContainer.Models;
 using Game.Inventory.Cells.Core.Controllers;
 using Game.Inventory.Cells.Core.Models;
 using Game.Inventory.Cells.Core.Views;
@@ -16,19 +18,19 @@ namespace Game.Inventory.Core.Installers
     {
         [Inject] private IViewProvider ViewProvider { get; }
 
+        [Header("View")]
         [SerializeField] private InventoryView _inventoryViewPrefab;
         
+        [Header("Cells")]
+        [SerializeField] private int _initialCellsCount;
         [SerializeField] private CellView _cellViewPrefab;
-        [SerializeField] private int _cellsCount;
-
-        [SerializeField] private SaveableEntity _saveableEntity;
         
         public override void InstallBindings()
         {
             Container
                 .BindInterfacesAndSelfTo<InventoryModel>()
                 .AsSingle()
-                .WithArguments(_cellsCount);
+                .WithArguments(_initialCellsCount);
             
             var viewInstance = ViewProvider.RegisterView(_inventoryViewPrefab, ViewId.Inventory);
             
@@ -36,6 +38,13 @@ namespace Game.Inventory.Core.Installers
                 .BindInterfacesAndSelfTo<InventoryController>()
                 .AsSingle()
                 .WithArguments(viewInstance);
+
+            var inventoryView = (InventoryView)viewInstance;
+            Container
+                .Bind<CellsContainerModel>()
+                .WithId(BindingIdentifiers.InventoryCellsContainer)
+                .AsCached()
+                .WithArguments(inventoryView.CellsParentTransform);
             
             Container
                 .BindFactory<CellView, CellView.Factory>()

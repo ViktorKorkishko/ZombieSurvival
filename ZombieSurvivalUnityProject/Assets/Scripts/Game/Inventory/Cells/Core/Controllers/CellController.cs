@@ -35,7 +35,7 @@ namespace Game.Inventory.Cells.Core.Controllers
             CellModel.OnItemSet -= HandleOnItemSet;
             CellModel.OnItemRemoved -= HandleOnItemRemoved;
             CellModel.OnItemCountChanged -= HandleOnItemCountChanged;
-            CellModel.OnSelected += HandleOnSelected;
+            CellModel.OnSelected -= HandleOnSelected;
             
             CellView.OnPointerDown -= HandleOnPointerDown;
         }

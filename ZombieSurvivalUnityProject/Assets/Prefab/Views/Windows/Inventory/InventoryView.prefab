@@ -33,7 +33,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0.0010139402}
+  m_AnchoredPosition: {x: 0, y: 0.0001454858}
   m_SizeDelta: {x: 0, y: 540}
   m_Pivot: {x: 0, y: 1}
 --- !u!1 &468908512355964895
@@ -1340,6 +1340,7 @@ GameObject:
   - component: {fileID: 5799436157272177893}
   - component: {fileID: 5530110844097316852}
   - component: {fileID: 5346492115237850515}
+  - component: {fileID: 8379100090144479559}
   m_Layer: 5
   m_Name: InventoryView
   m_TagString: Untagged
@@ -1383,6 +1384,7 @@ MonoBehaviour:
   _deleteButtonCanvasGroup: {fileID: 578263447707806470}
   _disabledStateAlphaValue: 0.6
   _cellsParentTransform: {fileID: 1629828538673895789}
+  _cellsContainerView: {fileID: 8379100090144479559}
 --- !u!114 &5346492115237850515
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1397,6 +1399,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _viewToHide: {fileID: 5530110844097316852}
   _button: {fileID: 498646380801774020}
+--- !u!114 &8379100090144479559
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5958915630921478790}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2937817d3dd643a5961ee28aafa3bab8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _cellsParentTransform: {fileID: 1629828538673895789}
 --- !u!1 &6459474717108303101
 GameObject:
   m_ObjectHideFlags: 0
@@ -1630,7 +1645,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 6168855910123173521}
   m_Direction: 2
   m_Value: 0
-  m_Size: 0.9999981
+  m_Size: 0.99999636
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Core.SaveSystem.Saving.Common.Load;
 using Game.Inventory.Cells.Core.Models;
 using Game.Inventory.Items.Enums;
@@ -16,10 +17,12 @@ namespace Game.Inventory.Core.Models
         
         protected override void HandleOnDataLoaded(LoadResult<Data> loadResult)
         {
+            var cellsData = new List<CellModel.Data>();
             switch (loadResult.Result)
             {
                 case Result.LoadedSuccessfully:
-                    Items = loadResult.Data.CellsData;
+                    cellsData = loadResult.Data.CellsData;
+                    InitCellsData(cellsData);
                     break;
                 
                 case Result.SaveFileNotFound:
@@ -33,19 +36,27 @@ namespace Game.Inventory.Core.Models
 
             void InitEmptyInventory()
             {
-                for (int i = 0; i < InventoryCellsCount; i++)
+                for (int i = 0; i < InitialInventoryCellsCount; i++)
                 {
-                    Items.Add(new CellModel.Data {
+                    cellsData.Add(new CellModel.Data {
                         ItemId = ItemId.None,
                         Count = 0,
                     });
                 }
+                
+                InitCellsData(cellsData);
+            }
+
+            void InitCellsData(List<CellModel.Data> data)
+            {
+                CellsContainerModel.InitCells(data);
             }
         }
 
         protected override void HandleOnDataPreSaved()
         {
-            base.Data.CellsData = Items;
+            var cellsData = CellsContainerModel.Cells.Select(x => x.GetSaveData());
+            base.Data.CellsData = cellsData.ToList();
         }
     }
 }

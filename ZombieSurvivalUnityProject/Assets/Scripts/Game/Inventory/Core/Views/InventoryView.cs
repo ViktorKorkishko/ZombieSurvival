@@ -1,7 +1,7 @@
 ﻿using System;
 using Core.ViewSystem.Views;
 using Core.ViewSystem.Views.Data;
-using Game.Inventory.Cells.Core.Views;
+using Game.Inventory.Cells.CellsContainer.Views;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -16,28 +16,18 @@ namespace Game.Inventory.Core.Views
         
         [Header("Cells")]
         [SerializeField] private Transform _cellsParentTransform;
+        [SerializeField] private CellsContainerView _cellsContainerView;
+
+        public Transform CellsParentTransform => _cellsParentTransform;
+        public CellsContainerView CellsContainerView => _cellsContainerView;
         
-        public Func<CellView> OnCellViewCreated { get; set; }
-
         public Action OnDeleteItemButtonClicked { get; set; }
-
-        public CellView InitCell()
-        {
-            var newCellView = OnCellViewCreated?.Invoke();
-            if (newCellView != null)
-            {
-                newCellView.transform.SetParent(_cellsParentTransform);
-                return newCellView;
-            }
-
-            return null;
-        }
-
+        
         protected override void HandleOnShow(IViewData viewData)
         {
             _deleteButton.onClick.AddListener(TriggerButtonClickEvent);
         }
-
+        
         protected override void HandleOnHide()
         {
             _deleteButton.onClick.RemoveListener(TriggerButtonClickEvent);

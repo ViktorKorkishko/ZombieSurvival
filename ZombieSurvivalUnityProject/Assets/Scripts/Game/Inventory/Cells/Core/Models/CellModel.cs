@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Runtime.Serialization;
 using Game.Inventory.Items.Enums;
 using Game.Inventory.Items.Models;
 
@@ -19,15 +18,6 @@ namespace Game.Inventory.Cells.Core.Models
         public Action<int> OnItemCountChanged { get; set; }
         
         private InventoryItemModel InventoryItemModel { get; set; }
-        
-        public Data GetSaveData()
-        {
-            return new Data
-            {
-                ItemId = ItemId,
-                Count = ItemCount,
-            };
-        }
 
         public void SetItem(InventoryItemModel itemModel)
         {

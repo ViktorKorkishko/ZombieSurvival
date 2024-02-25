@@ -1,16 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Game.Inventory.Cells.Core.Controllers;
 using Game.Inventory.Cells.Core.Models;
-using Game.Inventory.Cells.Core.Views;
 using Game.Inventory.Core.Models;
 using Game.Inventory.Core.Views;
-using Game.Inventory.DragAndDrop.Controllers;
-using Game.Inventory.Items.Enums;
+using Game.Inventory.DragAndDrop.Models;
 using Game.Inventory.Items.Models;
-using Game.ItemsDB;
-using UnityEngine;
 using Zenject;
 
 namespace Game.Inventory.Core.Controllers
@@ -18,15 +13,11 @@ namespace Game.Inventory.Core.Controllers
     public class InventoryController : IInitializable, IDisposable
     {
         [Inject] private InventoryModel InventoryModel { get; }
-        [Inject] private ItemsDataBase ItemsDataBase { get; }
-        [Inject] private CellView.Factory CellViewFactory { get; }
-        [Inject] private CellController.Factory CellControllerFactory { get; }
+        [Inject] private DragAndDropModel DragAndDropModel { get; }
 
         private InventoryView InventoryView { get; }
 
-        private DragAndDropController DragAndDropController { get; set; }
-
-        private readonly List<CellContainer> _cellsContainers = new();
+        private CellModel _currentlySelectedCell;
 
         public InventoryController(InventoryView inventoryView)
         {
@@ -35,153 +26,74 @@ namespace Game.Inventory.Core.Controllers
 
         void IInitializable.Initialize()
         {
-            InventoryView.OnCellViewCreated += HandleOnCellViewCreated;
-            InventoryView.OnDeleteItemButtonClicked += HandleOnDeleteItemButtonClicked;
             InventoryModel.OnItemsAdded += HandleOnItemsAdded;
 
-            InitCells();
+            InventoryView.OnShow += HandleOnShow;
+            InventoryView.OnHide += HandleOnHide;
+            InventoryView.OnDeleteItemButtonClicked += HandleOnDeleteItemButtonClicked;
 
-            DragAndDropController = new DragAndDropController(InventoryView.transform, _cellsContainers, ItemsDataBase);
-            DragAndDropController.Init();
-
-            void InitCells()
-            {
-                var inventoryCellCount = InventoryModel.InventoryCellsCount;
-                for (int i = 0; i < inventoryCellCount; i++)
-                {
-                    var cellModel = new CellModel();
-                    var cellView = InventoryView.InitCell();
-                    var cellController = CellControllerFactory.Create(cellModel, cellView);
-                    cellController.Init();
-
-                    var cellData = InventoryModel.Items[i];
-                    if (cellData.ItemId != ItemId.None)
-                    {
-                        var inventoryItemModel = new InventoryItemModel(cellData.ItemId, cellData.Count);
-                        cellModel.SetItem(inventoryItemModel);
-                    }
-                    else
-                    {
-                        cellModel.RemoveItem();
-                    }
-
-                    _cellsContainers.Add(new CellContainer(cellModel, cellView, cellController));
-
-                    cellModel.OnSelected += HandleOnCellSelected;
-                    cellModel.SetSelected(i == 0);
-                }
-            }
+            InitSelectedCell();
         }
 
         void IDisposable.Dispose()
         {
-            InventoryView.OnCellViewCreated -= HandleOnCellViewCreated;
-            InventoryView.OnDeleteItemButtonClicked -= HandleOnDeleteItemButtonClicked;
             InventoryModel.OnItemsAdded -= HandleOnItemsAdded;
+
+            InventoryView.OnShow -= HandleOnShow;
+            InventoryView.OnHide -= HandleOnHide;
+            InventoryView.OnDeleteItemButtonClicked -= HandleOnDeleteItemButtonClicked;
+
+            foreach (var cell in InventoryModel.CellsContainerModel.Cells)
+            {
+                cell.OnSelected -= HandleOnCellSelected;
+            }
         }
 
-        // TODO: refactor later
-        private void UpdateItems()
+        private void InitSelectedCell()
         {
-            InventoryModel.Items?.Clear();
-            
-            _cellsContainers
-                .Select(x => x.Model)
-                .ToList().ForEach(x =>
+            var cells = InventoryModel.CellsContainerModel.Cells.ToList();
+            for (int i = 0; i < cells.Count; i++)
+            {
+                var cell = cells[i];
+                
+                var firstCell = i == 0;
+                if (firstCell)
                 {
-                    bool containsData = x.ContainsItem;
-                    var data = new CellModel.Data
-                    {
-                        ItemId = containsData ? x.ItemId : ItemId.None,
-                        Count = containsData ? x.ItemCount : 0,
-                    };
-
-                    InventoryModel.Items.Add(data);
-                });
+                    _currentlySelectedCell = cell;
+                    
+                    cell.SetSelected(true);
+                    cell.OnSelected += HandleOnCellSelected;
+                }
+                else
+                {
+                    cell.OnSelected += HandleOnCellSelected;
+                    cell.SetSelected(false);
+                }
+            }
         }
 
         private void HandleOnItemsAdded(IEnumerable<InventoryItemModel> items)
         {
-            SpreadItemsAmongCells(items);
+            InventoryModel.CellsContainerModel.SpreadItemsAmongCells(items);
         }
 
-        // TODO: refactor (extract same parts to separate methods)
-        private void SpreadItemsAmongCells(IEnumerable<InventoryItemModel> iitems)
+        private void HandleOnShow()
         {
-            var cells = _cellsContainers.Select(x => x.Model).ToList();
-            var items = iitems.ToList();
-
-            for (int i = 0; i < cells.Count; i++)
-            {
-                var currentCell = cells[i];
-                for (int j = 0; j < items.Count; j++)
-                {
-                    var currentItem = items[j];
-                    if (currentCell.ContainsItem)
-                    {
-                        var itemId = currentCell.ItemId;
-                        bool containsSameItem = itemId == currentItem.ItemId;
-                        if (containsSameItem)
-                        {
-                            if (ItemsDataBase.TryGetItemData(itemId, out var itemData))
-                            {
-                                bool fullyStacked = currentCell.ItemCount == itemData.MaxStackCount;
-                                if (!fullyStacked)
-                                {
-                                    int itemsCountCanBeAdded = itemData.MaxStackCount - currentCell.ItemCount;
-                                    int itemsToAddCount = currentItem.Count >= itemsCountCanBeAdded
-                                        ? itemsCountCanBeAdded
-                                        : currentItem.Count;
-                                    if (itemsCountCanBeAdded > 0)
-                                    {
-                                        currentCell.AdjustItemCount(itemsToAddCount);
-                                        currentItem.Count -= itemsToAddCount;
-                                    }
-                                }
-                            }
-                        }
-                    }
-                    else
-                    {
-                        var itemId = currentItem.ItemId;
-                        if (ItemsDataBase.TryGetItemData(itemId, out var itemData))
-                        {
-                            int itemsCountCanBeAdded = itemData.MaxStackCount - 0;
-                            int itemsToAddCount = currentItem.Count >= itemsCountCanBeAdded
-                                ? itemsCountCanBeAdded
-                                : currentItem.Count;
-                            var newCellItem = new InventoryItemModel(itemId, itemsToAddCount);
-                            currentCell.SetItem(newCellItem);
-                            currentItem.Count -= itemsToAddCount;
-                        }
-                    }
-
-                    if (AllItemsAreSpread(items))
-                    {
-                        UpdateItems();
-                        return;
-                    }
-                }
-            }
-
-            UpdateItems();
-
-            // TODO: handle cases when all of the cells are iterated and there are still items that cannot fit
-            if (!AllItemsAreSpread(items))
-            {
-                Debug.Log("UNSPREAD ITEMS ARE LEFT!");
-            }
+            DragAndDropModel.RegisterDraggableCells(InventoryModel.CellsContainerModel);
         }
 
-        private bool AllItemsAreSpread(IEnumerable<InventoryItemModel> items)
+        private void HandleOnHide()
         {
-            return items.All(x => x.Count <= 0);
+            DragAndDropModel.UnregisterDraggableCells(InventoryModel.CellsContainerModel);
         }
 
-        private CellView HandleOnCellViewCreated()
+        private void HandleOnDeleteItemButtonClicked()
         {
-            var cellView = CellViewFactory.Create();
-            return cellView;
+            if (!_currentlySelectedCell.ContainsItem)
+                return;
+
+            _currentlySelectedCell.RemoveItem();
+            InventoryView.SetDeleteButtonEnabled(false);
         }
 
         private void HandleOnCellSelected(CellModel cellModel, bool selected)
@@ -189,30 +101,10 @@ namespace Game.Inventory.Core.Controllers
             if (!selected)
                 return;
 
-            var cellsToDeselect = _cellsContainers
-                .Select(x => x.Model)
-                .Except(new[] { cellModel });
-
-            cellsToDeselect.ToList().ForEach(x => { x.SetSelected(false); });
+            _currentlySelectedCell.SetSelected(false);
+            _currentlySelectedCell = cellModel;
 
             InventoryView.SetDeleteButtonEnabled(cellModel.ContainsItem);
-        }
-
-        private void HandleOnDeleteItemButtonClicked()
-        {
-            var selectedCell = _cellsContainers.Select(x => x.Model).FirstOrDefault(x => x.IsSelected);
-            if (selectedCell != null)
-            {
-                if (!selectedCell.ContainsItem)
-                    return;
-
-                selectedCell.RemoveItem();
-                InventoryView.SetDeleteButtonEnabled(false);
-            }
-            else
-            {
-                Debug.LogException(new NullReferenceException("None of cells is selected!"));
-            }
         }
     }
 }

@@ -25,5 +25,6 @@
         CharacterLeftHandTransform,
         Rigidbody,
         Renderer,
+        InventoryCellsContainer,
     }
 }

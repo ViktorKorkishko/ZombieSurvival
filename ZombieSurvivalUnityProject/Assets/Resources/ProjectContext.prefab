@@ -34,6 +34,7 @@ Transform:
   - {fileID: 5304358377258827808}
   - {fileID: 3985549073621096569}
   - {fileID: 4169185141665203181}
+  - {fileID: 1106968387007950829}
   - {fileID: 7926699589582286262}
   - {fileID: 2455682742060511181}
   m_Father: {fileID: 0}
@@ -57,6 +58,7 @@ MonoBehaviour:
   - {fileID: 447755918404137296}
   - {fileID: 4006104094862263738}
   - {fileID: 8929764887910131310}
+  - {fileID: 3776172258891292114}
   - {fileID: 4385665433906866890}
   - {fileID: 6305792668512904384}
   _installerPrefabs: []
@@ -73,6 +75,51 @@ MonoBehaviour:
       _missingHandlerDefaultResponse: 2
       _requireStrictUnsubscribe: 0
       _defaultAsyncTickPriority: 1
+--- !u!1 &555243016542758708
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1106968387007950829}
+  - component: {fileID: 3776172258891292114}
+  m_Layer: 0
+  m_Name: DragAndDropInstaller
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1106968387007950829
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 555243016542758708}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4807051229404897989}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3776172258891292114
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 555243016542758708}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7485a23e5aae4bad9ac1d674889ad6b5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _dragObjectParent: {fileID: 516573517708972349}
 --- !u!1 &1681517807557528492
 GameObject:
   m_ObjectHideFlags: 0
@@ -118,8 +165,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _inventoryViewPrefab: {fileID: 5530110844097316852, guid: 05f16a590456ed7449170c0d72590ee2, type: 3}
+  _initialCellsCount: 15
   _cellViewPrefab: {fileID: 1315004005547902242, guid: 416d887b13efcf94c983d1b1d8487e9f, type: 3}
-  _cellsCount: 15
 --- !u!1 &4992631235816086101
 GameObject:
   m_ObjectHideFlags: 0
