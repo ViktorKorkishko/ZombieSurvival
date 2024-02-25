@@ -12,15 +12,17 @@ namespace Game.Inventory.DragAndDrop.Models
         public Action<CellView, CellModel> OnCellRegistered { get; set; }
         public Action<CellView> OnCellUnregistered { get; set; }
         
-        private Dictionary<CellView, CellModel> _cellViewToModelDictionary { get; } = new();
+        private Dictionary<CellView, CellModel> _cellViewToModelMap { get; } = new();
 
         public void RegisterDraggableCells(CellsContainerModel cellsContainerModel)
         {
             var cells = cellsContainerModel.CellContainers.Select(x => (x.View, x.Model));
             foreach (var cell in cells)
             {
-                _cellViewToModelDictionary.Add(cell.View, cell.Model);
-                OnCellRegistered?.Invoke(cell.View, cell.Model);
+                if (_cellViewToModelMap.TryAdd(cell.View, cell.Model))
+                {
+                    OnCellRegistered?.Invoke(cell.View, cell.Model);
+                }
             }
         }
 
@@ -29,7 +31,7 @@ namespace Game.Inventory.DragAndDrop.Models
             var cellsViews = cellsContainerModel.CellContainers.Select(x => x.View);
             foreach (var cellView in cellsViews)
             {
-                _cellViewToModelDictionary.Remove(cellView);
+                _cellViewToModelMap.Remove(cellView);
                 OnCellUnregistered?.Invoke(cellView);
             }
         }

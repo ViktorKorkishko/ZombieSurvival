@@ -1,9 +1,8 @@
-﻿using System;
-using Game.Inventory.Cells.Core.Controllers;
+﻿using Game.Inventory.Cells.Core.Controllers;
 using Game.Inventory.Cells.Core.Models;
 using Game.Inventory.Cells.Core.Views;
 
-namespace Game.Inventory.Core.Controllers
+namespace Game.Inventory.Cells.CellsContainer
 {
     public class CellContainer
     {

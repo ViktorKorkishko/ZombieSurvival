@@ -62,9 +62,10 @@ namespace Game.Inventory.Core.Controllers
                 if (firstCell)
                 {
                     _currentlySelectedCell = cell;
+                    _currentlySelectedCell.SetSelected(true);
+                    _currentlySelectedCell.OnSelected += HandleOnCellSelected;
                     
-                    cell.SetSelected(true);
-                    cell.OnSelected += HandleOnCellSelected;
+                    InventoryView.SetDeleteButtonEnabled(_currentlySelectedCell.ContainsItem);
                 }
                 else
                 {
@@ -102,7 +103,10 @@ namespace Game.Inventory.Core.Controllers
         {
             if (!selected)
                 return;
-
+            
+            if (cellModel == _currentlySelectedCell)
+                return;
+            
             _currentlySelectedCell.SetSelected(false);
             _currentlySelectedCell = cellModel;
 

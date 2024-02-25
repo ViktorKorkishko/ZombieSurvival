@@ -4,7 +4,6 @@ using System.Linq;
 using Game.Inventory.Cells.Core.Controllers;
 using Game.Inventory.Cells.Core.Models;
 using Game.Inventory.Cells.Core.Views;
-using Game.Inventory.Core.Controllers;
 using Game.Inventory.Items.Enums;
 using Game.Inventory.Items.Models;
 using Game.ItemsDB;
