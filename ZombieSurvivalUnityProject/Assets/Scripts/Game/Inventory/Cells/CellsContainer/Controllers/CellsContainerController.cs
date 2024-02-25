@@ -6,7 +6,7 @@ using Zenject;
 
 namespace Game.Inventory.Cells.CellsContainer.Controllers
 {
-    public class CellsContainerController : IDisposable
+    public class CellsContainerController : IInitializable, IDisposable
     {
         [Inject] private CellView.Factory CellViewFactory { get; }
         
@@ -19,14 +19,24 @@ namespace Game.Inventory.Cells.CellsContainer.Controllers
             CellsContainerView = cellsContainerView;
         }
 
-        public void Init()
+        void IInitializable.Initialize()
         {
-            CellsContainerModel.OnCellViewCreated += HandleOnCellViewCreated;
+            CellsContainerModel.OnCellViewInitialized += HandleOnCellInitialized;
+            
+            CellsContainerView.OnCellViewCreated += HandleOnCellViewCreated;
         }
 
         void IDisposable.Dispose()
         {
-            CellsContainerModel.OnCellViewCreated -= HandleOnCellViewCreated;
+            CellsContainerModel.OnCellViewInitialized -= HandleOnCellInitialized;
+            
+            CellsContainerView.OnCellViewCreated -= HandleOnCellViewCreated;
+        }
+        
+        private CellView HandleOnCellInitialized()
+        {
+            var cellView = CellsContainerView.InitCell();
+            return cellView;
         }
 
         private CellView HandleOnCellViewCreated()

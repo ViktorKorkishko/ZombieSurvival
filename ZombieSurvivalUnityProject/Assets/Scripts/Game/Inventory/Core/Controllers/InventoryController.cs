@@ -31,7 +31,9 @@ namespace Game.Inventory.Core.Controllers
             InventoryView.OnShow += HandleOnShow;
             InventoryView.OnHide += HandleOnHide;
             InventoryView.OnDeleteItemButtonClicked += HandleOnDeleteItemButtonClicked;
-
+            
+            InventoryModel.InitializeCells();
+            
             InitSelectedCell();
         }
 

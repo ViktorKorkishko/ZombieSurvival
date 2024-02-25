@@ -17,28 +17,19 @@ namespace Game.Inventory.Cells.CellsContainer.Models
     {
         [Inject] private ItemsDataBase ItemsDataBase { get; }
         [Inject] private CellController.Factory CellControllerFactory { get; }
-        [Inject] private CellView.Factory CellViewFactory { get; }
-
+        
         public IEnumerable<CellModel> Cells => CellContainers.Select(x => x.Model);
         public List<CellContainer> CellContainers { get; } = new();
-
-        public Func<CellView> OnCellViewCreated { get; set; }
-
-        private readonly Transform _cellsParent;
-
-        public CellsContainerModel(Transform cellsParent)
-        {
-            _cellsParent = cellsParent;
-        }
-
+        
+        public Func<CellView> OnCellViewInitialized { get; set; }
+        
         public void InitCells(IEnumerable<CellModel.Data> cellsData)
         {
             var cellsDataList = cellsData.ToList();
             for (int i = 0; i < cellsDataList.Count; i++)
             {
                 var cellModel = new CellModel();
-                var cellView = CellViewFactory.Create();
-                cellView.transform.SetParent(_cellsParent);
+                var cellView = OnCellViewInitialized?.Invoke();
                 var cellController = CellControllerFactory.Create(cellModel, cellView);
                 cellController.Init();
 
@@ -56,7 +47,7 @@ namespace Game.Inventory.Cells.CellsContainer.Models
                 CellContainers.Add(new CellContainer(cellModel, cellView, cellController));
             }
         }
-
+        
         public void SpreadItemsAmongCells(IEnumerable<InventoryItemModel> iitems)
         {
             var cells = CellContainers.Select(x => x.Model).ToList();
@@ -120,7 +111,7 @@ namespace Game.Inventory.Cells.CellsContainer.Models
                 Debug.Log("UNSPREAD ITEMS ARE LEFT!");
             }
         }
-
+        
         private bool AllItemsAreSpread(IEnumerable<InventoryItemModel> items)
         {
             return items.All(x => x.Count <= 0);

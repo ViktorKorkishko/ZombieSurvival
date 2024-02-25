@@ -17,12 +17,17 @@ namespace Game.Inventory.Core.Models
         
         protected override void HandleOnDataLoaded(LoadResult<Data> loadResult)
         {
-            var cellsData = new List<CellModel.Data>();
             switch (loadResult.Result)
             {
                 case Result.LoadedSuccessfully:
-                    cellsData = loadResult.Data.CellsData;
-                    InitCellsData(cellsData);
+                    if (loadResult.Data.CellsData.Count == 0)
+                    {
+                        InitEmptyInventory();
+                    }
+                    else
+                    {
+                        loadResult.Data.CellsData = loadResult.Data.CellsData;
+                    }
                     break;
                 
                 case Result.SaveFileNotFound:
@@ -38,18 +43,11 @@ namespace Game.Inventory.Core.Models
             {
                 for (int i = 0; i < InitialInventoryCellsCount; i++)
                 {
-                    cellsData.Add(new CellModel.Data {
+                    loadResult.Data.CellsData.Add(new CellModel.Data {
                         ItemId = ItemId.None,
                         Count = 0,
                     });
                 }
-                
-                InitCellsData(cellsData);
-            }
-
-            void InitCellsData(List<CellModel.Data> data)
-            {
-                CellsContainerModel.InitCells(data);
             }
         }
 

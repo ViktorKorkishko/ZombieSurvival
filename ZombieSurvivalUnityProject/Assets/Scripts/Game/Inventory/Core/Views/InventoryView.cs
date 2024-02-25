@@ -14,11 +14,9 @@ namespace Game.Inventory.Core.Views
         [SerializeField] private CanvasGroup _deleteButtonCanvasGroup;
         [SerializeField] [Range(0, 1f)] private float _disabledStateAlphaValue;
         
-        [Header("Cells")]
-        [SerializeField] private Transform _cellsParentTransform;
+        [Header("Cells container")]
         [SerializeField] private CellsContainerView _cellsContainerView;
 
-        public Transform CellsParentTransform => _cellsParentTransform;
         public CellsContainerView CellsContainerView => _cellsContainerView;
         
         public Action OnDeleteItemButtonClicked { get; set; }
