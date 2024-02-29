@@ -1,17 +1,19 @@
-﻿using System;
+﻿using System.Linq;
+using Game.Inventory.Cells;
+using Game.Inventory.Cells.Core.Models;
 using Game.Inventory.HotBar.Models;
 using Game.Inventory.HotBar.Views;
+using UnityEngine;
 using Zenject;
 
 namespace Game.Inventory.HotBar.Controllers
 {
-    public class HotBarController : IInitializable, IDisposable
+    public class HotBarController : IInitializable
     {
         [Inject] private HotBarModel HotBarModel { get; }
-        [Inject] private DiContainer DiContainer { get; }
-
         private HotBarView View { get; }
 
+        private SelectionController _selectionController;
         private SynchronizableCellsContainer _synchronizableCellsContainer;
 
         public HotBarController(HotBarView view)
@@ -21,24 +23,38 @@ namespace Game.Inventory.HotBar.Controllers
 
         void IInitializable.Initialize()
         {
-            HotBarModel.InitializeCells();
-
             View.Show();
 
             _synchronizableCellsContainer = new SynchronizableCellsContainer(
                 HotBarModel.InventoryHotBarCellsContainer,
                 HotBarModel.HotBarCellsContainerModel);
 
-            DiContainer.Inject(_synchronizableCellsContainer);
             _synchronizableCellsContainer.Initialize();
+
+            if (HotBarModel.InventoryHotBarCellsContainer.IsInited)
+            {
+                HandleOnHotBarCellsInitialized();
+            }
+            else
+            {
+                HotBarModel.InventoryHotBarCellsContainer.OnInitialized += HandleOnHotBarCellsInitialized;
+            }
         }
 
-        void IDisposable.Dispose()
+        private void HandleOnHotBarCellsInitialized()
         {
+            HotBarModel.InventoryHotBarCellsContainer.OnInitialized -= HandleOnHotBarCellsInitialized;
+            
+            _selectionController = new SelectionController(HotBarModel.HotBarCellsContainerModel.Cells);
+            _selectionController.OnSelectedCellChanged += HandleOnSelectedCellChanged;
+            
+            _selectionController.Initialize();
         }
 
-        private void Initialize()
+        private void HandleOnSelectedCellChanged(CellModel cellModel)
         {
+            var indexOf = HotBarModel.HotBarCellsContainerModel.Cells.ToList().IndexOf(cellModel);
+            Debug.Log(indexOf);
         }
     }
 }

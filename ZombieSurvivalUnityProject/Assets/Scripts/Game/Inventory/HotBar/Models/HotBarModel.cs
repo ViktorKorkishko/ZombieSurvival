@@ -21,11 +21,6 @@ namespace Game.Inventory.HotBar.Models
             InitialHotBarCellsCount = initialHotBarCellsCount;
         }
 
-        public void InitializeCells()
-        {
-            
-        }
-
         public void AddItems(IEnumerable<InventoryItemModel> items)
         {
             OnItemsAdded?.Invoke(items);

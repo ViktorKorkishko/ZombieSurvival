@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Game.Inventory.Cells;
 using Game.Inventory.Cells.Core.Models;
 using Game.Inventory.Core.Models;
 using Game.Inventory.Core.Views;
 using Game.Inventory.DragAndDrop.Models;
-using Game.Inventory.HotBar.Models;
 using Game.Inventory.Items.Models;
 using Zenject;
 
@@ -15,7 +15,8 @@ namespace Game.Inventory.Core.Controllers
     {
         [Inject] private InventoryModel InventoryModel { get; }
         [Inject] private DragAndDropModel DragAndDropModel { get; }
-
+        private InventoryView InventoryView { get; }
+        
         private IEnumerable<CellModel> Cells
         {
             get
@@ -27,9 +28,7 @@ namespace Game.Inventory.Core.Controllers
             }
         }
 
-        private InventoryView InventoryView { get; }
-
-        private CellModel _currentlySelectedCell;
+        private SelectionController _selectionController;
 
         public InventoryController(InventoryView inventoryView)
         {
@@ -45,10 +44,13 @@ namespace Game.Inventory.Core.Controllers
             InventoryView.OnDeleteItemButtonClicked += HandleOnDeleteItemButtonClicked;
             
             InventoryModel.InitializeCells();
+
+            _selectionController = new SelectionController(Cells);
+            _selectionController.OnSelectedCellChanged += HandleOnSelectedCellChanged;
             
-            InitSelectedCell();
+            _selectionController.Initialize();
         }
-        
+
         void IDisposable.Dispose()
         {
             InventoryModel.OnItemsAdded -= HandleOnItemsAdded;
@@ -57,34 +59,7 @@ namespace Game.Inventory.Core.Controllers
             InventoryView.OnHide -= HandleOnHide;
             InventoryView.OnDeleteItemButtonClicked -= HandleOnDeleteItemButtonClicked;
             
-            foreach (var cell in Cells)
-            {
-                cell.OnSelected -= HandleOnCellSelected;
-            }
-        }
-
-        private void InitSelectedCell()
-        {
-            var cells = Cells.ToList();
-            for (int i = 0; i < cells.Count; i++)
-            {
-                var cell = cells[i];
-                
-                var firstCell = i == 0;
-                if (firstCell)
-                {
-                    _currentlySelectedCell = cell;
-                    _currentlySelectedCell.SetSelected(true);
-                    _currentlySelectedCell.OnSelected += HandleOnCellSelected;
-                    
-                    InventoryView.SetDeleteButtonEnabled(_currentlySelectedCell.ContainsItem);
-                }
-                else
-                {
-                    cell.OnSelected += HandleOnCellSelected;
-                    cell.SetSelected(false);
-                }
-            }
+            _selectionController.OnSelectedCellChanged -= HandleOnSelectedCellChanged;
         }
 
         private void HandleOnItemsAdded(IEnumerable<InventoryItemModel> items)
@@ -106,24 +81,15 @@ namespace Game.Inventory.Core.Controllers
         
         private void HandleOnDeleteItemButtonClicked()
         {
-            if (!_currentlySelectedCell.ContainsItem)
+            if (!_selectionController.CurrentlySelectedCell.ContainsItem)
                 return;
 
-            _currentlySelectedCell.RemoveItem();
+            _selectionController.CurrentlySelectedCell.RemoveItem();
             InventoryView.SetDeleteButtonEnabled(false);
         }
 
-        private void HandleOnCellSelected(CellModel cellModel, bool selected)
+        private void HandleOnSelectedCellChanged(CellModel cellModel)
         {
-            if (!selected)
-                return;
-            
-            if (cellModel == _currentlySelectedCell)
-                return;
-            
-            _currentlySelectedCell.SetSelected(false);
-            _currentlySelectedCell = cellModel;
-
             InventoryView.SetDeleteButtonEnabled(cellModel.ContainsItem);
         }
     }
