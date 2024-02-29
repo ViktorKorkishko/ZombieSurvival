@@ -6,7 +6,7 @@ namespace Core.ViewSystem.Providers
 {
     public interface IViewProvider
     {
-        ViewBase RegisterView(ViewBase view, ViewId viewId);
+        ViewBase RegisterView(ViewBase view, ViewId viewId, LayerId layerId);
         IView GetView(ViewId viewId);
     }
 }

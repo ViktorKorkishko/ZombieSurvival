@@ -1,5 +1,7 @@
 ﻿using Core.ViewSystem.Models;
 using Core.ViewSystem.Providers;
+using Core.ViewSystem.Providers.Layers;
+using Core.ViewSystem.Providers.Views;
 using UnityEngine;
 using Zenject;
 
@@ -7,7 +9,7 @@ namespace Core.ViewSystem.Installers
 {
     public class ViewSystemInstaller : MonoInstaller
     {
-        [SerializeField] private Transform _viewsParent;
+        [SerializeField] private LayerProvider _layerProvider;
         
         public override void InstallBindings()
         {
@@ -16,19 +18,16 @@ namespace Core.ViewSystem.Installers
             Container
                 .Bind<IViewProvider>()
                 .To<ViewProvider>()
-                .AsSingle()
-                .WithArguments(_viewsParent);
+                .AsSingle();
             
             Container
                 .Bind<ViewFactory>()
-                .AsSingle()
-                .WithArguments(_viewsParent);
-            
-            // Container
-            //     .Bind<Transform>()
-            //     .WithId(_viewsParent)
-            //     .FromInstance(_viewsParent)
-            //     .AsCached();
+                .AsSingle();
+
+            Container
+                .Bind<LayerProvider>()
+                .FromInstance(_layerProvider)
+                .AsSingle();
         }
     }
 }

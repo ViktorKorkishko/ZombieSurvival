@@ -5,5 +5,6 @@
         None,
         Settings,
         Inventory,
+        HotBar,
     }
 }
