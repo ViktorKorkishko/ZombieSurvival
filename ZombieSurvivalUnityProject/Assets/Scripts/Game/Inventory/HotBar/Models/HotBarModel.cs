@@ -1,31 +1,29 @@
 ﻿using System;
 using System.Collections.Generic;
 using Core.Installers;
-using Core.SaveSystem.Models;
 using Game.Inventory.Cells.CellsContainer.Models;
 using Game.Inventory.Items.Models;
 using Zenject;
 
-namespace Game.Inventory.Core.Models
+namespace Game.Inventory.HotBar.Models
 {
-    public partial class InventoryModel : SaveableModel<InventoryModel.Data>
+    public class HotBarModel
     {
-        [Inject(Id = BindingIdentifiers.InventoryCellsContainer)] public CellsContainerModel InventoryCellsContainerModel { get; }
+        [Inject(Id = BindingIdentifiers.HotBarCellsContainer)] public CellsContainerModel HotBarCellsContainerModel { get; }
         [Inject(Id = BindingIdentifiers.InventoryHotBarCellsContainer)] public CellsContainerModel InventoryHotBarCellsContainer { get; }
         
-        public int InitialInventoryCellsCount { get; }
+        public int InitialHotBarCellsCount { get; }
 
         public Action<IEnumerable<InventoryItemModel>> OnItemsAdded { get; set; }
         
-        public InventoryModel(int initialInventoryCellsCount)
+        public HotBarModel(int initialHotBarCellsCount)
         {
-            InitialInventoryCellsCount = initialInventoryCellsCount;
+            InitialHotBarCellsCount = initialHotBarCellsCount;
         }
 
         public void InitializeCells()
         {
-            InventoryCellsContainerModel.InitCells(base.Data.InventoryCellsData);
-            InventoryHotBarCellsContainer.InitCells(base.Data.HotBarCellsData);
+            
         }
 
         public void AddItems(IEnumerable<InventoryItemModel> items)

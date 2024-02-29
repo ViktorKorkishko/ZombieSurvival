@@ -18,7 +18,7 @@ namespace Game.Settings.Installers
         {
             Container.BindInterfacesAndSelfTo<SettingsModel>().AsSingle();
             
-            var viewInstance = ViewProvider.RegisterView(_settingsViewPrefab, ViewId.Settings);
+            var viewInstance = ViewProvider.RegisterView(_settingsViewPrefab, ViewId.Settings, LayerId.Popups);
             
             Container
                 .BindInterfacesAndSelfTo<SettingsViewController>()

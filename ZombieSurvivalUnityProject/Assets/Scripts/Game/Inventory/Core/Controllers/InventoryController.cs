@@ -5,6 +5,7 @@ using Game.Inventory.Cells.Core.Models;
 using Game.Inventory.Core.Models;
 using Game.Inventory.Core.Views;
 using Game.Inventory.DragAndDrop.Models;
+using Game.Inventory.HotBar.Models;
 using Game.Inventory.Items.Models;
 using Zenject;
 
@@ -14,6 +15,17 @@ namespace Game.Inventory.Core.Controllers
     {
         [Inject] private InventoryModel InventoryModel { get; }
         [Inject] private DragAndDropModel DragAndDropModel { get; }
+
+        private IEnumerable<CellModel> Cells
+        {
+            get
+            {
+                var inventoryCells = InventoryModel.InventoryCellsContainerModel.Cells;
+                var hotBarCells = InventoryModel.InventoryHotBarCellsContainer.Cells;
+                var cells = inventoryCells.Union(hotBarCells);
+                return cells;
+            }
+        }
 
         private InventoryView InventoryView { get; }
 
@@ -36,7 +48,7 @@ namespace Game.Inventory.Core.Controllers
             
             InitSelectedCell();
         }
-
+        
         void IDisposable.Dispose()
         {
             InventoryModel.OnItemsAdded -= HandleOnItemsAdded;
@@ -44,8 +56,8 @@ namespace Game.Inventory.Core.Controllers
             InventoryView.OnShow -= HandleOnShow;
             InventoryView.OnHide -= HandleOnHide;
             InventoryView.OnDeleteItemButtonClicked -= HandleOnDeleteItemButtonClicked;
-
-            foreach (var cell in InventoryModel.CellsContainerModel.Cells)
+            
+            foreach (var cell in Cells)
             {
                 cell.OnSelected -= HandleOnCellSelected;
             }
@@ -53,7 +65,7 @@ namespace Game.Inventory.Core.Controllers
 
         private void InitSelectedCell()
         {
-            var cells = InventoryModel.CellsContainerModel.Cells.ToList();
+            var cells = Cells.ToList();
             for (int i = 0; i < cells.Count; i++)
             {
                 var cell = cells[i];
@@ -77,19 +89,21 @@ namespace Game.Inventory.Core.Controllers
 
         private void HandleOnItemsAdded(IEnumerable<InventoryItemModel> items)
         {
-            InventoryModel.CellsContainerModel.SpreadItemsAmongCells(items);
+            InventoryModel.InventoryCellsContainerModel.SpreadItemsAmongCells(items);
         }
 
         private void HandleOnShow()
         {
-            DragAndDropModel.RegisterDraggableCells(InventoryModel.CellsContainerModel);
+            DragAndDropModel.RegisterDraggableCells(InventoryModel.InventoryCellsContainerModel);
+            DragAndDropModel.RegisterDraggableCells(InventoryModel.InventoryHotBarCellsContainer);
         }
 
         private void HandleOnHide()
         {
-            DragAndDropModel.UnregisterDraggableCells(InventoryModel.CellsContainerModel);
+            DragAndDropModel.UnregisterDraggableCells(InventoryModel.InventoryCellsContainerModel);
+            DragAndDropModel.UnregisterDraggableCells(InventoryModel.InventoryHotBarCellsContainer);
         }
-
+        
         private void HandleOnDeleteItemButtonClicked()
         {
             if (!_currentlySelectedCell.ContainsItem)

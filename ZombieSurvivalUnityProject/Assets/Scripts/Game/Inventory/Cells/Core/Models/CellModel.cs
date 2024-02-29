@@ -14,7 +14,9 @@ namespace Game.Inventory.Cells.Core.Models
         
         public Action<CellModel, bool> OnSelected { get; set; }
         public Action<InventoryItemModel> OnItemSet { get; set; }
+        public Action<CellModel, InventoryItemModel> OnItemSetToCell { get; set; }
         public Action OnItemRemoved { get; set; }
+        public Action<CellModel> OnItemRemovedFromCell { get; set; }
         public Action<int> OnItemCountChanged { get; set; }
         
         private InventoryItemModel InventoryItemModel { get; set; }
@@ -23,6 +25,7 @@ namespace Game.Inventory.Cells.Core.Models
         {
             InventoryItemModel = itemModel;
             OnItemSet?.Invoke(InventoryItemModel);
+            OnItemSetToCell?.Invoke(this, InventoryItemModel);
         }
 
         public InventoryItemModel RemoveItem()
@@ -30,6 +33,7 @@ namespace Game.Inventory.Cells.Core.Models
             var returnItem = (InventoryItemModel)InventoryItemModel?.Clone();
             InventoryItemModel = null;
             OnItemRemoved?.Invoke();
+            OnItemRemovedFromCell?.Invoke(this);
             return returnItem;
         }
 

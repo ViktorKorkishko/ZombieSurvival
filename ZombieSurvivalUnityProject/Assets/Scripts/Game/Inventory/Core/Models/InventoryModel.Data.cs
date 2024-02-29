@@ -10,40 +10,42 @@ namespace Game.Inventory.Core.Models
     {
         public new class Data
         {
-            public List<CellModel.Data> CellsData { get; set; }
+            public List<CellModel.Data> InventoryCellsData { get; set; }
+            public List<CellModel.Data> HotBarCellsData { get; set; }
         }
         
         protected override string DataKey => "InventoryModel.Data";
         
         protected override void HandleOnDataLoaded(LoadResult<Data> loadResult)
         {
+            var data = loadResult.Data;
             switch (loadResult.Result)
             {
                 case Result.LoadedSuccessfully:
-                    if (loadResult.Data.CellsData.Count == 0)
+                    if (data.InventoryCellsData.Count == 0 || 
+                        data.HotBarCellsData.Count == 0)
                     {
-                        InitEmptyInventory();
-                    }
-                    else
-                    {
-                        loadResult.Data.CellsData = loadResult.Data.CellsData;
+                        InitEmptyCells(data.InventoryCellsData, InitialInventoryCellsCount);
+                        InitEmptyCells(data.HotBarCellsData, 7);
                     }
                     break;
                 
                 case Result.SaveFileNotFound:
-                    InitEmptyInventory();
+                    InitEmptyCells(data.InventoryCellsData, InitialInventoryCellsCount);
+                    InitEmptyCells(data.HotBarCellsData, 7);
                     break;
                 
                 case Result.LoadedWithErrors:
-                    InitEmptyInventory();
+                    InitEmptyCells(data.InventoryCellsData, InitialInventoryCellsCount);
+                    InitEmptyCells(data.HotBarCellsData, 7);
                     break;
             }
 
-            void InitEmptyInventory()
+            void InitEmptyCells(List<CellModel.Data> cellsData, int count)
             {
-                for (int i = 0; i < InitialInventoryCellsCount; i++)
+                for (int i = 0; i < count; i++)
                 {
-                    loadResult.Data.CellsData.Add(new CellModel.Data {
+                    cellsData.Add(new CellModel.Data {
                         ItemId = ItemId.None,
                         Count = 0,
                     });
@@ -53,8 +55,11 @@ namespace Game.Inventory.Core.Models
 
         protected override void HandleOnDataPreSaved()
         {
-            var cellsData = CellsContainerModel.Cells.Select(x => x.GetSaveData());
-            base.Data.CellsData = cellsData.ToList();
+            var inventoryCellsData = InventoryCellsContainerModel.Cells.Select(x => x.GetSaveData());
+            base.Data.InventoryCellsData = inventoryCellsData.ToList();
+            
+            var hotBarCellsData = InventoryHotBarCellsContainer.Cells.Select(x => x.GetSaveData());
+            base.Data.HotBarCellsData = hotBarCellsData.ToList();
         }
     }
 }

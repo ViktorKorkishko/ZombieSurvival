@@ -17,6 +17,10 @@ namespace Game.Inventory.Cells.CellsContainer.Models
         [Inject] private ItemsDataBase ItemsDataBase { get; }
         [Inject] private CellController.Factory CellControllerFactory { get; }
         
+        public bool IsInited { get; private set; }
+
+        public Action OnInitialized { get; set; }
+
         public IEnumerable<CellModel> Cells => CellContainers.Select(x => x.Model);
         public List<CellContainer> CellContainers { get; } = new();
         
@@ -45,6 +49,9 @@ namespace Game.Inventory.Cells.CellsContainer.Models
 
                 CellContainers.Add(new CellContainer(cellModel, cellView, cellController));
             }
+
+            IsInited = true;
+            OnInitialized?.Invoke();
         }
         
         public void SpreadItemsAmongCells(IEnumerable<InventoryItemModel> iitems)

@@ -3,6 +3,7 @@ using Core.ViewSystem.Views;
 using Core.ViewSystem.Views.Data;
 using Game.Inventory.Cells.CellsContainer.Views;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 namespace Game.Inventory.Core.Views
@@ -14,10 +15,13 @@ namespace Game.Inventory.Core.Views
         [SerializeField] private CanvasGroup _deleteButtonCanvasGroup;
         [SerializeField] [Range(0, 1f)] private float _disabledStateAlphaValue;
         
+        [FormerlySerializedAs("_cellsContainerView")]
         [Header("Cells container")]
-        [SerializeField] private CellsContainerView _cellsContainerView;
+        [SerializeField] private CellsContainerView _inventoryCellsContainerView;
+        [SerializeField] private CellsContainerView _hotBarCellsContainerView;
 
-        public CellsContainerView CellsContainerView => _cellsContainerView;
+        public CellsContainerView InventoryCellsContainerView => _inventoryCellsContainerView;
+        public CellsContainerView HotBarCellsContainerView => _hotBarCellsContainerView;
         
         public Action OnDeleteItemButtonClicked { get; set; }
         

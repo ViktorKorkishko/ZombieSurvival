@@ -26,5 +26,7 @@
         Rigidbody,
         Renderer,
         InventoryCellsContainer,
+        InventoryHotBarCellsContainer,
+        HotBarCellsContainer,
     }
 }
