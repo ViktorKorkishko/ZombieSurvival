@@ -9,110 +9,110 @@ namespace Game.Inventory.HotBar
 {
     public class SynchronizableCellsContainer : IDisposable
     {
-        private CellsContainerModel FirstCellsContainer { get; }
-        private CellsContainerModel SecondCellsContainer { get; }
-
-        private List<CellModel> FirstCells => FirstCellsContainer.Cells.ToList();
-        private List<CellModel> SecondCells => SecondCellsContainer.Cells.ToList();
+        private CellsContainerModel CoreContainer { get; }
+        private CellsContainerModel SecondaryCellsContainer { get; }
         
-        public SynchronizableCellsContainer(CellsContainerModel firstCellsContainer, CellsContainerModel secondCellsContainer)
+        private List<CellModel> CoreCells => CoreContainer.Cells.ToList();
+        private List<CellModel> SecondaryCells => SecondaryCellsContainer.Cells.ToList();
+        
+        public SynchronizableCellsContainer(CellsContainerModel coreContainer, CellsContainerModel secondaryCellsContainer)
         {
-            FirstCellsContainer = firstCellsContainer;
-            SecondCellsContainer = secondCellsContainer;
+            CoreContainer = coreContainer;
+            SecondaryCellsContainer = secondaryCellsContainer;
         }
-
+        
         public void Initialize()
         {
-            if (FirstCellsContainer.IsInited)
+            if (CoreContainer.IsInited)
             {
                 Initialize_Internal();
             }
             else
             {
-                FirstCellsContainer.OnInitialized += Initialize_Internal;
+                CoreContainer.OnInitialized += Initialize_Internal;
             }
         }
-
+        
         private void Initialize_Internal()
         {
-            var cellsData = FirstCells.Select(x => x.GetSaveData());
-            SecondCellsContainer.InitCells(cellsData);
+            var cellsData = CoreCells.Select(x => x.GetSaveData());
+            SecondaryCellsContainer.InitCells(cellsData);
             
-            foreach (var cell in FirstCells)
+            foreach (var cell in CoreCells)
             {
-                cell.OnItemSetToCell += HandleOnItemSetToFirstCellsContainer;
-                cell.OnItemRemovedFromCell += HandleOnItemRemovedFromFirstCellsContainer;
+                cell.OnItemSet += HandleOnItemSetToCoreCellsContainer;
+                cell.OnItemRemoved += HandleOnItemRemovedFromCoreCellsContainer;
             }
             
-            foreach (var cell in SecondCells)
+            foreach (var cell in SecondaryCells)
             {
-                cell.OnItemSetToCell += HandleOnItemSetToSecondCellsContainer;
+                cell.OnItemSet += HandleOnItemSetToSecondaryCellsContainer;
             }
         }
-
+        
         void IDisposable.Dispose()
         {
-            foreach (var cell in FirstCells)
+            foreach (var cell in CoreCells)
             {
-                cell.OnItemSetToCell -= HandleOnItemSetToFirstCellsContainer;
+                cell.OnItemSet -= HandleOnItemSetToCoreCellsContainer;
             }
             
-            foreach (var cell in SecondCells)
+            foreach (var cell in SecondaryCells)
             {
-                cell.OnItemSetToCell -= HandleOnItemSetToSecondCellsContainer;
+                cell.OnItemSet -= HandleOnItemSetToSecondaryCellsContainer;
             }
         }
-
-        private void HandleOnItemSetToFirstCellsContainer(CellModel cellModel, InventoryItemModel inventoryItemModel)
+        
+        private void HandleOnItemSetToCoreCellsContainer(CellModel cellModel, InventoryItemModel inventoryItemModel)
         {
-            var firstCells = FirstCellsContainer.Cells.ToList();
+            var firstCells = CoreCells.ToList();
             int index = firstCells.IndexOf(cellModel);
 
-            var secondCells = SecondCellsContainer.Cells.ToList();
+            var secondCells = SecondaryCells.ToList();
             var cell = secondCells[index];
 
-            cell.OnItemSetToCell -= HandleOnItemSetToSecondCellsContainer;
+            cell.OnItemSet -= HandleOnItemSetToSecondaryCellsContainer;
             cell.SetItem(inventoryItemModel);
-            cell.OnItemSetToCell += HandleOnItemSetToSecondCellsContainer;
+            cell.OnItemSet += HandleOnItemSetToSecondaryCellsContainer;
         }
         
-        private void HandleOnItemSetToSecondCellsContainer(CellModel cellModel, InventoryItemModel inventoryItemModel)
+        private void HandleOnItemSetToSecondaryCellsContainer(CellModel cellModel, InventoryItemModel inventoryItemModel)
         {
-            var secondCells = SecondCellsContainer.Cells.ToList();
+            var secondCells = SecondaryCells.ToList();
             int index = secondCells.IndexOf(cellModel);
 
-            var firstCells = FirstCellsContainer.Cells.ToList();
+            var firstCells = CoreCells.ToList();
             var cell = firstCells[index];
 
-            cell.OnItemSetToCell -= HandleOnItemSetToFirstCellsContainer;
+            cell.OnItemSet -= HandleOnItemSetToCoreCellsContainer;
             cell.SetItem(inventoryItemModel);
-            cell.OnItemSetToCell += HandleOnItemSetToFirstCellsContainer;
+            cell.OnItemSet += HandleOnItemSetToCoreCellsContainer;
         }
 
-        private void HandleOnItemRemovedFromFirstCellsContainer(CellModel cellModel)
+        private void HandleOnItemRemovedFromCoreCellsContainer(CellModel cellModel)
         {
-            var firstCells = FirstCellsContainer.Cells.ToList();
-            int index = firstCells.IndexOf(cellModel);
+            var coreCells = CoreCells.ToList();
+            int index = coreCells.IndexOf(cellModel);
 
-            var secondCells = SecondCellsContainer.Cells.ToList();
-            var cell = secondCells[index];
+            var secondaryCells = SecondaryCells.ToList();
+            var cell = secondaryCells[index];
 
-            cell.OnItemRemovedFromCell -= HandleOnItemRemovedFromSecondCellsContainer;
+            cell.OnItemRemoved -= HandleOnItemRemovedFromSecondaryCellsContainer;
             cell.RemoveItem();
-            cell.OnItemRemovedFromCell += HandleOnItemRemovedFromSecondCellsContainer;
+            cell.OnItemRemoved += HandleOnItemRemovedFromSecondaryCellsContainer;
         }
         
-        private void HandleOnItemRemovedFromSecondCellsContainer(CellModel cellModel)
+        private void HandleOnItemRemovedFromSecondaryCellsContainer(CellModel cellModel)
         {
-            var secondCells = SecondCellsContainer.Cells.ToList();
-            int index = secondCells.IndexOf(cellModel);
+            var secondaryCells = SecondaryCells.ToList();
+            int index = secondaryCells.IndexOf(cellModel);
 
-            var firstCells = FirstCellsContainer.Cells.ToList();
-            var cell = firstCells[index];
+            var coreCells = CoreCells.ToList();
+            var cell = coreCells[index];
 
-            cell.OnItemRemovedFromCell -= HandleOnItemRemovedFromFirstCellsContainer;
+            cell.OnItemRemoved -= HandleOnItemRemovedFromCoreCellsContainer;
             cell.RemoveItem();
-            cell.OnItemRemovedFromCell += HandleOnItemRemovedFromFirstCellsContainer;
+            cell.OnItemRemoved += HandleOnItemRemovedFromCoreCellsContainer;
         }
     }
 }

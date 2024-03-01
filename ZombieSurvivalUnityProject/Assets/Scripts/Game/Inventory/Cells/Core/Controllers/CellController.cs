@@ -40,7 +40,7 @@ namespace Game.Inventory.Cells.Core.Controllers
             CellView.OnPointerDown -= HandleOnPointerDown;
         }
 
-        private void HandleOnItemSet(InventoryItemModel inventoryItemModel)
+        private void HandleOnItemSet(CellModel cellModel, InventoryItemModel inventoryItemModel)
         {
             var itemId = inventoryItemModel.ItemId;
             if (ItemsDataBase.TryGetItemData(itemId, out var itemData))
@@ -50,7 +50,7 @@ namespace Game.Inventory.Cells.Core.Controllers
             }
         }
 
-        private void HandleOnItemRemoved()
+        private void HandleOnItemRemoved(CellModel cellModel)
         {
             CellView.SetEmpty();
         }
