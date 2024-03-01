@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Core.Installers;
 using Core.SaveSystem.Models;
 using Game.Inventory.Cells.CellsContainer.Models;
+using Game.Inventory.HotBar.Models;
 using Game.Inventory.Items.Models;
 using Zenject;
 
@@ -12,6 +13,7 @@ namespace Game.Inventory.Core.Models
     {
         [Inject(Id = BindingIdentifiers.InventoryCellsContainer)] public CellsContainerModel InventoryCellsContainerModel { get; }
         [Inject(Id = BindingIdentifiers.InventoryHotBarCellsContainer)] public CellsContainerModel InventoryHotBarCellsContainer { get; }
+        [Inject] private HotBarModel HotBarModel { get; }
         
         public int InitialInventoryCellsCount { get; }
 

@@ -5,7 +5,7 @@ using Game.Inventory.Cells.Core.Models;
 
 namespace Game.Inventory.Cells
 {
-    public class SelectionController : IDisposable
+    public class CellSelectionService : IDisposable
     {
         public CellModel CurrentlySelectedCell { get; private set; }
 
@@ -13,7 +13,7 @@ namespace Game.Inventory.Cells
 
         private readonly List<CellModel> _cells;
 
-        public SelectionController(IEnumerable<CellModel> cellModels)
+        public CellSelectionService(IEnumerable<CellModel> cellModels)
         {
             _cells = cellModels.ToList();
         }

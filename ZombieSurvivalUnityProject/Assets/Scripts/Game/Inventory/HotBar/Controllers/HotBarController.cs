@@ -13,7 +13,7 @@ namespace Game.Inventory.HotBar.Controllers
         [Inject] private HotBarModel HotBarModel { get; }
         private HotBarView View { get; }
 
-        private SelectionController _selectionController;
+        private CellSelectionService _cellSelectionService;
         private SynchronizableCellsContainer _synchronizableCellsContainer;
 
         public HotBarController(HotBarView view)
@@ -45,10 +45,10 @@ namespace Game.Inventory.HotBar.Controllers
         {
             HotBarModel.InventoryHotBarCellsContainer.OnInitialized -= HandleOnHotBarCellsInitialized;
             
-            _selectionController = new SelectionController(HotBarModel.HotBarCellsContainerModel.Cells);
-            _selectionController.OnSelectedCellChanged += HandleOnSelectedCellChanged;
+            _cellSelectionService = new CellSelectionService(HotBarModel.HotBarCellsContainerModel.Cells);
+            _cellSelectionService.OnSelectedCellChanged += HandleOnSelectedCellChanged;
             
-            _selectionController.Initialize();
+            _cellSelectionService.Initialize();
         }
 
         private void HandleOnSelectedCellChanged(CellModel cellModel)

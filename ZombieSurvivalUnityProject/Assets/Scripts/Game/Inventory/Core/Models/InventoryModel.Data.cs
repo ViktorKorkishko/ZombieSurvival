@@ -26,18 +26,18 @@ namespace Game.Inventory.Core.Models
                         data.HotBarCellsData.Count == 0)
                     {
                         InitEmptyCells(data.InventoryCellsData, InitialInventoryCellsCount);
-                        InitEmptyCells(data.HotBarCellsData, 7);
+                        InitEmptyCells(data.HotBarCellsData, HotBarModel.InitialHotBarCellsCount);
                     }
                     break;
                 
                 case Result.SaveFileNotFound:
                     InitEmptyCells(data.InventoryCellsData, InitialInventoryCellsCount);
-                    InitEmptyCells(data.HotBarCellsData, 7);
+                    InitEmptyCells(data.HotBarCellsData, HotBarModel.InitialHotBarCellsCount);
                     break;
                 
                 case Result.LoadedWithErrors:
                     InitEmptyCells(data.InventoryCellsData, InitialInventoryCellsCount);
-                    InitEmptyCells(data.HotBarCellsData, 7);
+                    InitEmptyCells(data.HotBarCellsData, HotBarModel.InitialHotBarCellsCount);
                     break;
             }
 
