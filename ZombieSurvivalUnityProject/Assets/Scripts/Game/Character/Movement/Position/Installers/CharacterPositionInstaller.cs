@@ -11,9 +11,12 @@ namespace Game.Character.Movement.Position.Installers
         
         public override void InstallBindings()
         {
-            Container.BindInterfacesAndSelfTo<CharacterPositionModel>().AsSingle();
+            Container
+                .BindInterfacesAndSelfTo<CharacterPositionModel>().AsSingle();
             
-            Container.BindInstance(_viewRootTransform).WithId(BindingIdentifiers.ViewRoot);
+            Container
+                .BindInstance(_viewRootTransform)
+                .WithId(BindingIdentifiers.ViewRoot);
         }
     }
 }
