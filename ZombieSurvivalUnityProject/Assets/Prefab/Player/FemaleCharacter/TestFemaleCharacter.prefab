@@ -1344,6 +1344,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 1576859461503583322}
   - {fileID: 69286869104623393}
   - {fileID: 976717954847496381}
   - {fileID: 4814511217786906718}
@@ -1366,6 +1367,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _scriptableObjectInstallers: []
   _monoInstallers:
+  - {fileID: 3005939130776287801}
   - {fileID: 192916076777557668}
   - {fileID: 463905751283843368}
   - {fileID: 7172294985391971120}
@@ -1383,6 +1385,51 @@ MonoBehaviour:
   _installerPrefabs: []
   _autoRun: 1
   _kernel: {fileID: 0}
+--- !u!1 &5082739950111585664
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1576859461503583322}
+  - component: {fileID: 3005939130776287801}
+  m_Layer: 0
+  m_Name: Camera
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1576859461503583322
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5082739950111585664}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6952559578232743503}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3005939130776287801
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5082739950111585664}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c83cc8bcb64a49d9ba24237a814e1241, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _cameraLookAtPointTransform: {fileID: 5112894668536529241}
 --- !u!1 &5302630368914883092
 GameObject:
   m_ObjectHideFlags: 0
@@ -1428,7 +1475,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb8ca168f2d24010af07052dcfe7f80f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  "_\u0441haracterLocomotionModel": {fileID: 2405604396710394075}
+  _characterLocomotionModel: {fileID: 2405604396710394075}
   _characterController: {fileID: 6119383482906718598}
   _jumpingAnimationParamName: IsJumping
   _sprintingAnimationParamName: IsSprinting
