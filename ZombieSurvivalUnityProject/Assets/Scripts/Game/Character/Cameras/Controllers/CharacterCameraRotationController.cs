@@ -11,6 +11,7 @@ namespace Game.Character.Cameras.Controllers
     {
         [Inject] private CameraModel CameraModel { get; }
         [Inject(Id = BindingIdentifiers.CameraLookAtPointTransform)] private Transform CameraLookAtPoint { get; }
+        [Inject(Id = BindingIdentifiers.CameraLookAtPointTransform)] private Transform RigLookAtPoint { get; }
 
         private AxisState XAxisState => CameraModel.XAxisState;
         private AxisState YAxisState => CameraModel.YAxisState;

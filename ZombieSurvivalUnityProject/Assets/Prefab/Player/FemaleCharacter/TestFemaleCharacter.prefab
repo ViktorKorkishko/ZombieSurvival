@@ -462,8 +462,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 1.65, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 7522552080802490950}
+  m_Children: []
   m_Father: {fileID: 3153043132906964633}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1423237743795766816
@@ -683,9 +682,10 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 5112894668536529241}
   - {fileID: 2764585140623792156}
-  m_Father: {fileID: 581115031589760688}
+  - {fileID: 7522552080802490950}
+  - {fileID: 5112894668536529241}
+  m_Father: {fileID: 6605319763816602198}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2432551297410468379
 GameObject:
@@ -720,7 +720,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 3153043132906964633}
   - {fileID: 2300335085324200668}
   - {fileID: 6605319763816602198}
   m_Father: {fileID: 7824898248860213007}
@@ -1431,6 +1430,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _cameraLookAtPointTransform: {fileID: 5112894668536529241}
+  _rigLookAtPointTransform: {fileID: 7522552080802490950}
+  _offset: {x: 0, y: 1.65, z: 18}
 --- !u!1 &5302630368914883092
 GameObject:
   m_ObjectHideFlags: 0
@@ -1933,7 +1934,7 @@ GameObject:
   m_Layer: 0
   m_Name: RigLookAtPoint
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 3443629218296621865, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -1945,12 +1946,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6860893466858829505}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 20}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 1.65, z: 18}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 5112894668536529241}
+  m_Father: {fileID: 3153043132906964633}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7003366420201659241
 GameObject:
@@ -2145,7 +2146,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7824624938171278113}
   m_Layer: 0
-  m_Name: RigRoot
+  m_Name: Root
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4201,6 +4202,7 @@ Transform:
   m_Children:
   - {fileID: 7824490513086704401}
   - {fileID: 7820971279846912275}
+  - {fileID: 3153043132906964633}
   - {fileID: 7824624938171278113}
   - {fileID: 1519346757557303495}
   m_Father: {fileID: 581115031589760688}

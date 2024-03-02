@@ -15,6 +15,7 @@
         MuzzleFleshPS,
         ShotHitEffectPS,
         CameraLookAtPointTransform,
+        RigLookAtPointTransform,
         ViewRoot,
         BulletTrailRenderer,
         WeaponShootStartPointTransform,

@@ -9,6 +9,9 @@ namespace Game.Character.Cameras.Installers
     public class CharacterCameraInstaller : MonoInstaller
     {
         [SerializeField] private Transform _cameraLookAtPointTransform;
+        [SerializeField] private Transform _rigLookAtPointTransform;
+
+        [SerializeField] private Vector3 _offset;
         
         public override void InstallBindings()
         {
@@ -17,7 +20,13 @@ namespace Game.Character.Cameras.Installers
                 .AsSingle();
             
             Container
-                .BindInterfacesAndSelfTo<CrosshairTargetPositionController>().AsSingle();
+                .BindInterfacesAndSelfTo<CrosshairTargetPositionController>()
+                .AsSingle();
+            
+            Container
+                .BindInterfacesAndSelfTo<RigLootAtPointController>()
+                .AsSingle()
+                .WithArguments(_rigLookAtPointTransform, _offset);
 
             Container.BindInstance(_cameraLookAtPointTransform)
                 .WithId(BindingIdentifiers.CameraLookAtPointTransform);
