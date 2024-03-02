@@ -1,4 +1,5 @@
 using Core.Installers;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.Animations.Rigging;
 using Zenject;
@@ -37,5 +38,8 @@ namespace Game.Character.Rigs.Installers
                 .WithId(BindingIdentifiers.RightHandIKConstraint)
                 .FromInstance(_rightHandIKConstraint);
         }
+
+        [ContextMenu("Rebuild")]
+        private void Rebuild() => _rigBuilder.Build();
     }
 }
