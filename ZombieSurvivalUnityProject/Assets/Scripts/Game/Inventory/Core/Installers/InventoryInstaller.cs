@@ -1,5 +1,4 @@
 ﻿using Core.Installers;
-using Core.SaveSystem.Entity;
 using Core.ViewSystem.Enums;
 using Core.ViewSystem.Providers;
 using Game.Inventory.Cells.CellsContainer.Controllers;
@@ -125,7 +124,6 @@ namespace Game.Inventory.Core.Installers
                     .BindInterfacesAndSelfTo<CellsContainerController>()
                     .AsCached()
                     .WithArguments(cellsContainerModel, hotBarView.CellsContainerView);
-
             }
         }
     }

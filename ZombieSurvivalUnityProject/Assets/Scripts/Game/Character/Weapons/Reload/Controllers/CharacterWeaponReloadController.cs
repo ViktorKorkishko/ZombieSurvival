@@ -1,6 +1,7 @@
 ﻿using System;
 using Core.Installers;
 using Game.Animations;
+using Game.Character.Facade;
 using Game.Character.Weapons.CurrentWeapon.Models;
 using Game.Character.Weapons.Equip.Models;
 using Game.Character.Weapons.Reload.Models;
