@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections;
 using Core.Coroutines.Models;
+using Core.Exceptions;
 using Core.Installers;
+using DG.Tweening;
 using Game.InteractableObjects.Common.Controllers;
 using Game.InteractableObjects.Implementations.Door.Enums;
 using Game.InteractableObjects.Implementations.Door.Models;
@@ -14,11 +16,8 @@ namespace Game.InteractableObjects.Implementations.Door.Controllers
     {
         [Inject] private InteractableDoorModel InteractableDoorModel { get; }
         [Inject(Id = BindingIdentifiers.Rigidbody)] private Rigidbody Rigidbody { get; }
-        [Inject] private CoroutinePlayerModel CoroutinePlayerModel { get; }
 
         private Action InteractionEndedCallback { get; set; }
-
-        private int _coroutineIndex = -1;
 
         public override void Initialize()
         {
@@ -42,7 +41,7 @@ namespace Game.InteractableObjects.Implementations.Door.Controllers
         private void HandleOnDoorInteract(DoorState doorState, Action interactionEndedCallback)
         {
             InteractionEndedCallback = interactionEndedCallback;
-            
+
             switch (doorState)
             {
                 case DoorState.Opened:
@@ -54,7 +53,7 @@ namespace Game.InteractableObjects.Implementations.Door.Controllers
                     break;
 
                 default:
-                    Debug.LogError("Cannot handle such");
+                    Debug.LogError(new EnumNotSupportedException<DoorState>(doorState));
                     break;
             }
         }
@@ -62,38 +61,31 @@ namespace Game.InteractableObjects.Implementations.Door.Controllers
         private void OpenDoor()
         {
             Debug.Log("Open door");
-            _coroutineIndex = 
-                CoroutinePlayerModel.StartCoroutine(RotateToTargetAngle(InteractableDoorModel.OpenAngle));
+            RotateToTargetAngle(InteractableDoorModel.OpenAngle);
         }
 
         private void CloseDoor()
         {
             Debug.Log("Closing door");
-            _coroutineIndex =
-                CoroutinePlayerModel.StartCoroutine(RotateToTargetAngle(InteractableDoorModel.CloseAngle));
+            RotateToTargetAngle(InteractableDoorModel.CloseAngle);
         }
 
-        private IEnumerator RotateToTargetAngle(Vector3 targetAngle)
+        private void RotateToTargetAngle(Vector3 targetAngle)
         {
-            float currentRotationTime = 0;
-            var rotationAngle = targetAngle - Rigidbody.transform.localRotation.eulerAngles;
-            float rotationEndTime = InteractableDoorModel.OpenTime;
+            var currentRotationEuler = Rigidbody.transform.localRotation.eulerAngles;
+            var rotationAngle = targetAngle - currentRotationEuler;
+            float time = InteractableDoorModel.OpenTime;
 
-            while (currentRotationTime <= rotationEndTime)
-            {
-                yield return new WaitForFixedUpdate();
+            Sequence rotationSequence = DOTween.Sequence();
+            rotationSequence
+                .Append(Rigidbody.DORotate(rotationAngle, time, RotateMode.LocalAxisAdd))
+                .OnComplete(() =>
+                {
+                    Rigidbody.transform.localRotation = Quaternion.Euler(targetAngle);
 
-                var anglePerSecond = rotationAngle / InteractableDoorModel.OpenTime;
-                Quaternion deltaRotation = Quaternion.Euler(anglePerSecond * Time.fixedDeltaTime);
-                Rigidbody.MoveRotation(Rigidbody.rotation * deltaRotation);
-
-                currentRotationTime += Time.fixedDeltaTime;
-            }
-            
-            Rigidbody.transform.localRotation = Quaternion.Euler(targetAngle);
-            
-            InteractionEndedCallback?.Invoke();
-            InteractionEndedCallback = null;
+                    InteractionEndedCallback?.Invoke();
+                    InteractionEndedCallback = null;
+                });
         }
     }
 }
