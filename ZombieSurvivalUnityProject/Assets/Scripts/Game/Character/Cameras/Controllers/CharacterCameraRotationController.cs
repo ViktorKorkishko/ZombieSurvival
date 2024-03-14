@@ -18,9 +18,6 @@ namespace Game.Character.Cameras.Controllers
         void IFixedTickable.FixedTick()
         {
             CameraLookAtPoint.eulerAngles = new Vector3(YAxisState.Value, XAxisState.Value, 0);
-            Debug.Log($"eulerAngles: " + CameraLookAtPoint.eulerAngles + 
-                      "X.Value: " + XAxisState.Value +
-                      "Y.Value: " + YAxisState.Value);
         }
     }
 }

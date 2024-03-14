@@ -60,13 +60,11 @@ namespace Game.InteractableObjects.Implementations.Door.Controllers
 
         private void OpenDoor()
         {
-            Debug.Log("Open door");
             RotateToTargetAngle(InteractableDoorModel.OpenAngle);
         }
 
         private void CloseDoor()
         {
-            Debug.Log("Closing door");
             RotateToTargetAngle(InteractableDoorModel.CloseAngle);
         }
 
