@@ -63,8 +63,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _openedDoorAngle: {x: 0, y: 155, z: 0}
   _closedDoorAngle: {x: 0, y: 0, z: 0}
+  _ease: 4
+  _openDuration: 1
   _doorState: 1
-  _openTime: 1
+  _canInterruptInteraction: 0
 --- !u!1 &2561236855855640541
 GameObject:
   m_ObjectHideFlags: 0

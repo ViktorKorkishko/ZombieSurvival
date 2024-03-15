@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections;
-using Core.Coroutines.Models;
 using Core.Exceptions;
 using Core.Installers;
 using DG.Tweening;
@@ -19,26 +17,53 @@ namespace Game.InteractableObjects.Implementations.Door.Controllers
 
         private Action InteractionEndedCallback { get; set; }
 
+        private Sequence _rotationSequence;
+
         public override void Initialize()
         {
             base.Initialize();
-
-            InteractableDoorModel.OnInteractionStarted += HandleOnDoorInteract;
+            
+            InteractableDoorModel.OnInteractionStarted += HandleOnInteractionStarted;
+            // InteractableDoorModel.OnInteractionInterrupted += HandleOnInteractionInterrupted;
         }
 
         public override void Dispose()
         {
             base.Dispose();
 
-            InteractableDoorModel.OnInteractionStarted -= HandleOnDoorInteract;
+            InteractableDoorModel.OnInteractionStarted -= HandleOnInteractionStarted;
+            // InteractableDoorModel.OnInteractionInterrupted -= HandleOnInteractionInterrupted;
         }
 
         protected override void HandleOnObjectInteract()
         {
             InteractableDoorModel.Interact();
         }
+        
+        // _rotationSequence.Rewind();
+        // private void HandleOnInteractionInterrupted(DoorState doorState, Action interactionEndedCallback)
+        // {
+        //     InteractionEndedCallback = interactionEndedCallback;
+        //     
+        //     switch (doorState)
+        //     {
+        //         case DoorState.Opening:
+        //             StopRotation();
+        //             CloseDoor();
+        //             break;
+        //
+        //         case DoorState.Closing:
+        //             StopRotation();
+        //             OpenDoor();
+        //             break;
+        //
+        //         default:
+        //             Debug.LogError(new EnumNotSupportedException<DoorState>(doorState));
+        //             break;
+        //     }
+        // }
 
-        private void HandleOnDoorInteract(DoorState doorState, Action interactionEndedCallback)
+        private void HandleOnInteractionStarted(DoorState doorState, Action interactionEndedCallback)
         {
             InteractionEndedCallback = interactionEndedCallback;
 
@@ -72,18 +97,31 @@ namespace Game.InteractableObjects.Implementations.Door.Controllers
         {
             var currentRotationEuler = Rigidbody.transform.localRotation.eulerAngles;
             var rotationAngle = targetAngle - currentRotationEuler;
-            float time = InteractableDoorModel.OpenTime;
+            float time = InteractableDoorModel.OpenDuration;
 
-            Sequence rotationSequence = DOTween.Sequence();
-            rotationSequence
-                .Append(Rigidbody.DORotate(rotationAngle, time, RotateMode.LocalAxisAdd))
-                .OnComplete(() =>
-                {
-                    Rigidbody.transform.localRotation = Quaternion.Euler(targetAngle);
+            _rotationSequence = DOTween.Sequence()
+                .Append(GetRotationTween())
+                .OnComplete(CompleteCallback);
 
-                    InteractionEndedCallback?.Invoke();
-                    InteractionEndedCallback = null;
-                });
+            Tween GetRotationTween()
+            {
+                return Rigidbody
+                    .DORotate(rotationAngle, time, RotateMode.LocalAxisAdd)
+                    .SetEase(InteractableDoorModel.Ease);
+            }
+
+            void CompleteCallback()
+            {
+                Rigidbody.transform.localRotation = Quaternion.Euler(targetAngle);
+
+                InteractionEndedCallback?.Invoke();
+                InteractionEndedCallback = null;
+            }
+        }
+
+        private void StopRotation()
+        {
+            _rotationSequence.Kill();
         }
     }
 }
