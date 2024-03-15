@@ -66,7 +66,7 @@ MonoBehaviour:
   _ease: 4
   _openDuration: 1
   _doorState: 1
-  _canInterruptInteraction: 0
+  _canInterruptInteraction: 1
 --- !u!1 &2561236855855640541
 GameObject:
   m_ObjectHideFlags: 0

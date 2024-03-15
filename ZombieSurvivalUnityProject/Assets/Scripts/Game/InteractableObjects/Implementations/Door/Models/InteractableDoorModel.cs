@@ -4,7 +4,6 @@ using Core.SaveSystem.Models;
 using DG.Tweening;
 using Game.InteractableObjects.Implementations.Door.Enums;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace Game.InteractableObjects.Implementations.Door.Models
 {
@@ -43,26 +42,40 @@ namespace Game.InteractableObjects.Implementations.Door.Models
 
         public void Interact()
         {
-            Debug.Log("IsBeingInteracted: " + IsBeingInteracted);
             if (IsBeingInteracted) 
             {
                 if (_canInterruptInteraction)
                 {
-                    // OnInteractionInterrupted?.Invoke(State, EndInteraction);
-                    // OnInteractionEnded += HandleOnInteractionEnded;
+                    OnInteractionInterrupted?.Invoke(State, EndInteraction);
+                    StartInterruption();
+                    return;
                 }
             }
             
             OnInteractionStarted?.Invoke(State, EndInteraction);
-            SwitchDoorState();
+            SwitchState();
         }
 
         private void EndInteraction()
         {
-            SwitchDoorState();
+            SwitchState();
+        }
+        
+        private void StartInterruption()
+        {
+            switch (State)
+            {
+                case DoorState.Opening:
+                    State = DoorState.Closing;
+                    break;
+                
+                case DoorState.Closing:
+                    State = DoorState.Opening;
+                    break;
+            }
         }
 
-        private void SwitchDoorState()
+        private void SwitchState()
         {
             switch (State)
             {

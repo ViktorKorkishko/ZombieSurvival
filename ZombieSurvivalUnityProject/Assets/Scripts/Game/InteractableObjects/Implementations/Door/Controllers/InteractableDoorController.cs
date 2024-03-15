@@ -24,7 +24,7 @@ namespace Game.InteractableObjects.Implementations.Door.Controllers
             base.Initialize();
             
             InteractableDoorModel.OnInteractionStarted += HandleOnInteractionStarted;
-            // InteractableDoorModel.OnInteractionInterrupted += HandleOnInteractionInterrupted;
+            InteractableDoorModel.OnInteractionInterrupted += HandleOnInteractionInterrupted;
         }
 
         public override void Dispose()
@@ -32,7 +32,7 @@ namespace Game.InteractableObjects.Implementations.Door.Controllers
             base.Dispose();
 
             InteractableDoorModel.OnInteractionStarted -= HandleOnInteractionStarted;
-            // InteractableDoorModel.OnInteractionInterrupted -= HandleOnInteractionInterrupted;
+            InteractableDoorModel.OnInteractionInterrupted -= HandleOnInteractionInterrupted;
         }
 
         protected override void HandleOnObjectInteract()
@@ -40,28 +40,34 @@ namespace Game.InteractableObjects.Implementations.Door.Controllers
             InteractableDoorModel.Interact();
         }
         
-        // _rotationSequence.Rewind();
-        // private void HandleOnInteractionInterrupted(DoorState doorState, Action interactionEndedCallback)
-        // {
-        //     InteractionEndedCallback = interactionEndedCallback;
-        //     
-        //     switch (doorState)
-        //     {
-        //         case DoorState.Opening:
-        //             StopRotation();
-        //             CloseDoor();
-        //             break;
-        //
-        //         case DoorState.Closing:
-        //             StopRotation();
-        //             OpenDoor();
-        //             break;
-        //
-        //         default:
-        //             Debug.LogError(new EnumNotSupportedException<DoorState>(doorState));
-        //             break;
-        //     }
-        // }
+        private void HandleOnInteractionInterrupted(DoorState doorState, Action interactionEndedCallback)
+        {
+            InteractionEndedCallback = interactionEndedCallback;
+
+            StopRotation();
+            
+            var targetAngle = GetTargetAngle();
+            float tweenProgress = _rotationSequence.position;
+            float passedTimeInterpolated = InteractableDoorModel.OpenDuration * tweenProgress;
+
+            RotateToTargetAngle(targetAngle, passedTimeInterpolated);
+
+            Vector3 GetTargetAngle()
+            {
+                switch (doorState)
+                {
+                    case DoorState.Opening:
+                        return InteractableDoorModel.CloseAngle;
+
+                    case DoorState.Closing:
+                        return InteractableDoorModel.OpenAngle;
+
+                    default:
+                        Debug.LogError(new EnumNotSupportedException<DoorState>(doorState));
+                        return Vector3.zero;
+                }
+            }
+        }
 
         private void HandleOnInteractionStarted(DoorState doorState, Action interactionEndedCallback)
         {
@@ -85,19 +91,18 @@ namespace Game.InteractableObjects.Implementations.Door.Controllers
 
         private void OpenDoor()
         {
-            RotateToTargetAngle(InteractableDoorModel.OpenAngle);
+            RotateToTargetAngle(InteractableDoorModel.OpenAngle, InteractableDoorModel.OpenDuration);
         }
 
         private void CloseDoor()
         {
-            RotateToTargetAngle(InteractableDoorModel.CloseAngle);
+            RotateToTargetAngle(InteractableDoorModel.CloseAngle, InteractableDoorModel.OpenDuration);
         }
 
-        private void RotateToTargetAngle(Vector3 targetAngle)
+        private void RotateToTargetAngle(Vector3 targetAngle, float duration)
         {
             var currentRotationEuler = Rigidbody.transform.localRotation.eulerAngles;
             var rotationAngle = targetAngle - currentRotationEuler;
-            float time = InteractableDoorModel.OpenDuration;
 
             _rotationSequence = DOTween.Sequence()
                 .Append(GetRotationTween())
@@ -106,7 +111,7 @@ namespace Game.InteractableObjects.Implementations.Door.Controllers
             Tween GetRotationTween()
             {
                 return Rigidbody
-                    .DORotate(rotationAngle, time, RotateMode.LocalAxisAdd)
+                    .DORotate(rotationAngle, duration, RotateMode.LocalAxisAdd)
                     .SetEase(InteractableDoorModel.Ease);
             }
 

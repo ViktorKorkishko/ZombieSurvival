@@ -1,5 +1,6 @@
 ﻿using Core.Installers;
 using Core.SaveSystem.Saving.Common.Load;
+using Game.InteractableObjects.Implementations.Door.Enums;
 using UnityEngine;
 using Zenject;
 
@@ -17,8 +18,23 @@ namespace Game.InteractableObjects.Implementations.Door.Models
 
         protected override void HandleOnDataPreSaved()
         {
-            base.Data.DoorState = State;
-            base.Data.Rotation = Rigidbody.transform.localRotation;
+            switch (State)
+            {
+                case DoorState.Opening:
+                    base.Data.DoorState = DoorState.Opened;
+                    base.Data.Rotation = Quaternion.Euler(OpenAngle);
+                    break;
+                
+                case DoorState.Closing:
+                    base.Data.DoorState = DoorState.Closed;
+                    base.Data.Rotation = Quaternion.Euler(CloseAngle);
+                    return;
+                
+                default:
+                    base.Data.DoorState = State;
+                    base.Data.Rotation = Rigidbody.transform.localRotation;
+                    return;
+            }
         }
     }
 }

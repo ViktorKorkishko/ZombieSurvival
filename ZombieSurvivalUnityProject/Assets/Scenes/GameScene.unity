@@ -9581,10 +9581,6 @@ PrefabInstance:
       value: InteractableDoor (1)
       objectReference: {fileID: 0}
     - target: {fileID: 6816906259591825166, guid: 66fec32e27a4a59469df044ad160aa94, type: 3}
-      propertyPath: _closedDoorAngle.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6816906259591825166, guid: 66fec32e27a4a59469df044ad160aa94, type: 3}
       propertyPath: _openedDoorAngle.y
       value: 115
       objectReference: {fileID: 0}
