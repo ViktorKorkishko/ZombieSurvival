@@ -111,6 +111,7 @@ namespace Game.Character.Interaction.Controllers
                     var pickableItem = container.Resolve<PickableItemModel>();
                     var inventoryItemModel = new InventoryItemModel(pickableItem.ItemId, pickableItem.Count);
                     InventoryModel.AddItems(new [] { inventoryItemModel });
+                    pickableItem.PickUp();
                     break;
                 
                 default:
