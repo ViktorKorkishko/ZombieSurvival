@@ -1,20 +1,24 @@
+using Core.Lifetime;
 using Game.Character.Facade;
 using UnityEngine;
 using Zenject;
 
-public class GameSceneCharacterInstaller : MonoInstaller
+namespace Game.Scene
 {
-    [SerializeField] private Transform _characterRoot;
-    [SerializeField] private CharacterFacade _characterPrefab;
-    
-    public override void InstallBindings()
+    public class GameSceneCharacterInstaller : MonoInstaller
     {
-        var characterInstance = Container
-            .InstantiatePrefabForComponent<CharacterFacade>(_characterPrefab, _characterRoot);
-        
-        Container
-        .Bind<CharacterFacade>()
-        .FromInstance(characterInstance)
-        .AsSingle();
+        [SerializeField] private Transform _characterRoot;
+        [SerializeField] private FacadeBase _characterFacadePrefab;
+
+        public override void InstallBindings()
+        {
+            var characterInstance = Container
+                .InstantiatePrefabForComponent<CharacterFacade>(_characterFacadePrefab, _characterRoot);
+
+            Container
+                .Bind<CharacterFacade>()
+                .FromInstance(characterInstance)
+                .AsSingle();
+        }
     }
 }

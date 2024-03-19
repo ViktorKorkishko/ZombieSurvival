@@ -14,7 +14,7 @@ namespace Game.Character.Facade.Installers
                 .FromInstance(_characterFacade)
                 .AsSingle();
             
-            _characterFacade.Init(Container);
+            _characterFacade.Initialize(Container);
         }
     }
 }
