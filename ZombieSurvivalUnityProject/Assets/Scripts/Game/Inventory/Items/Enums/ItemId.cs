@@ -5,5 +5,8 @@
         None = 0,
         Painkillers,
         FragGrenade,
+        AK47,
+        Colt,
+        
     }
 }

@@ -7,6 +7,7 @@ namespace Game.InteractableObjects.Implementations.PickableItem.Installers
 {
     public class PickableItemInstaller : InteractableObjectInstallerBase<PickableItemController>
     {
+        [Header("Secondary implementation")]
         [SerializeField] private PickableItemModel _pickableItemModel;
 
         public override void InstallBindings()

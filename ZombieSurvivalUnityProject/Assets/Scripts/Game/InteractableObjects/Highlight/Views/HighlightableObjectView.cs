@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Game.InteractableObjects.Highlight.Models;
+using UnityEngine;
 using Zenject;
 
 namespace Game.InteractableObjects.Highlight.Views
@@ -7,6 +8,8 @@ namespace Game.InteractableObjects.Highlight.Views
     {
         [SerializeField] private Context _context;
 
-        public Context Context => _context;
+        public Renderer Renderer => _renderer ??= _context.Container.Resolve<HighlightableObjectModel>().GetRenderer();
+        
+        private Renderer _renderer;
     }
 }

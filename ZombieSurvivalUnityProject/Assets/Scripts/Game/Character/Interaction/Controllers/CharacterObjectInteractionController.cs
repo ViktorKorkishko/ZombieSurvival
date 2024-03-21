@@ -1,13 +1,10 @@
-﻿using Game.Cameras.Models;
-using Game.Character.Interaction.Models;
+﻿using Game.Character.ObjectDetector.Models;
 using Game.Character.Weapons.Equip.Models;
 using Game.Character.Weapons.PickUp.Models;
 using Game.Inputs.Models;
 using Game.InteractableObjects.Common.Enums;
 using Game.InteractableObjects.Common.Models;
 using Game.InteractableObjects.Common.Views;
-using Game.InteractableObjects.Highlight.Models;
-using Game.InteractableObjects.Highlight.Views;
 using Game.InteractableObjects.Implementations.PickableItem.Models;
 using Game.Inventory.Core.Models;
 using Game.Inventory.Items.Models;
@@ -19,19 +16,10 @@ namespace Game.Character.Interaction.Controllers
     public class CharacterObjectInteractionController : ITickable
     {
         [Inject] private CharacterWeaponPickUpModel CharacterWeaponPickUpModel { get; }
-        [Inject] private CameraModel CameraModel { get; }
+        [Inject] private ObjectDetectorModel ObjectDetectorModel { get; }
         [Inject] private InputModel InputModel { get; }
-        [Inject] private CharacterObjectInteractionModel CharacterObjectInteractionModel { get; }
         [Inject] private InventoryModel InventoryModel { get; }
 
-        private SelectionOutlineController _selectionOutlineController;
-        
-        // TODO: temp solution: refactor after highlight objects system is reworked (has to be injected)
-        private SelectionOutlineController SelectionOutlineController => 
-            _selectionOutlineController ??= Object.FindObjectOfType<SelectionOutlineController>();
-        
-        private Transform MainCameraTransform => CameraModel.GetMainCamera().transform;
-        
         void ITickable.Tick()
         {
             HandleInput();
@@ -39,55 +27,31 @@ namespace Game.Character.Interaction.Controllers
 
         private void HandleInput()
         {
-            var interactableObjectView = CheckForObjectsToInteract();
-            bool foundInteractableObject = interactableObjectView != null;
-            if (!foundInteractableObject)
+            bool pickUpWeaponInput = InputModel.InteractObjectButtonClickInput;
+            if (!pickUpWeaponInput)
                 return;
 
-            bool pickUpWeaponInput = InputModel.PickUpWeaponButtonClickInput;
-            if (!pickUpWeaponInput)
+            var detectedObject = ObjectDetectorModel.CurrentlyDetectedObject;
+            bool isObjectDetected = detectedObject != null;
+            if (!isObjectDetected)
+                return;
+
+            HandleDetectedObject(detectedObject);
+        }
+
+        private void HandleDetectedObject(GameObject gameObject)
+        {
+            if (!gameObject.TryGetComponent<InteractableObjectView>(out var interactableObjectView))
                 return;
             
             HandleInteractableObject(interactableObjectView);
-        }
-
-        private InteractableObjectView CheckForObjectsToInteract()
-        {
-            Vector3 origin = MainCameraTransform.position;
-            Vector3 direction = MainCameraTransform.forward;
-            float rayDistance = CharacterObjectInteractionModel.MaxPickUpDistance;
-
-            if (Physics.Raycast(origin, direction, out var raycastHit, rayDistance))
-            {
-                if (raycastHit.collider.TryGetComponent<HighlightableObjectView>(out var highlightableObjectView))
-                {
-                    var renderer = highlightableObjectView.Context.Container.Resolve<HighlightableObjectModel>().GetRenderer();
-                    SelectionOutlineController.UpdateTargetRenderer(renderer);
-                }
-                else
-                {
-                    SelectionOutlineController.UpdateTargetRenderer(null);
-                }
-
-                if (raycastHit.collider.TryGetComponent<InteractableObjectView>(out var interactableObjectView))
-                {
-                    CharacterObjectInteractionModel.DetectInteractableObject(interactableObjectView);
-                    return interactableObjectView;
-                }
-            }
-            else
-            {
-                SelectionOutlineController.UpdateTargetRenderer(null);
-            }
-
-            return null;
         }
 
         private void HandleInteractableObject(InteractableObjectView interactableObjectView)
         {
             var container = interactableObjectView.Context.Container;
             var model = container.TryResolve<InteractableObjectModel>();
-            
+
             bool successfullyResolved = model != null;
             if (!successfullyResolved)
             {
@@ -101,19 +65,19 @@ namespace Game.Character.Interaction.Controllers
                 case InteractableObjectType.Common:
                     model.Interact();
                     break;
-                
-                case InteractableObjectType.Weapon:
-                    var equippedWeapon = new EquippedWeapon(container);
-                    CharacterWeaponPickUpModel.PickUp(equippedWeapon);
-                    break;
-                
+
+                // case InteractableObjectType.Weapon:
+                //     var equippedWeapon = new EquippedWeapon(container);
+                //     CharacterWeaponPickUpModel.PickUp(equippedWeapon);
+                //     break;
+
                 case InteractableObjectType.PickableItem:
                     var pickableItem = container.Resolve<PickableItemModel>();
                     var inventoryItemModel = new InventoryItemModel(pickableItem.ItemId, pickableItem.Count);
-                    InventoryModel.AddItems(new [] { inventoryItemModel });
+                    InventoryModel.AddItems(new[] { inventoryItemModel });
                     pickableItem.PickUp();
                     break;
-                
+
                 default:
                     Debug.LogError($"Unknown interactable object type! No handler for {objectType}");
                     break;

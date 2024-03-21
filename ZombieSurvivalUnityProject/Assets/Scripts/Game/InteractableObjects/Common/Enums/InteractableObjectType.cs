@@ -3,7 +3,6 @@
     public enum InteractableObjectType
     {
         Common,
-        Weapon,
         PickableItem,
     }
 }

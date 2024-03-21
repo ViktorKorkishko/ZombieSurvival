@@ -7,7 +7,7 @@ namespace Game.Inputs.Models
         public bool JumpButtonClickInput => OnJumpButtonClicked?.Invoke() ?? false;
         public bool SprintButtonHoldInput => OnSprintButtonHold?.Invoke() ?? false;
         public bool ReloadButtonClickInput => OnReloadButtonClicked?.Invoke() ?? false;
-        public bool PickUpWeaponButtonClickInput => OnPickUpWeaponButtonClicked?.Invoke() ?? false;
+        public bool InteractObjectButtonClickInput => OnInteractObjectButtonClicked?.Invoke() ?? false;
         public bool DropWeaponButtonClickInput => OnDropWeaponButtonClicked?.Invoke() ?? false;
 
         public bool SelectMainWeaponButtonClickInput => OnSelectMainWeaponButtonClicked?.Invoke() ?? false;
@@ -19,7 +19,7 @@ namespace Game.Inputs.Models
         public event Func<bool> OnJumpButtonClicked;
         public event Func<bool> OnSprintButtonHold;
         public event Func<bool> OnReloadButtonClicked;
-        public event Func<bool> OnPickUpWeaponButtonClicked;
+        public event Func<bool> OnInteractObjectButtonClicked;
         public event Func<bool> OnDropWeaponButtonClicked;
 
         public event Func<bool> OnSelectMainWeaponButtonClicked;

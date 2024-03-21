@@ -7,12 +7,18 @@ namespace Game.Character.Interaction.Installers
 {
     public class CharacterObjectInteractionInstaller : MonoInstaller
     {
-        [SerializeField] private CharacterObjectInteractionModel _model;
+        [SerializeField] private CharacterObjectInteractionModel _characterObjectInteractionModel;
 
         public override void InstallBindings()
         {
-            Container.BindInstance(_model).AsSingle();
-            Container.BindInterfacesAndSelfTo<CharacterObjectInteractionController>().AsSingle();
+            Container
+                .Bind<CharacterObjectInteractionModel>()
+                .FromInstance(_characterObjectInteractionModel)
+                .AsSingle();
+            
+            Container
+                .BindInterfacesTo<CharacterObjectInteractionController>()
+                .AsSingle();
         }
     }
 }

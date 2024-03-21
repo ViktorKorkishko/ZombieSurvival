@@ -9,7 +9,7 @@ namespace Game.Inputs.Controllers
             InputModel.OnJumpButtonClicked += HandleOnJumpButtonClicked;
             InputModel.OnSprintButtonHold += HandleOnSprintButtonHold;
             InputModel.OnReloadButtonClicked += HandleOnReloadButtonClicked;
-            InputModel.OnPickUpWeaponButtonClicked += HandleOnPickUpWeaponButtonClicked;
+            InputModel.OnInteractObjectButtonClicked += HandleOnInteractObjectButtonClicked;
             InputModel.OnDropWeaponButtonClicked += HandleOnDropWeaponButtonClicked;
 
             InputModel.OnSelectMainWeaponButtonClicked += HandleOnSelectMainWeaponButtonClicked;
@@ -24,7 +24,7 @@ namespace Game.Inputs.Controllers
             InputModel.OnJumpButtonClicked -= HandleOnJumpButtonClicked;
             InputModel.OnSprintButtonHold -= HandleOnSprintButtonHold;
             InputModel.OnReloadButtonClicked -= HandleOnReloadButtonClicked;
-            InputModel.OnPickUpWeaponButtonClicked -= HandleOnPickUpWeaponButtonClicked;
+            InputModel.OnInteractObjectButtonClicked -= HandleOnInteractObjectButtonClicked;
             InputModel.OnDropWeaponButtonClicked -= HandleOnDropWeaponButtonClicked;
 
             InputModel.OnSelectMainWeaponButtonClicked -= HandleOnSelectMainWeaponButtonClicked;
@@ -37,7 +37,7 @@ namespace Game.Inputs.Controllers
         private bool HandleOnJumpButtonClicked() => Input.GetButtonDown("Jump");
         private bool HandleOnSprintButtonHold() => Input.GetKey(KeyCode.LeftShift);
         private bool HandleOnReloadButtonClicked() => Input.GetKeyDown(KeyCode.R);
-        private bool HandleOnPickUpWeaponButtonClicked() => Input.GetKeyDown(KeyCode.E);
+        private bool HandleOnInteractObjectButtonClicked() => Input.GetKeyDown(KeyCode.E);
         private bool HandleOnDropWeaponButtonClicked() => Input.GetKeyDown(KeyCode.F);
 
         private bool HandleOnSelectMainWeaponButtonClicked() => Input.GetKeyDown(KeyCode.Alpha1);

@@ -460,7 +460,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7470662854853662042}
-  - component: {fileID: 6380211894287323684}
+  - component: {fileID: 851443173741699843}
+  - component: {fileID: 6933007057602648760}
   m_Layer: 0
   m_Name: InteractableObject
   m_TagString: Untagged
@@ -483,7 +484,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 264508844295993565}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6380211894287323684
+--- !u!114 &851443173741699843
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -492,11 +493,26 @@ MonoBehaviour:
   m_GameObject: {fileID: 5892673777594617105}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 17d91708c56943a8a21fc9cb11c2b949, type: 3}
+  m_Script: {fileID: 11500000, guid: f28fce98d95e4eb19f8a3e791cdf0461, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _interactableObjectView: {fileID: 7791642376845455990}
-  _type: 1
+  _type: 2
+  _pickableItemModel: {fileID: 6933007057602648760}
+--- !u!114 &6933007057602648760
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5892673777594617105}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de3d0ef3115f43058852449bfcce8dc7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _itemId: 3
+  _count: 1
 --- !u!1 &6259813802686672042
 GameObject:
   m_ObjectHideFlags: 0
@@ -557,7 +573,7 @@ MonoBehaviour:
   - {fileID: 6673527954466739010}
   - {fileID: 1676291346767299603}
   - {fileID: 201900704704424815}
-  - {fileID: 6380211894287323684}
+  - {fileID: 851443173741699843}
   - {fileID: 7083432613058548994}
   - {fileID: 8768804984432282728}
   - {fileID: 5827692891431590842}
@@ -646,7 +662,7 @@ MonoBehaviour:
   _config: {fileID: 11400000, guid: 94767111815ffbc4eba6362af2dcf1f1, type: 2}
   _enemyLayerMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 55
   _muzzleFlashEffect: {fileID: 2300471570807768682}
   _shotHitEffect: {fileID: 7001103847412008140}
   _weaponShootPointTransform: {fileID: 3223658384901309669}
