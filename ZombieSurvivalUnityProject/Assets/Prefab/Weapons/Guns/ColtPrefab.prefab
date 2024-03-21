@@ -437,7 +437,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _interactableObjectView: {fileID: 7791642376845455990}
-  _type: 2
+  _type: 1
   _pickableItemModel: {fileID: 6256296263933825835}
 --- !u!114 &6256296263933825835
 MonoBehaviour:
@@ -937,7 +937,7 @@ MonoBehaviour:
   _config: {fileID: 11400000, guid: ee72efb528937fd4bb2ed483eeb08fec, type: 2}
   _enemyLayerMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 55
   _muzzleFlashEffect: {fileID: 2300471570807768682}
   _shotHitEffect: {fileID: 7001103847412008140}
   _weaponShootPointTransform: {fileID: 3223658384901309669}

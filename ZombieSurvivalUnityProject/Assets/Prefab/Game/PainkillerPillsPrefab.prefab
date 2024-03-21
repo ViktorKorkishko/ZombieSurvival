@@ -107,7 +107,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _interactableObjectView: {fileID: 4854767966531884556}
-  _type: 2
+  _type: 1
   _pickableItemModel: {fileID: 5575512261654222198}
 --- !u!114 &5575512261654222198
 MonoBehaviour:

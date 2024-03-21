@@ -216,7 +216,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _interactableObjectView: {fileID: 156125517269568033}
-  _type: 2
+  _type: 1
   _pickableItemModel: {fileID: 8289462438770097223}
 --- !u!114 &8289462438770097223
 MonoBehaviour:
