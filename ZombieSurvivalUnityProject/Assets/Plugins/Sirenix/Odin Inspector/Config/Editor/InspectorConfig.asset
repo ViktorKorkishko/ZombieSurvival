@@ -16,4 +16,10 @@ MonoBehaviour:
   defaultEditorBehaviour: 11
   processMouseMoveInInspector: 1
   drawingConfig:
-    configs: []
+    configs:
+    - DrawnTypeName: Zenject.SceneContext, Zenject
+      EditorTypeName: 
+    - DrawnTypeName: Zenject.GameObjectContext, Zenject
+      EditorTypeName: 
+    - DrawnTypeName: Zenject.ProjectContext, Zenject
+      EditorTypeName: 
