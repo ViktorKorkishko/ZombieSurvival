@@ -9,7 +9,7 @@ namespace Game.Weapons.Reload.Installer
         public override void InstallBindings()
         {
             Container.BindInterfacesAndSelfTo<WeaponMagazineModel>().AsSingle();
-            Container.BindInterfacesAndSelfTo<WeaponMagazineController>().AsSingle();
+            Container.BindInterfacesTo<WeaponMagazineController>().AsSingle();
         }
     }
 }

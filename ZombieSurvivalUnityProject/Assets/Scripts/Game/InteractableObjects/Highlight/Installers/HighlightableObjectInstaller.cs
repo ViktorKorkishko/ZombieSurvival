@@ -13,7 +13,7 @@ namespace Game.InteractableObjects.Highlight.Installers
         public override void InstallBindings()
         {
             Container.Bind<HighlightableObjectModel>().AsSingle();
-            Container.BindInterfacesAndSelfTo<HighlightableObjectController>().AsSingle();
+            Container.BindInterfacesTo<HighlightableObjectController>().AsSingle();
             
             Container
                 .Bind<Renderer>()

@@ -15,9 +15,15 @@ namespace Game.InteractableObjects.Implementations.Door.Installers
         {
             base.InstallBindings();
 
-            Container.BindInterfacesAndSelfTo<InteractableDoorModel>().FromInstance(_interactableDoorModel).AsSingle();
+            Container
+                .BindInterfacesAndSelfTo<InteractableDoorModel>()
+                .FromInstance(_interactableDoorModel)
+                .AsSingle();
             
-            Container.BindInstance(_rigidbody).WithId(BindingIdentifiers.Rigidbody).AsSingle();
+            Container
+                .BindInstance(_rigidbody)
+                .WithId(BindingIdentifiers.Rigidbody)
+                .AsSingle();
         }
     }
 }

@@ -18,7 +18,7 @@ namespace Game.InteractableObjects.Common.Installers
         {
             Container.Bind<InteractableObjectModel>().AsSingle();
             Container.BindInstance(_interactableObjectView).AsSingle();
-            Container.BindInterfacesAndSelfTo<T>().AsSingle();
+            Container.BindInterfacesTo<T>().AsSingle();
             
             Container.BindInstance(_type).AsSingle();
         }

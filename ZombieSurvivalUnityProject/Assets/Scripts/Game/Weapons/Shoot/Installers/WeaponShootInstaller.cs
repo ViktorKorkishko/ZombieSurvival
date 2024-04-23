@@ -25,7 +25,7 @@ namespace Game.Weapons.Shoot.Installers
         {
             Container.Bind<WeaponShootModel>().AsSingle();
             Container.BindInstance(_view).AsSingle();
-            Container.BindInterfacesAndSelfTo<WeaponShootController>().AsSingle();
+            Container.BindInterfacesTo<WeaponShootController>().AsSingle();
             
             Container.BindInstance(_config).AsSingle();
             Container.BindInstance(_enemyLayerMask).AsSingle();
