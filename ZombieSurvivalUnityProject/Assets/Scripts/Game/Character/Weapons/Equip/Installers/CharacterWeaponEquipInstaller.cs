@@ -19,7 +19,8 @@ namespace Game.Character.Weapons.Equip.Installers
         {
             Container.BindInstance(characterWeaponEquipModel)
                 .AsSingle();
-            Container.BindInterfacesAndSelfTo<CharacterWeaponEquipController>()
+            
+            Container.BindInterfacesTo<CharacterWeaponEquipController>()
                 .AsSingle();
 
             Container.BindInstance(_rigAnimator)

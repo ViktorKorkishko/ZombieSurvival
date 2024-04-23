@@ -15,7 +15,7 @@ namespace Game.Character.Movement.Rotation.Installers
         public override void InstallBindings()
         {
             Container.BindInstance(_characterRotationModel).AsSingle();
-            Container.BindInterfacesAndSelfTo<CharacterRotationController>().AsSingle();
+            Container.BindInterfacesTo<CharacterRotationController>().AsSingle();
 
             Container.BindInstance(_characterRigRootTransform).WithId(BindingIdentifiers.CharacterRigRoot);
         }

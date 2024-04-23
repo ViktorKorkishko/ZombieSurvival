@@ -21,7 +21,7 @@ namespace Game.Character.Movement.Locomotion.Installers
         public override void InstallBindings()
         {
             Container.BindInstance(_characterLocomotionModel).AsSingle();
-            Container.BindInterfacesAndSelfTo<CharacterLocomotionController>().AsSingle();
+            Container.BindInterfacesTo<CharacterLocomotionController>().AsSingle();
 
             Container.BindInstance(_characterController).AsSingle();
             Container.BindInstance(_jumpingAnimationParamName).WithId(BindingIdentifiers.JumpParamId);

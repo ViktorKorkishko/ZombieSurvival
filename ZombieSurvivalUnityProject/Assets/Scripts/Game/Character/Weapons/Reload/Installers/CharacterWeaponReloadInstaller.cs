@@ -15,7 +15,7 @@ namespace Game.Character.Weapons.Reload.Installers
         public override void InstallBindings()
         {
             Container.Bind<CharacterWeaponReloadModel>().AsSingle();
-            Container.BindInterfacesAndSelfTo<CharacterWeaponReloadController>().AsSingle();
+            Container.BindInterfacesTo<CharacterWeaponReloadController>().AsSingle();
             
             Container.BindInstance(_characterWeaponReloadAnimationView).AsSingle();
             Container.BindInstance(_characterLeftHandTranform).WithId(BindingIdentifiers.CharacterLeftHandTransform);

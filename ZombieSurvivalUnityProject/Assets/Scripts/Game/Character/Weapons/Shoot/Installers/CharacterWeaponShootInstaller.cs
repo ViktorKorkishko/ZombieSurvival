@@ -9,7 +9,7 @@ namespace Game.Character.Weapons.Shoot.Installers
         public override void InstallBindings()
         {
             Container.Bind<CharacterWeaponShootModel>().AsSingle();
-            Container.BindInterfacesAndSelfTo<CharacterWeaponShootController>().AsSingle();
+            Container.BindInterfacesTo<CharacterWeaponShootController>().AsSingle();
         }
     }
 }

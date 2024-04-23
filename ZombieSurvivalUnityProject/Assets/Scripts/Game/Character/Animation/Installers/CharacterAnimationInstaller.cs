@@ -15,7 +15,7 @@ namespace Game.Character.Animation.Installers
         {
             Container.BindInstance(_characterLocomotionAnimator)
                 .WithId(BindingIdentifiers.CharacterLocomotionAnimator);
-            Container.BindInterfacesAndSelfTo<CharacterAnimationController>().AsSingle();
+            Container.BindInterfacesTo<CharacterAnimationController>().AsSingle();
 
             Container.BindInstance(_weaponsAnimatorStatesNamesProvider);
         }

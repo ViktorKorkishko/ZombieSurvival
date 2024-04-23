@@ -20,11 +20,11 @@ namespace Game.Character.Cameras.Installers
                 .AsSingle();
             
             Container
-                .BindInterfacesAndSelfTo<CrosshairTargetPositionController>()
+                .BindInterfacesTo<CrosshairTargetPositionController>()
                 .AsSingle();
             
             Container
-                .BindInterfacesAndSelfTo<RigLootAtPointController>()
+                .BindInterfacesTo<RigLootAtPointController>()
                 .AsSingle()
                 .WithArguments(_rigLookAtPointTransform, _offset);
 
