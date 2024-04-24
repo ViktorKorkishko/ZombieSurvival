@@ -41,47 +41,34 @@ namespace Game.Inventory.Core.Installers
                 .AsSingle();
 
             #region Inventory
-
+            
             Container
                 .BindInterfacesAndSelfTo<InventoryModel>()
                 .AsSingle()
                 .WithArguments(_initialInventoryCellsCount);
 
             var inventoryViewInstance = ViewProvider.RegisterView(_inventoryViewPrefab, ViewId.Inventory, LayerId.Windows);
-
-            Container
-                .BindInterfacesAndSelfTo<HotBarModel>()
-                .AsSingle()
-                .WithArguments(_initialHotBarCellsCount);
-
+            
+            #endregion
+            
             BindInventoryCellsContainer();
             BindInventoryHotBarCellsContainer();
-            
             BindHotBar();
-
-            var hotBarViewInstance = ViewProvider.GetView(ViewId.HotBar);
-            Container
-                .BindInterfacesTo<HotBarController>()
-                .AsSingle()
-                .WithArguments(hotBarViewInstance);
             
             Container
                 .BindInterfacesTo<InventoryController>()
                 .AsSingle()
                 .WithArguments(inventoryViewInstance);
-            
-            #endregion
 
             void BindInventoryCellsContainer()
             {
                 var inventoryView = (InventoryView)inventoryViewInstance;
-                var cellsContainerModel = new CellsContainerModel();
+                var cellsContainerModel = Container.Instantiate<CellsContainerModel>();
                 Container
                     .Bind<CellsContainerModel>()
                     .WithId(BindingIdentifiers.InventoryCellsContainer)
                     .FromInstance(cellsContainerModel)
                     .AsCached();
-                Container.Inject(cellsContainerModel);
                 
                 Container
                     .BindInterfacesAndSelfTo<CellsContainerController>()
@@ -92,13 +79,12 @@ namespace Game.Inventory.Core.Installers
             void BindInventoryHotBarCellsContainer()
             {
                 var inventoryView = (InventoryView)inventoryViewInstance;
-                var cellsContainerModel = new CellsContainerModel();
+                var cellsContainerModel = Container.Instantiate<CellsContainerModel>();
                 Container
                     .Bind<CellsContainerModel>()
                     .WithId(BindingIdentifiers.InventoryHotBarCellsContainer)
                     .FromInstance(cellsContainerModel)
                     .AsCached();
-                Container.Inject(cellsContainerModel);
                 
                 Container
                     .BindInterfacesAndSelfTo<CellsContainerController>()
@@ -108,22 +94,39 @@ namespace Game.Inventory.Core.Installers
             
             void BindHotBar()
             {
+                #region HotBar
+                
+                Container
+                    .BindInterfacesAndSelfTo<HotBarModel>()
+                    .AsSingle()
+                    .WithArguments(_initialHotBarCellsCount);
+                
                 var hotBarViewInstance = ViewProvider.RegisterView(_hotBarViewPrefab, ViewId.HotBar, LayerId.HUD);
                 hotBarViewInstance.Show();
                 
-                var hotBarView = (HotBarView)hotBarViewInstance;
-                var cellsContainerModel = new CellsContainerModel();
+                Container
+                    .BindInterfacesTo<HotBarController>()
+                    .AsSingle()
+                    .WithArguments(hotBarViewInstance);
+                
+                #endregion
+                
+                #region HotBar Cells Container
+                
+                var cellsContainerModel = Container.Instantiate<CellsContainerModel>();
                 Container
                     .Bind<CellsContainerModel>()
                     .WithId(BindingIdentifiers.HotBarCellsContainer)
                     .FromInstance(cellsContainerModel)
                     .AsCached();
-                Container.Inject(cellsContainerModel);
                 
+                var hotBarView = (HotBarView)hotBarViewInstance;
                 Container
                     .BindInterfacesAndSelfTo<CellsContainerController>()
                     .AsCached()
                     .WithArguments(cellsContainerModel, hotBarView.CellsContainerView);
+
+                #endregion
             }
         }
     }
