@@ -1,5 +1,4 @@
 using Game.Character.Weapons.PickUp.Models;
-using UnityEngine;
 using Zenject;
 
 namespace Game.Character.Weapons.PickUp.Installers
@@ -8,7 +7,9 @@ namespace Game.Character.Weapons.PickUp.Installers
     {
         public override void InstallBindings()
         {
-            Container.Bind<CharacterWeaponPickUpModel>().AsSingle();
+            Container
+                .Bind<CharacterWeaponPickUpModel>()
+                .AsSingle();
         }
     }
 }

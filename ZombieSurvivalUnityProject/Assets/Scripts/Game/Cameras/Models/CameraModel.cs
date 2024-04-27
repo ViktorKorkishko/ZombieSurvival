@@ -10,7 +10,7 @@ namespace Game.Cameras.Models
     {
         [SerializeField] private AxisState _xAxisState;
         [SerializeField] private AxisState _yAxisState;
-
+        
         [Inject] private SettingsModel SettingsModel { get; }
 
         public AxisState XAxisState => _xAxisState;
@@ -19,11 +19,11 @@ namespace Game.Cameras.Models
         public event Func<Camera> OnGetMainCamera;
         
         public Camera GetMainCamera() => OnGetMainCamera?.Invoke();
-
+        
         private void FixedUpdate()
         {
             // TODO: sensitivity currently does no effect
-            var updateValue = Time.fixedDeltaTime * SettingsModel.Sensitivity; 
+            var updateValue = Time.fixedDeltaTime * SettingsModel.Sensitivity;
             _xAxisState.Update(updateValue);
             _yAxisState.Update(updateValue);
         }

@@ -16,12 +16,14 @@ namespace Game.Settings.Installers
 
         public override void InstallBindings()
         {
-            Container.BindInterfacesAndSelfTo<SettingsModel>().AsSingle();
+            Container
+                .BindInterfacesAndSelfTo<SettingsModel>()
+                .AsSingle();
             
             var viewInstance = ViewProvider.RegisterView(_settingsViewPrefab, ViewId.Settings, LayerId.Popups);
             
             Container
-                .BindInterfacesAndSelfTo<SettingsViewController>()
+                .BindInterfacesTo<SettingsViewController>()
                 .AsSingle()
                 .WithArguments(viewInstance);
         }

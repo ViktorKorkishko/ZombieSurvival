@@ -1503,25 +1503,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _scriptableObjectInstallers: []
-  _monoInstallers:
-  - {fileID: 3005939130776287801}
-  - {fileID: 192916076777557668}
-  - {fileID: 463905751283843368}
-  - {fileID: 7172294985391971120}
-  - {fileID: 4579121588914499880}
-  - {fileID: 7949912561991833709}
-  - {fileID: 7389994366172230752}
-  - {fileID: 3347887231750089425}
-  - {fileID: 7297396858324170698}
-  - {fileID: 7863540537518126438}
-  - {fileID: 4689027027504866920}
-  - {fileID: 9177335053391085625}
-  - {fileID: 4373278870041158484}
-  - {fileID: 1032715454143764018}
-  - {fileID: 7529840865750960466}
-  - {fileID: 8983043678486663996}
-  - {fileID: 6762416076140562722}
-  - {fileID: 4984284918057364196}
+  _monoInstallers: []
   _installerPrefabs: []
   _autoRun: 1
   _kernel: {fileID: 0}

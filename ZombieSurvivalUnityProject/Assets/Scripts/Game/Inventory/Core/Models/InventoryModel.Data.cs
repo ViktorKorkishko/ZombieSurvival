@@ -22,22 +22,27 @@ namespace Game.Inventory.Core.Models
             switch (loadResult.Result)
             {
                 case Result.LoadedSuccessfully:
-                    if (data.InventoryCellsData.Count == 0 || 
-                        data.HotBarCellsData.Count == 0)
+                    if (data.InventoryCellsData.Count == 0 || data.HotBarCellsData.Count == 0)
                     {
-                        InitEmptyCells(data.InventoryCellsData, InitialInventoryCellsCount);
-                        InitEmptyCells(data.HotBarCellsData, HotBarModel.InitialHotBarCellsCount);
+                        base.Data.InventoryCellsData = new();
+                        base.Data.HotBarCellsData = new();
+                        InitEmptyCells(base.Data.InventoryCellsData, InitialInventoryCellsCount);
+                        InitEmptyCells(base.Data.HotBarCellsData, HotBarModel.InitialHotBarCellsCount);
                     }
                     break;
                 
                 case Result.SaveFileNotFound:
-                    InitEmptyCells(data.InventoryCellsData, InitialInventoryCellsCount);
-                    InitEmptyCells(data.HotBarCellsData, HotBarModel.InitialHotBarCellsCount);
+                    base.Data.InventoryCellsData = new();
+                    base.Data.HotBarCellsData = new();
+                    InitEmptyCells(base.Data.InventoryCellsData, InitialInventoryCellsCount);
+                    InitEmptyCells(base.Data.HotBarCellsData, HotBarModel.InitialHotBarCellsCount);
                     break;
                 
                 case Result.LoadedWithErrors:
-                    InitEmptyCells(data.InventoryCellsData, InitialInventoryCellsCount);
-                    InitEmptyCells(data.HotBarCellsData, HotBarModel.InitialHotBarCellsCount);
+                    base.Data.InventoryCellsData = new();
+                    base.Data.HotBarCellsData = new();
+                    InitEmptyCells(base.Data.InventoryCellsData, InitialInventoryCellsCount);
+                    InitEmptyCells(base.Data.HotBarCellsData, HotBarModel.InitialHotBarCellsCount);
                     break;
             }
 

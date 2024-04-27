@@ -17,10 +17,13 @@ namespace Game.Character.Movement.Aim.Installers
                 .FromInstance(_characterAimModel)
                 .AsSingle();
             
-            Container.BindInterfacesTo<CharacterAimController>()
+            Container
+                .BindInterfacesAndSelfTo<CharacterAimController>()
                 .AsSingle();
 
-            Container.BindInstance(_cinemachineVirtualCamera).AsSingle();
+            Container
+                .BindInstance(_cinemachineVirtualCamera)
+                .AsSingle();
         }
     }
 }

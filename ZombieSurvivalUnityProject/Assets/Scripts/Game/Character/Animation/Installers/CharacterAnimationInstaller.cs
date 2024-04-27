@@ -13,11 +13,17 @@ namespace Game.Character.Animation.Installers
         
         public override void InstallBindings()
         {
-            Container.BindInstance(_characterLocomotionAnimator)
-                .WithId(BindingIdentifiers.CharacterLocomotionAnimator);
-            Container.BindInterfacesTo<CharacterAnimationController>().AsSingle();
+            Container
+                .Bind<Animator>()
+                .WithId(BindingIdentifiers.CharacterLocomotionAnimator)
+                .FromInstance(_characterLocomotionAnimator);
+            
+            Container
+                .BindInterfacesTo<CharacterAnimationController>()
+                .AsSingle();
 
-            Container.BindInstance(_weaponsAnimatorStatesNamesProvider);
+            Container
+                .BindInstance(_weaponsAnimatorStatesNamesProvider);
         }
     }
 }
