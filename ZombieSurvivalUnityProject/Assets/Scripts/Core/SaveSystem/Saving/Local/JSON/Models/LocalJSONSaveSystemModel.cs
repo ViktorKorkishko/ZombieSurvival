@@ -1,17 +1,13 @@
 ﻿using System;
 using Core.SaveSystem.SaveGroups;
 using Core.SaveSystem.Saving.Common.Load;
-using Core.SaveSystem.Saving.Common.Path;
 using Core.SaveSystem.Saving.Interfaces;
 using Newtonsoft.Json;
-using Zenject;
 
 namespace Core.SaveSystem.Saving.Local.JSON.Models
 {
     public class LocalJSONSaveSystemModel : ISaveSystemModel
     {
-        [Inject] private LocalStoragePathProvider PathProvider { get; }
-
         void ISaveSystemModel.Save(string entityId, string dataKey, SaveGroup saveGroup, object data, Action<bool> callback)
         {
             saveGroup.SaveEntity(entityId, dataKey, data);

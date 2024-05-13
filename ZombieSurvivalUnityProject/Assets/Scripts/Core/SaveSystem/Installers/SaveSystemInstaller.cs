@@ -10,25 +10,30 @@ namespace Core.SaveSystem.Installers
     {
         public override void InstallBindings()
         {
-            Container.Bind<ISaveSystemModel>().To<LocalJSONSaveSystemModel>().AsSingle();
+            Container
+                .Bind<ISaveSystemModel>()
+                .To<LocalJSONSaveSystemModel>()
+                .AsSingle();
             
-            Container.Bind<LocalStoragePathProvider>().AsSingle();
+            Container
+                .Bind<LocalStoragePathProvider>()
+                .AsSingle();
+
+            #region SaveGroups
+
+            BindSaveGroup(SaveGroupId.Character);
+            BindSaveGroup(SaveGroupId.GameWorld);
+            BindSaveGroup(SaveGroupId.Project);
+            BindSaveGroup(SaveGroupId.Inventory);
             
+            #endregion
+        }
+
+        private void BindSaveGroup(SaveGroupId saveGroupId)
+        {
             Container.BindInterfacesAndSelfTo<SaveGroup>()
                 .AsCached()
-                .WithArguments(SaveGroupId.Character);
-            
-            Container.BindInterfacesAndSelfTo<SaveGroup>()
-                .AsCached()
-                .WithArguments(SaveGroupId.GameWorld);
-            
-            Container.BindInterfacesAndSelfTo<SaveGroup>()
-                .AsCached()
-                .WithArguments(SaveGroupId.Project);
-            
-            Container.BindInterfacesAndSelfTo<SaveGroup>()
-                .AsCached()
-                .WithArguments(SaveGroupId.Inventory);
+                .WithArguments(saveGroupId);
         }
     }
 }

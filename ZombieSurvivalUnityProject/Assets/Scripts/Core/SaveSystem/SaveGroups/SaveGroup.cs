@@ -77,8 +77,6 @@ namespace Core.SaveSystem.SaveGroups
             }
             
             SaveDictionary();
-            
-            // callback?.Invoke(true);
         }
             
         private void SaveDictionary()

@@ -10,23 +10,19 @@ namespace Game.ItemsDB.Item
     public class ItemData
     {
         // shared properties
-        [SerializeField] private Sprite _sprite;
-        [SerializeField] private ItemId _id;
-        [SerializeField] private int _maxStackCount;
+        [field: SerializeField] public Sprite Sprite { get; private set; }
+        [field: SerializeField] public ItemId Id { get; private set; }
+        [field: SerializeField] public int MaxStackCount { get; private set; }
         
         // conditional properties
         [SerializeReference] private PropertyBase[] _properties;
-
-        public ItemId Id => _id;
-        public Sprite Sprite => _sprite;
-        public int MaxStackCount => _maxStackCount;
-
+        
         public bool HasProperty<T>() where T : PropertyBase
         {
             var property = _properties.FirstOrDefault(x => x.GetType() == typeof(T));
             return property != null;
         }
-
+        
         public bool TryGetProperty<T>(out PropertyBase propertyInstance) where T : PropertyBase
         {
             propertyInstance = _properties.FirstOrDefault(x => x.GetType() == typeof(T));

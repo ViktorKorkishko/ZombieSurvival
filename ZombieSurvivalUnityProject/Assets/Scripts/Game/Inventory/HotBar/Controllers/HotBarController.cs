@@ -28,22 +28,22 @@ namespace Game.Inventory.HotBar.Controllers
 
         void IInitializable.Initialize()
         {
-            // View.Show();
+            View.Show();
 
-            // _synchronizableCellsContainer = new SynchronizableCellsContainer(
-            //     HotBarModel.InventoryHotBarCellsContainer,
-            //     HotBarModel.HotBarCellsContainerModel);
-            //
-            // _synchronizableCellsContainer.Initialize();
-            //
-            // if (HotBarModel.InventoryHotBarCellsContainer.IsInited)
-            // {
-            //     HandleOnHotBarCellsInitialized();
-            // }
-            // else
-            // {
-            //     HotBarModel.InventoryHotBarCellsContainer.OnInitialized += HandleOnHotBarCellsInitialized;
-            // }
+            _synchronizableCellsContainer = new SynchronizableCellsContainer(
+                HotBarModel.InventoryHotBarCellsContainer,
+                HotBarModel.HotBarCellsContainerModel);
+            
+            _synchronizableCellsContainer.Initialize();
+            
+            if (HotBarModel.InventoryHotBarCellsContainer.IsInited)
+            {
+                HandleOnHotBarCellsInitialized();
+            }
+            else
+            {
+                HotBarModel.InventoryHotBarCellsContainer.OnInitialized += HandleOnHotBarCellsInitialized;
+            }
         }
         
         private void HandleOnHotBarCellsInitialized()
