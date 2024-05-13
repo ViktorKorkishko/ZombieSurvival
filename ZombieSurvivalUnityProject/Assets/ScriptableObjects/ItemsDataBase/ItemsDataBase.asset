@@ -13,29 +13,28 @@ MonoBehaviour:
   m_Name: ItemsDataBase
   m_EditorClassIdentifier: 
   _items:
-  - _sprite: {fileID: 0}
-    _id: 0
-    _maxStackCount: 0
+  - <Sprite>k__BackingField: {fileID: 0}
+    <Id>k__BackingField: 0
+    <MaxStackCount>k__BackingField: 0
     _properties: []
-  - _sprite: {fileID: 21300000, guid: 8cad069114bdb6f45bd93e9b509f09d5, type: 3}
-    _id: 1
-    _maxStackCount: 5
+  - <Sprite>k__BackingField: {fileID: 21300000, guid: 8cad069114bdb6f45bd93e9b509f09d5, type: 3}
+    <Id>k__BackingField: 1
+    <MaxStackCount>k__BackingField: 5
     _properties: []
-  - _sprite: {fileID: 21300000, guid: 7ead17b2878575742ace443394250682, type: 3}
-    _id: 2
-    _maxStackCount: 3
+  - <Sprite>k__BackingField: {fileID: 21300000, guid: 7ead17b2878575742ace443394250682, type: 3}
+    <Id>k__BackingField: 2
+    <MaxStackCount>k__BackingField: 3
     _properties: []
-  - _sprite: {fileID: 21300000, guid: 8a1d5c60915e682498ccc6618da10e7c, type: 3}
-    _id: 3
-    _maxStackCount: 1
+  - <Sprite>k__BackingField: {fileID: 21300000, guid: 8a1d5c60915e682498ccc6618da10e7c, type: 3}
+    <Id>k__BackingField: 3
+    <MaxStackCount>k__BackingField: 0
     _properties:
     - rid: 4098678556693102593
-  - _sprite: {fileID: 21300000, guid: e5c713d9e0968274f909fc78b50eb790, type: 3}
-    _id: 4
-    _maxStackCount: 1
+  - <Sprite>k__BackingField: {fileID: 21300000, guid: e5c713d9e0968274f909fc78b50eb790, type: 3}
+    <Id>k__BackingField: 4
+    <MaxStackCount>k__BackingField: 0
     _properties:
     - rid: 4098678556693102592
-  kek: 
   references:
     version: 2
     RefIds:
@@ -43,7 +42,7 @@ MonoBehaviour:
       type: {class: WeaponProperty, ns: Game.ItemsDB.Item.Properties.Implementations, asm: Assembly-CSharp}
       data:
         <WeaponType>k__BackingField: 1
-        <Prefab>k__BackingField: {fileID: 0}
+        <Prefab>k__BackingField: {fileID: 5646274039381985264, guid: d95f840b27ebdc34aa1620d597efacaf, type: 3}
     - rid: 4098678556693102593
       type: {class: WeaponProperty, ns: Game.ItemsDB.Item.Properties.Implementations, asm: Assembly-CSharp}
       data:
