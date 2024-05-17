@@ -1,15 +1,17 @@
 ﻿using System;
 using Core.Installers;
+using Core.Lifetime.Instantiation;
 using Game.Animations;
 using Game.Character.Movement.Locomotion.Models;
 using Game.Character.Weapons.CurrentWeapon.Models;
 using Game.Character.Weapons.Equip.Models;
 using Game.Character.Weapons.PickUp.Models;
 using Game.Inputs.Models;
-using Game.Weapons.Common;
-using Game.Weapons.Equip.Models;
+using Game.ItemsDB;
+using Game.Weapons.Facade;
 using UnityEngine;
 using Zenject;
+using Object = UnityEngine.Object;
 
 namespace Game.Character.Weapons.Equip.Controllers
 {
@@ -26,8 +28,7 @@ namespace Game.Character.Weapons.Equip.Controllers
         [Inject(Id = BindingIdentifiers.SprintParamId)] private string SprintParamId { get; }
         [Inject(Id = BindingIdentifiers.UnarmedStateName)] private string UnarmedStateName { get; }
 
-        private EquippedWeapon CurrentEquippedWeapon { get; set; }
-        private WeaponEquipModel WeaponEquipModel { get; set; }
+        private WeaponFacade CurrentlyEquippedWeapon { get; set; }
 
         void IInitializable.Initialize()
         {
@@ -64,22 +65,19 @@ namespace Game.Character.Weapons.Equip.Controllers
 
         #region Equip
 
-        private void EquipWeapon(EquippedWeapon equippedWeapon)
+        private void EquipWeapon(WeaponFacade weapon)
         {
-            CurrentEquippedWeapon = equippedWeapon;
-            WeaponEquipModel = CurrentEquippedWeapon.GetComponent<WeaponEquipModel>();
+            CurrentlyEquippedWeapon = weapon;
             
             AttachWeapon();
             SetRigAsWeaponEquipped();
-            
-            WeaponEquipModel.Equip();
 
             void AttachWeapon()
             {
-                var weaponId = CurrentEquippedWeapon.GetComponent<WeaponId>();
+                var weaponId = CurrentlyEquippedWeapon.WeaponId;
                 Debug.Log(weaponId);
                 
-                var weaponRoot = CurrentEquippedWeapon.GetComponentWithId<Transform>(BindingIdentifiers.Root);
+                var weaponRoot = CurrentlyEquippedWeapon.Root;
                 weaponRoot.SetParent(WeaponHolder);
                 weaponRoot.localPosition = Vector3.zero;
                 weaponRoot.localRotation = Quaternion.identity;
@@ -87,7 +85,7 @@ namespace Game.Character.Weapons.Equip.Controllers
 
             void SetRigAsWeaponEquipped()
             {
-                var weaponId = CurrentEquippedWeapon.GetComponent<WeaponId>();
+                var weaponId = CurrentlyEquippedWeapon.WeaponId;
                 if (WeaponsAnimatorStatesNamesProvider.TryGetWeaponAnimationsContainer(weaponId,
                         out var weaponAnimationsContainer))
                 {
@@ -95,33 +93,30 @@ namespace Game.Character.Weapons.Equip.Controllers
                 }
             }
         }
-
+        
         private void UnequipWeapon()
         {
-            TryDetachWeapon();
+            DestroyWeaponGameObject();
             SetRigAsWeaponUnequipped();
-
-            WeaponEquipModel.Unequip();
-
-            CurrentWeaponModel.SetCurrentWeapon(null);
-            CurrentEquippedWeapon = null;
-            WeaponEquipModel = null;
-
-            void TryDetachWeapon()
+            
+            void DestroyWeaponGameObject()
             {
-                var weaponRoot = CurrentEquippedWeapon.GetComponentWithId<Transform>(BindingIdentifiers.Root);
-                weaponRoot.SetParent(null);
+                // TODO: return to pool (use pool in future)
+                Object.Destroy(CurrentlyEquippedWeapon.gameObject);
+                
+                CurrentWeaponModel.SetCurrentWeapon(null);
+                CurrentlyEquippedWeapon = null;
             }
         }
-
-        private void HandleOnWeaponEquipped(EquippedWeapon equippedWeapon)
+        
+        private void HandleOnWeaponEquipped(WeaponFacade weapon)
         {
             if (CurrentWeaponModel.IsWeaponEquipped)
             {
                 CharacterWeaponEquipModel.Unequip();
             }
 
-            EquipWeapon(equippedWeapon);
+            EquipWeapon(weapon);
         }
 
         private void HandleOnWeaponUnequipped()
@@ -152,10 +147,10 @@ namespace Game.Character.Weapons.Equip.Controllers
 
         #region PickUp
 
-        private void HandleOnWeaponPickedUp(EquippedWeapon equippedWeapon)
+        private void HandleOnWeaponPickedUp(WeaponFacade weapon)
         {
-            CharacterWeaponEquipModel.Equip(equippedWeapon);
-            CurrentWeaponModel.SetCurrentWeapon(equippedWeapon);
+            CharacterWeaponEquipModel.Equip(weapon);
+            CurrentWeaponModel.SetCurrentWeapon(weapon);
         }
 
         #endregion

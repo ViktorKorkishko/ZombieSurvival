@@ -26,7 +26,7 @@ namespace Game.Character.Movement.Position.Models
                 CharacterController.enabled = true;
             }
         }
-
+        
         protected override void HandleOnDataPreSaved()
         {
             base.Data.Position = ViewRoot.position;

@@ -12,7 +12,7 @@ namespace Core.SaveSystem.Saving.Local.JSON.Models
         {
             saveGroup.SaveEntity(entityId, dataKey, data);
         }
-
+        
         void ISaveSystemModel.Load<T>(string entityId, string dataKey, SaveGroup saveGroup, Action<LoadResult<T>> callback)
         {
             var entityComponents = saveGroup.LoadEntity(entityId);

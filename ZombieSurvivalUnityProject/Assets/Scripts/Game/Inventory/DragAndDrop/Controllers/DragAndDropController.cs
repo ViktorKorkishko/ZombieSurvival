@@ -5,6 +5,7 @@ using Game.Inventory.Cells.Core.Models;
 using Game.Inventory.Cells.Core.Views;
 using Game.Inventory.Core.Controllers;
 using Game.Inventory.DragAndDrop.Models;
+using Game.Items.Database;
 using Game.ItemsDB;
 using UnityEngine;
 using UnityEngine.EventSystems;

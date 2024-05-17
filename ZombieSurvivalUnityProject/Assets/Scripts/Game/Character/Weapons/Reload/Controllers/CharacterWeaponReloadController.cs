@@ -8,6 +8,7 @@ using Game.Character.Weapons.Reload.Models;
 using Game.Character.Weapons.Reload.Views;
 using Game.Inputs.Models;
 using Game.Weapons.Common;
+using Game.Weapons.Facade;
 using Game.Weapons.Reload.Models;
 using UnityEngine;
 using Zenject;
@@ -56,7 +57,7 @@ namespace Game.Character.Weapons.Reload.Controllers
             }
         }
 
-        private void HandleOnCurrentWeaponSet(EquippedWeapon equippedWeapon)
+        private void HandleOnCurrentWeaponSet(WeaponFacade weapon)
         {
             var isWeaponEquipped = WeaponReloadModel != null;
             if (isWeaponEquipped)
@@ -64,10 +65,10 @@ namespace Game.Character.Weapons.Reload.Controllers
                 WeaponReloadModel.TryTerminateReload();
             }
             
-            var newWeaponEquipped = equippedWeapon != null;
+            var newWeaponEquipped = weapon != null;
             if (newWeaponEquipped)
             {
-                WeaponReloadModel = equippedWeapon.GetComponent<WeaponReloadModel>();
+                WeaponReloadModel = weapon.ReloadModel;
             }
             else
             {
@@ -81,7 +82,7 @@ namespace Game.Character.Weapons.Reload.Controllers
             if (!weaponEquipped)
                 return;
 
-            var weaponId = CurrentWeaponModel.Weapon.GetComponent<WeaponId>();
+            var weaponId = CurrentWeaponModel.Weapon.WeaponId;
             if (WeaponsAnimatorStatesNamesProvider.TryGetWeaponAnimationsContainer(weaponId, out var weaponAnimationsContainer))
             {
                 var reloadTriggerName = weaponAnimationsContainer.ReloadAnimationTriggerName;
@@ -92,7 +93,7 @@ namespace Game.Character.Weapons.Reload.Controllers
         
         // TODO: use object pooling and wrap into separate module
         // temp implementation
-        GameObject originalMagazine => CurrentWeaponModel.Weapon.GetComponentWithId<GameObject>(BindingIdentifiers.MagazineGameObject);
+        GameObject originalMagazine => CurrentWeaponModel.Weapon.MagazineGameObject;
         private GameObject detachedMagazine;
         private GameObject newMagazine;
         private void HandleOnTriggerReloadEvent(ReloadAnimationEventId reloadAnimationEventId)

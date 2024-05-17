@@ -2,12 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using Game.Inventory.Cells.Core.Models;
+using Game.Inventory.Cells.Interfaces;
 
 namespace Game.Inventory.Cells
 {
     public class CellSelectionService : IDisposable
     {
-        public CellModel CurrentlySelectedCell { get; private set; }
+        public ISelectable CurrentlySelectedCell { get; private set; }
 
         public Action<CellModel> OnSelectedCellChanged { get; set; }
 
@@ -37,18 +38,18 @@ namespace Game.Inventory.Cells
             });
         }
 
-        private void HandleOnCellSelected(CellModel cellModel, bool selected)
+        private void HandleOnCellSelected(ISelectable selectable, bool selected)
         {
             if (!selected)
                 return;
             
-            if (cellModel == CurrentlySelectedCell)
+            if (selectable == CurrentlySelectedCell)
                 return;
             
             CurrentlySelectedCell?.SetSelected(false);
-            CurrentlySelectedCell = cellModel;
+            CurrentlySelectedCell = selectable;
 
-            OnSelectedCellChanged?.Invoke(CurrentlySelectedCell);
+            OnSelectedCellChanged?.Invoke(CurrentlySelectedCell as CellModel);
         }
     }
 }

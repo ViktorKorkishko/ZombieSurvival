@@ -4,9 +4,10 @@ using System.Linq;
 using Game.Inventory.Cells.Core.Controllers;
 using Game.Inventory.Cells.Core.Models;
 using Game.Inventory.Cells.Core.Views;
-using Game.Inventory.Items.Enums;
 using Game.Inventory.Items.Models;
+using Game.Items.Database;
 using Game.ItemsDB;
+using Game.ItemsDB.Item.Enums;
 using UnityEngine;
 using Zenject;
 
@@ -68,7 +69,7 @@ namespace Game.Inventory.Cells.CellsContainer.Models
                     if (currentCell.ContainsItem)
                     {
                         var itemId = currentCell.ItemId;
-                        bool containsSameItem = itemId == currentItem.ItemId;
+                        bool containsSameItem = itemId == currentItem.Data.Id;
                         if (containsSameItem)
                         {
                             if (ItemsDataBase.TryGetItemData(itemId, out var itemData))
@@ -77,13 +78,13 @@ namespace Game.Inventory.Cells.CellsContainer.Models
                                 if (!fullyStacked)
                                 {
                                     int itemsCountCanBeAdded = itemData.MaxStackCount - currentCell.ItemCount;
-                                    int itemsToAddCount = currentItem.Count >= itemsCountCanBeAdded
+                                    int itemsToAddCount = currentItem.Data.Count >= itemsCountCanBeAdded
                                         ? itemsCountCanBeAdded
-                                        : currentItem.Count;
+                                        : currentItem.Data.Count;
                                     if (itemsCountCanBeAdded > 0)
                                     {
                                         currentCell.AdjustItemCount(itemsToAddCount);
-                                        currentItem.Count -= itemsToAddCount;
+                                        currentItem.Data.Count -= itemsToAddCount;
                                     }
                                 }
                             }
@@ -91,16 +92,16 @@ namespace Game.Inventory.Cells.CellsContainer.Models
                     }
                     else
                     {
-                        var itemId = currentItem.ItemId;
+                        var itemId = currentItem.Data.Id;
                         if (ItemsDataBase.TryGetItemData(itemId, out var itemData))
                         {
                             int itemsCountCanBeAdded = itemData.MaxStackCount - 0;
-                            int itemsToAddCount = currentItem.Count >= itemsCountCanBeAdded
+                            int itemsToAddCount = currentItem.Data.Count >= itemsCountCanBeAdded
                                 ? itemsCountCanBeAdded
-                                : currentItem.Count;
+                                : currentItem.Data.Count;
                             var newCellItem = new InventoryItemModel(itemId, itemsToAddCount);
                             currentCell.SetItem(newCellItem);
-                            currentItem.Count -= itemsToAddCount;
+                            currentItem.Data.Count -= itemsToAddCount;
                         }
                     }
 
@@ -120,7 +121,7 @@ namespace Game.Inventory.Cells.CellsContainer.Models
         
         private bool AllItemsAreSpread(IEnumerable<InventoryItemModel> items)
         {
-            return items.All(x => x.Count <= 0);
+            return items.All(x => x.Data.Count <= 0);
         }
     }
 }

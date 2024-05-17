@@ -34,7 +34,6 @@ namespace Game.InteractableObjects.Implementations.PickableItem.Controllers
 
         protected override void HandleOnObjectInteract()
         {
-            // disable collider and rigidbody
             PickableItemModel.PickUp();
             Debug.Log($"Interacted with {InteractableObjectView.name}");
         }

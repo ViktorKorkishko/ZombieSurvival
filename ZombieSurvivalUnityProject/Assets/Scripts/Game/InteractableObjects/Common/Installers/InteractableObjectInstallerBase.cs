@@ -16,11 +16,21 @@ namespace Game.InteractableObjects.Common.Installers
         
         public override  void InstallBindings()
         {
-            Container.Bind<InteractableObjectModel>().AsSingle();
-            Container.BindInstance(_interactableObjectView).AsSingle();
-            Container.BindInterfacesTo<T>().AsSingle();
+            Container
+                .Bind<InteractableObjectModel>()
+                .AsSingle();
             
-            Container.BindInstance(_type).AsSingle();
+            Container
+                .BindInstance(_interactableObjectView)
+                .AsSingle();
+            
+            Container
+                .BindInterfacesTo<T>()
+                .AsSingle();
+            
+            Container
+                .BindInstance(_type)
+                .AsSingle();
         }
     }
 }

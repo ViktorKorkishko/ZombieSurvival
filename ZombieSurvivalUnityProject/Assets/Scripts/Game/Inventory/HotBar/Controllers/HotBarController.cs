@@ -1,11 +1,16 @@
-﻿using Game.Character.Weapons.Equip.Models;
+﻿using Core.Lifetime;
+using Core.Lifetime.Instantiation;
+using Game.Character.Weapons.CurrentWeapon.Models;
+using Game.Character.Weapons.Equip.Models;
 using Game.Character.Weapons.PickUp.Models;
 using Game.Inventory.Cells;
 using Game.Inventory.Cells.Core.Models;
 using Game.Inventory.HotBar.Models;
 using Game.Inventory.HotBar.Views;
+using Game.Items.Database;
 using Game.ItemsDB;
 using Game.ItemsDB.Item.Properties.Implementations;
+using Game.Weapons.Facade;
 using Zenject;
 
 namespace Game.Inventory.HotBar.Controllers
@@ -15,6 +20,9 @@ namespace Game.Inventory.HotBar.Controllers
         [Inject] private HotBarModel HotBarModel { get; }
         [Inject] private ItemsDataBase ItemsDataBase { get; }
         [Inject] private CharacterWeaponPickUpModel CharacterWeaponPickUpModel { get; }
+        [Inject] private CharacterWeaponEquipModel CharacterWeaponEquipModel { get; }
+        [Inject] private CurrentWeaponModel CurrentWeaponModel { get; }
+        [Inject] private Instantiator Instantiator { get; }
 
         private HotBarView View { get; }
 
@@ -55,7 +63,7 @@ namespace Game.Inventory.HotBar.Controllers
             
             _cellSelectionService.Initialize();
         }
-
+        
         private void HandleOnSelectedCellChanged(CellModel cellModel)
         {
             if (cellModel.ContainsItem)
@@ -69,16 +77,24 @@ namespace Game.Inventory.HotBar.Controllers
                     }
                 }
             }
+            else
+            {
+                if (CurrentWeaponModel.IsWeaponEquipped)
+                {
+                    CharacterWeaponEquipModel.Unequip();
+                }
+            }
 
             void HandleWeapon(WeaponProperty weaponProperty)
             {
-                var weaponPrefab = weaponProperty.Prefab;
+                if (CurrentWeaponModel.IsWeaponEquipped)
+                {
+                    CharacterWeaponEquipModel.Unequip();
+                }
 
-                var context = weaponPrefab.GetComponentInChildren<Context>();
-                var container = context.Container;
-                var equippedWeapon = new EquippedWeapon(container);
-                
-                CharacterWeaponPickUpModel.PickUp(equippedWeapon);
+                var weaponPrefab = weaponProperty.ItemPrefab;
+                var weaponGameObject = Instantiator.InstantiatePrefabForComponent<WeaponFacade>(weaponPrefab);
+                CharacterWeaponPickUpModel.PickUp(weaponGameObject);
             }
         }
     }

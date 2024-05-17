@@ -108,7 +108,7 @@ namespace Game.Inventory.DragAndDrop.Controllers
             // item has been dragged to same cell
             if (fromCell == toCell)
                 return;
-
+            
             bool cellToIsEmpty = !toCell.ContainsItem;
             if (cellToIsEmpty)
             {
@@ -116,12 +116,14 @@ namespace Game.Inventory.DragAndDrop.Controllers
                 return;
             }
 
-            bool sameItems = fromCell.ItemId == toCell.ItemId;
+            var fromCellItemId = fromCell.Item.Data.Id;
+            bool sameItems = fromCellItemId == toCell.Item.Data.Id;
             if (sameItems)
             {
-                if (!ItemsDataBase.TryGetItemData(fromCell.ItemId, out var itemData))
+                if (!ItemsDataBase.TryGetItemData(fromCellItemId, out var itemData))
                     return;
 
+                var fromCellItemCount = fromCell.Item.Data.Count;
                 int fullStackCount = itemData.MaxStackCount;
                 bool oneIsFullyStacked = fromCell.ItemCount == fullStackCount ||
                                          toCell.ItemCount == fullStackCount;

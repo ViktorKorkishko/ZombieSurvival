@@ -1,5 +1,4 @@
-using System.Collections.Generic;
-using Core.Lifetime;
+using Core.Lifetime.Facade;
 using UnityEngine;
 using Zenject;
 
@@ -9,15 +8,10 @@ namespace Game.Scene
     {
         [SerializeField] private Transform _characterRoot;
         [SerializeField] private FacadeBase _character;
-
-        [Header("Sub Installers")] 
-        [SerializeField] private List<MonoInstaller> _playerSubInstallers;
-
+        
         public override void InstallBindings()
         {
             _character.transform.SetParent(_characterRoot);
-            
-            // _playerSubInstallers.ForEach(x => x.InstallBindings());
         }
     }
 }

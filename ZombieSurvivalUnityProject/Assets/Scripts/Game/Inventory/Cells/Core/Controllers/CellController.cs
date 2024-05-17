@@ -1,7 +1,9 @@
 ﻿using System;
 using Game.Inventory.Cells.Core.Models;
 using Game.Inventory.Cells.Core.Views;
+using Game.Inventory.Cells.Interfaces;
 using Game.Inventory.Items.Models;
+using Game.Items.Database;
 using Game.ItemsDB;
 using Zenject;
 
@@ -65,7 +67,7 @@ namespace Game.Inventory.Cells.Core.Controllers
             CellModel.SetSelected(true);
         }
 
-        private void HandleOnSelected(CellModel cellModel, bool selected)
+        private void HandleOnSelected(ISelectable selectable, bool selected)
         {
             CellView.SetSelected(selected);
         }

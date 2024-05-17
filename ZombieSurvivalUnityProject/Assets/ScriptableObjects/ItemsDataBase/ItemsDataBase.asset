@@ -9,42 +9,44 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2e604fd70bbe4c65924723cfa2a2b619, type: 3}
+  m_Script: {fileID: 11500000, guid: 962bec99199e4949bede8605b8aaeeef, type: 3}
   m_Name: ItemsDataBase
   m_EditorClassIdentifier: 
   _items:
-  - <Sprite>k__BackingField: {fileID: 0}
-    <Id>k__BackingField: 0
+  - <Id>k__BackingField: 0
+    <Sprite>k__BackingField: {fileID: 0}
     <MaxStackCount>k__BackingField: 0
     _properties: []
-  - <Sprite>k__BackingField: {fileID: 21300000, guid: 8cad069114bdb6f45bd93e9b509f09d5, type: 3}
-    <Id>k__BackingField: 1
+  - <Id>k__BackingField: 1
+    <Sprite>k__BackingField: {fileID: 21300000, guid: 8cad069114bdb6f45bd93e9b509f09d5, type: 3}
     <MaxStackCount>k__BackingField: 5
     _properties: []
-  - <Sprite>k__BackingField: {fileID: 21300000, guid: 7ead17b2878575742ace443394250682, type: 3}
-    <Id>k__BackingField: 2
+  - <Id>k__BackingField: 2
+    <Sprite>k__BackingField: {fileID: 21300000, guid: 7ead17b2878575742ace443394250682, type: 3}
     <MaxStackCount>k__BackingField: 3
     _properties: []
-  - <Sprite>k__BackingField: {fileID: 21300000, guid: 8a1d5c60915e682498ccc6618da10e7c, type: 3}
-    <Id>k__BackingField: 3
-    <MaxStackCount>k__BackingField: 0
+  - <Id>k__BackingField: 3
+    <Sprite>k__BackingField: {fileID: 21300000, guid: 8a1d5c60915e682498ccc6618da10e7c, type: 3}
+    <MaxStackCount>k__BackingField: 1
     _properties:
-    - rid: 4098678556693102593
-  - <Sprite>k__BackingField: {fileID: 21300000, guid: e5c713d9e0968274f909fc78b50eb790, type: 3}
-    <Id>k__BackingField: 4
-    <MaxStackCount>k__BackingField: 0
+    - rid: 2765963693840400384
+  - <Id>k__BackingField: 4
+    <Sprite>k__BackingField: {fileID: 21300000, guid: e5c713d9e0968274f909fc78b50eb790, type: 3}
+    <MaxStackCount>k__BackingField: 1
     _properties:
-    - rid: 4098678556693102592
+    - rid: 2765963693840400385
   references:
     version: 2
     RefIds:
-    - rid: 4098678556693102592
+    - rid: 2765963693840400384
       type: {class: WeaponProperty, ns: Game.ItemsDB.Item.Properties.Implementations, asm: Assembly-CSharp}
       data:
         <WeaponType>k__BackingField: 1
-        <Prefab>k__BackingField: {fileID: 5646274039381985264, guid: d95f840b27ebdc34aa1620d597efacaf, type: 3}
-    - rid: 4098678556693102593
+        <ItemPrefab>k__BackingField: {fileID: 5646274039381985264, guid: 517a98fded06d514ab55e987e50c7ebf, type: 3}
+        <WorldObjectPrefab>k__BackingField: {fileID: 5646274039381985264, guid: 662fc1153ca301f4c97561e7478a1dd0, type: 3}
+    - rid: 2765963693840400385
       type: {class: WeaponProperty, ns: Game.ItemsDB.Item.Properties.Implementations, asm: Assembly-CSharp}
       data:
-        <WeaponType>k__BackingField: 1
-        <Prefab>k__BackingField: {fileID: 5646274039381985264, guid: 517a98fded06d514ab55e987e50c7ebf, type: 3}
+        <WeaponType>k__BackingField: 0
+        <ItemPrefab>k__BackingField: {fileID: 5646274039381985264, guid: d95f840b27ebdc34aa1620d597efacaf, type: 3}
+        <WorldObjectPrefab>k__BackingField: {fileID: 0}
