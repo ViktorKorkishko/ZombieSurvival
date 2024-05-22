@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Game.ItemsDB.Item.Properties
+namespace Game.Items.Properties
 {
     [Serializable]
     public abstract class PropertyBase { }

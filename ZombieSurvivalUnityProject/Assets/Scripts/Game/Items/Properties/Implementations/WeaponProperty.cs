@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace Game.ItemsDB.Item.Properties.Implementations
+namespace Game.Items.Properties.Implementations
 {
     public enum WeaponType
     {

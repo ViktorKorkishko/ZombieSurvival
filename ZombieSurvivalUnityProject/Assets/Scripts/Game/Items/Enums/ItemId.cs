@@ -1,4 +1,4 @@
-﻿namespace Game.ItemsDB.Item.Enums
+﻿namespace Game.Items.Enums
 {
     public enum ItemId
     {

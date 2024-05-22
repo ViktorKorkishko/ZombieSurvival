@@ -1,20 +1,18 @@
 ﻿using System;
 using System.Linq;
-using Game.Items;
-using Game.ItemsDB.Item.Properties;
+using Game.Items.Enums;
+using Game.Items.Properties;
 using UnityEngine;
 
-namespace Game.ItemsDB.Item
+namespace Game.Items.Data
 {
     [Serializable]
-    public class DBBaseItemData : BaseItemData
+    public class BaseItemData
     {
-        // shared properties
-        [field: SerializeField] public Sprite Sprite { get; private set; }
-        [field: SerializeField] public int MaxStackCount { get; private set; }
+        [field: SerializeField] public ItemId Id { get; set; }
         
         // conditional properties
-        [SerializeReference] private PropertyBase[] _properties;
+        [SerializeReference] private PropertyBase[] _properties = {};
         
         public bool TryGetProperty<T>(out PropertyBase propertyInstance) where T : PropertyBase
         {

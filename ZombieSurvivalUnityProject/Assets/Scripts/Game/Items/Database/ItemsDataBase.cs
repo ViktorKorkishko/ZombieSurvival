@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
-using Game.ItemsDB.Item;
-using Game.ItemsDB.Item.Enums;
+using Game.Items.Database.Item;
+using Game.Items.Enums;
 using UnityEngine;
 
 namespace Game.Items.Database
