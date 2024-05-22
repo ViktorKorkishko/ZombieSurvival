@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Game.Inventory.Cells;
+using Game.Common.SelectableCollection;
 using Game.Inventory.Cells.Core.Models;
 using Game.Inventory.Core.Models;
 using Game.Inventory.Core.Views;
@@ -28,7 +28,7 @@ namespace Game.Inventory.Core.Controllers
             }
         }
 
-        private CellSelectionService _cellSelectionService;
+        private SelectableCollection<CellModel> _cellsSelectableCollection;
 
         public InventoryController(InventoryView inventoryView)
         {
@@ -45,10 +45,10 @@ namespace Game.Inventory.Core.Controllers
             
             InventoryModel.InitializeCells();
 
-            _cellSelectionService = new CellSelectionService(Cells);
-            _cellSelectionService.OnSelectedCellChanged += HandleOnSelectedCellChanged;
+            _cellsSelectableCollection = new SelectableCollection<CellModel>(Cells);
+            _cellsSelectableCollection.OnSelectedCellChanged += HandleOnSelectedCellChanged;
             
-            _cellSelectionService.Initialize();
+            _cellsSelectableCollection.Initialize();
         }
 
         void IDisposable.Dispose()
@@ -59,7 +59,7 @@ namespace Game.Inventory.Core.Controllers
             InventoryView.OnHide -= HandleOnHide;
             InventoryView.OnDeleteItemButtonClicked -= HandleOnDeleteItemButtonClicked;
             
-            _cellSelectionService.OnSelectedCellChanged -= HandleOnSelectedCellChanged;
+            _cellsSelectableCollection.OnSelectedCellChanged -= HandleOnSelectedCellChanged;
         }
 
         private void HandleOnItemsAdded(IEnumerable<InventoryItemModel> items)
@@ -81,10 +81,10 @@ namespace Game.Inventory.Core.Controllers
         
         private void HandleOnDeleteItemButtonClicked()
         {
-            if (!_cellSelectionService.CurrentlySelectedCell.ContainsItem)
+            if (!_cellsSelectableCollection.CurrentlySelectedCell.ContainsItem)
                 return;
 
-            _cellSelectionService.CurrentlySelectedCell.RemoveItem();
+            _cellsSelectableCollection.CurrentlySelectedCell.RemoveItem();
             InventoryView.SetDeleteButtonEnabled(false);
         }
 

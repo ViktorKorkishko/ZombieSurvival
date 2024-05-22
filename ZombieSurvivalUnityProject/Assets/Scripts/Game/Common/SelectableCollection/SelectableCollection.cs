@@ -1,20 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Game.Inventory.Cells.Core.Models;
-using Game.Inventory.Cells.Interfaces;
+using Game.Common.SelectableCollection.Interfaces;
 
-namespace Game.Inventory.Cells
+namespace Game.Common.SelectableCollection
 {
-    public class CellSelectionService : IDisposable
+    public class SelectableCollection<T> : IDisposable
+        where T : class, ISelectable
     {
-        public ISelectable CurrentlySelectedCell { get; private set; }
+        public T CurrentlySelectedCell { get; private set; }
 
-        public Action<CellModel> OnSelectedCellChanged { get; set; }
+        public Action<T> OnSelectedCellChanged { get; set; }
 
-        private readonly List<CellModel> _cells;
+        private readonly List<T> _cells;
 
-        public CellSelectionService(IEnumerable<CellModel> cellModels)
+        public SelectableCollection(IEnumerable<T> cellModels)
         {
             _cells = cellModels.ToList();
         }
@@ -32,10 +32,12 @@ namespace Game.Inventory.Cells
 
         void IDisposable.Dispose()
         {
-            _cells.ForEach(x =>
+            foreach (var cell in _cells)
             {
-                x.OnSelected -= HandleOnCellSelected;
-            });
+                cell.OnSelected -= HandleOnCellSelected;
+            }
+            
+            _cells.Clear();
         }
 
         private void HandleOnCellSelected(ISelectable selectable, bool selected)
@@ -47,9 +49,9 @@ namespace Game.Inventory.Cells
                 return;
             
             CurrentlySelectedCell?.SetSelected(false);
-            CurrentlySelectedCell = selectable;
+            CurrentlySelectedCell = selectable as T;
 
-            OnSelectedCellChanged?.Invoke(CurrentlySelectedCell as CellModel);
+            OnSelectedCellChanged?.Invoke(CurrentlySelectedCell);
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Game.Inventory.Cells.Interfaces
+namespace Game.Common.SelectableCollection.Interfaces
 {
     public interface ISelectable
     {

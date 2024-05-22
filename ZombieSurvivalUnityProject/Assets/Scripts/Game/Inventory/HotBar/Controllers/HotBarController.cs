@@ -1,21 +1,20 @@
-﻿using Core.Lifetime;
+﻿using System;
 using Core.Lifetime.Instantiation;
 using Game.Character.Weapons.CurrentWeapon.Models;
 using Game.Character.Weapons.Equip.Models;
 using Game.Character.Weapons.PickUp.Models;
-using Game.Inventory.Cells;
+using Game.Common.SelectableCollection;
 using Game.Inventory.Cells.Core.Models;
 using Game.Inventory.HotBar.Models;
 using Game.Inventory.HotBar.Views;
 using Game.Items.Database;
-using Game.ItemsDB;
-using Game.ItemsDB.Item.Properties.Implementations;
+using Game.Items.Properties.Implementations;
 using Game.Weapons.Facade;
 using Zenject;
 
 namespace Game.Inventory.HotBar.Controllers
 {
-    public class HotBarController : IInitializable
+    public class HotBarController : IInitializable, IDisposable
     {
         [Inject] private HotBarModel HotBarModel { get; }
         [Inject] private ItemsDataBase ItemsDataBase { get; }
@@ -26,7 +25,7 @@ namespace Game.Inventory.HotBar.Controllers
 
         private HotBarView View { get; }
 
-        private CellSelectionService _cellSelectionService;
+        private SelectableCollection<CellModel> _cellsSelectableCollection;
         private SynchronizableCellsContainer _synchronizableCellsContainer;
 
         public HotBarController(HotBarView view)
@@ -53,15 +52,23 @@ namespace Game.Inventory.HotBar.Controllers
                 HotBarModel.InventoryHotBarCellsContainer.OnInitialized += HandleOnHotBarCellsInitialized;
             }
         }
+
+        void IDisposable.Dispose()
+        {
+            _cellsSelectableCollection.OnSelectedCellChanged -= HandleOnSelectedCellChanged;
+            
+            ((IDisposable)_cellsSelectableCollection)?.Dispose();
+            ((IDisposable)_synchronizableCellsContainer)?.Dispose();
+        }
         
         private void HandleOnHotBarCellsInitialized()
         {
             HotBarModel.InventoryHotBarCellsContainer.OnInitialized -= HandleOnHotBarCellsInitialized;
             
-            _cellSelectionService = new CellSelectionService(HotBarModel.HotBarCellsContainerModel.Cells);
-            _cellSelectionService.OnSelectedCellChanged += HandleOnSelectedCellChanged;
+            _cellsSelectableCollection = new SelectableCollection<CellModel>(HotBarModel.HotBarCellsContainerModel.Cells);
+            _cellsSelectableCollection.OnSelectedCellChanged += HandleOnSelectedCellChanged;
             
-            _cellSelectionService.Initialize();
+            _cellsSelectableCollection.Initialize();
         }
         
         private void HandleOnSelectedCellChanged(CellModel cellModel)
