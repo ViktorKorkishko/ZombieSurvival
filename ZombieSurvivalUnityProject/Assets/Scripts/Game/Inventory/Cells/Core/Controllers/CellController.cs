@@ -1,10 +1,9 @@
 ﻿using System;
+using Game.Common.SelectableCollection.Interfaces;
 using Game.Inventory.Cells.Core.Models;
 using Game.Inventory.Cells.Core.Views;
-using Game.Inventory.Cells.Interfaces;
 using Game.Inventory.Items.Models;
 using Game.Items.Database;
-using Game.ItemsDB;
 using Zenject;
 
 namespace Game.Inventory.Cells.Core.Controllers
@@ -44,11 +43,11 @@ namespace Game.Inventory.Cells.Core.Controllers
 
         private void HandleOnItemSet(CellModel cellModel, InventoryItemModel inventoryItemModel)
         {
-            var itemId = inventoryItemModel.ItemId;
+            var itemId = inventoryItemModel.Data.Id;
             if (ItemsDataBase.TryGetItemData(itemId, out var itemData))
             {
                 CellView.SetItemImage(itemData.Sprite);
-                CellView.SetItemCount(inventoryItemModel.Count);
+                CellView.SetItemCount(inventoryItemModel.Data.Count);
             }
         }
 

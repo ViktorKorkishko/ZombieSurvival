@@ -1,5 +1,5 @@
 ﻿using System;
-using Game.ItemsDB.Item.Enums;
+using Game.Items.Enums;
 using UnityEngine;
 
 namespace Game.InteractableObjects.Implementations.PickableItem.Models

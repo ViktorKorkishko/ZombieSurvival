@@ -1,4 +1,4 @@
-﻿using Game.ItemsDB.Item.Enums;
+﻿using Game.Items.Enums;
 using UnityEngine;
 using Zenject;
 

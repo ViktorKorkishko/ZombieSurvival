@@ -1,17 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using Game.Inventory.Cells.Core.Models;
 using Game.Inventory.Cells.Core.Views;
-using Game.Inventory.Core.Controllers;
 using Game.Inventory.DragAndDrop.Models;
 using Game.Items.Database;
-using Game.ItemsDB;
 using UnityEngine;
-using UnityEngine.EventSystems;
-using UnityEngine.UI;
 using Zenject;
-using Object = UnityEngine.Object;
 
 namespace Game.Inventory.DragAndDrop.Controllers
 {

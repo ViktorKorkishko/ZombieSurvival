@@ -1,13 +1,11 @@
 ﻿using System;
 using Core.Installers;
-using Core.Lifetime.Instantiation;
 using Game.Animations;
 using Game.Character.Movement.Locomotion.Models;
 using Game.Character.Weapons.CurrentWeapon.Models;
 using Game.Character.Weapons.Equip.Models;
 using Game.Character.Weapons.PickUp.Models;
 using Game.Inputs.Models;
-using Game.ItemsDB;
 using Game.Weapons.Facade;
 using UnityEngine;
 using Zenject;

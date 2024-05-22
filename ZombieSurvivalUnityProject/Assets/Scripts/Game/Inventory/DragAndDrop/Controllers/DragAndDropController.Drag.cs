@@ -116,14 +116,13 @@ namespace Game.Inventory.DragAndDrop.Controllers
                 return;
             }
 
-            var fromCellItemId = fromCell.Item.Data.Id;
-            bool sameItems = fromCellItemId == toCell.Item.Data.Id;
+            var fromCellItemId = fromCell.ItemId;
+            bool sameItems = fromCellItemId == toCell.ItemId;
             if (sameItems)
             {
                 if (!ItemsDataBase.TryGetItemData(fromCellItemId, out var itemData))
                     return;
 
-                var fromCellItemCount = fromCell.Item.Data.Count;
                 int fullStackCount = itemData.MaxStackCount;
                 bool oneIsFullyStacked = fromCell.ItemCount == fullStackCount ||
                                          toCell.ItemCount == fullStackCount;

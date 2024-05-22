@@ -1,4 +1,5 @@
 ﻿using System;
+using Game.Items.Data;
 using UnityEngine;
 using Zenject;
 
@@ -24,7 +25,7 @@ namespace Core.Lifetime.Facade
     #region Inner types
 
     [Serializable]
-    public abstract class FacadeDataBase
+    public abstract class FacadeDataBase : ItemData
     {
     }
 

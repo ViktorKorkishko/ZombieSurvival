@@ -1,6 +1,6 @@
 ﻿using Core.Installers;
 using Core.Lifetime.Facade;
-using Game.ItemsDB.Item.Enums;
+using Game.Items.Enums;
 using Game.Weapons.Common;
 using Game.Weapons.Reload.Models;
 using Game.Weapons.Shoot.Models;

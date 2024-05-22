@@ -6,8 +6,7 @@ using Game.Inventory.Cells.Core.Models;
 using Game.Inventory.Cells.Core.Views;
 using Game.Inventory.Items.Models;
 using Game.Items.Database;
-using Game.ItemsDB;
-using Game.ItemsDB.Item.Enums;
+using Game.Items.Enums;
 using UnityEngine;
 using Zenject;
 

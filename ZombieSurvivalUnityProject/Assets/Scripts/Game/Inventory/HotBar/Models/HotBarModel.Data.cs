@@ -2,7 +2,7 @@
 using System.Linq;
 using Core.SaveSystem.Saving.Common.Load;
 using Game.Inventory.Cells.Core.Models;
-using Game.ItemsDB.Item.Enums;
+using Game.Items.Enums;
 
 namespace Game.Inventory.HotBar.Models
 {
