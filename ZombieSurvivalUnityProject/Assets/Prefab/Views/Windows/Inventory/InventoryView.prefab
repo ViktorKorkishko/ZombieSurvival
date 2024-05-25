@@ -33,7 +33,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0.0010144258}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 540}
   m_Pivot: {x: 0, y: 1}
 --- !u!1 &468908512355964895
@@ -420,7 +420,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &8874119191774699851
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1724,14 +1724,6 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 5530110844097316852}
     - target: {fileID: 5332112877491080559, guid: 26b7f35dfcfecc54e9dd3a852d6657d0, type: 3}
-      propertyPath: m_Pivot.x
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 5332112877491080559, guid: 26b7f35dfcfecc54e9dd3a852d6657d0, type: 3}
-      propertyPath: m_Pivot.y
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 5332112877491080559, guid: 26b7f35dfcfecc54e9dd3a852d6657d0, type: 3}
       propertyPath: m_AnchorMax.x
       value: 1
       objectReference: {fileID: 0}
@@ -1766,22 +1758,6 @@ PrefabInstance:
     - target: {fileID: 5332112877491080559, guid: 26b7f35dfcfecc54e9dd3a852d6657d0, type: 3}
       propertyPath: m_LocalPosition.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5332112877491080559, guid: 26b7f35dfcfecc54e9dd3a852d6657d0, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5332112877491080559, guid: 26b7f35dfcfecc54e9dd3a852d6657d0, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5332112877491080559, guid: 26b7f35dfcfecc54e9dd3a852d6657d0, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5332112877491080559, guid: 26b7f35dfcfecc54e9dd3a852d6657d0, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 5332112877491080559, guid: 26b7f35dfcfecc54e9dd3a852d6657d0, type: 3}
       propertyPath: m_AnchoredPosition.x

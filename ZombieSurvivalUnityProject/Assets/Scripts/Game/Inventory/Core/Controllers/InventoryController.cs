@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Core.ViewSystem.Views.Interfaces;
 using Game.Common.SelectableCollection;
 using Game.Inventory.Cells.Core.Models;
 using Game.Inventory.Core.Models;
@@ -73,7 +74,7 @@ namespace Game.Inventory.Core.Controllers
             DragAndDropModel.RegisterDraggableCells(InventoryModel.InventoryHotBarCellsContainer);
         }
 
-        private void HandleOnHide()
+        private void HandleOnHide(IView view)
         {
             DragAndDropModel.UnregisterDraggableCells(InventoryModel.InventoryCellsContainerModel);
             DragAndDropModel.UnregisterDraggableCells(InventoryModel.InventoryHotBarCellsContainer);

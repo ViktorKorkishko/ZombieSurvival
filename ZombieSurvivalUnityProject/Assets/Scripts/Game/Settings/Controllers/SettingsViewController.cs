@@ -19,7 +19,7 @@ namespace Game.Settings.Controllers
             View.SetSensitivitySliderValue(SettingsModel.Sensitivity);
         }
 
-        protected override void HandleOnHide()
+        protected override void HandleOnHide(IView view)
         {
             View.OnSliderValueChanged -= HandleOnSliderValueChanged;
         }

@@ -12,15 +12,13 @@ namespace Game.Character.Movement.Rotation.Controllers
         [Inject(Id = BindingIdentifiers.CharacterRigRoot)] private Transform RigRootTransform { get; }
         [Inject] private CharacterRotationModel CharacterRotationModel { get; }
         
-        private float TurnSpeed => CharacterRotationModel.TurnSpeed;
-
         void ILateTickable.LateTick()
         {
             float yawCamera = CameraModel.GetMainCamera().transform.rotation.eulerAngles.y;
             
             RigRootTransform.rotation = Quaternion.Slerp(RigRootTransform.rotation,
-                Quaternion.Euler(0, yawCamera, 0),
-                TurnSpeed * Time.deltaTime);
+                Quaternion.Euler(0, yawCamera, 0), 
+                CharacterRotationModel.TurnSpeed * Time.deltaTime);
         }
     }
 }

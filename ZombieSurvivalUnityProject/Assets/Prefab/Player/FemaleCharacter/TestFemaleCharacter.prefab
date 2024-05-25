@@ -232,7 +232,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60ebe33dfbdaf4841ad7eaa1c856ae59, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _turnSpeed: 15
+  <TurnSpeed>k__BackingField: 15
 --- !u!1 &828243731309826179
 GameObject:
   m_ObjectHideFlags: 0

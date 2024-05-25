@@ -8,13 +8,13 @@ namespace Core.ViewSystem.Views
     public class ViewBase : MonoBehaviour, IView
     {
         public Action OnShow { get; set; }
-        public Action OnHide { get; set; }
-
+        public Action<IView> OnHide { get; set; }
+        
         private void Awake()
         {
             gameObject.SetActive(false);
         }
-
+        
         public void Show(IViewData viewData = null)
         {
             gameObject.SetActive(true);
@@ -23,16 +23,16 @@ namespace Core.ViewSystem.Views
             
             HandleOnShow(viewData);
         }
-
+        
         public void Hide()
         {
             gameObject.SetActive(false);
             
-            OnHide?.Invoke();
+            OnHide?.Invoke(this);
             
             HandleOnHide();
         }
-
+        
         protected virtual void HandleOnShow(IViewData viewData) { }
         protected virtual void HandleOnHide() { }
     }

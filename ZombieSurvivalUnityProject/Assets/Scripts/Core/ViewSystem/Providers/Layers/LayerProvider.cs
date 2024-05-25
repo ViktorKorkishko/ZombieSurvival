@@ -24,7 +24,7 @@ namespace Core.ViewSystem.Providers.Layers
             return false;
         }
     }
-
+    
     [Serializable]
     public class LayerData
     {

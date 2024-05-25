@@ -1,5 +1,5 @@
 ﻿using Core.ViewSystem.Models;
-using Core.ViewSystem.Providers;
+using Core.ViewSystem.Providers.Interfaces;
 using Core.ViewSystem.Providers.Layers;
 using Core.ViewSystem.Providers.Views;
 using UnityEngine;

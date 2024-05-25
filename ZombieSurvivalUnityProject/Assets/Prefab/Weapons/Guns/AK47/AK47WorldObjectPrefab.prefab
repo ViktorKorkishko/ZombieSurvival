@@ -432,7 +432,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <Data>k__BackingField:
+    <Id>k__BackingField: 3
+    _properties: []
+    <Count>k__BackingField: 1
     <BulletsCount>k__BackingField: 0
+  references:
+    version: 2
+    RefIds: []
 --- !u!1 &5892673777594617105
 GameObject:
   m_ObjectHideFlags: 0

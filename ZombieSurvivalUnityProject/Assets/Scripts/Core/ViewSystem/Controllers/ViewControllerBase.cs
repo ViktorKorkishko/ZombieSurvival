@@ -1,5 +1,4 @@
 ﻿using System;
-using Core.ViewSystem.Views;
 using Core.ViewSystem.Views.Interfaces;
 using Zenject;
 
@@ -30,6 +29,6 @@ namespace Core.ViewSystem.Controllers
         }
 
         protected virtual void HandleOnShow() { }
-        protected virtual void HandleOnHide() { }
+        protected virtual void HandleOnHide(IView view) { }
     }
 }

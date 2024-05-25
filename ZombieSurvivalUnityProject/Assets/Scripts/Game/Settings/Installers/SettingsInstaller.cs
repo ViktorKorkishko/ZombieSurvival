@@ -1,5 +1,6 @@
 ﻿using Core.ViewSystem.Enums;
 using Core.ViewSystem.Providers;
+using Core.ViewSystem.Providers.Interfaces;
 using Game.Settings.Controllers;
 using Game.Settings.ViewModel;
 using Game.Settings.Views;
