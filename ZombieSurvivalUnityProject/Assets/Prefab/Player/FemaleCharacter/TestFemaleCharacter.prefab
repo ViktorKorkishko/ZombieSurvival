@@ -1895,7 +1895,6 @@ GameObject:
   m_Component:
   - component: {fileID: 5678212232103286484}
   - component: {fileID: 4689027027504866920}
-  - component: {fileID: 8574665023952468814}
   m_Layer: 0
   m_Name: Equip
   m_TagString: Untagged
@@ -1930,22 +1929,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 79fc3aecb49145d9a28378804c2aea27, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  characterWeaponEquipModel: {fileID: 8574665023952468814}
   _rigAnimator: {fileID: 7511080642262477293}
   _weaponHolder: {fileID: 8641119713800193969}
   _unarmedStateName: CharacterUnarmed
---- !u!114 &8574665023952468814
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6337652418143966489}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5a99ca5702a34e51b6c862b11b3b8817, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &6393595079812283475
 GameObject:
   m_ObjectHideFlags: 0

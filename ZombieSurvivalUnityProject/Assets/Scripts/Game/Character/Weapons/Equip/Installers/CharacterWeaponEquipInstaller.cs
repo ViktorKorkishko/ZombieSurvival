@@ -8,8 +8,6 @@ namespace Game.Character.Weapons.Equip.Installers
 {
     public class CharacterWeaponEquipInstaller : MonoInstaller
     {
-        [SerializeField] private CharacterWeaponEquipModel characterWeaponEquipModel;
-        
         [SerializeField] private Animator _rigAnimator;
         
         [SerializeField] private Transform _weaponHolder;
@@ -17,20 +15,26 @@ namespace Game.Character.Weapons.Equip.Installers
 
         public override void InstallBindings()
         {
-            Container.BindInstance(characterWeaponEquipModel)
+            Container
+                .Bind<CharacterWeaponEquipModel>()
                 .AsSingle();
             
-            Container.BindInterfacesTo<CharacterWeaponEquipController>()
+            Container
+                .BindInterfacesTo<CharacterWeaponEquipController>()
                 .AsSingle();
 
-            Container.BindInstance(_rigAnimator)
+            Container
+                .BindInstance(_rigAnimator)
                 .WithId(BindingIdentifiers.CharacterRigAnimator);
 
-            Container.Bind<Transform>()
+            Container
+                .Bind<Transform>()
                 .WithId(BindingIdentifiers.WeaponHolder)
                 .FromInstance(_weaponHolder);
             
-            Container.BindInstance(_unarmedStateName).WithId(BindingIdentifiers.UnarmedStateName);
+            Container
+                .BindInstance(_unarmedStateName)
+                .WithId(BindingIdentifiers.UnarmedStateName);
         }
     }
 }
