@@ -9,11 +9,11 @@ namespace Game.Common.SelectableCollection
         where T : class, ISelectable
     {
         public T CurrentlySelectedCell { get; private set; }
-
+        
         public Action<T> OnSelectedCellChanged { get; set; }
-
+        
         private readonly List<T> _cells;
-
+        
         public SelectableCollection(IEnumerable<T> cellModels)
         {
             _cells = cellModels.ToList();
@@ -29,7 +29,7 @@ namespace Game.Common.SelectableCollection
             
             _cells[0].SetSelected(true);
         }
-
+        
         void IDisposable.Dispose()
         {
             foreach (var cell in _cells)
@@ -39,7 +39,7 @@ namespace Game.Common.SelectableCollection
             
             _cells.Clear();
         }
-
+        
         private void HandleOnCellSelected(ISelectable selectable, bool selected)
         {
             if (!selected)
@@ -47,7 +47,7 @@ namespace Game.Common.SelectableCollection
             
             if (selectable == CurrentlySelectedCell)
                 return;
-            
+
             CurrentlySelectedCell?.SetSelected(false);
             CurrentlySelectedCell = selectable as T;
 

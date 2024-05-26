@@ -8,9 +8,7 @@ namespace Game.Crosshair
     public class CrosshairTargetPositionController : ITickable
     {
         [Inject] private CameraModel CameraModel { get; }
-
-        [Inject(Id = BindingIdentifiers.CrosshairTargetPointTransform)]
-        private Transform CrosshairPoint { get; }
+        [Inject(Id = BindingIdentifiers.CrosshairTargetPointTransform)] private Transform CrosshairPoint { get; }
 
         void ITickable.Tick()
         {
