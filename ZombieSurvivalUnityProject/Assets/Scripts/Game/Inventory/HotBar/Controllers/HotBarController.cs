@@ -1,12 +1,15 @@
 ﻿using System;
+using System.Linq;
 using Core.Lifetime.Instantiation;
 using Game.Character.Weapons.CurrentWeapon.Models;
 using Game.Character.Weapons.Equip.Models;
 using Game.Character.Weapons.PickUp.Models;
 using Game.Common.SelectableCollection;
+using Game.Common.SelectableCollection.Interfaces;
 using Game.Inventory.Cells.Core.Models;
 using Game.Inventory.HotBar.Models;
 using Game.Inventory.HotBar.Views;
+using Game.Inventory.Items.Models;
 using Game.Items.Database;
 using Game.Items.Properties.Implementations;
 using Game.Weapons.Facade;
@@ -55,6 +58,12 @@ namespace Game.Inventory.HotBar.Controllers
 
         void IDisposable.Dispose()
         {
+            var cells = HotBarModel.HotBarCellsContainerModel.Cells;
+            foreach (var cell in cells)
+            {
+                cell.OnItemSet -= HandleOnItemSet;
+            }
+            
             _cellsSelectableCollection.OnSelectedCellChanged -= HandleOnSelectedCellChanged;
             
             ((IDisposable)_cellsSelectableCollection)?.Dispose();
@@ -64,45 +73,76 @@ namespace Game.Inventory.HotBar.Controllers
         private void HandleOnHotBarCellsInitialized()
         {
             HotBarModel.InventoryHotBarCellsContainer.OnInitialized -= HandleOnHotBarCellsInitialized;
+
+            var cells = HotBarModel.HotBarCellsContainerModel.Cells;
+            foreach (var cell in cells)
+            {
+                cell.OnItemSet += HandleOnItemSet;
+                cell.OnItemRemoved += HandleOnItemRemoved;
+            }
             
-            _cellsSelectableCollection = new SelectableCollection<CellModel>(HotBarModel.HotBarCellsContainerModel.Cells);
+            _cellsSelectableCollection = new SelectableCollection<CellModel>(cells);
             _cellsSelectableCollection.OnSelectedCellChanged += HandleOnSelectedCellChanged;
             
             _cellsSelectableCollection.Initialize();
         }
-        
+
         private void HandleOnSelectedCellChanged(CellModel cellModel)
         {
             if (cellModel.ContainsItem)
             {
-                var itemId = cellModel.ItemId;
-                if (ItemsDataBase.TryGetItemData(itemId, out var itemData))
-                {
-                    if (itemData.TryGetProperty<WeaponProperty>(out var weaponProperty))
-                    {
-                        HandleWeapon(weaponProperty as WeaponProperty);
-                    }
-                }
+                HandleItemInCell(cellModel);
             }
             else
             {
-                if (CurrentWeaponModel.IsWeaponEquipped)
-                {
+                if (CurrentWeaponModel.IsWeaponEquipped) 
+                { 
                     CharacterWeaponEquipModel.Unequip();
                 }
             }
+        }
+        
+        private void HandleOnItemSet(CellModel cellModel, InventoryItemModel itemModel)
+        {
+            if (!cellModel.IsSelected)
+                return;
+            
+            HandleItemInCell(cellModel);
+        }
 
-            void HandleWeapon(WeaponProperty weaponProperty)
+        private void HandleOnItemRemoved(CellModel cellModel)
+        {
+            if (!cellModel.IsSelected)
+                return;
+            
+            if (CurrentWeaponModel.IsWeaponEquipped) 
+            { 
+                CharacterWeaponEquipModel.Unequip();
+            }
+        }
+
+        private void HandleItemInCell(CellModel cellModel)
+        {
+            var itemId = cellModel.ItemId;
+            if (ItemsDataBase.TryGetItemData(itemId, out var itemData))
             {
-                if (CurrentWeaponModel.IsWeaponEquipped)
+                if (itemData.TryGetProperty<PickableItemProperty>(out var pickableItemProperty))
                 {
-                    CharacterWeaponEquipModel.Unequip();
+                    HandleWeapon(pickableItemProperty as PickableItemProperty);
                 }
-
-                var weaponPrefab = weaponProperty.ItemPrefab;
-                var weaponGameObject = Instantiator.InstantiatePrefabForComponent<WeaponFacade>(weaponPrefab);
-                CharacterWeaponPickUpModel.PickUp(weaponGameObject);
             }
+        }
+
+        private void HandleWeapon(PickableItemProperty pickableItemProperty)
+        {
+            if (CurrentWeaponModel.IsWeaponEquipped)
+            {
+                CharacterWeaponEquipModel.Unequip();
+            }
+
+            var weaponPrefab = pickableItemProperty.ItemPrefab;
+            var weaponGameObject = Instantiator.InstantiatePrefabForComponent<WeaponFacade>(weaponPrefab);
+            CharacterWeaponPickUpModel.PickUp(weaponGameObject);
         }
     }
 }

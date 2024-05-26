@@ -21,7 +21,9 @@ namespace Game.Inventory.Cells.CellsContainer.Models
 
         public Action OnInitialized { get; set; }
 
-        public IEnumerable<CellModel> Cells => CellContainers.Select(x => x.Model);
+        public List<CellModel> Cells => CellContainers
+            .Select(x => x.Model)
+            .ToList();
         public List<CellContainer> CellContainers { get; } = new();
         
         public Func<CellView> OnCellViewInitialized { get; set; }

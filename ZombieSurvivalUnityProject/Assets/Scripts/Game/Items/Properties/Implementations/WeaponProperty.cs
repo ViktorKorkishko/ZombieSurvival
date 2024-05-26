@@ -13,7 +13,5 @@ namespace Game.Items.Properties.Implementations
     public class WeaponProperty : PropertyBase
     {
         [field: SerializeField] public WeaponType WeaponType { get; private set; }
-        [field: SerializeField] public GameObject ItemPrefab { get; private set; }
-        [field: SerializeField] public GameObject WorldObjectPrefab { get; private set; }
     }
 }
