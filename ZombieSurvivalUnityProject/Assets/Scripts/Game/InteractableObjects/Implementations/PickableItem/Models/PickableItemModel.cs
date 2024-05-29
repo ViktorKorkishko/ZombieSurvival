@@ -1,22 +1,24 @@
 ﻿using System;
-using Game.Items.Enums;
+using Game.Items.Data;
 using UnityEngine;
 
 namespace Game.InteractableObjects.Implementations.PickableItem.Models
 {
     public class PickableItemModel : MonoBehaviour
     {
-        [SerializeField] private ItemId _itemId;
-        [SerializeField] private int _count;
+        [field:SerializeField] public ItemData Data { get; private set; }
 
-        public ItemId ItemId => _itemId;
-        public int Count => _count;
-        
         public Action OnPickedUp { get; set; }
 
-        public void PickUp()
+        public void Initialize(ItemData data)
+        {
+            Data = data;
+        }
+
+        public ItemData PickUp()
         {
             OnPickedUp?.Invoke();
+            return Data;
         }
     }
 }
