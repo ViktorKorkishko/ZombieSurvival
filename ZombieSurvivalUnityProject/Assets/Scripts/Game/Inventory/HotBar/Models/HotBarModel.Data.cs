@@ -2,7 +2,6 @@
 using System.Linq;
 using Core.SaveSystem.Saving.Common.Load;
 using Game.Inventory.Cells.Core.Models;
-using Game.Items.Enums;
 
 namespace Game.Inventory.HotBar.Models
 {
@@ -40,10 +39,7 @@ namespace Game.Inventory.HotBar.Models
                 loadResult.Data.CellsData = new List<CellModel.Data>();
                 for (int i = 0; i < InitialHotBarCellsCount; i++)
                 {
-                    loadResult.Data.CellsData.Add(new CellModel.Data {
-                        ItemId = ItemId.None,
-                        Count = 0,
-                    });
+                    loadResult.Data.CellsData.Add(new CellModel.Data());
                 }
             }
         }

@@ -2,7 +2,6 @@
 using System.Linq;
 using Core.SaveSystem.Saving.Common.Load;
 using Game.Inventory.Cells.Core.Models;
-using Game.Items.Enums;
 
 namespace Game.Inventory.Core.Models
 {
@@ -50,10 +49,7 @@ namespace Game.Inventory.Core.Models
             {
                 for (int i = 0; i < count; i++)
                 {
-                    cellsData.Add(new CellModel.Data {
-                        ItemId = ItemId.None,
-                        Count = 0,
-                    });
+                    cellsData.Add(new CellModel.Data());
                 }
             }
         }

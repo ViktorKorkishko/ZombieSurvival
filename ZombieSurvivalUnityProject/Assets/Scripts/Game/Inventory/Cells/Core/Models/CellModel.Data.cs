@@ -1,4 +1,4 @@
-﻿using Game.Items.Enums;
+﻿using Game.Items.Data;
 
 namespace Game.Inventory.Cells.Core.Models
 {
@@ -6,16 +6,19 @@ namespace Game.Inventory.Cells.Core.Models
     {
         public class Data
         {
-            public ItemId ItemId { get; set; }
-            public int Count { get; set; }
+            public ItemData ItemData { get; set; }
+
+            public Data()
+            {
+                ItemData = new();
+            }
         }
         
         public Data GetSaveData()
         {
             return new Data
             {
-                ItemId = ContainsItem ? _item.Data.Id : ItemId.None,
-                Count = ContainsItem ? _item.Data.Count : 0
+                ItemData = ContainsItem ? _item.Data : new(),
             };
         }
     }

@@ -12,7 +12,13 @@ namespace Game.Items.Data
         [field: SerializeField] public ItemId Id { get; set; }
         
         // conditional properties
-        [SerializeReference] private PropertyBase[] _properties = {};
+        [SerializeReference] protected PropertyBase[] _properties;
+
+        public BaseItemData()
+        {
+            Id = ItemId.None;
+            _properties = Array.Empty<PropertyBase>();
+        }
         
         public bool TryGetProperty<T>(out PropertyBase propertyInstance) where T : PropertyBase
         {
