@@ -14,7 +14,8 @@ namespace Game.InteractableObjects.Implementations.PickableItem.Installers
         {
             base.InstallBindings();
 
-            Container.Bind<PickableItemModel>()
+            Container
+                .Bind<PickableItemModel>()
                 .FromInstance(_pickableItemModel)
                 .AsSingle();
         }

@@ -102,14 +102,15 @@ namespace Game.Inventory.Cells.CellsContainer.Models
                             int itemsToAddCount = currentItem.Data.Count >= itemsCountCanBeAdded
                                 ? itemsCountCanBeAdded
                                 : currentItem.Data.Count;
-
-                            currentItem.Data.Count -= itemsToAddCount;
                             
                             var newCellItem = (InventoryItemModel)currentItem.Clone();
+                            newCellItem.Data.Count = itemsToAddCount;
                             currentCell.SetItem(newCellItem);
+                            
+                            currentItem.Data.Count -= itemsToAddCount;
                         }
                     }
-
+                    
                     if (AllItemsAreSpread(items))
                     {
                         return;

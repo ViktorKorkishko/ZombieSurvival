@@ -18,7 +18,7 @@ namespace Game.InteractableObjects.Implementations.PickableItem.Models
         public ItemData PickUp()
         {
             OnPickedUp?.Invoke();
-            return Data;
+            return (ItemData)Data.Clone();
         }
     }
 }

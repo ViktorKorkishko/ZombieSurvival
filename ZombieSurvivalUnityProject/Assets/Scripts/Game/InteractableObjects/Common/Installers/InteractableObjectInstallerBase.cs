@@ -14,7 +14,7 @@ namespace Game.InteractableObjects.Common.Installers
         [Header("Object type")]
         [SerializeField] private InteractableObjectType _type;
         
-        public override  void InstallBindings()
+        public override void InstallBindings()
         {
             Container
                 .Bind<InteractableObjectModel>()
