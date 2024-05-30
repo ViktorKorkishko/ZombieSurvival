@@ -2,7 +2,7 @@
 {
     public enum InteractableObjectType
     {
-        Common,
+        InteractableObject,
         PickableItem,
     }
 }

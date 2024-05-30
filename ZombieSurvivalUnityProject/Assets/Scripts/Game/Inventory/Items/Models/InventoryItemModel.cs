@@ -1,26 +1,22 @@
 ﻿using System;
 using Game.Items.Data;
-using Game.Items.Enums;
 
 namespace Game.Inventory.Items.Models
 {
     public class InventoryItemModel : ICloneable
     {
-        public ItemData Data { get; private set; }
+        public ItemData Data { get; }
         
-        public InventoryItemModel(ItemId id, int count)
+        public InventoryItemModel(ItemData itemData)
         {
-            Data = new ItemData
-            {
-                Id = id,
-                Count = count,
-            };
+            Data = itemData;
         }
-        
+
         public object Clone()
         {
-            var clone = MemberwiseClone();
-            return clone;
+            var clonedData = (ItemData)Data.Clone();
+            var itemModelClone = new InventoryItemModel(clonedData);
+            return itemModelClone;
         }
     }
 }

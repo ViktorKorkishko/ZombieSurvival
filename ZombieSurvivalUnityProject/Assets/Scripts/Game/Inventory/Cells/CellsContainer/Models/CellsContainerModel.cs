@@ -5,8 +5,10 @@ using Game.Inventory.Cells.Core.Controllers;
 using Game.Inventory.Cells.Core.Models;
 using Game.Inventory.Cells.Core.Views;
 using Game.Inventory.Items.Models;
+using Game.Items.Data;
 using Game.Items.Database;
 using Game.Items.Enums;
+using Game.Items.Properties.Implementations;
 using UnityEngine;
 using Zenject;
 
@@ -39,9 +41,9 @@ namespace Game.Inventory.Cells.CellsContainer.Models
                 cellController.Init();
 
                 var cellData = cellsDataList[i];
-                if (cellData.ItemId != ItemId.None)
+                if (cellData.ItemData.Id != ItemId.None)
                 {
-                    var inventoryItemModel = new InventoryItemModel(cellData.ItemId, cellData.Count);
+                    var inventoryItemModel = new InventoryItemModel(cellData.ItemData);
                     cellModel.SetItem(inventoryItemModel);
                 }
                 else
@@ -96,13 +98,15 @@ namespace Game.Inventory.Cells.CellsContainer.Models
                         var itemId = currentItem.Data.Id;
                         if (ItemsDataBase.TryGetItemData(itemId, out var itemData))
                         {
-                            int itemsCountCanBeAdded = itemData.MaxStackCount - 0;
+                            int itemsCountCanBeAdded = itemData.MaxStackCount;
                             int itemsToAddCount = currentItem.Data.Count >= itemsCountCanBeAdded
                                 ? itemsCountCanBeAdded
                                 : currentItem.Data.Count;
-                            var newCellItem = new InventoryItemModel(itemId, itemsToAddCount);
-                            currentCell.SetItem(newCellItem);
+
                             currentItem.Data.Count -= itemsToAddCount;
+                            
+                            var newCellItem = (InventoryItemModel)currentItem.Clone();
+                            currentCell.SetItem(newCellItem);
                         }
                     }
 
@@ -122,7 +126,7 @@ namespace Game.Inventory.Cells.CellsContainer.Models
         
         private bool AllItemsAreSpread(IEnumerable<InventoryItemModel> items)
         {
-            return items.All(x => x.Data.Count <= 0);
+            return items.All(x => x.Data.Count == 0);
         }
     }
 }
