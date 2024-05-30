@@ -1,15 +1,16 @@
 ﻿using Core.Lifetime.Facade;
-using Game.Weapons.Reload.Models;
+using Game.InteractableObjects.Implementations.PickableItem.Models;
+using Game.Items.Data;
 
 namespace Game.Weapons.WorldObject.Facade
 {
-    public class WeaponWorldObjectFacade : FacadeBase<Data>
+    public class WeaponWorldObjectFacade : FacadeBase
     {
-        private WeaponMagazineModel WeaponMagazineModel => DiContainer.Resolve<WeaponMagazineModel>();
+        private PickableItemModel PickableItemModel => DiContainer.Resolve<PickableItemModel>();
 
-        public override void InitData(Data data)
+        public override void Init(ItemData data)
         {
-            WeaponMagazineModel.LoadBullets(data.BulletsCount);
+            PickableItemModel.Initialize(data);
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Core.Installers;
 using Core.Lifetime.Facade;
+using Game.Items.Data;
 using Game.Items.Enums;
 using Game.Weapons.Common;
 using Game.Weapons.Reload.Models;
@@ -10,7 +11,6 @@ namespace Game.Weapons.Facade
 {
     public class WeaponFacade : FacadeBase
     {
-        public ItemId ItemId => DiContainer.Resolve<ItemId>();
         public WeaponId WeaponId => DiContainer.Resolve<WeaponId>();
         public Transform Root => DiContainer.ResolveId<Transform>(BindingIdentifiers.Root);
         
@@ -18,5 +18,7 @@ namespace Game.Weapons.Facade
         public GameObject MagazineGameObject => DiContainer.ResolveId<GameObject>(BindingIdentifiers.MagazineGameObject);
         
         public WeaponShootModel ShootModel => DiContainer.Resolve<WeaponShootModel>();
+        
+        public override void Init(ItemData data) { }
     }
 }

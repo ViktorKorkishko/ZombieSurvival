@@ -1,8 +1,7 @@
-﻿using Core.Lifetime.Facade;
-using UnityEngine;
+﻿using UnityEngine;
 using Zenject;
 
-namespace Game.Common.Installers
+namespace Core.Lifetime.Facade.Installer
 {
     public class BaseFacadeInstaller : MonoInstaller
     {
@@ -10,7 +9,7 @@ namespace Game.Common.Installers
         
         public override void InstallBindings()
         {
-            _facadeBase.SetDiContainer(Container);
+            _facadeBase.InitDiContainer(Container);
         }
     }
 }
