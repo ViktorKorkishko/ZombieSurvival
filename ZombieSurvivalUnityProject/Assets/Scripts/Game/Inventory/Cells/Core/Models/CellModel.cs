@@ -1,6 +1,7 @@
 ﻿using System;
 using Game.Common.SelectableCollection.Interfaces;
 using Game.Inventory.Items.Models;
+using Game.Items.Data;
 using Game.Items.Enums;
 
 namespace Game.Inventory.Cells.Core.Models
@@ -9,6 +10,7 @@ namespace Game.Inventory.Cells.Core.Models
     {
         public ItemId ItemId => _item.Data.Id;
         public int ItemCount => _item.Data.Count;
+        public ItemData ItemData => _item.Data;
         public bool ContainsItem => _item != null;
         public bool IsSelected { get; private set; }
         

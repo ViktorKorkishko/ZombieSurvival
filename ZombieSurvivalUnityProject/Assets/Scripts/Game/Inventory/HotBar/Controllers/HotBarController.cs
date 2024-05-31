@@ -10,6 +10,7 @@ using Game.Inventory.Cells.Core.Models;
 using Game.Inventory.HotBar.Models;
 using Game.Inventory.HotBar.Views;
 using Game.Inventory.Items.Models;
+using Game.Items.Data;
 using Game.Items.Database;
 using Game.Items.Properties.Implementations;
 using Game.Weapons.Facade;
@@ -128,12 +129,12 @@ namespace Game.Inventory.HotBar.Controllers
             {
                 if (itemData.TryGetProperty<PickableItemProperty>(out var pickableItemProperty))
                 {
-                    HandleWeapon(pickableItemProperty as PickableItemProperty);
+                    HandleWeapon(cellModel.ItemData, pickableItemProperty as PickableItemProperty);
                 }
             }
         }
 
-        private void HandleWeapon(PickableItemProperty pickableItemProperty)
+        private void HandleWeapon(ItemData itemData, PickableItemProperty pickableItemProperty)
         {
             if (CurrentWeaponModel.IsWeaponEquipped)
             {
@@ -141,8 +142,9 @@ namespace Game.Inventory.HotBar.Controllers
             }
 
             var weaponPrefab = pickableItemProperty.ItemPrefab;
-            var weaponGameObject = Instantiator.InstantiatePrefabForComponent<WeaponFacade>(weaponPrefab);
-            CharacterWeaponPickUpModel.PickUp(weaponGameObject);
+            var weaponFacade = Instantiator.InstantiatePrefabForComponent<WeaponFacade>(weaponPrefab);
+            CharacterWeaponPickUpModel.PickUp(weaponFacade);
+            weaponFacade.Init(itemData);
         }
     }
 }

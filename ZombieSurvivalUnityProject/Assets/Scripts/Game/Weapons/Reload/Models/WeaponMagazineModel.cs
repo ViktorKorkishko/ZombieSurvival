@@ -1,7 +1,6 @@
 using System;
 using Game.Weapons.Common.Config;
 using Game.Weapons.Shoot.Models;
-using UnityEngine;
 using Zenject;
 
 namespace Game.Weapons.Reload.Models

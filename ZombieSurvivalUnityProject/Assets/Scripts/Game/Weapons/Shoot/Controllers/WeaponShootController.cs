@@ -17,14 +17,11 @@ namespace Game.Weapons.Shoot.Controllers
         [Inject] private WeaponMagazineModel WeaponMagazineModel { get; }
         [Inject] private WeaponReloadModel WeaponReloadModel { get; }
         [Inject] private WeaponShootView WeaponShootView { get; }
-        [Inject] private CameraModel CameraModel { get; }
         [Inject] private WeaponConfig WeaponConfig { get; }
         [Inject] private LayerMask LayerMask { get; }
         [Inject(Id = BindingIdentifiers.BulletTrailRenderer)] private TrailRenderer BulletTrailRenderer { get; }
         [Inject(Id = BindingIdentifiers.WeaponShootStartPointTransform)] private Transform WeaponShootStartPointTransform { get; }
         [Inject(Id = BindingIdentifiers.CrosshairTargetPointTransform)] private Transform CrosshairTargetPointTransform { get; }
-        
-        private Transform MainCameraTransform => CameraModel.GetMainCamera().transform;
         
         // 60 sec / fireRate (shots per minute)
         private float TimeBetweenShots => 60f / WeaponConfig.FireRate;
