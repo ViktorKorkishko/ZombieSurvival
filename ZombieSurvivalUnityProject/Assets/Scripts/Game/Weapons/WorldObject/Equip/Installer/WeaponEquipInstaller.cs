@@ -4,7 +4,7 @@ using Game.Weapons.Equip.Models;
 using UnityEngine;
 using Zenject;
 
-namespace Game.Weapons.Equip.Installer
+namespace Game.Weapons.WorldObject.Equip.Installer
 {
     public class WeaponEquipInstaller : MonoInstaller
     {

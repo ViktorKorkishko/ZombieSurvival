@@ -31,7 +31,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7875126740562467439}
-  - {fileID: 7272949591450380744}
+  - {fileID: 5687927958178616748}
   m_Father: {fileID: 8112202948074884216}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!54 &7334978504398799373
@@ -89,7 +89,7 @@ Transform:
   m_GameObject: {fileID: 5283538352538391137}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0.3}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -116,7 +116,7 @@ MeshCollider:
   serializedVersion: 5
   m_Convex: 1
   m_CookingOptions: 30
-  m_Mesh: {fileID: 4300000, guid: 77170bfa0b77a574d933339a43fa9878, type: 3}
+  m_Mesh: {fileID: 4300000, guid: 710f9bac1a26064439306a44e742c04b, type: 3}
 --- !u!114 &7791642376845455990
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -154,7 +154,7 @@ GameObject:
   - component: {fileID: 6382987911619683099}
   - component: {fileID: 7819616893094974601}
   m_Layer: 0
-  m_Name: AK47WorldObjectPrefab
+  m_Name: ColtWorldObjectPrefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -221,45 +221,6 @@ Transform:
   - {fileID: 7788151638608049890}
   m_Father: {fileID: 6382987911619683099}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1001 &5185485219955760374
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 7788151638608049890}
-    m_Modifications:
-    - target: {fileID: 1666364893988440217, guid: 5673f9b983b8fe645a509a7bbf2bbb07, type: 3}
-      propertyPath: m_Name
-      value: AK47View
-      objectReference: {fileID: 0}
-    - target: {fileID: 2528839685971162430, guid: 5673f9b983b8fe645a509a7bbf2bbb07, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2528839685971162430, guid: 5673f9b983b8fe645a509a7bbf2bbb07, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2528839685971162430, guid: 5673f9b983b8fe645a509a7bbf2bbb07, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 5673f9b983b8fe645a509a7bbf2bbb07, type: 3}
---- !u!4 &7272949591450380744 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 2528839685971162430, guid: 5673f9b983b8fe645a509a7bbf2bbb07, type: 3}
-  m_PrefabInstance: {fileID: 5185485219955760374}
-  m_PrefabAsset: {fileID: 0}
---- !u!23 &7353556928237843337 stripped
-MeshRenderer:
-  m_CorrespondingSourceObject: {fileID: 2448724845164949375, guid: 5673f9b983b8fe645a509a7bbf2bbb07, type: 3}
-  m_PrefabInstance: {fileID: 5185485219955760374}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &8294584454564424321
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -272,10 +233,18 @@ PrefabInstance:
       propertyPath: _weaponRoot
       value: 
       objectReference: {fileID: 6382987911619683099}
+    - target: {fileID: 769347192334378729, guid: 873f2e40eab25464ea9af9352e19013b, type: 3}
+      propertyPath: _weaponId
+      value: 11
+      objectReference: {fileID: 0}
     - target: {fileID: 1247814803935707011, guid: 873f2e40eab25464ea9af9352e19013b, type: 3}
       propertyPath: _renderer
       value: 
-      objectReference: {fileID: 7353556928237843337}
+      objectReference: {fileID: 7849589015804046733}
+    - target: {fileID: 1381116015213326393, guid: 873f2e40eab25464ea9af9352e19013b, type: 3}
+      propertyPath: <Data>k__BackingField.<Id>k__BackingField
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 2721049256012269099, guid: 873f2e40eab25464ea9af9352e19013b, type: 3}
       propertyPath: m_Name
       value: Context
@@ -361,3 +330,42 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 08eca9f7688a0a24685b89133b020c8e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1001 &8397202627655946073
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 7788151638608049890}
+    m_Modifications:
+    - target: {fileID: 4208419355246402293, guid: 1a94395344bcc8f4a835039d6c96fe97, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4208419355246402293, guid: 1a94395344bcc8f4a835039d6c96fe97, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4208419355246402293, guid: 1a94395344bcc8f4a835039d6c96fe97, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5347427918498004283, guid: 1a94395344bcc8f4a835039d6c96fe97, type: 3}
+      propertyPath: m_Name
+      value: ColtView
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 1a94395344bcc8f4a835039d6c96fe97, type: 3}
+--- !u!4 &5687927958178616748 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4208419355246402293, guid: 1a94395344bcc8f4a835039d6c96fe97, type: 3}
+  m_PrefabInstance: {fileID: 8397202627655946073}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &7849589015804046733 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 1758529014284559060, guid: 1a94395344bcc8f4a835039d6c96fe97, type: 3}
+  m_PrefabInstance: {fileID: 8397202627655946073}
+  m_PrefabAsset: {fileID: 0}
