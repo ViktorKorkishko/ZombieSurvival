@@ -121,8 +121,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de3d0ef3115f43058852449bfcce8dc7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _itemId: 1
-  _count: 1
+  <Data>k__BackingField:
+    <Id>k__BackingField: 0
+    _properties: []
+    <Count>k__BackingField: 0
+  references:
+    version: 2
+    RefIds: []
 --- !u!1 &3914857483399881304
 GameObject:
   m_ObjectHideFlags: 0
@@ -212,7 +217,7 @@ GameObject:
   m_Layer: 0
   m_Name: PainkillerPillsPrefab
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: -5487077368411116049, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1

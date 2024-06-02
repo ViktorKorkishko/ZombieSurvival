@@ -68,7 +68,7 @@ namespace Game.InteractableObjects.Implementations.Door.Controllers
                 }
             }
         }
-
+        
         private void HandleOnInteractionStarted(DoorState doorState, Action interactionEndedCallback)
         {
             InteractionEndedCallback = interactionEndedCallback;
