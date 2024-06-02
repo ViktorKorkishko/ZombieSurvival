@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Coroutines.Models;
@@ -14,18 +15,48 @@ namespace Game.Loading
     {
         [Inject] private DiContainer DiContainer { get; }
         [Inject] private CoroutinePlayerModel CoroutinePlayerModel { get; }
-
+        
+        private string _gameSceneName => "GameScene";
+        private string _loadingSceneName => "LoadingScene";
+        
         public override void Initialize()
         {
-            var saveGroups = DiContainer.ResolveAll<SaveGroup>();
-            CoroutinePlayerModel.StartCoroutine(WaitForInit(saveGroups));
+            CoroutinePlayerModel.StartCoroutine(LoadGame());
+            
+            SceneManager.sceneUnloaded += HandleSceneUnloaded;
+            SceneManager.sceneUnloaded += HandleLoadingSceneUnloaded;
+            SceneManager.UnloadSceneAsync(_loadingSceneName);
         }
 
-        private IEnumerator WaitForInit(List<SaveGroup> saveGroups)
+        private IEnumerator LoadGame()
+        {
+            var saveGroups = DiContainer.ResolveAll<SaveGroup>();
+            yield return WaitForSaveGroupsInitialization(saveGroups);
+            yield return WaitForGameSceneLoad();
+        }
+
+        private IEnumerator WaitForSaveGroupsInitialization(List<SaveGroup> saveGroups)
         {
             yield return new WaitUntil(() => saveGroups.All(x => x.Initialized));
-            yield return SceneManager.LoadSceneAsync("GameScene");
-            Debug.Log("Inited");
+        }
+
+        private IEnumerator WaitForGameSceneLoad()
+        {
+            yield return SceneManager.LoadSceneAsync(_gameSceneName);
+        }
+
+        private void HandleSceneUnloaded(UnityEngine.SceneManagement.Scene scene)
+        {
+            Debug.Log($"Scene [{scene.name}] unloaded");
+        }
+
+        private void HandleLoadingSceneUnloaded(UnityEngine.SceneManagement.Scene scene)
+        {
+            if (scene.name != _loadingSceneName)
+                return;
+
+            SceneManager.sceneUnloaded -= HandleSceneUnloaded;
+            SceneManager.sceneUnloaded -= HandleLoadingSceneUnloaded;
         }
     }
 }
