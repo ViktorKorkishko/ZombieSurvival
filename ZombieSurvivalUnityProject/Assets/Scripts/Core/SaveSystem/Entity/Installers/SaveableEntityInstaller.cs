@@ -9,7 +9,9 @@ namespace Core.SaveSystem.Entity.Installers
         
         public override void InstallBindings()
         {
-            Container.BindInstance(_saveableEntity).AsSingle();
+            Container
+                .BindInstance(_saveableEntity)
+                .AsSingle();
         }
     }
 }

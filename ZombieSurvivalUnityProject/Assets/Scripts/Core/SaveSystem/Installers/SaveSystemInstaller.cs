@@ -18,20 +18,17 @@ namespace Core.SaveSystem.Installers
             Container
                 .Bind<LocalStoragePathProvider>()
                 .AsSingle();
-
-            #region SaveGroups
-
+            
             BindSaveGroup(SaveGroupId.Character);
             BindSaveGroup(SaveGroupId.GameWorld);
             BindSaveGroup(SaveGroupId.Project);
             BindSaveGroup(SaveGroupId.Inventory);
-            
-            #endregion
         }
-
+        
         private void BindSaveGroup(SaveGroupId saveGroupId)
         {
-            Container.BindInterfacesAndSelfTo<SaveGroup>()
+            Container
+                .BindInterfacesAndSelfTo<SaveGroup>()
                 .AsCached()
                 .WithArguments(saveGroupId);
         }

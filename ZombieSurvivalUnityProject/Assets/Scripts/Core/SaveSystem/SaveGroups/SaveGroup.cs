@@ -1,12 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.IO;
+using Core.Lifetime;
 using Core.SaveSystem.Saving.Common.Path;
 using Newtonsoft.Json;
 using Zenject;
 
 namespace Core.SaveSystem.SaveGroups
 {
-    public class SaveGroup : IInitializable
+    public class SaveGroup : SelfInitializableModel
     {
         [Inject] private LocalStoragePathProvider PathProvider { get; }
         
@@ -21,11 +22,12 @@ namespace Core.SaveSystem.SaveGroups
             SaveGroupId = saveGroupId;
         }
 
-        void IInitializable.Initialize()
+        public override void Initialize()
         {
             InitData();
+            Initialized = true;
         }
-
+        
         private void InitData()
         {
             string saveGroupFilePath = BuildPath();
