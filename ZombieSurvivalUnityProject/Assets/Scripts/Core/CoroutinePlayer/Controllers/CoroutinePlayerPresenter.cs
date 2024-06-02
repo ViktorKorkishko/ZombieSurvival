@@ -42,6 +42,7 @@ namespace Core.Coroutines.Controllers
             if (_indexToCoroutineDictionary.TryGetValue(coroutineIndex, out var coroutine))
             {
                 CoroutinePlayerView.StopCoroutine(coroutine);
+                _indexToCoroutineDictionary[coroutineIndex] = null;
                 _indexToCoroutineDictionary.Remove(coroutineIndex);
             }
         }
