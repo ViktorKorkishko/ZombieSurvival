@@ -16,7 +16,6 @@ namespace Core.SaveSystem.Models
 
         protected abstract string DataKey { get; }
         protected T Data => _data;
-
         private string Id => SaveableEntity.Id;
 
         private T _data;
@@ -39,7 +38,7 @@ namespace Core.SaveSystem.Models
                     case Result.LoadedSuccessfully:
                         _data = data;
                         break;
-
+                    
                     default:
                         Debug.LogError(new EnumNotSupportedException<Result>(loadResult.Result));
                         break;

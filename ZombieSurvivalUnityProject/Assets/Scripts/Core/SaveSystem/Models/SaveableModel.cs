@@ -1,5 +1,6 @@
 ﻿using System;
 using Core.Exceptions;
+using Core.Lifetime;
 using Core.SaveSystem.Entity;
 using Core.SaveSystem.Saving.Common.Load;
 using Core.SaveSystem.Saving.Interfaces;
@@ -8,32 +9,35 @@ using Zenject;
 
 namespace Core.SaveSystem.Models
 {
-    public abstract class SaveableModel<T> : IInitializable, IDisposable
-        where T : new()
+    public abstract class SaveableModel<TData> : SelfInitializableModel 
+        where TData : new()
     {
         [Inject] private ISaveSystemModel SaveSystemModel { get; }
-        [Inject] private SaveableEntity SaveableEntity { get; }
-
-        protected abstract string DataKey { get; }
+        private SaveableEntity SaveableEntity { get; }
         
-        protected T Data => _data;
-        private string Id => SaveableEntity.Id;
+        protected abstract string DataKey { get; }
+        protected TData Data => _data;
 
-        private T _data;
+        private TData _data;
 
-        public virtual void Initialize()
+        public SaveableModel(SaveableEntity entity)
         {
-            SaveSystemModel.Load<T>(Id, DataKey, SaveableEntity.SaveGroup, loadResult =>
+            SaveableEntity = entity;
+        }
+        
+        public override void Initialize()
+        {
+            SaveSystemModel.Load<TData>(SaveableEntity.Id, DataKey, SaveableEntity.SaveGroup, loadResult =>
             {
                 var data = loadResult.Data;
                 switch (loadResult.Result)
                 {
                     case Result.LoadedWithErrors:
-                        _data = new T();
+                        _data = new TData();
                         break;
                     
                     case Result.SaveFileNotFound:
-                        _data = new T();
+                        _data = new TData();
                         break;
                     
                     case Result.LoadedSuccessfully:
@@ -49,19 +53,14 @@ namespace Core.SaveSystem.Models
             });
         }
 
-        public virtual void Dispose()
+        public override void Dispose()
         {
             HandleOnDataPreSaved();
             
-            SaveSystemModel.Save(Id, DataKey, SaveableEntity.SaveGroup, _data);
+            SaveSystemModel.Save(SaveableEntity.Id, DataKey, SaveableEntity.SaveGroup, _data);
         }
-
-        protected virtual void HandleOnDataLoaded(LoadResult<T> loadResult)
-        {
-        }
-
-        protected virtual void HandleOnDataPreSaved()
-        {
-        }
+        
+        protected virtual void HandleOnDataLoaded(LoadResult<TData> loadResult) { }
+        protected virtual void HandleOnDataPreSaved() { }
     }
 }

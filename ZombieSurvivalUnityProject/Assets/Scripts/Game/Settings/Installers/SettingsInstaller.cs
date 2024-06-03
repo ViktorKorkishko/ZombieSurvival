@@ -1,4 +1,5 @@
-﻿using Core.ViewSystem.Enums;
+﻿using Core.SaveSystem.Entity;
+using Core.ViewSystem.Enums;
 using Core.ViewSystem.Providers.Interfaces;
 using Game.Settings.Controllers;
 using Game.Settings.ViewModel;
@@ -10,6 +11,7 @@ namespace Game.Settings.Installers
 {
     public class SettingsInstaller : MonoInstaller
     {
+        [SerializeField] private SaveableEntity _saveableEntity;
         [SerializeField] private SettingsView _settingsViewPrefab;
 
         [Inject] private IViewProvider ViewProvider { get; }
@@ -18,7 +20,8 @@ namespace Game.Settings.Installers
         {
             Container
                 .BindInterfacesAndSelfTo<SettingsModel>()
-                .AsSingle();
+                .AsSingle()
+                .WithArguments(_saveableEntity);
             
             var viewInstance = ViewProvider.RegisterView(_settingsViewPrefab, ViewId.Settings, LayerId.Popups);
             

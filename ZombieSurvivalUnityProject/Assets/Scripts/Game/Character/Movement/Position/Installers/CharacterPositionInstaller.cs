@@ -1,4 +1,5 @@
 using Core.Installers;
+using Core.SaveSystem.Entity;
 using Game.Character.Movement.Position.Models;
 using UnityEngine;
 using Zenject;
@@ -7,12 +8,14 @@ namespace Game.Character.Movement.Position.Installers
 {
     public class CharacterPositionInstaller : MonoInstaller
     {
+        [SerializeField] private SaveableEntity _saveableEntity;
         [SerializeField] private Transform _viewRootTransform;
         
         public override void InstallBindings()
         {
             Container
-                .BindInterfacesAndSelfTo<CharacterPositionModel>().AsSingle();
+                .BindInterfacesAndSelfTo<CharacterPositionModel>()
+                .AsSingle();
             
             Container
                 .BindInstance(_viewRootTransform)

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Core.Installers;
+using Core.SaveSystem.Entity;
 using Core.SaveSystem.Models;
 using Game.Inventory.Cells.CellsContainer.Models;
 using Game.Inventory.HotBar.Models;
@@ -19,7 +20,8 @@ namespace Game.Inventory.Core.Models
 
         public Action<IEnumerable<InventoryItemModel>> OnItemsAdded { get; set; }
         
-        public InventoryModel(int initialInventoryCellsCount)
+        public InventoryModel(SaveableEntity saveableEntity, int initialInventoryCellsCount) 
+            : base(saveableEntity)
         {
             InitialInventoryCellsCount = initialInventoryCellsCount;
         }

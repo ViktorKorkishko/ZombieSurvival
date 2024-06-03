@@ -1,4 +1,5 @@
 ﻿using Core.Installers;
+using Core.SaveSystem.Entity;
 using Core.SaveSystem.Models;
 using Game.Inventory.Cells.CellsContainer.Models;
 using Zenject;
@@ -12,7 +13,8 @@ namespace Game.Inventory.HotBar.Models
         
         public int InitialHotBarCellsCount { get; }
         
-        public HotBarModel(int initialHotBarCellsCount)
+        public HotBarModel(SaveableEntity saveableEntity, int initialHotBarCellsCount) 
+            : base(saveableEntity)
         {
             InitialHotBarCellsCount = initialHotBarCellsCount;
         }

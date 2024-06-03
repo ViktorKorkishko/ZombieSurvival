@@ -158,6 +158,7 @@ PlayerSettings:
   androidSupportedAspectRatio: 1
   androidMaxAspectRatio: 2.1
   applicationIdentifier:
+    Android: com.VCoreEntertainment.ZombieSurvivalUnityProject
     Standalone: com.V-Core-Entertainment.ZombieSurvivalUnityProject
   buildNumber:
     Standalone: 0

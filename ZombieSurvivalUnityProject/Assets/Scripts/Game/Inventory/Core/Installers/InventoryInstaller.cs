@@ -1,4 +1,5 @@
 ﻿using Core.Installers;
+using Core.SaveSystem.Entity;
 using Core.ViewSystem.Enums;
 using Core.ViewSystem.Providers;
 using Core.ViewSystem.Providers.Interfaces;
@@ -22,6 +23,8 @@ namespace Game.Inventory.Core.Installers
     {
         [Inject] private IViewProvider ViewProvider { get; }
 
+        [SerializeField] private SaveableEntity _saveableEntity;
+        
         [Header("View")] 
         [SerializeField] private InventoryView _inventoryViewPrefab;
         [SerializeField] private HotBarView _hotBarViewPrefab;
@@ -46,7 +49,7 @@ namespace Game.Inventory.Core.Installers
             Container
                 .BindInterfacesAndSelfTo<InventoryModel>()
                 .AsSingle()
-                .WithArguments(_initialInventoryCellsCount);
+                .WithArguments(_saveableEntity, _initialInventoryCellsCount);
 
             var inventoryViewInstance = ViewProvider.RegisterView(_inventoryViewPrefab, ViewId.Inventory, LayerId.Windows);
             
@@ -100,7 +103,7 @@ namespace Game.Inventory.Core.Installers
                 Container
                     .BindInterfacesAndSelfTo<HotBarModel>()
                     .AsSingle()
-                    .WithArguments(_initialHotBarCellsCount);
+                    .WithArguments(_saveableEntity, _initialHotBarCellsCount);
                 
                 var hotBarViewInstance = ViewProvider.RegisterView(_hotBarViewPrefab, ViewId.HotBar, LayerId.HUD);
                 hotBarViewInstance.Show();
