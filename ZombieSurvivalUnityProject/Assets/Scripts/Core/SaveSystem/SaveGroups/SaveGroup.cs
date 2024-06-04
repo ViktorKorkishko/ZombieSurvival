@@ -12,16 +12,16 @@ namespace Core.SaveSystem.SaveGroups
         [Inject] private LocalStoragePathProvider PathProvider { get; }
         
         public SaveGroupId SaveGroupId { get; }
-
+        
         private Dictionary<string, Dictionary<string, object>> _objectToDataDictionary = new ();
         
         private const string k_jsonFileExtension = ".json";
-
+        
         public SaveGroup(SaveGroupId saveGroupId)
         {
             SaveGroupId = saveGroupId;
         }
-
+        
         public override void Initialize()
         {
             InitData();
@@ -52,7 +52,7 @@ namespace Core.SaveSystem.SaveGroups
                 _objectToDataDictionary = JsonConvert.DeserializeObject<Dictionary<string, Dictionary<string, object>>>(saveGroupJson);
             }
         }
-
+        
         public Dictionary<string, object> LoadEntity(string entityId)
         {
             if (_objectToDataDictionary.TryGetValue(entityId, out var entityComponentsData))
@@ -62,7 +62,7 @@ namespace Core.SaveSystem.SaveGroups
 
             return new Dictionary<string, object>();
         }
-
+        
         public void SaveEntity<T>(string entityId, string dataKey, T data)
         {
             if (_objectToDataDictionary.TryGetValue(entityId, out var entityComponentsData))
@@ -80,7 +80,7 @@ namespace Core.SaveSystem.SaveGroups
             
             SaveDictionary();
         }
-            
+        
         private void SaveDictionary()
         {
             string path = BuildPath();
@@ -91,7 +91,7 @@ namespace Core.SaveSystem.SaveGroups
                 fileStream.Write(dictionaryJson);
             }
         }
-
+        
         private string BuildPath()
         {
             var path = Path.Combine(PathProvider.Path, SaveGroupId + k_jsonFileExtension);

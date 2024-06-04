@@ -8,7 +8,7 @@ namespace Core.Lifetime
         public bool Initialized { get; protected set; }
         
         public abstract void Initialize();
-
+        
         public virtual void Dispose() { }
     }
 }
