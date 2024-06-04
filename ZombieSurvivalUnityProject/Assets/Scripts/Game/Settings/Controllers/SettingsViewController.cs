@@ -14,6 +14,7 @@ namespace Game.Settings.Controllers
 
         protected override void HandleOnShow()
         {
+            SettingsModel.OnSensitivityChanged += HandleOnSensitivityChanged;
             View.OnSliderValueChanged += HandleOnSliderValueChanged;
             
             View.SetSensitivitySliderValue(SettingsModel.Sensitivity);
@@ -21,12 +22,18 @@ namespace Game.Settings.Controllers
 
         protected override void HandleOnHide(IView view)
         {
+            SettingsModel.OnSensitivityChanged -= HandleOnSensitivityChanged;
             View.OnSliderValueChanged -= HandleOnSliderValueChanged;
+        }
+
+        private void HandleOnSensitivityChanged(float value)
+        {
+            View.SetSensitivitySliderValue(value);
         }
 
         private void HandleOnSliderValueChanged(float value)
         {
-            SettingsModel.Sensitivity = value;
+            SettingsModel.SetSensitivity(value);
         }
     }
 }

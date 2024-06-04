@@ -13,9 +13,9 @@ namespace Game.Settings.Installers
     {
         [SerializeField] private SaveableEntity _saveableEntity;
         [SerializeField] private SettingsView _settingsViewPrefab;
-
+        
         [Inject] private IViewProvider ViewProvider { get; }
-
+        
         public override void InstallBindings()
         {
             Container

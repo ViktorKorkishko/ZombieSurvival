@@ -6,19 +6,28 @@ namespace Game.Settings.ViewModel
     {
         public new class Data
         {
-            public float CameraSensitivity { get; set; }
+            public float Sensitivity { get; set; }
         }
-
+        
         protected override string DataKey => "SettingsViewModel.Data";
 
         protected override void HandleOnDataLoaded(LoadResult<Data> loadResult)
         {
-            Sensitivity = base.Data.CameraSensitivity;
+            switch (loadResult.Result)
+            {
+                case Result.LoadedSuccessfully:
+                    Sensitivity = base.Data.Sensitivity;
+                    break;
+                
+                default:
+                    Sensitivity = defaultSensitivity;
+                    break;
+            }
         }
-
+        
         protected override void HandleOnDataPreSaved()
         {
-            base.Data.CameraSensitivity = Sensitivity;
+            base.Data.Sensitivity = Sensitivity;
         }
     }
 }
