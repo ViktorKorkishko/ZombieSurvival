@@ -1,5 +1,5 @@
 ﻿using Core.Exceptions;
-using Core.Lifetime;
+using Core.Lifetime.Initialization;
 using Core.SaveSystem.Entity;
 using Core.SaveSystem.Saving.Common.Load;
 using Core.SaveSystem.Saving.Interfaces;
@@ -50,13 +50,14 @@ namespace Core.SaveSystem.Models
 
                 HandleOnDataLoaded(loadResult);
             });
+
+            Initialized = true;
         }
 
         public override void Dispose()
         {
             HandleOnDataPreSaved();
-            
-            SaveSystemModel.Save(SaveableEntity.Id, DataKey, SaveableEntity.SaveGroup, _data);
+            SaveSystemModel.Save(SaveableEntity.Id, DataKey, SaveableEntity.SaveGroup, _data,_ => Initialized = false);
         }
         
         protected virtual void HandleOnDataLoaded(LoadResult<TData> loadResult) { }

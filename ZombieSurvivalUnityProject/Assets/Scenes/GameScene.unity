@@ -24003,14 +24003,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5960698908469335093, guid: 3a935acdcdf6e6c4abf52521d6832621, type: 3}
-      propertyPath: m_AdditionalShaderChannelsFlag
-      value: 25
-      objectReference: {fileID: 0}
-    - target: {fileID: 6609350203733443817, guid: 3a935acdcdf6e6c4abf52521d6832621, type: 3}
-      propertyPath: m_BlockingMask.m_Bits
-      value: 55
-      objectReference: {fileID: 0}
     - target: {fileID: 7332202026284219035, guid: 3a935acdcdf6e6c4abf52521d6832621, type: 3}
       propertyPath: m_Name
       value: GameUI

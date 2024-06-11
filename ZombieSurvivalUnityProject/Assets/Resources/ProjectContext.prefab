@@ -57,7 +57,6 @@ MonoBehaviour:
   - {fileID: 2156966667260040678}
   - {fileID: 447755918404137296}
   - {fileID: 4006104094862263738}
-  - {fileID: 8929764887910131310}
   - {fileID: 3776172258891292114}
   - {fileID: 4385665433906866890}
   _installerPrefabs: []
@@ -538,7 +537,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4169185141665203181}
-  - component: {fileID: 8929764887910131310}
   - component: {fileID: 8304883565528158653}
   m_Layer: 0
   m_Name: SaveableEntity
@@ -562,19 +560,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 5304358377258827808}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8929764887910131310
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7901554648356314134}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ae3a8adefa154814a7d1f962d21220e6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _saveableEntity: {fileID: 8304883565528158653}
 --- !u!114 &8304883565528158653
 MonoBehaviour:
   m_ObjectHideFlags: 0

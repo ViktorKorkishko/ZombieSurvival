@@ -507,6 +507,52 @@ Transform:
   m_Children: []
   m_Father: {fileID: 991004977234688011}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &6063198081884038419
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 69535882184053125}
+  - component: {fileID: 7150703188259692016}
+  m_Layer: 0
+  m_Name: WorldObjectsInstaller
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &69535882184053125
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6063198081884038419}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 4967909341668657277}
+  m_Father: {fileID: 8148176206756244699}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7150703188259692016
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6063198081884038419}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e6a4a6fd9cd4101bbac6bd351815f8e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _saveableEntity: {fileID: 4762562051720686064}
 --- !u!1 &6709183401339559596
 GameObject:
   m_ObjectHideFlags: 0
@@ -518,7 +564,7 @@ GameObject:
   - component: {fileID: 3045387262500624074}
   - component: {fileID: 6848758325185531716}
   m_Layer: 0
-  m_Name: SaveableEntity
+  m_Name: InventorySaveableEntity
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -553,6 +599,52 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _groupId: 4
   _id: eefc06d2-ea0c-4e90-82af-16a7a81aa668
+--- !u!1 &7536580473088020662
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4967909341668657277}
+  - component: {fileID: 4762562051720686064}
+  m_Layer: 0
+  m_Name: WorldObjectsSaveableEntity
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4967909341668657277
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7536580473088020662}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 69535882184053125}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4762562051720686064
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7536580473088020662}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: acbeec5908864a42b1d5ad1f5a0c443a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _groupId: 2
+  _id: 4417188c-b49c-43a3-964e-647b16a22812
 --- !u!1 &7668656959331566217
 GameObject:
   m_ObjectHideFlags: 0
@@ -589,6 +681,7 @@ Transform:
   - {fileID: 6010472744370720100}
   - {fileID: 4273805106411973910}
   - {fileID: 5848294134952041963}
+  - {fileID: 69535882184053125}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &6686365681582256755
@@ -627,6 +720,7 @@ MonoBehaviour:
   - {fileID: 7522171125647939078}
   - {fileID: 5266640900742302744}
   - {fileID: 5901277715374501854}
+  - {fileID: 7150703188259692016}
   _installerPrefabs: []
   _autoRun: 1
   OnPreInstall:

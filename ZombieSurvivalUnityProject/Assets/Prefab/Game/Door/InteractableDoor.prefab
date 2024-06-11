@@ -47,6 +47,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _interactableObjectView: {fileID: 2769880399989732461}
   _type: 0
+  _saveableEntity: {fileID: 114766894632910464}
   _interactableDoorModel: {fileID: 6816906259591825166}
   _rigidbody: {fileID: 1307277202588287838}
 --- !u!114 &6816906259591825166
@@ -212,7 +213,6 @@ MonoBehaviour:
   _monoInstallers:
   - {fileID: 495201938598541546}
   - {fileID: 5834182594896026074}
-  - {fileID: 4224087606287057473}
   _installerPrefabs: []
   _autoRun: 1
   _kernel: {fileID: 0}
@@ -383,7 +383,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5787336299708180457}
-  - component: {fileID: 4224087606287057473}
   - component: {fileID: 114766894632910464}
   m_Layer: 0
   m_Name: SaveableEntity
@@ -407,19 +406,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 50161081520541489}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4224087606287057473
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8989456324597547069}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ae3a8adefa154814a7d1f962d21220e6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _saveableEntity: {fileID: 114766894632910464}
 --- !u!114 &114766894632910464
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -1,4 +1,4 @@
-﻿namespace Core.Lifetime
+﻿namespace Core.Lifetime.Initialization
 {
     public abstract class InitializableModel
     {

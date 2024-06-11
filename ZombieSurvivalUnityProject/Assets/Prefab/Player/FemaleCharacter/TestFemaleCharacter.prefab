@@ -1481,8 +1481,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1576859461503583322}
   - {fileID: 69286869104623393}
+  - {fileID: 1576859461503583322}
   - {fileID: 976717954847496381}
   - {fileID: 4814511217786906718}
   - {fileID: 8674749588377232707}
@@ -2162,7 +2162,7 @@ GameObject:
   - component: {fileID: 69286869104623393}
   - component: {fileID: 3594294422832555175}
   m_Layer: 0
-  m_Name: SaveableEntity
+  m_Name: CharacterSaveableEntity
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

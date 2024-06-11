@@ -24,14 +24,15 @@ namespace Core.SaveSystem.Entity
             SaveGroup = saveGroups.FirstOrDefault(x => x.SaveGroupId == GroupId);
         }
         
-#if UNITY_EDITOR
         // triggered when script is attached to a gameObject
         private void Reset()
         {
             GenerateNewId();
         }
+        
+#if UNITY_EDITOR
+        [ContextMenu(nameof(GenerateNewId))]
 #endif
-
         private void GenerateNewId()
         {
             _id = _guidFactory.GetGuid().ToString();

@@ -8,37 +8,42 @@ using Zenject;
 
 namespace Core.SaveSystem.Models
 {
-    public abstract class MonoSaveableModel<T> : MonoBehaviour, IInitializable, IDisposable 
-        where T : new()
+    public abstract class MonoSaveableModel<TData> : MonoBehaviour, IInitializable, IDisposable 
+        where TData : new()
     {
         [Inject] private ISaveSystemModel SaveSystemModel { get; }
-        [Inject] private SaveableEntity SaveableEntity { get; }
-
+        private SaveableEntity SaveableEntity { get; set; }
+        
         protected abstract string DataKey { get; }
-        protected T Data => _data;
-        private string Id => SaveableEntity.Id;
-
-        private T _data;
-
-        public virtual void Initialize()
+        protected TData Data => _data;
+        
+        private TData _data;
+        
+        [Inject]
+        public void Construct(SaveableEntity entity)
         {
-            SaveSystemModel.Load<T>(Id, DataKey, SaveableEntity.SaveGroup, loadResult =>
+            SaveableEntity = entity;
+        }
+        
+        void IInitializable.Initialize()
+        {
+            SaveSystemModel.Load<TData>(SaveableEntity.Id, DataKey, SaveableEntity.SaveGroup, loadResult =>
             {
                 var data = loadResult.Data;
                 switch (loadResult.Result)
                 {
                     case Result.LoadedWithErrors:
-                        _data = new T();
+                        _data = new TData();
                         break;
                     
                     case Result.SaveFileNotFound:
-                        _data = new T();
+                        _data = new TData();
                         break;
                     
                     case Result.LoadedSuccessfully:
                         _data = data;
                         break;
-                    
+
                     default:
                         Debug.LogError(new EnumNotSupportedException<Result>(loadResult.Result));
                         break;
@@ -47,20 +52,14 @@ namespace Core.SaveSystem.Models
                 HandleOnDataLoaded(loadResult);
             });
         }
-
-        public virtual void Dispose()
+        
+        void IDisposable.Dispose()
         {
             HandleOnDataPreSaved();
-            
-            SaveSystemModel.Save(Id, DataKey, SaveableEntity.SaveGroup, _data);
+            SaveSystemModel.Save(SaveableEntity.Id, DataKey, SaveableEntity.SaveGroup, _data);
         }
-
-        protected virtual void HandleOnDataLoaded(LoadResult<T> loadResult)
-        {
-        }
-
-        protected virtual void HandleOnDataPreSaved()
-        {
-        }
+        
+        protected virtual void HandleOnDataLoaded(LoadResult<TData> loadResult) { }
+        protected virtual void HandleOnDataPreSaved() { }
     }
 }
