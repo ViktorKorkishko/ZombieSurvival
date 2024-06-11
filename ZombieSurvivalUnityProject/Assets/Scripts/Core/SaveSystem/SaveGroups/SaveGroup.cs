@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using Core.Lifetime;
+using Core.Lifetime.Initialization;
 using Core.SaveSystem.Saving.Common.Path;
 using Newtonsoft.Json;
 using Zenject;
@@ -13,7 +14,7 @@ namespace Core.SaveSystem.SaveGroups
         
         public SaveGroupId SaveGroupId { get; }
         
-        private Dictionary<string, Dictionary<string, object>> _objectToDataDictionary = new ();
+        private Dictionary<string, Dictionary<string, object>> _objectToDataDictionary = new();
         
         private const string k_jsonFileExtension = ".json";
         
@@ -26,31 +27,6 @@ namespace Core.SaveSystem.SaveGroups
         {
             InitData();
             Initialized = true;
-        }
-        
-        private void InitData()
-        {
-            string saveGroupFilePath = BuildPath();
-
-            bool fileExists = File.Exists(saveGroupFilePath);
-            if (!fileExists)
-            {
-                var createFileStream = File.Create(saveGroupFilePath);
-                createFileStream.Dispose();
-            }
-
-            using var readFileStream = new StreamReader(saveGroupFilePath);
-            var saveGroupJson = readFileStream.ReadToEnd();
-
-            bool noSaveFiles = string.IsNullOrEmpty(saveGroupJson);
-            if (noSaveFiles)
-            {
-                _objectToDataDictionary = new Dictionary<string, Dictionary<string, object>>();
-            }
-            else
-            {
-                _objectToDataDictionary = JsonConvert.DeserializeObject<Dictionary<string, Dictionary<string, object>>>(saveGroupJson);
-            }
         }
         
         public Dictionary<string, object> LoadEntity(string entityId)
@@ -79,6 +55,31 @@ namespace Core.SaveSystem.SaveGroups
             }
             
             SaveDictionary();
+        }
+
+        private void InitData()
+        {
+            string saveGroupFilePath = BuildPath();
+
+            bool fileExists = File.Exists(saveGroupFilePath);
+            if (!fileExists)
+            {
+                var createFileStream = File.Create(saveGroupFilePath);
+                createFileStream.Dispose();
+            }
+
+            using var readFileStream = new StreamReader(saveGroupFilePath);
+            var saveGroupJson = readFileStream.ReadToEnd();
+
+            bool noSaveFiles = string.IsNullOrEmpty(saveGroupJson);
+            if (noSaveFiles)
+            {
+                _objectToDataDictionary = new Dictionary<string, Dictionary<string, object>>();
+            }
+            else
+            {
+                _objectToDataDictionary = JsonConvert.DeserializeObject<Dictionary<string, Dictionary<string, object>>>(saveGroupJson);
+            }
         }
         
         private void SaveDictionary()

@@ -8,36 +8,36 @@ namespace Game.Common.SelectableCollection
     public class SelectableCollection<T> : IDisposable
         where T : class, ISelectable
     {
-        public T CurrentlySelectedCell { get; private set; }
+        public T SelectedElement { get; private set; }
         
-        public Action<T> OnSelectedCellChanged { get; set; }
+        public Action<T> OnSelectedChanged { get; set; }
         
-        private readonly List<T> _cells;
-        
+        private readonly IList<T> _innerCollection;
+
         public SelectableCollection(IEnumerable<T> cellModels)
         {
-            _cells = cellModels.ToList();
+            _innerCollection = cellModels.ToList();
         }
         
         public void Initialize()
         {
-            _cells.ForEach(x =>
+            foreach (var element in _innerCollection)
             {
-                x.OnSelected += HandleOnCellSelected;
-                x.SetSelected(false);
-            });
+                element.OnSelected += HandleOnCellSelected;
+                element.SetSelected(false);
+            }
             
-            _cells[0].SetSelected(true);
+            _innerCollection[0].SetSelected(true);
         }
         
         void IDisposable.Dispose()
         {
-            foreach (var cell in _cells)
+            foreach (var element in _innerCollection)
             {
-                cell.OnSelected -= HandleOnCellSelected;
+                element.OnSelected -= HandleOnCellSelected;
             }
             
-            _cells.Clear();
+            _innerCollection.Clear();
         }
         
         private void HandleOnCellSelected(ISelectable selectable, bool selected)
@@ -45,13 +45,13 @@ namespace Game.Common.SelectableCollection
             if (!selected)
                 return;
             
-            if (selectable == CurrentlySelectedCell)
+            if (selectable == SelectedElement)
                 return;
 
-            CurrentlySelectedCell?.SetSelected(false);
-            CurrentlySelectedCell = selectable as T;
+            SelectedElement?.SetSelected(false);
+            SelectedElement = selectable as T;
 
-            OnSelectedCellChanged?.Invoke(CurrentlySelectedCell);
+            OnSelectedChanged?.Invoke(SelectedElement);
         }
     }
 }

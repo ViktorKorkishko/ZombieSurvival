@@ -1,11 +1,9 @@
 ﻿using System;
-using System.Linq;
 using Core.Lifetime.Instantiation;
 using Game.Character.Weapons.CurrentWeapon.Models;
 using Game.Character.Weapons.Equip.Models;
 using Game.Character.Weapons.PickUp.Models;
 using Game.Common.SelectableCollection;
-using Game.Common.SelectableCollection.Interfaces;
 using Game.Inventory.Cells.Core.Models;
 using Game.Inventory.HotBar.Models;
 using Game.Inventory.HotBar.Views;
@@ -26,17 +24,17 @@ namespace Game.Inventory.HotBar.Controllers
         [Inject] private CharacterWeaponEquipModel CharacterWeaponEquipModel { get; }
         [Inject] private CurrentWeaponModel CurrentWeaponModel { get; }
         [Inject] private Instantiator Instantiator { get; }
-
+        
         private HotBarView View { get; }
-
+        
         private SelectableCollection<CellModel> _cellsSelectableCollection;
         private SynchronizableCellsContainer _synchronizableCellsContainer;
-
+        
         public HotBarController(HotBarView view)
         {
             View = view;
         }
-
+        
         void IInitializable.Initialize()
         {
             View.Show();
@@ -56,7 +54,7 @@ namespace Game.Inventory.HotBar.Controllers
                 HotBarModel.InventoryHotBarCellsContainer.OnInitialized += HandleOnHotBarCellsInitialized;
             }
         }
-
+        
         void IDisposable.Dispose()
         {
             var cells = HotBarModel.HotBarCellsContainerModel.Cells;
@@ -65,7 +63,7 @@ namespace Game.Inventory.HotBar.Controllers
                 cell.OnItemSet -= HandleOnItemSet;
             }
             
-            _cellsSelectableCollection.OnSelectedCellChanged -= HandleOnSelectedCellChanged;
+            _cellsSelectableCollection.OnSelectedChanged -= HandleOnSelectedCellChanged;
             
             ((IDisposable)_cellsSelectableCollection)?.Dispose();
             ((IDisposable)_synchronizableCellsContainer)?.Dispose();
@@ -83,11 +81,11 @@ namespace Game.Inventory.HotBar.Controllers
             }
             
             _cellsSelectableCollection = new SelectableCollection<CellModel>(cells);
-            _cellsSelectableCollection.OnSelectedCellChanged += HandleOnSelectedCellChanged;
+            _cellsSelectableCollection.OnSelectedChanged += HandleOnSelectedCellChanged;
             
             _cellsSelectableCollection.Initialize();
         }
-
+        
         private void HandleOnSelectedCellChanged(CellModel cellModel)
         {
             if (cellModel.ContainsItem)
@@ -110,7 +108,7 @@ namespace Game.Inventory.HotBar.Controllers
             
             HandleItemInCell(cellModel);
         }
-
+        
         private void HandleOnItemRemoved(CellModel cellModel)
         {
             if (!cellModel.IsSelected)
@@ -121,7 +119,7 @@ namespace Game.Inventory.HotBar.Controllers
                 CharacterWeaponEquipModel.Unequip();
             }
         }
-
+        
         private void HandleItemInCell(CellModel cellModel)
         {
             var itemId = cellModel.ItemId;

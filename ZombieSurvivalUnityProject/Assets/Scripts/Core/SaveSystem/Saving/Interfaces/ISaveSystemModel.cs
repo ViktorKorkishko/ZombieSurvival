@@ -7,6 +7,7 @@ namespace Core.SaveSystem.Saving.Interfaces
     public interface ISaveSystemModel
     {
         void Save(string entityId, string dataKey, SaveGroup saveGroup, object data, Action<bool> callback = null);
-        void Load<T>(string entityId, string dataKey, SaveGroup saveGroup, Action<LoadResult<T>> callback = null) where T : new();
+        void Load<T>(string entityId, string dataKey, SaveGroup saveGroup, Action<LoadResult<T>> callback = null) 
+            where T : new();
     }
 }
