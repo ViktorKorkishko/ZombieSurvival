@@ -20,9 +20,10 @@ namespace Game.Items.Data
             _properties = Array.Empty<PropertyBase>();
         }
         
-        public bool TryGetProperty<T>(out PropertyBase propertyInstance) where T : PropertyBase
+        public bool TryGetProperty<T>(out T propertyInstance) 
+            where T : PropertyBase
         {
-            propertyInstance = _properties.FirstOrDefault(x => x.GetType() == typeof(T));
+            propertyInstance = _properties.FirstOrDefault(x => x.GetType() == typeof(T)) as T;
             if (propertyInstance != null)
             {
                 return true;

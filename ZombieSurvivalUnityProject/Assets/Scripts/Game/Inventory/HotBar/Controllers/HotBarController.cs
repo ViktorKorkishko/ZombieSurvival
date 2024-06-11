@@ -129,11 +129,11 @@ namespace Game.Inventory.HotBar.Controllers
             {
                 if (itemData.TryGetProperty<PickableItemProperty>(out var pickableItemProperty))
                 {
-                    HandleWeapon(cellModel.ItemData, pickableItemProperty as PickableItemProperty);
+                    HandleWeapon(cellModel.ItemData, pickableItemProperty);
                 }
             }
         }
-
+        
         private void HandleWeapon(ItemData itemData, PickableItemProperty pickableItemProperty)
         {
             if (CurrentWeaponModel.IsWeaponEquipped)

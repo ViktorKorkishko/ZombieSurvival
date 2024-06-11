@@ -92,6 +92,41 @@ namespace Game.Inventory.Core.Controllers
         private void HandleOnSelectedCellChanged(CellModel cellModel)
         {
             InventoryView.SetDeleteButtonEnabled(cellModel.ContainsItem);
+            InventoryView.SetDropButtonEnabled(cellModel.ContainsItem);
+        }
+        
+        private void HandleOnDropItemButtonClicked()
+        {
+            if (!_cellsSelectableCollection.SelectedElement.ContainsItem)
+                return;
+
+            var itemId = _cellsSelectableCollection.SelectedElement.ItemId;
+            if (ItemsDataBase.TryGetItemData(itemId, out var dbBaseItemData))
+            {
+                if (dbBaseItemData.TryGetProperty<PickableItemProperty>(out var pickableItemProperty))
+                {
+                    // var position = CurrentWeaponModel.Weapon.transform.position;
+                    // var rotation = CurrentWeaponModel.Weapon.transform.rotation;
+                    
+                    var position = CharacterViewRoot.transform.position;
+                    var rotation = CharacterViewRoot.transform.rotation;
+                    var itemPrefab = Instantiator.InstantiatePrefabForComponent<WeaponWorldObjectFacade>(
+                        pickableItemProperty.WorldObjectPrefab,
+                        position, 
+                        rotation);
+                    
+                    var inventoryItem = _cellsSelectableCollection.SelectedElement.RemoveItem();
+                    itemPrefab.Init(inventoryItem.Data);
+                    var wom = itemPrefab.GetComponent<WorldObjectModel>();
+                    wom.Init(new WorldObjectModel.Data
+                    {
+                        Position = position,
+                        Rotation = rotation,
+                        ItemData = inventoryItem.Data,
+                    });
+                    WorldObjectsModel.Register(wom);
+                }
+            }
         }
     }
 }
