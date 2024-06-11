@@ -15,7 +15,8 @@ namespace Game.Character.Movement.Position.Installers
         {
             Container
                 .BindInterfacesAndSelfTo<CharacterPositionModel>()
-                .AsSingle();
+                .AsSingle()
+                .WithArguments(_saveableEntity);
             
             Container
                 .BindInstance(_viewRootTransform)
