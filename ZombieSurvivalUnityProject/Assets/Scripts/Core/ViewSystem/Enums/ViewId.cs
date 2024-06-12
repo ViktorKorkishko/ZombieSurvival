@@ -6,5 +6,6 @@
         Settings,
         Inventory,
         HotBar,
+        Health,
     }
 }

@@ -721,6 +721,7 @@ MonoBehaviour:
   - {fileID: 5266640900742302744}
   - {fileID: 5901277715374501854}
   - {fileID: 7150703188259692016}
+  - {fileID: 0}
   _installerPrefabs: []
   _autoRun: 1
   OnPreInstall:
@@ -749,18 +750,6 @@ PrefabInstance:
     - target: {fileID: 7818851903206701967, guid: 4a87aed84d279f645afaa093a5107aac, type: 3}
       propertyPath: m_Name
       value: TestFemaleCharacter
-      objectReference: {fileID: 0}
-    - target: {fileID: 7824898248860213007, guid: 4a87aed84d279f645afaa093a5107aac, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7824898248860213007, guid: 4a87aed84d279f645afaa093a5107aac, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7824898248860213007, guid: 4a87aed84d279f645afaa093a5107aac, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 7824898248860213007, guid: 4a87aed84d279f645afaa093a5107aac, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x

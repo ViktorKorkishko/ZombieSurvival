@@ -16,13 +16,13 @@ namespace Core.ViewSystem.Controllers
             _view = view;
         }
         
-        void IInitializable.Initialize()
+        public virtual void Initialize()
         {
             _view.OnShow += HandleOnShow;
             _view.OnHide += HandleOnHide;
         }
 
-        void IDisposable.Dispose()
+        public virtual void Dispose()
         {
             _view.OnShow -= HandleOnShow;
             _view.OnHide -= HandleOnHide;
