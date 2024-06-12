@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Core.Installers;
+using Core.Lifetime.Instantiation;
 using Core.ViewSystem.Views.Interfaces;
 using Game.Common.SelectableCollection;
 using Game.Inventory.Cells.Core.Models;
@@ -8,6 +10,10 @@ using Game.Inventory.Core.Models;
 using Game.Inventory.Core.Views;
 using Game.Inventory.DragAndDrop.Models;
 using Game.Inventory.Items.Models;
+using Game.Items.Database;
+using Game.Items.Properties.Implementations;
+using Game.WorldObjects.Core;
+using UnityEngine;
 using Zenject;
 
 namespace Game.Inventory.Core.Controllers
@@ -16,6 +22,11 @@ namespace Game.Inventory.Core.Controllers
     {
         [Inject] private InventoryModel InventoryModel { get; }
         [Inject] private DragAndDropModel DragAndDropModel { get; }
+        [Inject] private Instantiator Instantiator { get; }
+        [Inject] private ItemsDataBase ItemsDataBase { get; }
+        [Inject] private WorldObjectsModel WorldObjectsModel { get; }
+        [Inject(Id = BindingIdentifiers.ViewRoot)] private Transform CharacterViewRoot { get; }
+
         private InventoryView InventoryView { get; }
         
         private IEnumerable<CellModel> Cells
@@ -35,7 +46,7 @@ namespace Game.Inventory.Core.Controllers
         {
             InventoryView = inventoryView;
         }
-
+        
         void IInitializable.Initialize()
         {
             InventoryModel.OnItemsAdded += HandleOnItemsAdded;
@@ -43,13 +54,28 @@ namespace Game.Inventory.Core.Controllers
             InventoryView.OnShow += HandleOnShow;
             InventoryView.OnHide += HandleOnHide;
             InventoryView.OnDeleteItemButtonClicked += HandleOnDeleteItemButtonClicked;
+            InventoryView.OnDropItemButtonClicked += HandleOnDropItemButtonClicked;
             
             InventoryModel.InitializeCells();
-
+            
             _cellsSelectableCollection = new SelectableCollection<CellModel>(Cells);
-            _cellsSelectableCollection.OnSelectedCellChanged += HandleOnSelectedCellChanged;
+            _cellsSelectableCollection.OnSelectedChanged += HandleOnSelectedCellChanged;
+
+            foreach (var cell in Cells)
+            {
+                cell.OnItemRemoved += HandleInItemRemoved;
+            }
             
             _cellsSelectableCollection.Initialize();
+        }
+
+        private void HandleInItemRemoved(CellModel cell)
+        {
+            if (!cell.IsSelected)
+                return;
+            
+            InventoryView.SetDeleteButtonEnabled(cell.ContainsItem);
+            InventoryView.SetDropButtonEnabled(cell.ContainsItem);
         }
 
         void IDisposable.Dispose()
@@ -59,21 +85,27 @@ namespace Game.Inventory.Core.Controllers
             InventoryView.OnShow -= HandleOnShow;
             InventoryView.OnHide -= HandleOnHide;
             InventoryView.OnDeleteItemButtonClicked -= HandleOnDeleteItemButtonClicked;
+            InventoryView.OnDropItemButtonClicked -= HandleOnDropItemButtonClicked;
             
-            _cellsSelectableCollection.OnSelectedCellChanged -= HandleOnSelectedCellChanged;
+            _cellsSelectableCollection.OnSelectedChanged -= HandleOnSelectedCellChanged;
+            
+            foreach (var cell in Cells)
+            {
+                cell.OnItemRemoved -= HandleInItemRemoved;
+            }
         }
-
+        
         private void HandleOnItemsAdded(IEnumerable<InventoryItemModel> items)
         {
             InventoryModel.InventoryCellsContainerModel.SpreadItemsAmongCells(items);
         }
-
+        
         private void HandleOnShow()
         {
             DragAndDropModel.RegisterDraggableCells(InventoryModel.InventoryCellsContainerModel);
             DragAndDropModel.RegisterDraggableCells(InventoryModel.InventoryHotBarCellsContainer);
         }
-
+        
         private void HandleOnHide(IView view)
         {
             DragAndDropModel.UnregisterDraggableCells(InventoryModel.InventoryCellsContainerModel);
@@ -82,11 +114,10 @@ namespace Game.Inventory.Core.Controllers
         
         private void HandleOnDeleteItemButtonClicked()
         {
-            if (!_cellsSelectableCollection.CurrentlySelectedCell.ContainsItem)
+            if (!_cellsSelectableCollection.SelectedElement.ContainsItem)
                 return;
 
-            _cellsSelectableCollection.CurrentlySelectedCell.RemoveItem();
-            InventoryView.SetDeleteButtonEnabled(false);
+            _cellsSelectableCollection.SelectedElement.RemoveItem();
         }
 
         private void HandleOnSelectedCellChanged(CellModel cellModel)
@@ -105,26 +136,22 @@ namespace Game.Inventory.Core.Controllers
             {
                 if (dbBaseItemData.TryGetProperty<PickableItemProperty>(out var pickableItemProperty))
                 {
-                    // var position = CurrentWeaponModel.Weapon.transform.position;
-                    // var rotation = CurrentWeaponModel.Weapon.transform.rotation;
-                    
                     var position = CharacterViewRoot.transform.position;
                     var rotation = CharacterViewRoot.transform.rotation;
-                    var itemPrefab = Instantiator.InstantiatePrefabForComponent<WeaponWorldObjectFacade>(
+                    var worldObjectModel = Instantiator.InstantiatePrefabForComponent<WorldObjectModel>(
                         pickableItemProperty.WorldObjectPrefab,
                         position, 
                         rotation);
                     
                     var inventoryItem = _cellsSelectableCollection.SelectedElement.RemoveItem();
-                    itemPrefab.Init(inventoryItem.Data);
-                    var wom = itemPrefab.GetComponent<WorldObjectModel>();
-                    wom.Init(new WorldObjectModel.Data
+                    worldObjectModel.Init(new WorldObjectModel.BaseWorldObjectData
                     {
                         Position = position,
                         Rotation = rotation,
                         ItemData = inventoryItem.Data,
                     });
-                    WorldObjectsModel.Register(wom);
+                    
+                    WorldObjectsModel.Register(worldObjectModel);
                 }
             }
         }
