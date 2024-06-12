@@ -23,7 +23,7 @@ namespace Game.Settings.Installers
                 .AsSingle()
                 .WithArguments(_saveableEntity);
             
-            var viewInstance = ViewProvider.RegisterView(_settingsViewPrefab, ViewId.Settings, LayerId.Popups);
+            var viewInstance = ViewProvider.RegisterView(_settingsViewPrefab, ViewId.Settings, LayerId.Popups, false);
             
             Container
                 .BindInterfacesTo<SettingsViewController>()

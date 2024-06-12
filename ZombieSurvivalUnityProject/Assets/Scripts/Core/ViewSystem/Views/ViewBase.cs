@@ -10,11 +10,6 @@ namespace Core.ViewSystem.Views
         public Action OnShow { get; set; }
         public Action<IView> OnHide { get; set; }
         
-        private void Awake()
-        {
-            gameObject.SetActive(false);
-        }
-        
         public void Show(IViewData viewData = null)
         {
             gameObject.SetActive(true);

@@ -37,8 +37,6 @@ namespace Game.Inventory.HotBar.Controllers
         
         void IInitializable.Initialize()
         {
-            View.Show();
-
             _synchronizableCellsContainer = new SynchronizableCellsContainer(
                 HotBarModel.InventoryHotBarCellsContainer,
                 HotBarModel.HotBarCellsContainerModel);

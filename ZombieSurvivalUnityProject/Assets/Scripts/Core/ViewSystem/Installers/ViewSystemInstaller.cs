@@ -13,7 +13,9 @@ namespace Core.ViewSystem.Installers
         
         public override void InstallBindings()
         {
-            Container.BindInterfacesAndSelfTo<ViewSystemModel>().AsSingle();
+            Container
+                .BindInterfacesAndSelfTo<ViewSystemModel>()
+                .AsSingle();
             
             Container
                 .Bind<IViewProvider>()

@@ -51,7 +51,7 @@ namespace Game.Inventory.Core.Installers
                 .AsSingle()
                 .WithArguments(_saveableEntity, _initialInventoryCellsCount);
 
-            var inventoryViewInstance = ViewProvider.RegisterView(_inventoryViewPrefab, ViewId.Inventory, LayerId.Windows);
+            var inventoryViewInstance = ViewProvider.RegisterView(_inventoryViewPrefab, ViewId.Inventory, LayerId.Windows, false);
             
             #endregion
             
@@ -105,8 +105,7 @@ namespace Game.Inventory.Core.Installers
                     .AsSingle()
                     .WithArguments(_saveableEntity, _initialHotBarCellsCount);
                 
-                var hotBarViewInstance = ViewProvider.RegisterView(_hotBarViewPrefab, ViewId.HotBar, LayerId.HUD);
-                hotBarViewInstance.Show();
+                var hotBarViewInstance = ViewProvider.RegisterView(_hotBarViewPrefab, ViewId.HotBar, LayerId.HUD, true);
                 
                 Container
                     .BindInterfacesTo<HotBarController>()

@@ -16,10 +16,18 @@ namespace Core.ViewSystem.Providers.Views
 
         private Dictionary<ViewId, ViewData> _viewIdToViewInstanceDictionary = new();
         
-        public ViewBase RegisterView(ViewBase viewPrefab, ViewId viewId, LayerId layerId)
+        public ViewBase RegisterView(ViewBase view, ViewId viewId, LayerId layerId, bool show, bool createNew)
         {
-            var viewInstance = ViewFactory.Create(viewPrefab, layerId);
-            
+            ViewBase viewInstance = createNew ? ViewFactory.Create(view, layerId) : view;
+            if (show)
+            {
+                viewInstance.Show();
+            }
+            else
+            {
+                viewInstance.Hide();
+            }
+
             if (!_viewIdToViewInstanceDictionary.TryAdd(viewId, new ViewData(viewInstance, viewId, layerId)))
             {
                 Debug.LogException(new ArgumentException($"View with ViewId [{viewId}] is already registered!"));
