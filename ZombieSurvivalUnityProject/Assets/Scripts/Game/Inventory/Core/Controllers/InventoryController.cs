@@ -63,19 +63,11 @@ namespace Game.Inventory.Core.Controllers
 
             foreach (var cell in Cells)
             {
-                cell.OnItemRemoved += HandleInItemRemoved;
+                cell.OnItemSet += HandleOnItemSet;
+                cell.OnItemRemoved += HandleOnItemRemoved;
             }
             
             _cellsSelectableCollection.Initialize();
-        }
-
-        private void HandleInItemRemoved(CellModel cell)
-        {
-            if (!cell.IsSelected)
-                return;
-            
-            InventoryView.SetDeleteButtonEnabled(cell.ContainsItem);
-            InventoryView.SetDropButtonEnabled(cell.ContainsItem);
         }
 
         void IDisposable.Dispose()
@@ -91,10 +83,33 @@ namespace Game.Inventory.Core.Controllers
             
             foreach (var cell in Cells)
             {
-                cell.OnItemRemoved -= HandleInItemRemoved;
+                cell.OnItemSet -= HandleOnItemSet;
+                cell.OnItemRemoved -= HandleOnItemRemoved;
             }
         }
-        
+
+        private void UpdateInventoryButtons(CellModel cell)
+        {
+            InventoryView.SetDeleteButtonEnabled(cell.ContainsItem);
+            InventoryView.SetDropButtonEnabled(cell.ContainsItem);
+        }
+
+        private void HandleOnItemSet(CellModel cell, InventoryItemModel item)
+        {
+            if (!cell.IsSelected)
+                return;
+            
+            UpdateInventoryButtons(cell);
+        }
+
+        private void HandleOnItemRemoved(CellModel cell)
+        {
+            if (!cell.IsSelected)
+                return;
+
+            UpdateInventoryButtons(cell);
+        }
+
         private void HandleOnItemsAdded(IEnumerable<InventoryItemModel> items)
         {
             InventoryModel.InventoryCellsContainerModel.SpreadItemsAmongCells(items);
@@ -104,6 +119,9 @@ namespace Game.Inventory.Core.Controllers
         {
             DragAndDropModel.RegisterDraggableCells(InventoryModel.InventoryCellsContainerModel);
             DragAndDropModel.RegisterDraggableCells(InventoryModel.InventoryHotBarCellsContainer);
+
+            var selectedCell = _cellsSelectableCollection.SelectedElement;
+            UpdateInventoryButtons(selectedCell);
         }
         
         private void HandleOnHide(IView view)
@@ -119,11 +137,10 @@ namespace Game.Inventory.Core.Controllers
 
             _cellsSelectableCollection.SelectedElement.RemoveItem();
         }
-
-        private void HandleOnSelectedCellChanged(CellModel cellModel)
+        
+        private void HandleOnSelectedCellChanged(CellModel cell)
         {
-            InventoryView.SetDeleteButtonEnabled(cellModel.ContainsItem);
-            InventoryView.SetDropButtonEnabled(cellModel.ContainsItem);
+            UpdateInventoryButtons(cell);
         }
         
         private void HandleOnDropItemButtonClicked()
