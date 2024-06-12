@@ -6,13 +6,13 @@ namespace Core.Lifetime.Facade
 {
     public abstract class FacadeBase : MonoBehaviour
     {
-        protected DiContainer DiContainer { get; private set; }
+        protected DiContainer LocalDiContainer { get; private set; }
 
         public abstract void Init(ItemData data);
         
         public void InitDiContainer(DiContainer diContainer)
         {
-            DiContainer = diContainer;
+            LocalDiContainer = diContainer;
         }
     }
 }

@@ -152,8 +152,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6382987911619683099}
-  - component: {fileID: 7819616893094974601}
-  - component: {fileID: 4077800623318026254}
   m_Layer: 0
   m_Name: AK47WorldObjectPrefab
   m_TagString: Untagged
@@ -178,31 +176,6 @@ Transform:
   - {fileID: 264508844295993565}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7819616893094974601
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5646274039381985264}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cb7b8b4c78db43c2ab3e74fc05badb0d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &4077800623318026254
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5646274039381985264}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bc02faeddb914795bbf50df51241ce8f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _context: {fileID: 6587909735587892803}
 --- !u!1 &6340636742928905290
 GameObject:
   m_ObjectHideFlags: 0
@@ -296,12 +269,8 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2721049256012269099, guid: 873f2e40eab25464ea9af9352e19013b, type: 3}
       propertyPath: m_Name
-      value: Context
+      value: WorldObjectContext
       objectReference: {fileID: 0}
-    - target: {fileID: 6329403011841114379, guid: 873f2e40eab25464ea9af9352e19013b, type: 3}
-      propertyPath: _facadeBase
-      value: 
-      objectReference: {fileID: 7819616893094974601}
     - target: {fileID: 8122226505238188636, guid: 873f2e40eab25464ea9af9352e19013b, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
