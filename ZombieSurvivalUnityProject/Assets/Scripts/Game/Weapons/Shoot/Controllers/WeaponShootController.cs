@@ -1,6 +1,7 @@
 using System;
 using Core.Installers;
 using Game.Cameras.Models;
+using Game.Stats.Health.View;
 using Game.Weapons.Common.Config;
 using Game.Weapons.Reload.Models;
 using Game.Weapons.Shoot.Models;
@@ -65,6 +66,15 @@ namespace Game.Weapons.Shoot.Controllers
             
             if (Physics.Raycast(rayStartPoint, rayDirection, out RaycastHit raycastHit, WeaponConfig.Range, LayerMask))
             {
+                if (raycastHit.transform.gameObject.layer == LayerMask.NameToLayer("Hitbox"))
+                {
+                    if (raycastHit.collider.TryGetComponent<HitboxView>(out var hitboxView))
+                    {
+                        var healthAdjustValue = -WeaponConfig.Damage;
+                        hitboxView.HealthModel.AdjustHealth(healthAdjustValue);
+                    }
+                }
+
                 var point = raycastHit.point;
                 var normal = raycastHit.normal;
                 WeaponShootView.EmitShotEffect(point, normal);
