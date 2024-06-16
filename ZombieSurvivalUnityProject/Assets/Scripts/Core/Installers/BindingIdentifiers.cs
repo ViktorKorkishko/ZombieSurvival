@@ -29,5 +29,6 @@
         InventoryCellsContainer,
         InventoryHotBarCellsContainer,
         HotBarCellsContainer,
+        PlayerHealthModel,
     }
 }

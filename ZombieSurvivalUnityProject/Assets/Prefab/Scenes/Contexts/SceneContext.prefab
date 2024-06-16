@@ -719,9 +719,9 @@ MonoBehaviour:
   - {fileID: 8985083910253202536}
   - {fileID: 7522171125647939078}
   - {fileID: 5266640900742302744}
+  - {fileID: 0}
   - {fileID: 5901277715374501854}
   - {fileID: 7150703188259692016}
-  - {fileID: 0}
   _installerPrefabs: []
   _autoRun: 1
   OnPreInstall:
@@ -763,6 +763,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8400817306183920781, guid: 4a87aed84d279f645afaa093a5107aac, type: 3}
+      propertyPath: <HealthModel>k__BackingField
+      value: 
+      objectReference: {fileID: 8146092736351219336}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -887,6 +891,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 49cf3edcba19492db976add45da9a754, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &8146092736351219336 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7332577377340140466, guid: 4a87aed84d279f645afaa093a5107aac, type: 3}
+  m_PrefabInstance: {fileID: 1499188955536819514}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1735ec941be74d18859a25b4d8068447, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &8181843906330145520 stripped

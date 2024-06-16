@@ -1,11 +1,11 @@
 ﻿using System;
+using Core.SaveSystem.Entity;
 using Core.SaveSystem.Models;
 using Core.SaveSystem.Saving.Common.Load;
-using UnityEngine;
 
-namespace Game.Stats.Health
+namespace Game.Stats.Health.Models
 {
-    public class HealthModel : MonoSaveableModel<HealthModel.Data>
+    public partial class HealthModel : MonoSaveableModel<HealthModel.Data>
     {
         [Serializable]
         public new class Data
@@ -13,15 +13,22 @@ namespace Game.Stats.Health
             public float Health { get; set; }
         }
         
-        public float Health => HealthStat.CurrentValue;
+        public int Health => (int)HealthStat?.CurrentValue;
         public float MinHealth => HealthStat.MinValue;
         public float MaxHealth => HealthStat.MaxValue;
         
         private HealthStat HealthStat { get; set; }
-
+        
         public event Action<float> OnHealthChanged;
-
+        
         protected override string DataKey => "HealthModel.Data";
+        
+        public override void Construct(SaveableEntity entity)
+        {
+            base.Construct(entity);
+
+            HealthStat = new HealthStat(100f, 0f, 100f);
+        }
         
         protected override void HandleOnDataLoaded(LoadResult<Data> loadResult)
         {
@@ -43,16 +50,10 @@ namespace Game.Stats.Health
             base.Data.Health = HealthStat.CurrentValue;
         }
 
-        [ContextMenu(nameof(Deal20))]
-        public void Deal20()
+        public void Restore()
         {
-            AdjustHealth(-20);
-        }
-        
-        [ContextMenu(nameof(Heal20))]
-        public void Heal20()
-        {
-            AdjustHealth(20);
+            var adjustValue = MaxHealth - Health;
+            AdjustHealth(adjustValue);
         }
 
         public void AdjustHealth(float value)

@@ -1250,7 +1250,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7065567790763194452}
-  - component: {fileID: 7855178556857466646}
+  - component: {fileID: 23104688249794820}
   - component: {fileID: 7332577377340140466}
   m_Layer: 0
   m_Name: Health
@@ -1274,7 +1274,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 6952559578232743503}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7855178556857466646
+--- !u!114 &23104688249794820
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1288,6 +1288,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _healthView: {fileID: 0}
   _healthModel: {fileID: 7332577377340140466}
+  _hitboxView: {fileID: 8400817306183920781}
   _saveableEntity: {fileID: 3594294422832555175}
 --- !u!114 &7332577377340140466
 MonoBehaviour:
@@ -1814,6 +1815,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7623747273305835717}
   - component: {fileID: 8995157174422608074}
+  - component: {fileID: 3492005607533554328}
   - component: {fileID: 8400817306183920781}
   m_Layer: 6
   m_Name: Hitbox
@@ -1852,7 +1854,7 @@ CapsuleCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
@@ -1860,6 +1862,33 @@ CapsuleCollider:
   m_Height: 1.8
   m_Direction: 1
   m_Center: {x: 0, y: 0.9, z: 0}
+--- !u!54 &3492005607533554328
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5932198958028546674}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 126
+  m_CollisionDetection: 0
 --- !u!114 &8400817306183920781
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1872,6 +1901,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2dd5d67732e5da9469425aa31c71f571, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <HealthModel>k__BackingField: {fileID: 0}
 --- !u!1 &6017555350202517545
 GameObject:
   m_ObjectHideFlags: 0
