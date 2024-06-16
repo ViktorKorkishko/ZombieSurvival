@@ -1,7 +1,6 @@
 ﻿using Core.Installers;
 using Core.SaveSystem.Entity;
 using Core.ViewSystem.Enums;
-using Core.ViewSystem.Providers;
 using Core.ViewSystem.Providers.Interfaces;
 using Game.Inventory.Cells.CellsContainer.Controllers;
 using Game.Inventory.Cells.CellsContainer.Models;

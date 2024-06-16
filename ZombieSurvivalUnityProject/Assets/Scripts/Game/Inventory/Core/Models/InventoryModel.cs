@@ -25,7 +25,7 @@ namespace Game.Inventory.Core.Models
         {
             InitialInventoryCellsCount = initialInventoryCellsCount;
         }
-
+        
         public void InitializeCells()
         {
             InventoryCellsContainerModel.InitCells(base.Data.InventoryCellsData);
