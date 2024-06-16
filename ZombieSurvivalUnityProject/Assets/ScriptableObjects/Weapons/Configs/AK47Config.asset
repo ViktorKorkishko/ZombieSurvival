@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e783f6dd2cb1e1c439bc4c3eaf334022, type: 3}
   m_Name: AK47Config
   m_EditorClassIdentifier: 
-  _damage: 0
+  _damage: 5
   _fireRate: 600
   _bulletsPerTap: 0
   _spread: 0
