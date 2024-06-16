@@ -13,6 +13,8 @@ namespace Core.SaveSystem.Models
     {
         [Inject] private ISaveSystemModel SaveSystemModel { get; }
         private SaveableEntity SaveableEntity { get; set; }
+
+        public bool Initialized { get; private set; }
         
         protected abstract string DataKey { get; }
         protected TData Data => _data;
@@ -20,7 +22,7 @@ namespace Core.SaveSystem.Models
         private TData _data;
         
         [Inject]
-        public void Construct(SaveableEntity entity)
+        public virtual void Construct(SaveableEntity entity)
         {
             SaveableEntity = entity;
         }
@@ -50,6 +52,7 @@ namespace Core.SaveSystem.Models
                 }
 
                 HandleOnDataLoaded(loadResult);
+                Initialized = true;
             });
         }
         
@@ -57,6 +60,7 @@ namespace Core.SaveSystem.Models
         {
             HandleOnDataPreSaved();
             SaveSystemModel.Save(SaveableEntity.Id, DataKey, SaveableEntity.SaveGroup, _data);
+            Initialized = false;
         }
         
         protected virtual void HandleOnDataLoaded(LoadResult<TData> loadResult) { }

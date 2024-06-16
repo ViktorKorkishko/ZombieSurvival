@@ -19,7 +19,7 @@ namespace Game.InteractableObjects.Implementations.Door.Installers
 
             Container
                 .BindInstance(_saveableEntity)
-                .WhenInjectedInto<InteractableDoorModel>();
+                .WhenInjectedIntoInstance(_interactableDoorModel);
             
             Container
                 .BindInterfacesAndSelfTo<InteractableDoorModel>()
