@@ -17,7 +17,8 @@ namespace Game.Character.Movement.Position.Models
         
         void IFixedTickable.FixedTick()
         {
-            // base.Data.Position = ViewRoot.position;
+            // fixed position saving
+            base.Data.Position = ViewRoot.position;
         }
         
         protected override void HandleOnDataLoaded(LoadResult<Data> loadResult)
@@ -35,11 +36,6 @@ namespace Game.Character.Movement.Position.Models
                 ViewRoot.position = base.Data.Position;
                 CharacterController.enabled = true;
             }
-        }
-        
-        protected override void HandleOnDataPreSaved()
-        {
-            base.Data.Position = ViewRoot.position;
         }
     }
 }
