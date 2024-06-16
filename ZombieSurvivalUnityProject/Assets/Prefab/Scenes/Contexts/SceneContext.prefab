@@ -719,7 +719,7 @@ MonoBehaviour:
   - {fileID: 8985083910253202536}
   - {fileID: 7522171125647939078}
   - {fileID: 5266640900742302744}
-  - {fileID: 0}
+  - {fileID: 1485103750349616190}
   - {fileID: 5901277715374501854}
   - {fileID: 7150703188259692016}
   _installerPrefabs: []
@@ -781,6 +781,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bbe227ae62c54f44ab9a56948bcde5b7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1485103750349616190 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 23104688249794820, guid: 4a87aed84d279f645afaa093a5107aac, type: 3}
+  m_PrefabInstance: {fileID: 1499188955536819514}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0efd2e1e0ac94d869556a870be54b190, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &1917057152011047688 stripped
