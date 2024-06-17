@@ -34,11 +34,17 @@ MonoBehaviour:
   - <Id>k__BackingField: 4
     _properties:
     - rid: 2765963897442402305
+    - rid: 2222196957880778752
     <Sprite>k__BackingField: {fileID: 21300000, guid: e5c713d9e0968274f909fc78b50eb790, type: 3}
     <MaxStackCount>k__BackingField: 1
   references:
     version: 2
     RefIds:
+    - rid: 2222196957880778752
+      type: {class: PickableItemProperty, ns: Game.Items.Properties.Implementations, asm: Assembly-CSharp}
+      data:
+        <ItemPrefab>k__BackingField: {fileID: 5646274039381985264, guid: d95f840b27ebdc34aa1620d597efacaf, type: 3}
+        <WorldObjectPrefab>k__BackingField: {fileID: 5646274039381985264, guid: 72729b7e1b2bb3d4696b23b3c62410b6, type: 3}
     - rid: 2765963897442402304
       type: {class: WeaponProperty, ns: Game.Items.Properties.Implementations, asm: Assembly-CSharp}
       data:
