@@ -267,10 +267,10 @@ MonoBehaviour:
   _monoInstallers:
   - {fileID: 5147892912809365789}
   - {fileID: 4374832985130125039}
+  - {fileID: 7950242829167552555}
   - {fileID: 475277023175552023}
   - {fileID: 5438307959409161985}
   - {fileID: 46865646960664656}
-  - {fileID: 7950242829167552555}
   - {fileID: 210860464841439631}
   _installerPrefabs: []
   _autoRun: 1
@@ -366,10 +366,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _view: {fileID: 5396034136585372209}
-  _config: {fileID: 11400000, guid: 94767111815ffbc4eba6362af2dcf1f1, type: 2}
+  _config: {fileID: 0}
   _enemyLayerMask:
     serializedVersion: 2
-    m_Bits: 55
+    m_Bits: 65
   _muzzleFlashEffect: {fileID: 0}
   _shotHitEffect: {fileID: 0}
   _weaponShootPointTransform: {fileID: 0}

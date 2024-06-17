@@ -133,6 +133,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2300471570807768682}
     - target: {fileID: 46865646960664656, guid: 64aa4df20c71626418dd5c9a191e9007, type: 3}
+      propertyPath: _enemyLayerMask.m_Bits
+      value: 65
+      objectReference: {fileID: 0}
+    - target: {fileID: 46865646960664656, guid: 64aa4df20c71626418dd5c9a191e9007, type: 3}
       propertyPath: _weaponShootPointTransform
       value: 
       objectReference: {fileID: 3223658384901309669}
@@ -218,34 +222,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 8112202948074884216}
     m_Modifications:
-    - target: {fileID: 4208419355246402293, guid: 1a94395344bcc8f4a835039d6c96fe97, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4208419355246402293, guid: 1a94395344bcc8f4a835039d6c96fe97, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4208419355246402293, guid: 1a94395344bcc8f4a835039d6c96fe97, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4208419355246402293, guid: 1a94395344bcc8f4a835039d6c96fe97, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4208419355246402293, guid: 1a94395344bcc8f4a835039d6c96fe97, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4208419355246402293, guid: 1a94395344bcc8f4a835039d6c96fe97, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4208419355246402293, guid: 1a94395344bcc8f4a835039d6c96fe97, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
     - target: {fileID: 4208419355246402293, guid: 1a94395344bcc8f4a835039d6c96fe97, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
       value: 0

@@ -121,6 +121,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 6382987911619683099}
     m_Modifications:
     - target: {fileID: 46865646960664656, guid: 64aa4df20c71626418dd5c9a191e9007, type: 3}
+      propertyPath: _config
+      value: 
+      objectReference: {fileID: 11400000, guid: 94767111815ffbc4eba6362af2dcf1f1, type: 2}
+    - target: {fileID: 46865646960664656, guid: 64aa4df20c71626418dd5c9a191e9007, type: 3}
       propertyPath: _shotHitEffect
       value: 
       objectReference: {fileID: 7808973738291446798}
@@ -130,7 +134,7 @@ PrefabInstance:
       objectReference: {fileID: 3621029078792902899}
     - target: {fileID: 46865646960664656, guid: 64aa4df20c71626418dd5c9a191e9007, type: 3}
       propertyPath: _enemyLayerMask.m_Bits
-      value: 119
+      value: 65
       objectReference: {fileID: 0}
     - target: {fileID: 46865646960664656, guid: 64aa4df20c71626418dd5c9a191e9007, type: 3}
       propertyPath: _weaponShootPointTransform
@@ -213,34 +217,6 @@ PrefabInstance:
     - target: {fileID: 1666364893988440217, guid: 5673f9b983b8fe645a509a7bbf2bbb07, type: 3}
       propertyPath: m_Name
       value: AK47View
-      objectReference: {fileID: 0}
-    - target: {fileID: 2528839685971162430, guid: 5673f9b983b8fe645a509a7bbf2bbb07, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2528839685971162430, guid: 5673f9b983b8fe645a509a7bbf2bbb07, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2528839685971162430, guid: 5673f9b983b8fe645a509a7bbf2bbb07, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2528839685971162430, guid: 5673f9b983b8fe645a509a7bbf2bbb07, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2528839685971162430, guid: 5673f9b983b8fe645a509a7bbf2bbb07, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2528839685971162430, guid: 5673f9b983b8fe645a509a7bbf2bbb07, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2528839685971162430, guid: 5673f9b983b8fe645a509a7bbf2bbb07, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2528839685971162430, guid: 5673f9b983b8fe645a509a7bbf2bbb07, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
