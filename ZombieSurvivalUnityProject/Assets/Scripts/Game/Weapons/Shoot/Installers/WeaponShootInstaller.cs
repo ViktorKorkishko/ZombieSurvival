@@ -1,5 +1,5 @@
 using Core.Installers;
-using Game.Weapons.Common.Config;
+using Game.Weapons.Common;
 using Game.Weapons.Shoot.Controllers;
 using Game.Weapons.Shoot.Models;
 using Game.Weapons.Shoot.Views;

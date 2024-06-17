@@ -3,7 +3,6 @@ using Core.Lifetime.Facade;
 using Game.Items.Data;
 using Game.Items.Enums;
 using Game.Weapons.Common;
-using Game.Weapons.Common.Config;
 using Game.Weapons.Reload.Models;
 using Game.Weapons.Shoot.Models;
 using UnityEngine;

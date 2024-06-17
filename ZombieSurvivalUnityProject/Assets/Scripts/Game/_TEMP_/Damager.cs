@@ -1,7 +1,7 @@
 using Game.Stats.Health.View;
 using UnityEngine;
 
-namespace Game.TEMP
+namespace Game._TEMP_
 {
     public class Damager : MonoBehaviour
     {

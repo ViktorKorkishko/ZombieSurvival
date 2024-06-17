@@ -2,7 +2,7 @@ using System;
 using Core.Installers;
 using Game.Cameras.Models;
 using Game.Stats.Health.View;
-using Game.Weapons.Common.Config;
+using Game.Weapons.Common;
 using Game.Weapons.Reload.Models;
 using Game.Weapons.Shoot.Models;
 using Game.Weapons.Shoot.Views;

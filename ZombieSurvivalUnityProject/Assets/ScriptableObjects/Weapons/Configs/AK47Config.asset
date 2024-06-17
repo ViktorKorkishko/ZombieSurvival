@@ -12,10 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e783f6dd2cb1e1c439bc4c3eaf334022, type: 3}
   m_Name: AK47Config
   m_EditorClassIdentifier: 
-  _damage: 5
-  _fireRate: 600
-  _bulletsPerTap: 0
-  _spread: 0
-  _range: 100
-  _reloadTime: 1.5
-  _magazineSize: 30
+  <Damage>k__BackingField: 15
+  <FireRate>k__BackingField: 600
+  <Range>k__BackingField: 100
+  <ReloadTime>k__BackingField: 1.5
+  <MagazineSize>k__BackingField: 30

@@ -1,5 +1,5 @@
 using System;
-using Game.Weapons.Common.Config;
+using Game.Weapons.Common;
 using Game.Weapons.Shoot.Models;
 using Zenject;
 

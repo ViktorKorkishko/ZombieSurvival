@@ -1,7 +1,7 @@
 using System;
 using System.Collections;
 using Core.Coroutines.Models;
-using Game.Weapons.Common.Config;
+using Game.Weapons.Common;
 using Game.Weapons.Reload.Models;
 using UnityEngine;
 using Zenject;
