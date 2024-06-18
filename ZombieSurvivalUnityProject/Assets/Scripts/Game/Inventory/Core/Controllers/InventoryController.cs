@@ -25,8 +25,10 @@ namespace Game.Inventory.Core.Controllers
         [Inject] private Instantiator Instantiator { get; }
         [Inject] private ItemsDataBase ItemsDataBase { get; }
         [Inject] private WorldObjectsModel WorldObjectsModel { get; }
-        [Inject(Id = BindingIdentifiers.ViewRoot)] private Transform CharacterViewRoot { get; }
-
+        
+        [Inject(Id = BindingIdentifiers.ViewRoot)]
+        private Transform CharacterViewRoot { get; }
+        
         private InventoryView InventoryView { get; }
         
         private IEnumerable<CellModel> Cells
@@ -39,9 +41,9 @@ namespace Game.Inventory.Core.Controllers
                 return cells;
             }
         }
-
+        
         private SelectableCollection<CellModel> _cellsSelectableCollection;
-
+        
         public InventoryController(InventoryView inventoryView)
         {
             InventoryView = inventoryView;
@@ -55,9 +57,9 @@ namespace Game.Inventory.Core.Controllers
             InventoryView.OnHide += HandleOnHide;
             InventoryView.OnDeleteItemButtonClicked += HandleOnDeleteItemButtonClicked;
             InventoryView.OnDropItemButtonClicked += HandleOnDropItemButtonClicked;
-            
+
             InventoryModel.InitializeCells();
-            
+
             _cellsSelectableCollection = new SelectableCollection<CellModel>(Cells);
             _cellsSelectableCollection.OnSelectedChanged += HandleOnSelectedCellChanged;
 
@@ -66,10 +68,10 @@ namespace Game.Inventory.Core.Controllers
                 cell.OnItemSet += HandleOnItemSet;
                 cell.OnItemRemoved += HandleOnItemRemoved;
             }
-            
+
             _cellsSelectableCollection.Initialize();
         }
-
+        
         void IDisposable.Dispose()
         {
             InventoryModel.OnItemsAdded -= HandleOnItemsAdded;
@@ -78,30 +80,43 @@ namespace Game.Inventory.Core.Controllers
             InventoryView.OnHide -= HandleOnHide;
             InventoryView.OnDeleteItemButtonClicked -= HandleOnDeleteItemButtonClicked;
             InventoryView.OnDropItemButtonClicked -= HandleOnDropItemButtonClicked;
-            
+
             _cellsSelectableCollection.OnSelectedChanged -= HandleOnSelectedCellChanged;
-            
+
             foreach (var cell in Cells)
             {
                 cell.OnItemSet -= HandleOnItemSet;
                 cell.OnItemRemoved -= HandleOnItemRemoved;
             }
         }
-
+        
         private void UpdateInventoryButtons(CellModel cell)
         {
-            InventoryView.SetDeleteButtonEnabled(cell.ContainsItem);
-            InventoryView.SetDropButtonEnabled(cell.ContainsItem);
+            var containsItem = cell.ContainsItem;
+            InventoryView.SetDeleteButtonEnabled(containsItem);
+            if (containsItem)
+            {
+                if (ItemsDataBase.TryGetItemData(cell.ItemId, out var dbBaseItemData))
+                {
+                    dbBaseItemData.TryGetProperty<PickableItemProperty>(out var pickableItemProperty);
+                    bool droppableItem = pickableItemProperty != null;
+                    InventoryView.SetDropButtonEnabled(droppableItem);
+                }
+            }
+            else
+            {
+                InventoryView.SetDropButtonEnabled(false);
+            }
         }
-
+        
         private void HandleOnItemSet(CellModel cell, InventoryItemModel item)
         {
             if (!cell.IsSelected)
                 return;
-            
+
             UpdateInventoryButtons(cell);
         }
-
+        
         private void HandleOnItemRemoved(CellModel cell)
         {
             if (!cell.IsSelected)
@@ -109,7 +124,7 @@ namespace Game.Inventory.Core.Controllers
 
             UpdateInventoryButtons(cell);
         }
-
+        
         private void HandleOnItemsAdded(IEnumerable<InventoryItemModel> items)
         {
             InventoryModel.InventoryCellsContainerModel.SpreadItemsAmongCells(items);
@@ -157,7 +172,7 @@ namespace Game.Inventory.Core.Controllers
                     var rotation = CharacterViewRoot.transform.rotation;
                     var worldObjectModel = Instantiator.InstantiatePrefabForComponent<WorldObjectModel>(
                         pickableItemProperty.WorldObjectPrefab,
-                        position, 
+                        position,
                         rotation);
                     
                     var inventoryItem = _cellsSelectableCollection.SelectedElement.RemoveItem();
