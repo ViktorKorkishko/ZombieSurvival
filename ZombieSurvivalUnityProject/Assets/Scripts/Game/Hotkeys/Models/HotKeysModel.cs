@@ -51,7 +51,7 @@ namespace Game.Hotkeys.Models
         {
             if (_keyCodeStacks.TryGetValue(keyCode, out var hotKeyStack))
             {
-                var hotKeyContainer = hotKeyStack.FirstOrDefault(x => x.Source == source);
+                var hotKeyContainer = hotKeyStack.LastOrDefault(x => x.Source == source);
                 if (hotKeyContainer == null)
                 {
                     return;
