@@ -4,6 +4,7 @@ using Game.Character.Weapons.CurrentWeapon.Models;
 using Game.Character.Weapons.Equip.Models;
 using Game.Character.Weapons.PickUp.Models;
 using Game.Common.SelectableCollection;
+using Game.Hotkeys.Models;
 using Game.Inventory.Cells.Core.Models;
 using Game.Inventory.HotBar.Models;
 using Game.Inventory.HotBar.Views;
@@ -12,6 +13,7 @@ using Game.Items.Data;
 using Game.Items.Database;
 using Game.Items.Properties.Implementations;
 using Game.Weapons.Facade;
+using UnityEngine;
 using Zenject;
 
 namespace Game.Inventory.HotBar.Controllers
@@ -24,6 +26,7 @@ namespace Game.Inventory.HotBar.Controllers
         [Inject] private CharacterWeaponEquipModel CharacterWeaponEquipModel { get; }
         [Inject] private CurrentWeaponModel CurrentWeaponModel { get; }
         [Inject] private Instantiator Instantiator { get; }
+        [Inject] private HotKeysModel HotKeysModel { get; }
         
         private HotBarView View { get; }
         
@@ -65,6 +68,14 @@ namespace Game.Inventory.HotBar.Controllers
             
             ((IDisposable)_cellsSelectableCollection)?.Dispose();
             ((IDisposable)_synchronizableCellsContainer)?.Dispose();
+            
+            HotKeysModel.ClearHotKey(KeyCode.Alpha1, this);
+            HotKeysModel.ClearHotKey(KeyCode.Alpha2, this);
+            HotKeysModel.ClearHotKey(KeyCode.Alpha3, this);
+            HotKeysModel.ClearHotKey(KeyCode.Alpha4, this);
+            HotKeysModel.ClearHotKey(KeyCode.Alpha5, this);
+            HotKeysModel.ClearHotKey(KeyCode.Alpha6, this);
+            HotKeysModel.ClearHotKey(KeyCode.Alpha7, this);
         }
         
         private void HandleOnHotBarCellsInitialized()
@@ -82,6 +93,14 @@ namespace Game.Inventory.HotBar.Controllers
             _cellsSelectableCollection.OnSelectedChanged += HandleOnSelectedCellChanged;
             
             _cellsSelectableCollection.Initialize();
+            
+            HotKeysModel.OverrideHotKey(KeyCode.Alpha1, () => cells[0].SetSelected(true), this);
+            HotKeysModel.OverrideHotKey(KeyCode.Alpha2, () => cells[1].SetSelected(true), this);
+            HotKeysModel.OverrideHotKey(KeyCode.Alpha3, () => cells[2].SetSelected(true), this);
+            HotKeysModel.OverrideHotKey(KeyCode.Alpha4, () => cells[3].SetSelected(true), this);
+            HotKeysModel.OverrideHotKey(KeyCode.Alpha5, () => cells[4].SetSelected(true), this);
+            HotKeysModel.OverrideHotKey(KeyCode.Alpha6, () => cells[5].SetSelected(true), this);
+            HotKeysModel.OverrideHotKey(KeyCode.Alpha7, () => cells[6].SetSelected(true), this);
         }
         
         private void HandleOnSelectedCellChanged(CellModel cellModel)
