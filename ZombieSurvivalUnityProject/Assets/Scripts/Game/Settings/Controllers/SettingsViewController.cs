@@ -16,6 +16,20 @@ namespace Game.Settings.Controllers
 
         public SettingsViewController(IView view) : base(view) { }
 
+        public override void Initialize()
+        {
+            base.Initialize();
+            
+            HotKeysModel.OverrideHotKey(KeyCode.Escape, () => View.Show(), this);
+        }
+        
+        public override void Dispose()
+        {
+            base.Dispose();
+            
+            HotKeysModel.ClearHotKey(KeyCode.Escape, this);
+        }
+
         protected override void HandleOnShow()
         {
             SettingsModel.OnSensitivityChanged += HandleOnSensitivityChanged;
