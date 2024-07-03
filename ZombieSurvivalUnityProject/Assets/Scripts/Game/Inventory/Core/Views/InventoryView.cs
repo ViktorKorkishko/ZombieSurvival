@@ -3,7 +3,6 @@ using Core.ViewSystem.Views;
 using Core.ViewSystem.Views.Data;
 using Game.Inventory.Cells.CellsContainer.Views;
 using UnityEngine;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 namespace Game.Inventory.Core.Views

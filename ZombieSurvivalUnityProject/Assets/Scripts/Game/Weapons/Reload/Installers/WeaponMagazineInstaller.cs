@@ -1,8 +1,7 @@
-using Game.Weapons.Reload.Controllers;
 using Game.Weapons.Reload.Models;
 using Zenject;
 
-namespace Game.Weapons.Reload.Installer
+namespace Game.Weapons.Reload.Installers
 {
     public class WeaponMagazineInstaller : MonoInstaller
     {
@@ -11,10 +10,6 @@ namespace Game.Weapons.Reload.Installer
             Container
                 .BindInterfacesAndSelfTo<WeaponMagazineModel>()
                 .AsSingle();
-            
-            Container
-                .BindInterfacesTo<WeaponMagazineController>().
-                AsSingle();
         }
     }
 }
