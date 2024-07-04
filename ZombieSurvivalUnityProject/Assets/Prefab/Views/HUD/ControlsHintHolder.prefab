@@ -69,8 +69,8 @@ MonoBehaviour:
     Jump\nLMB \u2014 Fire\nRMB \u2014 Zoom\nE \u2014 Equip weapon / Use\nR \u2014
     Reload\nF \u2014 Drop Weapon"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: eb1610f6d80767e4aa8abf18f0f8f834, type: 2}
-  m_sharedMaterial: {fileID: 1399159635788262152, guid: eb1610f6d80767e4aa8abf18f0f8f834, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 46d474f857bc9874b9845d15bbe96d0d, type: 2}
+  m_sharedMaterial: {fileID: 3952484385361621927, guid: 46d474f857bc9874b9845d15bbe96d0d, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -94,7 +94,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 25.2
+  m_fontSize: 20.8
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1

@@ -8,7 +8,6 @@ namespace Game.Settings.Views
 {
     public class SettingsView : ViewBase
     {
-        [SerializeField] private Button _someButton;
         [SerializeField] private Slider _sensitivitySlider;
         
         public event Action<float> OnSliderValueChanged;
