@@ -17,7 +17,8 @@ namespace Game.Inventory.Cells.Core.Models
         public Action<CellModel, InventoryItemModel> OnItemSet { get; set; }
         public Action<CellModel> OnItemRemoved { get; set; }
         public Action<int> OnItemCountChanged { get; set; }
-        public Action<ISelectable, bool> OnSelected { get; set; }
+        
+        public event Action<ISelectable, bool> OnSelected;
         
         private InventoryItemModel _item;
         

@@ -6,8 +6,8 @@ namespace Game.Common.SelectableCollection.Interfaces
     {
         bool IsSelected { get; }
         
-        Action<ISelectable, bool> OnSelected { get; set; }
-
+        event Action<ISelectable, bool> OnSelected;
+        
         void SetSelected(bool selected);
     }
 }

@@ -10,34 +10,40 @@ namespace Game.Common.SelectableCollection
     {
         public T SelectedElement { get; private set; }
         
-        public Action<T> OnSelectedChanged { get; set; }
+        public event Action<T> OnSelectedChanged;
         
-        private readonly IList<T> _innerCollection;
-
-        public SelectableCollection(IEnumerable<T> cellModels)
+        private IEnumerable<T> _selectables;
+        
+        public SelectableCollection(IEnumerable<T> selectables)
         {
-            _innerCollection = cellModels.ToList();
+            _selectables = selectables;
         }
         
-        public void Initialize()
+        public void Initialize(bool selectFirst = true)
         {
-            foreach (var element in _innerCollection)
+            if (!_selectables.Any())
+                throw new ArgumentException("Collection is empty");
+            
+            if (_selectables.Any(x => x == null))
+                throw new ArgumentException("Collection contains null element");
+            
+            foreach (var element in _selectables)
             {
                 element.OnSelected += HandleOnCellSelected;
                 element.SetSelected(false);
             }
             
-            _innerCollection[0].SetSelected(true);
+            _selectables.ElementAt(0).SetSelected(selectFirst);
         }
         
         void IDisposable.Dispose()
         {
-            foreach (var element in _innerCollection)
+            foreach (var element in _selectables)
             {
                 element.OnSelected -= HandleOnCellSelected;
             }
             
-            _innerCollection.Clear();
+            _selectables = Enumerable.Empty<T>();
         }
         
         private void HandleOnCellSelected(ISelectable selectable, bool selected)
@@ -47,10 +53,10 @@ namespace Game.Common.SelectableCollection
             
             if (selectable == SelectedElement)
                 return;
-
+            
             SelectedElement?.SetSelected(false);
             SelectedElement = selectable as T;
-
+            
             OnSelectedChanged?.Invoke(SelectedElement);
         }
     }
